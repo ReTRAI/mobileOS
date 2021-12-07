@@ -14,9 +14,9 @@ import java.util.Map;
 @SpringBootApplication
 public class PortalApplication {
 
-	private static ArrayList<String> errorKeys = new ArrayList<String>();
-	private static ArrayList<String> successKeys = new ArrayList<String>();
-	private static HashMap<String, String> messages = new HashMap<String, String>();
+	private static ArrayList<String> errorKeys = new ArrayList<>();
+	private static ArrayList<String> successKeys = new ArrayList<>();
+	private static HashMap<String, String> messages = new HashMap<>();
 
 	public static void main(String[] args) {
 		SpringApplication.run(PortalApplication.class, args);
@@ -45,9 +45,9 @@ public class PortalApplication {
 		return mv;
 	}
 	private static void clearStatus() {
-		errorKeys = new ArrayList<String>();
-		successKeys = new ArrayList<String>();
-		messages = new HashMap<String, String>();
+		errorKeys = new ArrayList<>();
+		successKeys = new ArrayList<>();
+		messages = new HashMap<>();
 	}
 
 	public static void login(LoginModel model){

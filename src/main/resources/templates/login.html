@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org">
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org ">
 <!-- BEGIN: Head-->
 
 <head>
-    <th:block  th:replace="shared/common :: common-style" />
+    <th:block th:replace="shared/common :: common-style"/>
     <link rel="stylesheet" type="text/css" href="css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="css/pages/auth/login.css">
 
@@ -18,7 +19,8 @@
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click"
+      data-menu="vertical-menu-modern" data-col="blank-page">
 <!-- BEGIN: Content-->
 <div class="app-content content ">
     <div class="content-overlay"></div>
@@ -30,7 +32,7 @@
             <div class="auth-wrapper auth-basic px-2">
 
                 <div class="auth-inner my-2">
-                    <th:block  th:replace="shared/common :: common-status" />
+                    <th:block th:replace="shared/common :: common-status"/>
                     <!-- Login basic -->
                     <div class="card mb-0">
                         <div class="card-body">
@@ -50,16 +52,18 @@
                                 Eveniet exercitationem mollitia quaerat quas velit vitae.</p>
 
                             <form th:object="${loginModel}" class="auth-login-form mt-2" action="" method="POST">
-                                <input id="login_langCode" type="hidden" th:field="*{langCode}" />
+                                <input id="login_langCode" type="hidden" th:field="*{langCode}"/>
 
                                 <div class="mb-1">
-                                    <label for="login_email" class="form-label toTranslate" data-langKey="utils_form_email">Email</label>
+                                    <label for="login_email" class="form-label toTranslate"
+                                           data-langKey="utils_form_email">Email</label>
                                     <input id="login_email" type="text" th:field="*{email}" th:errorclass="is-invalid"
-                                           class="form-control toTranslateInput" data-langKey="utils_form_emailPlaceholder"
+                                           class="form-control toTranslateInput"
+                                           data-langKey="utils_form_emailPlaceholder"
                                            placeholder="john@example.com"
-                                           />
-                                     <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('email')}"
-                                        th:attr="data-langKey=${err}"></p>
+                                    />
+                                    <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('email')}"
+                                       th:attr="data-langKey=${err}"></p>
                                 </div>
 
                                 <div class="mb-1">
@@ -68,27 +72,31 @@
                                                data-langKey="utils_form_password">Password</label>
                                     </div>
                                     <div class="input-group input-group-merge form-password-toggle">
-                                        <input id="login_password" type="password" th:field="*{password}" th:errorclass="is-invalid"
-                                               class="form-control form-control-merge toTranslateInput" data-langKey="utils_form_passwordPlaceholder"
-                                               placeholder="*********" />
+                                        <input id="login_password" type="password" th:field="*{password}"
+                                               th:errorclass="is-invalid"
+                                               class="form-control form-control-merge toTranslateInput"
+                                               data-langKey="utils_form_passwordPlaceholder"
+                                               placeholder="*********"/>
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('password')}"
+                                        <p class="invalid-feedback toTranslate"
+                                           th:each="err : ${#fields.errors('password')}"
                                            th:attr="data-langKey=${err}"></p>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary w-100 toTranslate" data-langKey="index_signin">Sign in</button>
+                                <button class="btn btn-primary w-100 toTranslate" data-langKey="index_signin">Sign in
+                                </button>
                             </form>
 
                             <div class="divider my-2">
                                 <div class="divider-text toTranslate" data-langKey="utils_language">Language</div>
                             </div>
-                                <select id="languageSelector" class=" form-select" onchange="setupLanguage()">
+                            <select id="languageSelector" class=" form-select" onchange="setupLanguage()">
 
-                                    <option th:each="code : ${langCodes}" th:value="${code}" th:text="${code}"
-                                            th:selected="${code==loginModel.langCode}" class="toTranslate"
-                                            th:attr="data-langKey=${'utils_lang_'+code}"></option>
+                                <option th:each="code : ${langCodes}" th:value="${code}" th:text="${code}"
+                                        th:selected="${code==loginModel.langCode}" class="toTranslate"
+                                        th:attr="data-langKey=${'utils_lang_'+code}"></option>
 
-                                </select>
+                            </select>
                         </div>
                     </div>
                     <!-- /Login basic -->
@@ -100,7 +108,7 @@
 </div>
 <!-- END: Content-->
 
-<th:block  th:replace="shared/common :: common-script" />
+<th:block th:replace="shared/common :: common-script"/>
 <script>
     $(window).on('load', function() {
         setupLanguage();
@@ -112,6 +120,7 @@
         translate("index_"+code);
         $("#login_langCode").val(code);
     }
+
 </script>
 
 </body>
