@@ -5,19 +5,28 @@
 	
 	"utils_form_required": "Campo obrigatório",
 	"utils_form_invalid_email":"Email inválido",
-	"utils_form_invalid_password":"Palavra-chave inválida",
-	
+	"utils_form_password_invalid":"Invalid password",
+	"utils_form_password_numChar0": "The password must be between ",
+	"utils_form_password_numChar1": " and ",
+	"utils_form_password_numChar2": " characters.",
+	"utils_form_password_atLeast0": "Requires 1 character from 3 out of this 4 categories:\n ● Lowercase characters;\n ● Uppercase characters;\n ● Numbers (0-9);\n ● Symbols ",
+	"utils_form_password_atLeast1": " ;",
+	"utils_form_password_sequence": "Cannot contain a dot character '.' immediately preceding the '@' symbol",
+
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "pedro@example.com",
 	"utils_form_password": "Palavra-chave",
 	"utils_form_passwordPlaceholder": "*********",
 
 	"utils_language": "Idioma",
-
+	
+	"api_login_invalid": "Email ou palavra-chave inválida",
+	
 	"index_tab_title": "Login no Portal",
 	"index_title": "Bem Vindo ipsum dolor sit.",
 	"index_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem molliti vitae.\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem mollitia quaerat quas velit vitae.",
 	"index_signin": "Entrar",
+	
 
 
 

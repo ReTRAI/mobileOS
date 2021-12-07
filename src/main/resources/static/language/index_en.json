@@ -5,7 +5,13 @@
 	
 	"utils_form_required": "Required field",
 	"utils_form_invalid_email":"Invalid email",
-	"utils_form_invalid_password":"Invalid password",
+	"utils_form_password_invalid":"Invalid password",
+	"utils_form_password_numChar0": "A palavra-passe tem de ter entre ",
+	"utils_form_password_numChar1": " e ",
+	"utils_form_password_numChar2": " caracteres.",
+	"utils_form_password_atLeast0": "Requer 1 caractere de 3 destas 4 categorias: \n ● Caracteres em minúsculas; \n ● Caracteres maiúsculos; \n ● Números (0-9); \n ● Símbolos ",
+	"utils_form_password_atLeast1": " ;",
+	"utils_form_password_sequence": "A palavra-passe não pode conter um ponto '.' imediatamente antes de um arroba '@'.",
 
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "john@example.com",
@@ -13,6 +19,8 @@
 	"utils_form_passwordPlaceholder": "*********",
 
 	"utils_language": "Language",
+
+	"api_login_invalid": "Invalid email or password",
 
 	"index_tab_title": "Portal's Enter",
 	"index_title": "Welcome ipsum dolor sit.",

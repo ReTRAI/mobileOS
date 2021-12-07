@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org">
+<!-- BEGIN: Head-->
+
+<head>
+    <th:block  th:replace="shared/common :: common-style" />
+    <link rel="stylesheet" type="text/css" href="css/plugins/forms/form-validation.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/pages/auth/login.css">-->
+
+    <style>
+
+    </style>
+
+
+    <title class="toTranslate" data-langKey="dashboard_tab_title">Nice</title>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+<th:block  th:replace="shared/common :: common-status" />
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+
+</div>
+<!-- END: Content-->
+
+<th:block  th:replace="shared/common :: common-script" />
+<script>
+    $(window).on('load', function() {
+        setupLanguage();
+    });
+
+    function setupLanguage(){
+        let code = $("#languageSelector").val();
+        code = "en";
+        translate("index_"+code);
+        $("#login_langCode").val(code);
+    }
+</script>
+
+</body>
+<!-- END: Body-->
+
+</html>

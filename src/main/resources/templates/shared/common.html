@@ -25,6 +25,22 @@
 
         </th:block >
 
+        <th:block  th:fragment="common-status">
+            <div class="status sticky-top">
+                <div th:each="key : ${errorKeys}" class="alert alert-danger alert-dismissible fade show p-2"
+                     role="alert">
+                    <span class="toTranslate" th:attr="data-langKey=${key}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div th:each="key : ${successKeys}" class="alert alert-success alert-dismissible fade show p-2"
+                     role="alert">
+                    <span class="toTranslate" th:attr="data-langKey=${key}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </th:block >
+
+
         <th:block  th:fragment="common-script">
             <!-- BEGIN: Vendor JS-->
             <script src="vendors/js/vendors.min.js"></script>
@@ -47,6 +63,9 @@
                             height: 14
                         });
                     }
+
+
+
                 })
 
                 function translate(file){
