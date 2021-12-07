@@ -1,0 +1,25 @@
+{
+	"utils_lang_pt":"Portugês",
+	"utils_lang_en":"English",
+	"utils_lang_ru":"русский",
+	
+	"utils_form_required": "Campo obrigatório",
+	"utils_form_invalid_email":"Email inválido",
+	"utils_form_invalid_password":"Palavra-chave inválida",
+	
+	"utils_form_email": "Email",
+	"utils_form_emailPlaceholder": "pedro@example.com",
+	"utils_form_password": "Palavra-chave",
+	"utils_form_passwordPlaceholder": "*********",
+
+	"utils_language": "Idioma",
+
+	"index_tab_title": "Login no Portal",
+	"index_title": "Bem Vindo ipsum dolor sit.",
+	"index_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem molliti vitae.\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem mollitia quaerat quas velit vitae.",
+	"index_signin": "Entrar",
+
+
+
+	"end": "fim"
+}

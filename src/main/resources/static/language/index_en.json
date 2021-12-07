@@ -1,0 +1,30 @@
+{
+	"utils_lang_pt":"Portugês",
+	"utils_lang_en":"English",
+	"utils_lang_ru":"русский",
+	
+	"utils_form_required": "Required field",
+	"utils_form_invalid_email":"Invalid email",
+	"utils_form_invalid_password":"Invalid password",
+
+	"utils_form_email": "Email",
+	"utils_form_emailPlaceholder": "john@example.com",
+	"utils_form_password": "Password",
+	"utils_form_passwordPlaceholder": "*********",
+
+	"utils_language": "Language",
+
+	"index_tab_title": "Portal's Enter",
+	"index_title": "Welcome ipsum dolor sit.",
+	"index_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem mollitia quaerat quas velit vitae.\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem mollitia quaerat quas velit vitae.",
+	"index_signin": "Sign in",
+
+
+
+
+
+
+
+
+	"end": "fim"
+}
