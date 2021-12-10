@@ -1,0 +1,30 @@
+{
+	"utils_lang": "Idioma",
+	"utils_lang_pt":"Portugês",
+	"utils_lang_en":"English",
+	"utils_lang_ru":"русский",
+	
+	"utils_lang_error":"Ocorreu um erro ao obter as traduções.",
+
+	"utils_brand":"Portal",
+
+	"menu_navBar":"Navbar",
+	"menu_dashboard":"Dashboard",
+	"menu_resseler":"Revendedor",
+	"menu_list":"Lista",
+	"menu_balance":"Balanço",
+	"menu_log":"Registo",
+	"menu_lookup":"Pesquisa",
+	"menu_devices":"Equipamentos",
+	"menu_wallet":"Carteira",
+	"menu_support":"Suporte",
+	"menu_new":"Novo",
+	"menu_open":"Abertos",
+	"menu_onProgress":"Em Desenvolvimento",
+	"menu_pending":"Pendentes",
+	"menu_canceled":"Cancelados",
+	"menu_completed":"Completos",
+	"menu_settings":"Defenições",
+
+	"end": "fim"
+}

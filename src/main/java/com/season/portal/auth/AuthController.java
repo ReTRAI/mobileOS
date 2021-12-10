@@ -32,7 +32,6 @@ public class AuthController {
 
         if(!result.hasErrors()){
             if(validateLogin(model.getEmail(), model.getPassword())){
-                PortalApplication.addSuccessKey("api_login_invalid");
                 PortalApplication.login(model);
                 return new DashboardController().dashboardView();
             }

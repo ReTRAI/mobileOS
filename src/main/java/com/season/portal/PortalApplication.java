@@ -36,6 +36,7 @@ public class PortalApplication {
 
 	public static ModelAndView addStatus(ModelAndView mv) {
 		mv.addObject("langCodes", LanguageService.LANGUAGE_CODES);
+		mv.addObject("selectedLang", "pt");
 
 		mv.addObject("errorKeys",errorKeys);
 		mv.addObject("successKeys",successKeys);

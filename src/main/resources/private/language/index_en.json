@@ -1,8 +1,13 @@
 {
+	"utils_lang": "Language",
 	"utils_lang_pt":"Portugês",
 	"utils_lang_en":"English",
 	"utils_lang_ru":"русский",
 	
+	"utils_lang_error":"There was an error getting the translations. ",
+	
+	"utils_brand":"Portal",
+
 	"utils_form_required": "Required field",
 	"utils_form_invalid_email":"Invalid email",
 	"utils_form_password_invalid":"Invalid password",
@@ -17,8 +22,6 @@
 	"utils_form_emailPlaceholder": "john@example.com",
 	"utils_form_password": "Password",
 	"utils_form_passwordPlaceholder": "*********",
-
-	"utils_language": "Language",
 
 	"api_login_invalid": "Invalid email or password",
 

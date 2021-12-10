@@ -5,7 +5,7 @@
 
 <head>
     <th:block th:replace="shared/common :: common-style"/>
-    <link rel="stylesheet" type="text/css" href="css/plugins/forms/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="css/pages/auth/style.css">
     <link rel="stylesheet" type="text/css" href="css/pages/auth/login.css">
 
     <style>
@@ -40,7 +40,7 @@
                                 <div class="col">
                                     <h2 class="brand-text text-primary text-center">
                                         <img src="media/logo.png" alt="logo" class="me-1"/>
-                                        Portal
+                                        <span class="toTranslate" data-langKey="utils_brand">Portal</span>
                                     </h2>
                                 </div>
                             </div>
@@ -116,9 +116,32 @@
 
     function setupLanguage(){
         let code = $("#languageSelector").val();
-        console.log(code);
-        translate("index_"+code);
+        translate(code);
         $("#login_langCode").val(code);
+    }
+
+    let TRANSLATION = {};
+
+    function translate(code){
+        $.post( "getIndexTranslation", {"code":code}, function( json ) {
+            if(json != ""){
+                TRANSLATION = json;
+                $(".toTranslate").each(function( index ) {
+                    $( this ).text(json[$( this ).attr("data-langKey")]);
+                });
+                $(".toTranslateInput").each(function( index ) {
+                    $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
+                });
+            }
+            else{
+                addErrorByKey("utils_lang_error");
+            }
+
+        }, "json").fail(function(xhr, status, error) {
+            addErrorByKey("utils_lang_error");
+        });
+
+
     }
 
 </script>

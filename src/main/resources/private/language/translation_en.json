@@ -1,0 +1,31 @@
+{
+	"utils_lang": "Language",
+	"utils_lang_pt":"Portugês",
+	"utils_lang_en":"English",
+	"utils_lang_ru":"русский",
+	
+	"utils_lang_error":"There was an error getting the translations. ",
+
+	"utils_brand":"Portal",
+	
+	"menu_navBar":"Navbar",
+	"menu_dashboard":"Dashboard",
+	"menu_resseler":"Resseler",
+	"menu_list":"List",
+	"menu_balance":"Bal<br/>ance",
+	"menu_log":"Log",
+	"menu_lookup":"Lookup",
+	"menu_devices":"Devices",
+	"menu_wallet":"Wallet",
+	"menu_support":"Support",
+	"menu_new":"New",
+	"menu_open":"Open",
+	"menu_onProgress":"On Progress",
+	"menu_pending":"Pending",
+	"menu_canceled":"Canceled",
+	"menu_completed":"Completed",
+	"menu_settings":"Settings",
+
+
+	"end": "fim"
+}

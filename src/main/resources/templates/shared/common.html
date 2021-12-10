@@ -41,7 +41,6 @@
     </div>
 </th:block>
 
-
 <th:block th:fragment="common-script">
     <!-- BEGIN: Vendor JS-->
     <script src="vendors/js/vendors.min.js"></script>
@@ -57,33 +56,73 @@
     <!-- END: Theme JS-->
 
     <script>
-                $(window).on('load', function() {
-                    if (feather) {
-                        feather.replace({
-                            width: 14,
-                            height: 14
-                        });
-                    }
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        });
 
+        function addErrorByKey(key){
 
+            let status = '';
+            status += '<div class="alert alert-danger alert-dismissible fade show p-2" role="alert">';
+            status += '    <span class="toTranslate" data-langKey="'+key+'">'+TRANSLATION[key]+'</span>';
+            status += '    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+            status += '</div>';
 
-                })
-
-                function translate(file){
-                    $.getJSON( "language/"+file+".json", function( json ) {
-                        $(".toTranslate").each(function( index ) {
-                            $( this ).text(json[$( this ).attr("data-langKey")]);
-                        });
-                        $(".toTranslateInput").each(function( index ) {
-                            $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
-                        });
-
-                    });
-                }
-
+            $(".status").append(status);
+        }
     </script>
 </th:block>
+<th:block th:fragment="common-translate">
+    <script>
+        let TRANSLATION = {};
+        function translate(code){
+            $.post( "getTranslation", {"code":code}, function( json ) {
+                if(json != ""){
+                    TRANSLATION = json;
+                    $(".toTranslate").each(function( index ) {
+                        $( this ).text(json[$( this ).attr("data-langKey")]);
+                    });
+                    $(".toTranslateInput").each(function( index ) {
+                        $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
+                    });
 
+                    $(".lang.active").removeClass("active");
+                    $("#lang_"+code).addClass("active");
+                }
+                else{
+                    addErrorByKey("utils_lang_error");
+                }
+            }, "json").fail(function(xhr, status, error) {
+                addErrorByKey("utils_lang_error");
+            });
+        }
+
+        function changeLanguage(that){
+            let code = $(that).attr("data-langcode");
+
+            if(code == undefined ||code == ""){
+                return false;
+            }
+            translate(code);
+        }
+
+        function setupLanguage(){
+            let code = $(".lang.active").attr("data-langcode");
+
+            if(code == undefined ||code == ""){
+                code = "en";
+            }
+            translate(code);
+
+            $("#menu_lang").removeClass("open");
+        }
+    </script>
+</th:block>
 </body>
 </html>
 
