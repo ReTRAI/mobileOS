@@ -25,6 +25,11 @@
 	"menu_canceled":"Cancelados",
 	"menu_completed":"Completos",
 	"menu_settings":"Defenições",
+	"menu_theme":"Tema",
+	"menu_logout":"Sair",
+	
+	
+	
 
 	"end": "fim"
 }

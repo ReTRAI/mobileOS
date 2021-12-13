@@ -27,13 +27,25 @@ public class AuthController {
         return loginView(new LoginModel());
     }
 
+    @RequestMapping(value={"/logout"})
+    public ModelAndView logout(){
+        PortalApplication.logout();
+        PortalApplication.addSuccessKey("api_logout_success");
+        return new ModelAndView("redirect:/login");
+    }
+
+
     @PostMapping(value={"/login"})
     public ModelAndView login(@Valid LoginModel model, BindingResult result){
 
         if(!result.hasErrors()){
             if(validateLogin(model.getEmail(), model.getPassword())){
-                PortalApplication.login(model);
-                return new DashboardController().dashboardView();
+                if(PortalApplication.login(model)){
+                    return new ModelAndView("redirect:/dashboard");
+                }
+                else{
+                    PortalApplication.addSuccessKey("api_login_invalid_session");
+                }
             }
             else{
                 PortalApplication.addErrorKey("api_login_invalid");

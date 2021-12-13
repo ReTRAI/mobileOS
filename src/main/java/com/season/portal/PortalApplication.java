@@ -51,7 +51,11 @@ public class PortalApplication {
 		messages = new HashMap<>();
 	}
 
-	public static void login(LoginModel model){
+	public static boolean login(LoginModel model){
+		return true;
+	}
 
+	public static boolean logout(){
+		return true;
 	}
 }

@@ -25,7 +25,8 @@
 	"menu_canceled":"Canceled",
 	"menu_completed":"Completed",
 	"menu_settings":"Settings",
-
+	"menu_theme":"Theme",
+	"menu_logout":"Logout",
 
 	"end": "fim"
 }

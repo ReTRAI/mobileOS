@@ -24,6 +24,8 @@
 	"utils_form_passwordPlaceholder": "*********",
 
 	"api_login_invalid": "Invalid email or password",
+	"api_logout_success": "Successfully logged out.",
+	"api_login_invalid_session": "There was an error creating the session.",
 
 	"index_tab_title": "Portal's Enter",
 	"index_title": "Welcome ipsum dolor sit.",
