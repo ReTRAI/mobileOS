@@ -11,8 +11,6 @@ import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
-//test push
-
 @SpringBootApplication
 public class PortalApplication {
 
