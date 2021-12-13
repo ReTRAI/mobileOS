@@ -164,7 +164,7 @@ window.colors = {
 
     // Add disabled class to input group when input is disabled
     $('input:disabled, textarea:disabled').closest('.input-group').addClass('disabled');
-
+    /** /
     // Add sidebar group active class to active menu
     $('.main-menu-content').find('li.active').parents('li').addClass('sidebar-group-active');
 
@@ -200,9 +200,9 @@ window.colors = {
         }
       }
     }
-
+    /**/
     /* Text Area Counter Set Start */
-
+    /** /
     $('.char-textarea').on('keyup', function (event) {
       checkTextAreaMaxLength(this, event);
       // to later change text color in dark layout
@@ -276,7 +276,8 @@ window.colors = {
       });
     }
   });
-
+  /**/
+  //É aquiiiiii
   // Hide overlay menu on content overlay click on small screens
   $(document).on('click', '.sidenav-overlay', function (e) {
     // Hide menu
@@ -388,7 +389,7 @@ window.colors = {
   $(window).resize(function () {
     $.app.menu.manualScroller.updateHeight();
   });
-
+  /**/
   $('#sidebar-page-navigation').on('click', 'a.nav-link', function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -402,64 +403,17 @@ window.colors = {
       },
       0
     );
+
     setTimeout(function () {
       $this.parent('.nav-item').siblings('.nav-item').children('.nav-link').removeClass('active');
       $this.addClass('active');
     }, 100);
+
   });
+  /* */
 
-  // main menu internationalization
-
-  // init i18n and load language file
-  /* *****clera* /
-  if ($body.attr('data-framework') === 'laravel') {
-    // change language according to data-language of dropdown item
-    var language = $('html')[0].lang;
-    if (language !== null) {
-      // get the selected flag class
-      var selectedLang = $('.dropdown-language')
-        .find('a[data-language=' + language + ']')
-        .text();
-      var selectedFlag = $('.dropdown-language')
-        .find('a[data-language=' + language + '] .flag-icon')
-        .attr('class');
-      // set the class in button
-      $('#dropdown-flag .selected-language').text(selectedLang);
-      $('#dropdown-flag .flag-icon').removeClass().addClass(selectedFlag);
-    }
-  } else {
-    i18next.use(window.i18nextXHRBackend).init(
-      {
-        debug: false,
-        fallbackLng: 'en',
-        backend: {
-          loadPath: assetPath + 'data/locales/{{lng}}.json'
-        },
-        returnObjects: true
-      },
-      function (err, t) {
-        // resources have been loaded
-        jqueryI18next.init(i18next, $);
-      }
-    );
-
-    // change language according to data-language of dropdown item
-    $('.dropdown-language .dropdown-item').on('click', function () {
-      var $this = $(this);
-      $this.siblings('.selected').removeClass('selected');
-      $this.addClass('selected');
-      var selectedLang = $this.text();
-      var selectedFlag = $this.find('.flag-icon').attr('class');
-      $('#dropdown-flag .selected-language').text(selectedLang);
-      $('#dropdown-flag .flag-icon').removeClass().addClass(selectedFlag);
-      var currentLanguage = $this.data('language');
-      i18next.changeLanguage(currentLanguage, function (err, t) {
-        $('.main-menu, .horizontal-menu-wrapper').localize();
-      });
-    });
-  }
-  */
   /********************* Bookmark & Search ***********************/
+  /*
   // This variable is used for mouseenter and mouseleave events of search list
   var $filename = $('.search-input input').data('search'),
     bookmarkWrapper = $('.bookmark-wrapper'),
@@ -473,6 +427,7 @@ window.colors = {
     bookmarkSearchList = $('.bookmark-input .search-list');
 
   // Bookmark icon click
+
   bookmarkStar.on('click', function (e) {
     e.stopPropagation();
     bookmarkInput.toggleClass('show');
@@ -900,7 +855,9 @@ window.colors = {
       }
     }
   });
+  */
 
+  /** /
   // on window scroll button show/hide
   $(window).on('scroll', function () {
     if ($(this).scrollTop() > 400) {
@@ -943,7 +900,7 @@ window.colors = {
   $('.scroll-top').on('click', function () {
     $('html, body').animate({ scrollTop: 0 }, 75);
   });
-
+ /**/
   function getCurrentLayout() {
     var currentLayout = '';
     if ($html.hasClass('dark-layout')) {
@@ -1001,7 +958,7 @@ window.colors = {
 
   // Set layout on screen load
   //? Comment it if you don't want to sync layout with local db
-  // setLayout(currentLocalStorageLayout);
+  setLayout(currentLocalStorageLayout);
 
   function setLayout(currentLocalStorageLayout) {
     var navLinkStyle = $('.nav-link-style'),
@@ -1042,7 +999,7 @@ window.colors = {
     }
   }
 })(window, document, jQuery);
-
+/** /
 // To use feather svg icons with different sizes
 function featherSVG(iconSize) {
   // Feather Icons

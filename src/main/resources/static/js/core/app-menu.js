@@ -703,11 +703,11 @@
           // $(this).removeClass('hover');
         })
         .on('active.app.menu', 'li', function (e) {
-          $(this).addClass('active');
+          //$(this).addClass('active');
           e.stopPropagation();
         })
         .on('deactive.app.menu', 'li.active', function (e) {
-          $(this).removeClass('active');
+          //$(this).removeClass('active');
           e.stopPropagation();
         })
         .on('open.app.menu', 'li', function (e) {
