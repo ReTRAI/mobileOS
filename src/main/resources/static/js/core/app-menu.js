@@ -388,10 +388,7 @@
       if (this.expanded === false) {
         if ($body.data('menu') == 'vertical-menu-modern') {
           $('.modern-nav-toggle')
-            .find('.collapse-toggle-icon')
-            .replaceWith(
-              feather.icons['disc'].toSvg({ class: 'd-none d-xl-block collapse-toggle-icon primary font-medium-4' })
-            );
+            .removeClass('collapsed');
         }
         this.transit(
           function () {
@@ -431,12 +428,7 @@
       if (this.collapsed === false) {
         if ($body.data('menu') == 'vertical-menu-modern') {
           $('.modern-nav-toggle')
-            .find('.collapse-toggle-icon')
-            .replaceWith(
-              feather.icons['circle'].toSvg({
-                class: 'd-none d-xl-block collapse-toggle-icon primary font-medium-4'
-              })
-            );
+            .addClass('collapsed');
         }
         this.transit(
           function () {

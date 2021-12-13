@@ -1,0 +1,12 @@
+.modern-nav-toggle .contCollapsed{
+    display:none;
+}
+.modern-nav-toggle .contExpanded{
+    display:block;
+}
+.modern-nav-toggle.collapsed .contCollapsed{
+    display:block;
+}
+.modern-nav-toggle.collapsed .contExpanded{
+    display:none;
+}
