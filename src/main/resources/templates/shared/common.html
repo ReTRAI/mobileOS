@@ -58,6 +58,21 @@
 
     <script>
         $(window).on('load', function() {
+            $('.toLoad').each(function(index){
+                $(this).load($(this).attr("data-toLoad"));
+            });
+
+            $('.toLoadReplace').each(function(index){
+                $(this).load($(this).attr("data-toLoad"), function() {
+                    var clss = $(this).attr("data-class");
+                    var loadedData = $(this).children(':first');
+                    if( clss != undefined){
+                        $(loadedData).addClass(clss);
+                    }
+                    $(loadedData).unwrap();
+                });
+            });
+
             if (feather) {
                 feather.replace({
                     width: 14,

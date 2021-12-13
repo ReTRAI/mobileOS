@@ -430,6 +430,8 @@
           $('.modern-nav-toggle')
             .addClass('collapsed');
         }
+
+        $(".main-menu").removeClass("expanded");
         this.transit(
           function () {
             $body.removeClass('menu-expanded').addClass('menu-collapsed');
