@@ -30,55 +30,49 @@
                 </ul>
 
                 <ul class="nav navbar-nav align-items-center ms-auto">
-                    <li class="nav-item dropdown dropdown-notification me-25">
+
+                    <li th:if="${notifications != null && notifications.size() > 0}"
+                        class="nav-item dropdown dropdown-notification me-25">
                         <a class="nav-link" href="#"
                            data-bs-toggle="dropdown"
                         >
                             <i class="ficon" data-feather="bell" ></i>
-                            <span class="badge rounded-pill bg-danger badge-up">6</span>
+                            <span class="badge rounded-pill bg-danger badge-up"
+                                  th:text="${notifications.size().toString()}">6</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
+
                             <li class="dropdown-menu-header">
                                 <div class="dropdown-header d-flex">
-                                    <h4 class="notification-title mb-0 me-auto">Notifications</h4>
-                                    <div class="badge rounded-pill badge-light-primary">6 New</div>
+                                    <h4 class="notification-title mb-0 me-auto toTranslate"
+                                        data-langKey="header_notifications_title">Notifications</h4>
+                                    <div class="badge rounded-pill badge-light-primary">
+                                        <span th:text="${notifications.size().toString()+' '}"></span>
+                                        <span class="toTranslate"
+                                              th:attr="data-langKey=${(notifications.size()<2)?'utils_feminine_new':'utils_feminine_news'}"
+                                              ></span>
+                                    </div>
                                 </div>
                             </li>
-                            <li class="scrollable-container media-list">
-                                <a class="d-flex" href="#">
-                                    <div class="list-item d-flex align-items-start">
-                                        <div class="me-1">
-                                            <div class="avatar"><img
-                                                    src="../../../app-assets/images/portrait/small/avatar-s-15.jpg"
-                                                    alt="avatar" width="32" height="32"
-                                            ></div>
-                                        </div>
-                                        <div class="list-item-body flex-grow-1">
-                                            <p class="media-heading"><span class="fw-bolder"
-                                            >Congratulation Sam 🎉</span>winner!
-                                            </p><small class="notification-text"> Won the monthly best seller
-                                            badge.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="d-flex" href="#">
-                                    <div class="list-item d-flex align-items-start">
-                                        <div class="me-1">
-                                            <div class="avatar"><img
-                                                    src="../../../app-assets/images/portrait/small/avatar-s-3.jpg"
-                                                    alt="avatar" width="32" height="32"
-                                            ></div>
-                                        </div>
-                                        <div class="list-item-body flex-grow-1">
-                                            <p class="media-heading"><span class="fw-bolder">New message</span>&nbsp;received
-                                            </p><small class="notification-text"> You have 10 unread messages</small>
-                                        </div>
-                                    </div>
-                                </a>
 
+                            <li class="scrollable-container media-list">
+                                <th:block th:each="notification : ${notifications}">
+                                    <a class="d-flex"
+
+                                       th:href="${(notification.getPath() == '')?'#':notification.getPath()}">
+                                        <div class="list-item d-flex align-items-start">
+                                            <div class="list-item-body flex-grow-1">
+                                                <p class="media-heading fw-bolder"
+                                                   th:text="${notification.getTitle()}"></p>
+                                                <small class="notification-text" th:text="${notification.getSub()}"></small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </th:block>
                             </li>
                             <li class="dropdown-menu-footer">
-                                <a class="btn btn-primary w-100" href="#">Read all
+                                <a class="btn btn-primary w-100 toTranslate"
+                                   data-langKey="header_notifications_readAll" href="#">Read all
                                     notifications
                                 </a>
                             </li>

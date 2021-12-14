@@ -2,6 +2,7 @@ package com.season.portal;
 
 import com.season.portal.auth.model.LoginModel;
 import com.season.portal.language.LanguageService;
+import com.season.portal.notifications.Notification;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
-//olaaaa
+
 @SpringBootApplication
 public class PortalApplication {
 
@@ -44,6 +45,13 @@ public class PortalApplication {
 
 		boolean logged = true;
 		if(logged){
+
+			ArrayList<Notification> notifications = new ArrayList<Notification>();
+			notifications.add(new Notification(1l, "login/", "Go to login", "go to login page"));
+			notifications.add(new Notification(2l, "logout/", "Make log off", ""));
+			notifications.add(new Notification(3l, "", "No link", "very sub"));
+
+			mv.addObject("notifications", notifications);
 			mv.addObject("userName", "Clera");
 			mv.addObject("userRole", "Admin");
 		}

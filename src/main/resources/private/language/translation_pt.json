@@ -11,6 +11,8 @@
 	"api_userRole_Support":"Suporte",
 	
 	"utils_brand":"Portal",
+	"utils_feminine_new":"nova",
+	"utils_feminine_news":"novas",
 
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
@@ -31,6 +33,9 @@
 	"menu_settings":"Defenições",
 	"menu_theme":"Tema",
 	"menu_logout":"Sair",
+	
+	"header_notifications_title":"Notificações",
+	"header_notifications_readAll":"Marcar todas como lidas",
 	
 	"dashboard_title":"Dashboard",
 	"dashboard_tab_title":"Portal | Dashboard",
