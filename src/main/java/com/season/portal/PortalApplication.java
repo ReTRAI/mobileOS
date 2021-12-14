@@ -42,6 +42,12 @@ public class PortalApplication {
 		mv.addObject("successKeys",successKeys);
 		mv.addObject("messages",messages);
 
+		boolean logged = true;
+		if(logged){
+			mv.addObject("userName", "Clera");
+			mv.addObject("userRole", "Admin");
+		}
+
 		clearStatus();
 		return mv;
 	}

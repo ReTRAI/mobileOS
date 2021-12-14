@@ -9,7 +9,14 @@
 
 
     <style>
-
+        #dashboard .avatar-content{
+            width:48px;
+            height:48px;
+        }
+        #dashboard .avatar-content .avatar-icon{
+            width: 24px;
+            height: 24px;
+        }
     </style>
 
     <title class="toTranslate" data-langKey="dashboard_tab_title">Nice</title>
@@ -41,36 +48,300 @@
         <div class="content-body">
 
             <!-- -->
-            <section id="">
-
-                <div class="row">
-
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between pb-0">
-                                <h4 class="card-title">Overview</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6 col-lg-3 my-1 text-center">
-                                        <p class="card-text mb-50">New Tickets</p>
-                                        <span class="font-large-1 fw-bold">29</span>
+            <section id="dashboard">
+                <h2 class="toTranslate" data-langKey="dashboard_title">Activations</h2>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h4 class="card-title toTranslate" data-langKey="dashboard_overview">Overview</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="trending-up" class="avatar-icon"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-6 col-lg-3 my-1 text-center">
-                                        <p class="card-text mb-50">Open Tickets</p>
-                                        <span class="font-large-1 fw-bold">63</span>
-                                    </div>
-                                    <div class="col-6 col-lg-3 my-1 text-center">
-                                        <p class="card-text mb-50">Response Time</p>
-                                        <span class="font-large-1 fw-bold">1d</span>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val0', '-')}"></h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_overview_val0">Active</p>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-danger me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="trending-down" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val1', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_overview_val1">Not Active</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-primary me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="box" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val2', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_overview_val2">Free</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-info me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="smartphone" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val3', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_overview_val3">Free</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h4 class="card-title toTranslate" data-langKey="dashboard_incative">Inactive Devices</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-primary me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="cloud-off" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val0', '-')}"></h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_inactive_val0">Wiped</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-danger me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="shield" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val1', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_inactive_val1">Blocked</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-info me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="alert-triangle" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val2', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_inactive_val2">Suspended</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="smartphone" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val3', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_inactive_val3">Remaining</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h4 class="card-title toTranslate" data-langKey="dashboard_expiring">Expiring</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sun" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val0', '-')}"></h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_expiring_val0">Active</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sunset" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val1', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_expiring_val1">In 30 Days</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-danger me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sunset" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val2', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_expiring_val2">In 15 Days</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-danger me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sunset" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val3', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_expiring_val3">In 7 Days</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h4 class="card-title toTranslate" data-langKey="dashboard_activations">Activations</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val0', '-')}"></h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_activations_val0">24 Hours</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val1', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_activations_val1">3 Week</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val2', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_activations_val2">1 Month</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 my-1 ">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-success me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0"
+                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val3', '-')}">
+                                            230k</h4>
+                                        <p class="card-text font-small-3 mb-0 toTranslate"
+                                           data-langKey="dashboard_activations_val3">3 Months</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
             </section>
 

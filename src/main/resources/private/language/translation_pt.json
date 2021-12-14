@@ -6,6 +6,10 @@
 	
 	"utils_lang_error":"Ocorreu um erro ao obter as traduções.",
 
+	"api_userRole_admin":"Administrador",
+	"api_userRole_Reseller":"Revendedor",
+	"api_userRole_Support":"Suporte",
+	
 	"utils_brand":"Portal",
 
 	"menu_navBar":"Navbar",
@@ -28,7 +32,32 @@
 	"menu_theme":"Tema",
 	"menu_logout":"Sair",
 	
+	"dashboard_title":"Dashboard",
+	"dashboard_tab_title":"Portal | Dashboard",
 	
+	"dashboard_overview":"Visão Global",
+	"dashboard_overview_val0":"Activos",
+	"dashboard_overview_val1":"Não Activos",
+	"dashboard_overview_val2":"Livres",
+	"dashboard_overview_val3":"Dispositivos do Portal",
+	
+	"dashboard_incative":"Dispositivos Inativos",
+	"dashboard_inactive_val0":"Limpos",
+	"dashboard_inactive_val1":"Bloqueados",
+	"dashboard_inactive_val2":"Suspensos",
+	"dashboard_inactive_val3":"Restantes",
+
+	"dashboard_expiring":"Dispositivos a Expirar",
+	"dashboard_expiring_val0":"Renovados",
+	"dashboard_expiring_val1":"Em 30 Dias",
+	"dashboard_expiring_val2":"Em 15 Dias",
+	"dashboard_expiring_val3":"Em 7 Dias",
+
+	"dashboard_activations":"Activações",
+	"dashboard_activations_val0":"24 Horas",
+	"dashboard_activations_val1":"1 Semana",
+	"dashboard_activations_val2":"1 Mês",
+	"dashboard_activations_val3":"3 Meses",
 	
 
 	"end": "fim"

@@ -6,6 +6,10 @@
 	
 	"utils_lang_error":"There was an error getting the translations. ",
 
+	"api_userRole_admin":"Admin",
+	"api_userRole_Reseller":"Resseler",
+	"api_userRole_Support":"Support",
+
 	"utils_brand":"Portal",
 	
 	"menu_navBar":"Navbar",
@@ -27,6 +31,34 @@
 	"menu_settings":"Settings",
 	"menu_theme":"Theme",
 	"menu_logout":"Logout",
+
+	"dashboard_title":"Dashboard",
+	"dashboard_tab_title":"Portal | Dashboard",
+	
+	"dashboard_overview":"Overview",
+	"dashboard_overview_val0":"Active",
+	"dashboard_overview_val1":"Not Active",
+	"dashboard_overview_val2":"Free",
+	"dashboard_overview_val3":"Portal Devices",
+
+	"dashboard_incative":"Inactive Devices",
+	"dashboard_inactive_val0":"Wiped",
+	"dashboard_inactive_val1":"Blocked",
+	"dashboard_inactive_val2":"Suspended",
+	"dashboard_inactive_val3":"Remaining",
+
+	"dashboard_expiring":"Expiring Devices",
+	"dashboard_expiring_val0":"Renewed",
+	"dashboard_expiring_val1":"In 30 Days",
+	"dashboard_expiring_val2":"In 15 Days",
+	"dashboard_expiring_val3":"In 7 Days",
+
+	"dashboard_activations":"Activations",
+	"dashboard_activations_val0":"24 Hours",
+	"dashboard_activations_val1":"1 Week",
+	"dashboard_activations_val2":"1 Month",
+	"dashboard_activations_val3":"3 Months",
+
 
 	"end": "fim"
 }

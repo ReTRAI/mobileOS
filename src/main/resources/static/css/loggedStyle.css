@@ -1,3 +1,4 @@
+/* Header:START*****************************************/
 .modern-nav-toggle .contCollapsed{
     display:none;
 }
@@ -10,3 +11,8 @@
 .modern-nav-toggle.collapsed .contExpanded{
     display:none;
 }
+
+.user-nav span{
+    float:right;
+}
+/* Header:END*****************************************/
