@@ -49,4 +49,5 @@ public class DashboardController {
         mv.addObject("activations", activations);
         return PortalApplication.addStatus(mv);
     }
+
 }

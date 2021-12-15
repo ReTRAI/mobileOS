@@ -1,3 +1,11 @@
+.page-link-text{
+    margin:0px;
+    padding-top: 0.5rem;
+    line-height: 1.3;
+}
+.fake-label{
+    margin-top:1.7rem;
+}
 /* Header:START*****************************************/
 .modern-nav-toggle .contCollapsed{
     display:none;

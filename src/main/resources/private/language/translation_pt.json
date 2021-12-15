@@ -13,6 +13,7 @@
 	"utils_brand":"Portal",
 	"utils_feminine_new":"nova",
 	"utils_feminine_news":"novas",
+	"utils_filters":"Filtros",
 
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
@@ -64,6 +65,11 @@
 	"dashboard_activations_val2":"1 Mês",
 	"dashboard_activations_val3":"3 Meses",
 	
+	
+	"resseler_title":"Revendedores",
+	"resseler_tab_title":"Portal | Revendedor",
+
+
 
 	"end": "fim"
 }

@@ -815,49 +815,6 @@
       });
     },
 
-    /**
-     * Ensure an admin submenu is within the visual viewport.
-     * @param {jQuery} $menuItem The parent menu item containing the submenu.
-     */
-
-    /* adjustSubmenu: function ($menuItem) {
-      var menuHeaderHeight,
-        menutop,
-        topPos,
-        winHeight,
-        bottomOffset,
-        subMenuHeight,
-        popOutMenuHeight,
-        borderWidth,
-        scroll_theme,
-        $submenu = $menuItem.children('ul:first'),
-        ul = $submenu.clone(true);
-
-      menuHeaderHeight = $('.main-menu-header').height();
-      menutop = $menuItem.position().top;
-      winHeight = $window.height() - $('.header-navbar').height();
-      borderWidth = 0;
-      subMenuHeight = $submenu.height();
-
-      if (parseInt($menuItem.css('border-top'), 10) > 0) {
-        borderWidth = parseInt($menuItem.css('border-top'), 10);
-      }
-
-      popOutMenuHeight = winHeight - menutop - $menuItem.height() - 30;
-      scroll_theme = $('.main-menu').hasClass('menu-dark') ? 'light' : 'dark';
-
-      topPos = menutop + $menuItem.height() + borderWidth;
-
-      ul.addClass('menu-popout').appendTo('.main-menu-content').css({
-        top: topPos,
-        position: 'fixed',
-        'max-height': popOutMenuHeight
-      });
-
-      var menu_content = new PerfectScrollbar('.main-menu-content > ul.menu-content', {
-        wheelPropagation: false
-      });
-    }, */
 
     // Collapse Submenu With Transition (Height animation)
     collapse: function ($listItem, callback) {

@@ -47,9 +47,9 @@ public class PortalApplication {
 		if(logged){
 
 			ArrayList<Notification> notifications = new ArrayList<Notification>();
-			notifications.add(new Notification(1l, "login/", "Go to login", "go to login page"));
-			notifications.add(new Notification(2l, "logout/", "Make log off", ""));
-			notifications.add(new Notification(3l, "", "No link", "very sub"));
+			notifications.add(new Notification(1l, "login/", "Login", "go to login page"));
+			notifications.add(new Notification(2l, "logout/", "Logout", ""));
+			notifications.add(new Notification(3l, "", "No link", "test sub"));
 
 			mv.addObject("notifications", notifications);
 			mv.addObject("userName", "Clera");

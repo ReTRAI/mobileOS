@@ -25,6 +25,7 @@
     <!-- END: Page CSS-->
     <link rel="stylesheet" type="text/css" href="css/loggedStyle.css">
 
+
 </th:block>
 
 <th:block th:fragment="common-status">
@@ -90,6 +91,11 @@
             status += '</div>';
 
             $(".status").append(status);
+        }
+
+        function showInMenu(id){
+            $("#"+id).parents(".has-sub").addClass("open");
+            $("#"+id).addClass("active");
         }
     </script>
 </th:block>
