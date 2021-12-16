@@ -51,6 +51,7 @@ public class ResselerController {
 
         mv.addObject("resselers", resselers);
         mv.addObject("totalResselers", total);
+        mv.addObject("stringPageModel", model);
 
         return PortalApplication.addStatus(mv);
     }

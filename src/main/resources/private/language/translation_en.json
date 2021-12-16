@@ -14,6 +14,21 @@
 	"utils_feminine_new":"new",
 	"utils_feminine_news":"news",
 	"utils_filters":"Filters",
+	"utils_submit":"Submit",
+	"utils_reset":"Reset",
+	
+	"utils_form_nameId":"Name or Id",
+	"utils_form_nameId_placeholder":"Enter name or id",
+	
+	"utils_table_id":"Id",
+	"utils_table_name":"Name",
+	"utils_table_balance":"Balance",
+	"utils_table_devices":"Devices",
+	"utils_table_activated":"Activated",
+	"utils_table_notActivated":"Not Activated",
+	"utils_table_free":"Free",
+	"utils_table_wiped":"Wiped",
+	"utils_table_actions":"Actions",
 	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",

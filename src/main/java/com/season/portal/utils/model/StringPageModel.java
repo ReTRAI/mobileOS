@@ -11,6 +11,10 @@ public class StringPageModel extends PageModel {
         this.value = value;
     }
 
+    public StringPageModel() {
+        this.value = "";
+    }
+
     public StringPageModel(String value) {
         this.value = value;
     }

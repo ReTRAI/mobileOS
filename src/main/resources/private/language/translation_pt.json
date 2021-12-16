@@ -14,7 +14,22 @@
 	"utils_feminine_new":"nova",
 	"utils_feminine_news":"novas",
 	"utils_filters":"Filtros",
+	"utils_submit":"Submeter",
+	"utils_reset":"Limpar",
 
+	"utils_form_nameId":"Nome ou Id",
+	"utils_form_nameId_placeholder":"Insira o nome ou id",
+	
+	"utils_table_id":"Id",
+	"utils_table_name":"Nome",
+	"utils_table_balance":"Balanço",
+	"utils_table_devices":"Dispositivos",
+	"utils_table_activated":"Activos",
+	"utils_table_notActivated":"Não Activos",
+	"utils_table_free":"Livres",
+	"utils_table_wiped":"Limpos",
+	"utils_table_actions":"Actions",
+	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
 	"menu_resseler":"Revendedor",
