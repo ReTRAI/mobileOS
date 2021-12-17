@@ -30,6 +30,11 @@
 	"utils_table_wiped":"Limpos",
 	"utils_table_actions":"Actions",
 	
+	"utils_pagination_0":"",
+	"utils_pagination_1":" a ",
+	"utils_pagination_2":" de ",
+	"utils_pagination_3":" resultados",
+	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
 	"menu_resseler":"Revendedor",
@@ -46,7 +51,7 @@
 	"menu_pending":"Pendentes",
 	"menu_canceled":"Cancelados",
 	"menu_completed":"Completos",
-	"menu_settings":"Defenições",
+	"menu_settings":"Definições",
 	"menu_theme":"Tema",
 	"menu_logout":"Sair",
 	

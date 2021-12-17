@@ -1,0 +1,51 @@
+<html xmlns:th="https://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org ">
+<body>
+
+<th:block th:fragment="pagination(sharedP_baseUrl, sharedP_queryUrl, sharedP_Pagination, sharedP_elementsSize)">
+    <div class="row justify-content-between">
+        <div class="col-lg-6 col-12">
+            <p class="page-link-text" >
+                <span class="toTranslate" data-langKey="utils_pagination_0">Showing </span>
+                <span th:text="${sharedP_Pagination.getOffset()+1}"></span>
+                <span class="toTranslate"  data-langKey="utils_pagination_1"> to </span>
+                <span th:text="${sharedP_Pagination.getOffset()+sharedP_elementsSize}"></span>
+                <span class="toTranslate"  data-langKey="utils_pagination_2"> of </span>
+                <span th:text="${sharedP_Pagination.getTotalElements()}"></span>
+                <span class="toTranslate"  data-langKey="utils_pagination_3"> entries</span>
+            </p>
+        </div>
+        <div class="col-lg-6 col-12">
+            <nav class="nav navbar-nav align-items-end ms-auto" aria-label="Table navigation">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item first">
+                        <a class="page-link"
+                           th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', 1)}"
+                        >
+                            First
+                        </a>
+                    </li>
+                    <li class="page-item"
+                        th:each="page : ${sharedP_Pagination.getPagination()}"
+                        th:classappend="${page == sharedP_Pagination.getActualPage()} ? active : ''">
+                        <a class="page-link"
+                           th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', page)}"
+                           th:text="${page}"></a>
+                    </li>
+
+                    <li class="page-item last">
+                        <a class="page-link"
+                           th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', sharedP_Pagination.getTotalPages())}"
+                        >
+                            Last
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>
+

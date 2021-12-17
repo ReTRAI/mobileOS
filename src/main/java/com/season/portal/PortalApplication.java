@@ -59,6 +59,9 @@ public class PortalApplication {
 		clearStatus();
 		return mv;
 	}
+
+
+
 	private static void clearStatus() {
 		errorKeys = new ArrayList<>();
 		successKeys = new ArrayList<>();

@@ -30,6 +30,11 @@
 	"utils_table_wiped":"Wiped",
 	"utils_table_actions":"Actions",
 	
+	"utils_pagination_0":"Showing ",
+	"utils_pagination_1":" to ",
+	"utils_pagination_2":" of ",
+	"utils_pagination_3":" entries",
+	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
 	"menu_resseler":"Resseler",
