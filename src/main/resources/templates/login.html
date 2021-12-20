@@ -44,14 +44,13 @@
                                     </h2>
                                 </div>
                             </div>
-
                             <h4 class="card-title mb-1 toTranslate" data-langKey="index_title">Welcome ipsum
                                 dolor sit.</h4>
                             <p class="card-text mb-2 toTranslate" data-langKey="index_text">Lorem ipsum dolor
                                 sit amet, consectetur adipisicing elit.
                                 Eveniet exercitationem mollitia quaerat quas velit vitae.</p>
 
-                            <form th:object="${loginModel}" class="auth-login-form mt-2" action="" method="POST">
+                            <form th:object="${loginModel}" class="auth-login-form mt-2" th:action="" method="POST">
                                 <input id="login_langCode" type="hidden" th:field="*{langCode}"/>
 
                                 <div class="mb-1">

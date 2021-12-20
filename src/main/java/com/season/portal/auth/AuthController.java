@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Objects;
 
@@ -23,24 +24,26 @@ public class AuthController {
     }
 
     @RequestMapping(value={"/login"})
-    public ModelAndView login(){
-        return loginView(new LoginModel());
+    public ModelAndView login(HttpSession httpSession){
+        return loginView(httpSession, new LoginModel());
     }
 
     @RequestMapping(value={"/logout"})
-    public ModelAndView logout(){
-        PortalApplication.logout();
+    public ModelAndView logout(HttpSession httpSession){
+
+        PortalApplication.logout(httpSession);
         PortalApplication.addSuccessKey("api_logout_success");
         return new ModelAndView("redirect:/login");
     }
 
 
     @PostMapping(value={"/login"})
-    public ModelAndView login(@Valid LoginModel model, BindingResult result){
+    public ModelAndView login(@Valid LoginModel model, BindingResult result, HttpSession httpSession){
 
         if(!result.hasErrors()){
             if(validateLogin(model.getEmail(), model.getPassword())){
-                if(PortalApplication.login(model)){
+                if(PortalApplication.login(httpSession, model)){
+
                     return new ModelAndView("redirect:/dashboard");
                 }
                 else{
@@ -52,13 +55,15 @@ public class AuthController {
             }
         }
 
-        return loginView(model);
+        return loginView(httpSession, model);
     }
 
 
-    private ModelAndView loginView(LoginModel model){
+    private ModelAndView loginView(HttpSession httpSession, LoginModel model){
         ModelAndView mv = new ModelAndView("login");
         mv.addObject("loginModel", model);
+
+        mv.addObject("userRole", httpSession.getAttribute("USER_ROLE"));
 
         return PortalApplication.addStatus(mv);
     }

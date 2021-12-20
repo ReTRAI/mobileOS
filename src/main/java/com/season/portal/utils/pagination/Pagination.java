@@ -100,13 +100,16 @@ public class Pagination {
     public String addUrlParam(String urlParams, String key, String value){
 
         HashMap<String, String> query_pairs = new HashMap<String, String>();
-        String[] pairs = urlParams.split("&");
-        for (String pair : pairs) {
-            String[] splitPair = pair.split("=");
-            if(splitPair.length==2){
-                query_pairs.put(splitPair[0], splitPair[1]);
+        if(urlParams != null && !urlParams.equals("")){
+            String[] pairs = urlParams.split("&");
+            for (String pair : pairs) {
+                String[] splitPair = pair.split("=");
+                if(splitPair.length==2){
+                    query_pairs.put(splitPair[0], splitPair[1]);
+                }
             }
         }
+
 
         query_pairs.put(key, value);
 

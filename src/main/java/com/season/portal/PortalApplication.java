@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
@@ -68,11 +69,17 @@ public class PortalApplication {
 		messages = new HashMap<>();
 	}
 
-	public static boolean login(LoginModel model){
+	public static boolean login(HttpSession httpSession, LoginModel model){
+		httpSession.setAttribute("USER_ROLE", "SERV");
+		httpSession.setAttribute("IS_LOGGED", true);
 		return true;
 	}
 
-	public static boolean logout(){
+	public static boolean logout(HttpSession httpSession){
+		httpSession.setAttribute("USER_ROLE", "");
+		httpSession.setAttribute("IS_LOGGED", false);
+		httpSession.invalidate();
+
 		return true;
 	}
 }

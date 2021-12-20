@@ -11,16 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
 public class PortalController {
 
-    @RequestMapping(value={"/"})
-    public String index(Model model){
-        model.addAttribute("teste", "ola");
-        return "index";
+    @RequestMapping(value="**")
+    public ModelAndView index(HttpSession httpSession){
+        if(httpSession.getAttribute("IS_LOGGED") != null){
+            if((boolean)httpSession.getAttribute("IS_LOGGED")){
+                return new ModelAndView("redirect:/dashboard");
+            }
+        }
+
+        return new ModelAndView("redirect:/login");
     }
 
 }
