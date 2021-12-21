@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org ">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org">
 <!-- BEGIN: Head-->
 
 <head>
@@ -50,7 +50,7 @@
                                 sit amet, consectetur adipisicing elit.
                                 Eveniet exercitationem mollitia quaerat quas velit vitae.</p>
 
-                            <form th:object="${loginModel}" class="auth-login-form mt-2" th:action="" method="POST">
+                            <form th:object="${loginModel}" class="auth-login-form mt-2" action="" method="POST">
                                 <input id="login_langCode" type="hidden" th:field="*{langCode}"/>
 
                                 <div class="mb-1">

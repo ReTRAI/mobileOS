@@ -34,6 +34,8 @@
 	"utils_pagination_1":" to ",
 	"utils_pagination_2":" of ",
 	"utils_pagination_3":" entries",
+	"utils_pagination_first":"First",
+	"utils_pagination_last":"Last",
 	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",

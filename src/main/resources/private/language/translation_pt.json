@@ -34,6 +34,8 @@
 	"utils_pagination_1":" a ",
 	"utils_pagination_2":" de ",
 	"utils_pagination_3":" resultados",
+	"utils_pagination_first":"Início",
+	"utils_pagination_last":"Fim",
 	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",

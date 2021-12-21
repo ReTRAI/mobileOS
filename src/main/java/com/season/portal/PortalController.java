@@ -19,7 +19,8 @@ import java.io.IOException;
 @Controller
 public class PortalController {
 
-    @RequestMapping(value="**")
+    //@RequestMapping(value="**")
+    //@RequestMapping("/{variable:(?!static).*}/**")
     public ModelAndView index(HttpSession httpSession){
         if(httpSession.getAttribute("IS_LOGGED") != null){
             if((boolean)httpSession.getAttribute("IS_LOGGED")){

@@ -19,7 +19,7 @@
             <nav class="nav navbar-nav align-items-end ms-auto" aria-label="Table navigation">
                 <ul class="pagination justify-content-end">
                     <li class="page-item first">
-                        <a class="page-link"
+                        <a class="page-link toTranslate" data-langKey="utils_pagination_first"
                            th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', 1)}"
                         >
                             First
@@ -34,7 +34,7 @@
                     </li>
 
                     <li class="page-item last">
-                        <a class="page-link"
+                        <a class="page-link toTranslate" data-langKey="utils_pagination_last"
                            th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', sharedP_Pagination.getTotalPages())}"
                         >
                             Last
