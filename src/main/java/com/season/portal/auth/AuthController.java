@@ -5,6 +5,9 @@ import com.season.portal.auth.model.LoginModel;
 import com.season.portal.dashboard.DashboardController;
 import com.season.portal.language.LanguageService;
 import com.season.portal.utils.validation.PasswordValidator;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +30,7 @@ public class AuthController {
     public ModelAndView login(HttpSession httpSession){
         return loginView(httpSession, new LoginModel());
     }
-
+    /**/
     @RequestMapping(value={"/logout"})
     public ModelAndView logout(HttpSession httpSession){
 
@@ -35,7 +38,7 @@ public class AuthController {
         PortalApplication.addSuccessKey("api_logout_success");
         return new ModelAndView("redirect:/login");
     }
-
+    /**/
 
     @PostMapping(value={"/login"})
     public ModelAndView login(@Valid LoginModel model, BindingResult result, HttpSession httpSession){
@@ -61,6 +64,15 @@ public class AuthController {
 
     private ModelAndView loginView(HttpSession httpSession, LoginModel model){
         ModelAndView mv = new ModelAndView("login");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || auth instanceof AnonymousAuthenticationToken){
+            mv.addObject("isLogged", "notLogged");
+        }else{
+            mv.addObject("isLogged", "Super Logged");
+        }
+
+
         mv.addObject("loginModel", model);
 
         mv.addObject("userRole", httpSession.getAttribute("USER_ROLE"));

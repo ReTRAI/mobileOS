@@ -6,6 +6,8 @@
 	
 	"utils_lang_error":"Ocorreu um erro ao obter as traduções.",
 
+	"api_error_403":"Não tem permissões para aceder a este recurso",
+
 	"api_userRole_admin":"Administrador",
 	"api_userRole_Reseller":"Revendedor",
 	"api_userRole_Support":"Suporte",

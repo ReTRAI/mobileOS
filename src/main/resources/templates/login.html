@@ -44,13 +44,15 @@
                                     </h2>
                                 </div>
                             </div>
+                            <p th:text="${isLogged}"></p>
                             <h4 class="card-title mb-1 toTranslate" data-langKey="index_title">Welcome ipsum
                                 dolor sit.</h4>
                             <p class="card-text mb-2 toTranslate" data-langKey="index_text">Lorem ipsum dolor
                                 sit amet, consectetur adipisicing elit.
                                 Eveniet exercitationem mollitia quaerat quas velit vitae.</p>
 
-                            <form th:object="${loginModel}" class="auth-login-form mt-2" action="" method="POST">
+                            <form th:object="${loginModel}" class="auth-login-form mt-2" th:action="@{/login}"
+                                  method="POST">
                                 <input id="login_langCode" type="hidden" th:field="*{langCode}"/>
 
                                 <div class="mb-1">
@@ -123,25 +125,26 @@
     let TRANSLATION = {};
 
     function translate(code){
-        $.post( "getIndexTranslation", {"code":code}, function( json ) {
-            if(json != ""){
-                TRANSLATION = json;
-                $(".toTranslate").each(function( index ) {
-                    $( this ).text(json[$( this ).attr("data-langKey")]);
-                });
-                $(".toTranslateInput").each(function( index ) {
-                    $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
-                });
-            }
-            else{
-                addErrorByKey("utils_lang_error");
-            }
+        portalPost("getIndexTranslation", {"code":code}, translateSuccess, translateError);
+    }
 
-        }, "json").fail(function(xhr, status, error) {
+    function translateSuccess(json){
+        if(json != ""){
+            TRANSLATION = json;
+            $(".toTranslate").each(function( index ) {
+                $( this ).text(json[$( this ).attr("data-langKey")]);
+            });
+            $(".toTranslateInput").each(function( index ) {
+                $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
+            });
+        }
+        else{
             addErrorByKey("utils_lang_error");
-        });
+        }
+    }
 
-
+    function translateError(xhr, status, error){
+        addErrorByKey("utils_lang_error");
     }
 
 </script>

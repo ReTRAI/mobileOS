@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui"/>
 
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <link rel="shortcut icon" type="image/x-icon" href="ico/favicon.ico"/>
 
     <!-- BEGIN: Vendor CSS-->
@@ -26,7 +29,9 @@
     <!-- END: Page CSS-->
     <link rel="stylesheet" type="text/css" href="css/loggedStyle.css"/>
 
+    <style>
 
+    </style>
 </th:block>
 
 <th:block th:fragment="common-status">
@@ -59,6 +64,8 @@
     <!-- END: Theme JS-->
 
     <script>
+
+
         $(window).on('load', function() {
             $('.toLoad').each(function(index){
                 $(this).load($(this).attr("data-toLoad"));
@@ -98,31 +105,52 @@
             $("#"+id).parents(".has-sub").addClass("open");
             $("#"+id).addClass("active");
         }
+
+        function portalPost(url, data, sFun, eFun){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            $.ajax({
+                type:"POST",
+                url: url,
+                data: data,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                }
+            })
+            .done(sFun)
+            .fail(eFun);
+        }
     </script>
 </th:block>
 <th:block th:fragment="common-translate">
     <script>
         let TRANSLATION = {};
-        function translate(code){
-            $.post( "getTranslation", {"code":code}, function( json ) {
-                if(json != ""){
-                    TRANSLATION = json;
-                    $(".toTranslate").each(function( index ) {
-                        $( this ).text(json[$( this ).attr("data-langKey")]);
-                    });
-                    $(".toTranslateInput").each(function( index ) {
-                        $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
-                    });
 
-                    $(".lang.active").removeClass("active");
-                    $("#lang_"+code).addClass("active");
-                }
-                else{
-                    addErrorByKey("utils_lang_error");
-                }
-            }, "json").fail(function(xhr, status, error) {
+        function translate(code){
+            portalPost("getTranslation", {"code":code}, translateSuccess, translateError);
+        }
+
+        function translateSuccess(json){
+            if(json != ""){
+                TRANSLATION = json;
+                $(".toTranslate").each(function( index ) {
+                    $( this ).text(json[$( this ).attr("data-langKey")]);
+                });
+                $(".toTranslateInput").each(function( index ) {
+                    $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
+                });
+
+                $(".lang.active").removeClass("active");
+                $("#lang_"+json["code"]).addClass("active");
+            }
+            else{
                 addErrorByKey("utils_lang_error");
-            });
+            }
+        }
+
+        function translateError(xhr, status, error){
+            addErrorByKey("utils_lang_error");
         }
 
         function changeLanguage(that){

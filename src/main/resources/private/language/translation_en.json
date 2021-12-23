@@ -5,7 +5,9 @@
 	"utils_lang_ru":"русский",
 	
 	"utils_lang_error":"There was an error getting the translations. ",
-
+	
+	"api_error_403":"You do not have permissions to access this resource. ",
+	
 	"api_userRole_admin":"Admin",
 	"api_userRole_Reseller":"Resseler",
 	"api_userRole_Support":"Support",

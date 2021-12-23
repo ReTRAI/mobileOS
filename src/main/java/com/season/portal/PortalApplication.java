@@ -5,6 +5,7 @@ import com.season.portal.language.LanguageService;
 import com.season.portal.notifications.Notification;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -70,14 +71,13 @@ public class PortalApplication {
 	}
 
 	public static boolean login(HttpSession httpSession, LoginModel model){
-		httpSession.setAttribute("USER_ROLE", "SERV");
-		httpSession.setAttribute("IS_LOGGED", true);
+
 		return true;
 	}
 
 	public static boolean logout(HttpSession httpSession){
-		httpSession.setAttribute("USER_ROLE", "");
-		httpSession.setAttribute("IS_LOGGED", false);
+
+		SecurityContextHolder.getContext().setAuthentication(null);
 		httpSession.invalidate();
 
 		return true;

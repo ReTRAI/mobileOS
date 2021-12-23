@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -19,20 +20,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //super.configure(auth);
-        //auth.eraseCredentials(true);
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
-        /** /
+        /**/
         http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/", "static/css", "static/js").permitAll();
+                .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
+                .antMatchers("/dashboard", "/getTranslation").hasAnyRole("USER", "ADMIN")
+                .antMatchers( "/getIndexTranslation").permitAll()
+                .antMatchers( "/getIndexTranslation/").permitAll()
+                .antMatchers( "/getIndexTranslation/**").permitAll()
+                .and()
+                .formLogin()
+                    .defaultSuccessUrl("/dashboard")
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .permitAll()
+                .and().logout().logoutSuccessUrl("/login")
+                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 
         /**/
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new CustomAccessDeniedHandler();
     }
 
     @Bean
