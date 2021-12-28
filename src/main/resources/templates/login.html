@@ -72,16 +72,42 @@
                                         <label class="form-label toTranslate" for="login_password"
                                                data-langKey="utils_form_password">Password</label>
                                     </div>
-                                    <div class="input-group input-group-merge form-password-toggle">
-                                        <input id="login_password" type="password" th:field="*{password}"
+                                    <div class="input-group input-group-merge form-password-toggle"
+                                         th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}">
+                                        <input id="login_password"
+                                               type="password"
+                                               th:field="*{password}"
                                                th:errorclass="is-invalid"
                                                class="form-control form-control-merge toTranslateInput"
                                                data-langKey="utils_form_passwordPlaceholder"
                                                placeholder="*********"/>
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-                                        <p class="invalid-feedback toTranslate"
-                                           th:each="err : ${#fields.errors('password')}"
-                                           th:attr="data-langKey=${err}"></p>
+                                        <th:block th:each="err : ${#fields.errors('password')}">
+                                            <th:block th:switch="${err}">
+                                                <p th:case="utils_form_password_numChar" class="invalid-feedback">
+                                                    <span class="toTranslate "
+                                                          data-langKey="utils_form_password_numChar0"></span>
+                                                    <span
+                                                            th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_MIN_CHAR}"></span>
+                                                    <span class="toTranslate "
+                                                          data-langKey="utils_form_password_numChar1"></span>
+                                                    <span
+                                                            th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_MAX_CHAR}"></span>
+                                                    <span class="toTranslate "
+                                                          data-langKey="utils_form_password_numChar2"></span>
+                                                </p>
+                                                <p th:case="utils_form_password_atLeast" class="invalid-feedback">
+                                                    <span class="toTranslate "
+                                                          data-langKey="utils_form_password_atLeast0"></span>
+                                                    <span
+                                                            th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_SPECIAL_CHAR}"></span>
+                                                    <span class="toTranslate "
+                                                          data-langKey="utils_form_password_atLeast1"></span>
+                                                </p>
+                                                <p th:case="*" class="invalid-feedback toTranslate"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </th:block>
+                                        </th:block>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 toTranslate"
@@ -111,41 +137,13 @@
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
+<th:block th:replace="shared/common :: common-translate"/>
 <script>
     $(window).on('load', function() {
         setupLanguage();
     });
 
-    function setupLanguage(){
-        let code = $("#languageSelector").val();
-        translate(code);
-        $("#login_langCode").val(code);
-    }
 
-    let TRANSLATION = {};
-
-    function translate(code){
-        portalPost("getIndexTranslation", {"code":code}, translateSuccess, translateError);
-    }
-
-    function translateSuccess(json){
-        if(json != ""){
-            TRANSLATION = json;
-            $(".toTranslate").each(function( index ) {
-                $( this ).text(json[$( this ).attr("data-langKey")]);
-            });
-            $(".toTranslateInput").each(function( index ) {
-                $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
-            });
-        }
-        else{
-            addErrorByKey("utils_lang_error");
-        }
-    }
-
-    function translateError(xhr, status, error){
-        addErrorByKey("utils_lang_error");
-    }
 
 </script>
 

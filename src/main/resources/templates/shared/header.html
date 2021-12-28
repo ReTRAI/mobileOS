@@ -1,5 +1,6 @@
 <html xmlns:th="https://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="https://www.thymeleaf.org "
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <body>
 
@@ -28,68 +29,73 @@
                         </a>
                     </li>
                 </ul>
+                <th:block sec:authorize="isAuthenticated()">
+                    <ul class="nav navbar-nav align-items-center ms-auto">
 
-                <ul class="nav navbar-nav align-items-center ms-auto">
+                        <li th:if="${notifications != null && notifications.size() > 0}"
+                            class="nav-item dropdown dropdown-notification me-25">
+                            <a class="nav-link" href="#"
+                               data-bs-toggle="dropdown"
+                            >
+                                <i class="ficon" data-feather="bell" ></i>
+                                <span class="badge rounded-pill bg-danger badge-up"
+                                      th:text="${notifications.size().toString()}">6</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
 
-                    <li th:if="${notifications != null && notifications.size() > 0}"
-                        class="nav-item dropdown dropdown-notification me-25">
-                        <a class="nav-link" href="#"
-                           data-bs-toggle="dropdown"
-                        >
-                            <i class="ficon" data-feather="bell" ></i>
-                            <span class="badge rounded-pill bg-danger badge-up"
-                                  th:text="${notifications.size().toString()}">6</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
+                                <li class="dropdown-menu-header">
+                                    <div class="dropdown-header d-flex">
+                                        <h4 class="notification-title mb-0 me-auto toTranslate"
+                                            data-langKey="header_notifications_title">Notifications</h4>
+                                        <div class="badge rounded-pill badge-light-primary">
+                                            <span th:text="${notifications.size().toString()+' '}"></span>
+                                            <span class="toTranslate"
+                                                  th:attr="data-langKey=${(notifications.size()<2)?'utils_feminine_new':'utils_feminine_news'}"
+                                            ></span>
+                                        </div>
+                                    </div>
+                                </li>
 
-                            <li class="dropdown-menu-header">
-                                <div class="dropdown-header d-flex">
-                                    <h4 class="notification-title mb-0 me-auto toTranslate"
-                                        data-langKey="header_notifications_title">Notifications</h4>
-                                    <div class="badge rounded-pill badge-light-primary">
-                                        <span th:text="${notifications.size().toString()+' '}"></span>
-                                        <span class="toTranslate"
-                                              th:attr="data-langKey=${(notifications.size()<2)?'utils_feminine_new':'utils_feminine_news'}"
-                                              ></span>
+                                <li class="scrollable-container media-list">
+                                    <th:block th:each="notification : ${notifications}">
+                                        <a class="d-flex"
+
+                                           th:href="${(notification.getPath() == '')?'#':notification.getPath()}">
+                                            <div class="list-item d-flex align-items-start">
+                                                <div class="list-item-body flex-grow-1">
+                                                    <p class="media-heading fw-bolder"
+                                                       th:text="${notification.getTitle()}"></p>
+                                                    <small class="notification-text" th:text="${notification.getSub()}"></small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </th:block>
+                                </li>
+                                <li class="dropdown-menu-footer">
+                                    <a class="btn btn-primary w-100 toTranslate"
+                                       data-langKey="header_notifications_readAll" href="#">Read all
+                                        notifications
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                <div class="user-nav d-sm-flex">
+                                    <div class="clearfix">
+                                        <span class="user-name fw-bolder" th:text="${userName}">John Doe</span></br>
+                                        <span class="user-status toTranslate"
+                                              th:each="role : ${userRole}"
+                                              th:text="${role}"
+                                              th:attr="data-langKey=${'api_userRole_'+role}"></span>
                                     </div>
                                 </div>
-                            </li>
+                            </a>
+                        </li>
+                    </ul>
 
-                            <li class="scrollable-container media-list">
-                                <th:block th:each="notification : ${notifications}">
-                                    <a class="d-flex"
+                </th:block>
 
-                                       th:href="${(notification.getPath() == '')?'#':notification.getPath()}">
-                                        <div class="list-item d-flex align-items-start">
-                                            <div class="list-item-body flex-grow-1">
-                                                <p class="media-heading fw-bolder"
-                                                   th:text="${notification.getTitle()}"></p>
-                                                <small class="notification-text" th:text="${notification.getSub()}"></small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </th:block>
-                            </li>
-                            <li class="dropdown-menu-footer">
-                                <a class="btn btn-primary w-100 toTranslate"
-                                   data-langKey="header_notifications_readAll" href="#">Read all
-                                    notifications
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">
-                            <div class="user-nav d-sm-flex">
-                                <div class="clearfix">
-                                    <span class="user-name fw-bolder" th:text="${userName}">John Doe</span></br>
-                                    <span class="user-status toTranslate" th:text="${userRole}"
-                                          th:attr="data-langKey=${'api_userRole_'+userRole}">Admin</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
             </div>
         </nav>
     </header>

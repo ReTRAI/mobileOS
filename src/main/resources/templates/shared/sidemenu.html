@@ -1,5 +1,7 @@
-<html xmlns:th="https://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="https://www.thymeleaf.org ">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org "
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
 <th:block th:fragment="sideMenu">
@@ -22,119 +24,125 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" navigation-header">
-                    <span class="toTranslate" data-langKey="menu_navBar">NavBar</span>
-                    <i data-feather="more-horizontal"></i>
-                </li>
-                <li id="menu_dashboard" class=" nav-item">
-                    <a class="d-flex align-items-center" href="/dashboard">
-                        <i data-feather='activity'></i>
-                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_dashboard">Dashboard
-                        </span>
-                    </a>
-                </li>
+                <!-- START NAVBAR -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <li class=" navigation-header">
+                        <span class="toTranslate" data-langKey="menu_navBar">NavBar</span>
+                        <i data-feather="more-horizontal"></i>
+                    </li>
+                    <li id="menu_dashboard" class=" nav-item">
+                        <a class="d-flex align-items-center" href="/dashboard">
+                            <i data-feather='activity'></i>
+                            <span class="menu-title text-truncate toTranslate"
+                                  data-langKey="menu_dashboard"
+                            >Dashboard</span>
+                        </a>
+                    </li>
 
-                <li class=" nav-item">
-                    <a class="d-flex align-items-center" href="#">
-                        <i data-feather='users'></i>
-                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_resseler">Resseler</span>
-                    </a>
-                    <ul class="menu-content">
-                        <li id="menu_resseler_list">
-                            <a class="d-flex align-items-center" href="/resselers">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_list">List</span>
-                            </a>
-                        </li>
-                        <li id="menu_resseler_balance">
-                            <a class="d-flex align-items-center" href="/resseler">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_balance">Balance
-                                </span>
-                            </a>
-                        </li>
-                        <li id="menu_resseler_log">
-                            <a class="d-flex align-items-center" href="/resseler">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_log">Log</span>
-                            </a>
-                        </li>
-                        <li id="menu_resseler_lookup">
-                            <a class="d-flex align-items-center" href="/resseler">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_lookup">Lookup
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class=" nav-item">
+                        <a class="d-flex align-items-center" href="#">
+                            <i data-feather='users'></i>
+                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_resseler">Resseler</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li id="menu_resseler_list">
+                                <a class="d-flex align-items-center" href="/resselers">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_list">List</span>
+                                </a>
+                            </li>
+                            <li id="menu_resseler_balance">
+                                <a class="d-flex align-items-center" href="/resseler">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_balance">Balance
+                                    </span>
+                                </a>
+                            </li>
+                            <li id="menu_resseler_log">
+                                <a class="d-flex align-items-center" href="/resseler">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_log">Log</span>
+                                </a>
+                            </li>
+                            <li id="menu_resseler_lookup">
+                                <a class="d-flex align-items-center" href="/resseler">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_lookup">Lookup
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                <li id="menu_devices" class="nav-item">
-                    <a class="d-flex align-items-center" href="devices/">
-                        <i data-feather='smartphone'></i>
-                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_devices">Devices
-                        </span>
-                    </a>
-                </li>
-                <li id="menu_wallet" class=" nav-item">
-                    <a class="d-flex align-items-center" href="/wallet">
-                        <div class="toLoadReplace" data-toLoad="media/icons/wallet.svg"></div>
-                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_wallet">Wallet
-                        </span>
-                    </a>
-                </li>
-                <li class=" nav-item">
-                    <a class="d-flex align-items-center" href="#">
-                        <div class="toLoadReplace" data-toLoad="media/icons/support.svg"></div>
-                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_support">Support</span>
-                    </a>
-                    <ul class="menu-content">
-                        <li id="menu_support_new">
-                            <a class="d-flex align-items-center" href="/support/new">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_new">New</span>
-                            </a>
-                        </li>
-                        <li id="menu_support_open">
-                            <a class="d-flex align-items-center" href="/support">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_open">Open
-                                </span>
-                            </a>
-                        </li>
-                        <li id="menu_support_onProgress">
-                            <a class="d-flex align-items-center" href="/support/onProgress">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_onProgress">On
-                                    Progress
-                                </span>
-                            </a>
-                        </li>
-                        <li id="menu_support_pending">
-                            <a class="d-flex align-items-center" href="/support/pending">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_pending">Pending
-                                </span>
-                            </a>
-                        </li>
-                        <li id="menu_support_canceled">
-                            <a class="d-flex align-items-center" href="/support/canceled">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate" data-langKey="menu_canceled">Canceled
-                                </span>
-                            </a>
-                        </li>
-                        <li id="menu_support_completed">
-                            <a class="d-flex align-items-center" href="/support/completed">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate toTranslate"
-                                      data-langKey="menu_completed">Completed
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
+                    <li id="menu_devices" class="nav-item">
+                        <a class="d-flex align-items-center" href="devices/">
+                            <i data-feather='smartphone'></i>
+                            <span
+                                    class="menu-title text-truncate toTranslate"
+                                    data-langKey="menu_devices"
+                            >Devices</span>
+                        </a>
+                    </li>
+                    <li id="menu_wallet" class=" nav-item">
+                        <a class="d-flex align-items-center" href="/wallet">
+                            <div class="toLoadReplace" data-toLoad="media/icons/wallet.svg"></div>
+                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_wallet">Wallet</span>
+                        </a>
+                    </li>
+                    <li class=" nav-item">
+                        <a class="d-flex align-items-center" href="#">
+                            <div class="toLoadReplace" data-toLoad="media/icons/support.svg"></div>
+                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_support">Support</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li id="menu_support_new">
+                                <a class="d-flex align-items-center" href="/support/new">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_new">New</span>
+                                </a>
+                            </li>
+                            <li id="menu_support_open">
+                                <a class="d-flex align-items-center" href="/support">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_open">Open
+                                    </span>
+                                </a>
+                            </li>
+                            <li id="menu_support_onProgress">
+                                <a class="d-flex align-items-center" href="/support/onProgress">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_onProgress">On
+                                        Progress
+                                    </span>
+                                </a>
+                            </li>
+                            <li id="menu_support_pending">
+                                <a class="d-flex align-items-center" href="/support/pending">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_pending">Pending
+                                    </span>
+                                </a>
+                            </li>
+                            <li id="menu_support_canceled">
+                                <a class="d-flex align-items-center" href="/support/canceled">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_canceled">Canceled
+                                    </span>
+                                </a>
+                            </li>
+                            <li id="menu_support_completed">
+                                <a class="d-flex align-items-center" href="/support/completed">
+                                    <i data-feather="circle"></i>
+                                    <span class="menu-item text-truncate toTranslate"
+                                          data-langKey="menu_completed">Completed
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </th:block>
+                <!-- END NAVBAR -->
+                <!-- START SETTINGS -->
                 <li class=" navigation-header">
                     <span class="toTranslate" data-langKey="menu_settings">Settings</span>
                     <i data-feather="more-horizontal"></i>
@@ -162,17 +170,30 @@
                 <li id="menu_theme" class=" nav-item">
                     <a class="d-flex align-items-center nav-link-style ">
                         <i class="ficon" data-feather="sun"></i>
-                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_theme">Theme
-                        </span>
+                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_theme">Theme</span>
                     </a>
                 </li>
-                <li id="menu_logout" class=" nav-item">
-                    <a class="d-flex align-items-center" href="/logout">
-                        <i data-feather='user-x'></i>
-                        <span class="menu-title text-truncate toTranslate" data-langKey="menu_logout">Logout
-                        </span>
-                    </a>
-                </li>
+                <!-- END SETTINGS -->
+                <!-- LOGOUT -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <li id="menu_logout" class=" nav-item">
+                        <a class="d-flex align-items-center" href="/logout">
+                            <i data-feather='user-x'></i>
+                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_logout"
+                            >Logout</span>
+                        </a>
+                    </li>
+                </th:block>
+                <!-- LOGIN -->
+                <th:block sec:authorize="!isAuthenticated()">
+                    <li id="menu_login" class=" nav-item">
+                        <a class="d-flex align-items-center" href="/login">
+                            <i data-feather='user-check'></i>
+                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_login"
+                            >Login</span>
+                        </a>
+                    </li>
+                </th:block>
             </ul>
         </div>
     </div>

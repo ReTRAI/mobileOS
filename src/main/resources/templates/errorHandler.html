@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org ">
+<!-- BEGIN: Head-->
+
+<head>
+    <th:block th:replace="shared/common :: common-style"/>
+    <link rel="stylesheet" type="text/css" href="css/pages/auth/style.css">
+
+
+    <style>
+
+    </style>
+
+    <title class="toTranslate" data-langKey="errorHandler_tab_title">Nice</title>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+<!-- BEGIN: Header-->
+<th:block th:replace="shared/header :: header"/>
+<!-- END: Header-->
+
+<!-- BEGIN: Main Menu-->
+<th:block th:replace="shared/sidemenu :: sideMenu"/>
+<!-- END: Main Menu-->
+
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <th:block th:replace="shared/common :: common-status"/>
+        </div>
+
+        <div class="content-body">
+
+            <!-- -->
+            <section id="dashboard">
+                <h2 class="toTranslate"
+                    th:with="langKey=${T(com.season.portal.utils.Utils).gsbk(messages, 'errorTitle', '')}"
+                    th:attr="data-langKey=${langKey}">Error</h2>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h4 class="card-title toTranslate mb-2"
+                            th:with="langKey=${T(com.season.portal.utils.Utils).gsbk(messages, 'errorMsg', '')}"
+                            th:attr="data-langKey=${langKey}">
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <button type="button"
+                                class="btn btn-primary waves-effect waves-float waves-light toTranslate"
+                                data-langKey="utils_back" onclick="history.back()">Back</button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+</div>
+<!-- END: Content-->
+
+<th:block th:replace="shared/common :: common-script"/>
+<th:block th:replace="shared/common :: common-translate"/>
+<script>
+    $(window).on('load', function() {
+        setupLanguage();
+    });
+</script>
+
+</body>
+<!-- END: Body-->
+
+</html>

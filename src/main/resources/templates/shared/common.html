@@ -1,6 +1,7 @@
 <html xmlns:th="https://www.thymeleaf.org"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="https://www.thymeleaf.org">
+      xsi:schemaLocation="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <th:block th:fragment="common-style">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -127,8 +128,17 @@
     <script>
         let TRANSLATION = {};
 
-        function translate(code){
-            portalPost("getTranslation", {"code":code}, translateSuccess, translateError);
+        function translateError(xhr, status, error){
+            addErrorByKey("utils_lang_error");
+        }
+
+        function changeLanguage(that){
+            let code = $(that).attr("data-langcode");
+
+            if(code == undefined ||code == ""){
+                return false;
+            }
+            translate(code);
         }
 
         function translateSuccess(json){
@@ -148,18 +158,33 @@
                 addErrorByKey("utils_lang_error");
             }
         }
+    </script>
 
-        function translateError(xhr, status, error){
-            addErrorByKey("utils_lang_error");
-        }
-
-        function changeLanguage(that){
-            let code = $(that).attr("data-langcode");
+    <script  sec:authorize="!isAuthenticated()">
+        function setupLanguage(){
+            //for index
+            let code = $("#languageSelector").val();
 
             if(code == undefined ||code == ""){
-                return false;
+                code = $(".lang.active").attr("data-langcode");
             }
+            if(code == undefined ||code == ""){
+                code = "en";
+            }
+
             translate(code);
+            $("#login_langCode").val(code);
+        }
+
+        function translate(code){
+            portalPost("getIndexTranslation", {"code":code}, translateSuccess, translateError);
+        }
+
+
+    </script>
+    <script  sec:authorize="isAuthenticated()">
+        function translate(code){
+            portalPost("getTranslation", {"code":code}, translateSuccess, translateError);
         }
 
         function setupLanguage(){

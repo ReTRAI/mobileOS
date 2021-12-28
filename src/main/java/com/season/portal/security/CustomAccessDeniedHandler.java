@@ -26,8 +26,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         response.sendRedirect( "/dashboard");
         */
-        PortalApplication.addMsg("errorTitle","api_error_403");
-        PortalApplication.addMsg("errorMsg","api_error_403");
+        PortalApplication.addMsg("errorTitle","api_error_403_title");
+        PortalApplication.addMsg("errorMsg","api_error_403_message");
         response.sendRedirect( "/errorHandler");
     }
 }

@@ -826,7 +826,7 @@ window.colors = {
       $(selected_item).trigger('click');
     }
   });
-
+*/
   // Waves Effect
   Waves.init();
   Waves.attach(
@@ -835,6 +835,7 @@ window.colors = {
   );
   Waves.attach("[class*='btn-outline-']");
   Waves.attach("[class*='btn-flat-']");
+
 
   $('.form-password-toggle .input-group-text').on('click', function (e) {
     e.preventDefault();
@@ -855,7 +856,6 @@ window.colors = {
       }
     }
   });
-  */
 
   /** /
   // on window scroll button show/hide

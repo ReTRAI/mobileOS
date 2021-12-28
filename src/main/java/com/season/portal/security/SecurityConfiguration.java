@@ -3,6 +3,7 @@ package com.season.portal.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,21 +30,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         /**/
         http.authorizeRequests()
                 .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
-                .antMatchers("/dashboard", "/getTranslation").hasAnyRole("USER", "ADMIN")
-                .antMatchers( "/getIndexTranslation").permitAll()
-                .antMatchers( "/getIndexTranslation/").permitAll()
-                .antMatchers( "/getIndexTranslation/**").permitAll()
-                .and()
-                .formLogin()
-                    .defaultSuccessUrl("/dashboard")
+                .antMatchers("/dashboard", "/getTranslation").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
+                .antMatchers( "/getIndexTranslation", "/getIndexTranslation/", "/getIndexTranslation/**").permitAll()
+                .antMatchers( "/errorHandler").permitAll()
+                /*
+                .and().formLogin()
                     .loginPage("/login")
+                    .failureHandler((req,res,exp)->{  // Failure handler invoked after authentication failure
+
+                        res.sendRedirect("/loginError"); // Redirect user to login page with error message.
+                    })
+                    .defaultSuccessUrl("/dashboard")
                     .usernameParameter("email")
                     .passwordParameter("password")
                     .permitAll()
+                */
                 .and().logout().logoutSuccessUrl("/login")
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 
         /**/
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Bean

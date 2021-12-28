@@ -5,6 +5,7 @@ import com.season.portal.language.LanguageService;
 import com.season.portal.notifications.Notification;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,8 +46,8 @@ public class PortalApplication {
 		mv.addObject("successKeys",successKeys);
 		mv.addObject("messages",messages);
 
-		boolean logged = true;
-		if(logged){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth.isAuthenticated()){
 
 			ArrayList<Notification> notifications = new ArrayList<Notification>();
 			notifications.add(new Notification(1l, "login/", "Login", "go to login page"));
@@ -54,8 +55,8 @@ public class PortalApplication {
 			notifications.add(new Notification(3l, "", "No link", "test sub"));
 
 			mv.addObject("notifications", notifications);
-			mv.addObject("userName", "Clera");
-			mv.addObject("userRole", "Admin");
+			mv.addObject("userName", auth.getName());
+			mv.addObject("userRole", auth.getAuthorities().toString());
 		}
 
 		clearStatus();

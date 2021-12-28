@@ -41,4 +41,11 @@ public class PortalController {
         return new ModelAndView("redirect:/dashboard");
     }
 
+
+    @RequestMapping(value={"/errorHandler"})
+    public ModelAndView errorHandler(HttpSession httpSession){
+        ModelAndView mv = new ModelAndView("errorHandler");
+        return PortalApplication.addStatus(mv);
+    }
+
 }

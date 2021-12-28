@@ -6,11 +6,14 @@
 	
 	"utils_lang_error":"There was an error getting the translations. ",
 	
-	"api_error_403":"You do not have permissions to access this resource. ",
+	"api_error_403_title":"Error 403",
+	"api_error_403_message":"You do not have permissions to access this resource.",
+	"api_error_404_title":"Error 404",
+	"api_error_404_message":"Invalid resource.",
 	
-	"api_userRole_admin":"Admin",
-	"api_userRole_Reseller":"Resseler",
-	"api_userRole_Support":"Support",
+	"api_userRole_ROLE_ADMIN":"Admin",
+	"api_userRole_ROLE_RESSELER":"Resseler",
+	"api_userRole_ROLE_SUPPORT":"Support",
 
 	"utils_brand":"Portal",
 	"utils_feminine_new":"new",
@@ -18,9 +21,19 @@
 	"utils_filters":"Filters",
 	"utils_submit":"Submit",
 	"utils_reset":"Reset",
+	"utils_back":"Back",
 	
 	"utils_form_nameId":"Name or Id",
 	"utils_form_nameId_placeholder":"Enter name or id",
+	"utils_form_required": "Required field",
+	"utils_form_invalid_email":"Invalid email",
+	"utils_form_password_invalid":"Invalid password",
+	"utils_form_password_numChar0": "The password must be between ",
+	"utils_form_password_numChar1": " and ",
+	"utils_form_password_numChar2": " characters.",
+	"utils_form_password_atLeast0": "Requires 1 character from 3 out of this 4 categories:\n ● Lowercase characters;\n ● Uppercase characters;\n ● Numbers (0-9);\n ● Symbols ",
+	"utils_form_password_atLeast1": " ;",
+	"utils_form_password_sequence": "Cannot contain a dot character '.' immediately preceding the '@' symbol",
 	
 	"utils_table_id":"Id",
 	"utils_table_name":"Name",
@@ -58,6 +71,7 @@
 	"menu_settings":"Settings",
 	"menu_theme":"Theme",
 	"menu_logout":"Logout",
+	"menu_login":"Login",
 
 	"header_notifications_title":"Notifications",
 	"header_notifications_readAll":"Read all notifications",
@@ -88,7 +102,8 @@
 	"dashboard_activations_val1":"1 Week",
 	"dashboard_activations_val2":"1 Month",
 	"dashboard_activations_val3":"3 Months",
-
+	
+	"errorHandler_tab_title":"Portal | Error",
 
 	"resseler_title":"Resselers",
 	"resseler_tab_title":"Portal | Resseler",
