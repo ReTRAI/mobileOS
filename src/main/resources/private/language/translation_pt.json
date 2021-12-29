@@ -1,27 +1,13 @@
 {
-	"utils_lang": "Idioma",
-	"utils_lang_pt":"Português",
-	"utils_lang_en":"English",
-	"utils_lang_ru":"русский",
-	
-	"utils_lang_error":"Ocorreu um erro ao obter as traduções.",
-
-	"api_error_403_title":"Erro 403",
-	"api_error_403_message":"Não tem permissões para aceder a este recurso.",
-	"api_error_404_title":"Erro 404",
-	"api_error_404_message":"Recurso inválido.",
-
 	"api_userRole_ROLE_ADMIN":"Administrador",
 	"api_userRole_ROLE_RESSELER":"Revendedor",
 	"api_userRole_ROLE_SUPPORT":"Suporte",
 	
-	"utils_brand":"Portal",
 	"utils_feminine_new":"nova",
 	"utils_feminine_news":"novas",
 	"utils_filters":"Filtros",
 	"utils_submit":"Submeter",
 	"utils_reset":"Limpar",
-	"utils_back":"Voltar",
 
 	"utils_form_nameId":"Nome ou Id",
 	"utils_form_nameId_placeholder":"Insira o nome ou id",
@@ -68,11 +54,8 @@
 	"menu_pending":"Pendentes",
 	"menu_canceled":"Cancelados",
 	"menu_completed":"Completos",
-	"menu_settings":"Definições",
-	"menu_theme":"Tema",
 	"menu_logout":"Sair",
-	"menu_login":"Entrar",
-	
+
 	"header_notifications_title":"Notificações",
 	"header_notifications_readAll":"Marcar todas como lidas",
 	
@@ -102,9 +85,7 @@
 	"dashboard_activations_val1":"1 Semana",
 	"dashboard_activations_val2":"1 Mês",
 	"dashboard_activations_val3":"3 Meses",
-	
-	"errorHandler_tab_title":"Portal | Erro",
-	
+
 	"resseler_title":"Revendedores",
 	"resseler_tab_title":"Portal | Revendedor",
 

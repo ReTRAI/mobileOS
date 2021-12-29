@@ -42,10 +42,6 @@ public class PortalController {
     }
 
 
-    @RequestMapping(value={"/errorHandler"})
-    public ModelAndView errorHandler(HttpSession httpSession){
-        ModelAndView mv = new ModelAndView("errorHandler");
-        return PortalApplication.addStatus(mv);
-    }
+
 
 }

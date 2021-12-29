@@ -95,16 +95,7 @@ public class AuthController {
     private ModelAndView loginView(HttpSession httpSession, LoginModel model){
         ModelAndView mv = new ModelAndView("login");
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null || auth instanceof AnonymousAuthenticationToken){
-            mv.addObject("isLogged", "notLogged");
-        }else{
-            mv.addObject("isLogged", "Super Logged");
-        }
-
-
         mv.addObject("loginModel", model);
-
         mv.addObject("userRole", httpSession.getAttribute("USER_ROLE"));
 
         return PortalApplication.addStatus(mv);

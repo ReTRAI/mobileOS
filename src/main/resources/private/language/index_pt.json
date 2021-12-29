@@ -1,34 +1,4 @@
 {
-	"utils_lang": "Idioma",
-	"utils_lang_pt":"Português",
-	"utils_lang_en":"English",
-	"utils_lang_ru":"русский",
-	
-	"utils_lang_error":"Ocorreu um erro ao obter as traduções.",
-	
-	"api_error_403_title":"Erro 403",
-	"api_error_403_message":"Não tem permissões para aceder a este recurso.",
-	"api_error_404_title":"Erro 404",
-	"api_error_404_message":"Recurso inválido.",
-	
-	"utils_brand":"Portal",
-	"utils_back":"Voltar",
-
-	"utils_form_required": "Campo obrigatório",
-	"utils_form_invalid_email":"Email inválido",
-	"utils_form_password_invalid":"Palavra-passe inválida",
-	"utils_form_password_numChar0": "A palavra-passe tem de ter entre ",
-	"utils_form_password_numChar1": " e ",
-	"utils_form_password_numChar2": " caracteres.",
-	"utils_form_password_atLeast0": "Requer 1 caractere de 3 destas 4 categorias: \n ● Caracteres em minúsculas; \n ● Caracteres maiúsculos; \n ● Números (0-9); \n ● Símbolos ",
-	"utils_form_password_atLeast1": " ;",
-	"utils_form_password_sequence": "A palavra-passe não pode conter um ponto '.' imediatamente antes de um arroba '@'.",
-
-	"utils_form_email": "Email",
-	"utils_form_emailPlaceholder": "pedro@example.com",
-	"utils_form_password": "Palavra-chave",
-	"utils_form_passwordPlaceholder": "*********",
-
 	"api_login_invalid": "Email ou palavra-chave inválida.",
 	"api_logout_success": "Logout efetuado com sucesso.",
 	"api_login_invalid_session": "Ocorreu um erro a criar a sessão.",
@@ -37,10 +7,10 @@
 	"index_title": "Bem Vindo ipsum dolor sit.",
 	"index_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem molliti vitae.\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem mollitia quaerat quas velit vitae.",
 	"index_signin": "Entrar",
-	
-	"menu_settings":"Definições",
-	"menu_theme":"Tema",
-	"menu_login":"Entrar",
+
+
+
+
 
 	"end": "fim"
 }

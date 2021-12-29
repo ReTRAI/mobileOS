@@ -1,8 +1,8 @@
 package com.season.portal.security;
 
+import com.season.portal.handler.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +18,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler(){return new CustomAccessDeniedHandler();}
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //super.configure(auth);
@@ -31,8 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
                 .antMatchers("/dashboard", "/getTranslation").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
-                .antMatchers( "/getIndexTranslation", "/getIndexTranslation/", "/getIndexTranslation/**").permitAll()
-                .antMatchers( "/errorHandler").permitAll()
+                .antMatchers( "/getIndexTranslation").permitAll()
+                .antMatchers( "/errorHandler", "/error").permitAll()
+                .and()
+                //Setting HTTPS
+                .requiresChannel().anyRequest().requiresSecure()
                 /*
                 .and().formLogin()
                     .loginPage("/login")
@@ -45,8 +56,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .passwordParameter("password")
                     .permitAll()
                 */
-                .and().logout().logoutSuccessUrl("/login")
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+                .and()
+                .logout().logoutSuccessUrl("/login")
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 
         /**/
     }
@@ -55,15 +68,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
-
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler(){
-        return new CustomAccessDeniedHandler();
-    }
-
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
     }
 }

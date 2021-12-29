@@ -3,12 +3,20 @@ package com.season.portal;
 import com.season.portal.auth.model.LoginModel;
 import com.season.portal.language.LanguageService;
 import com.season.portal.notifications.Notification;
+import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.Context;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -24,6 +32,38 @@ public class PortalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PortalApplication.class, args);
+	}
+
+	//https://www.youtube.com/watch?v=HLSmjZ5vN0w
+	@Bean
+	public ServletWebServerFactory servletContainer(){
+		// Enable SSL Trafic
+		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory(){
+			@Override
+			protected void postProcessContext(org.apache.catalina.Context context) {
+				SecurityConstraint securityConstraint = new SecurityConstraint();
+				securityConstraint.setUserConstraint("CONFIDENTIAL");
+				SecurityCollection collection = new SecurityCollection();
+				collection.addPattern("/*");
+				securityConstraint.addCollection(collection);
+				context.addConstraint(securityConstraint);
+
+			}
+		};
+
+		tomcat.addAdditionalTomcatConnectors( httpToHttpsRedicetConnector());
+		return tomcat;
+	}
+
+	private Connector httpToHttpsRedicetConnector() {
+		int normalport = 8080;
+		int securePort = 8443;
+		Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
+		connector.setScheme("http");
+		connector.setPort(normalport);
+		connector.setSecure(false);
+		connector.setRedirectPort(securePort);
+		return connector;
 	}
 
 
