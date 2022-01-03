@@ -4,8 +4,9 @@
 <!-- BEGIN: Head-->
 
 <head>
+    <link rel="stylesheet" type="text/css" href="vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
     <th:block th:replace="shared/common :: common-style"/>
-    <link rel="stylesheet" type="text/css" href="css/pages/auth/style.css">
+
 
 
     <style>
@@ -30,6 +31,7 @@
 
 
 <!-- BEGIN: Content-->
+<th:block th:with="baseUrl=${#httpServletRequest.requestURI}, queryUrl=${#httpServletRequest.queryString}">
 <div class="app-content content ">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -73,20 +75,47 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
+                    <div class="table-responsive dataTables_wrapper">
+                        <table class="table table-striped dataTable ">
                             <thead>
                             <tr>
                                 <th class="toTranslate" data-langKey="utils_table_id">Id</th>
-                                <th class="toTranslate" data-langKey="utils_table_name">Name</th>
-                                <th class="toTranslate text-center" data-langKey="utils_table_balance">Balance</th>
-                                <th class="toTranslate text-center" data-langKey="utils_table_devices">Devices</th>
-                                <th class="toTranslate text-center" data-langKey="utils_table_activated">Activated</th>
-                                <th class="toTranslate text-center" data-langKey="utils_table_notActivated">Not Activated</th>
-                                <th class="toTranslate text-center" data-langKey="utils_table_free">Free</th>
-                                <th class="toTranslate text-center" data-langKey="utils_table_wiped">Wiped</th>
+                                <th class="sorting toTranslate" data-langKey="utils_table_name"
+                                    th:with="sortName='name'"
+                                    th:classappend="${resselerPag.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${resselerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Name</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_balance"
+                                    th:with="sortName='balance'"
+                                    th:classappend="${resselerPag.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${resselerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Balance</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_devices"
+                                    th:with="sortName='devices'"
+                                    th:classappend="${resselerPag.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${resselerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Devices</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_activated"
+                                    th:with="sortName='activated'"
+                                    th:classappend="${resselerPag.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${resselerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Activated</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_notActivated"
+                                    th:with="sortName='notActivated'"
+                                    th:classappend="${resselerPag.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${resselerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Not Activated</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_free"
+                                    th:with="sortName='free'"
+                                    th:classappend="${resselerPag.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${resselerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Free</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_wiped"
+                                    th:with="sortName='wiped'"
+                                    th:classappend="${resselerPag.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${resselerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Wiped</th>
                                 <th class="toTranslate text-center" data-langKey="utils_table_actions">Actions</th>
                             </tr>
                             </thead>
@@ -111,11 +140,10 @@
                         </table>
                     </div>
                     <div class="card-footer">
-                        <th:block
-                                th:with="queryUrl=${#httpServletRequest.queryString}">
+
                             <th:block
-                                    th:replace="shared/pagination :: pagination( ${#httpServletRequest.requestURI}, ${queryUrl}, ${resselerPag}, ${resselers.size()} )"/>
-                        </th:block>
+                                    th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${resselerPag}, ${resselers.size()} )"/>
+
 
                     </div>
                 </div>
@@ -126,6 +154,7 @@
     </div>
 
 </div>
+</th:block>
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>

@@ -24,6 +24,7 @@ public class PortalController {
 
     //@RequestMapping(value="**")
     //@RequestMapping("/{variable:(?!static).*}/**")
+    @RequestMapping("/")
     public ModelAndView index(HttpSession httpSession){
         /** /
         if(httpSession.getAttribute("IS_LOGGED") != null){

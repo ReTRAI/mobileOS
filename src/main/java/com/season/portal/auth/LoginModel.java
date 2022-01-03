@@ -1,4 +1,4 @@
-package com.season.portal.auth.model;
+package com.season.portal.auth;
 
 import com.season.portal.utils.validation.IPasswordValidatorConstrain;
 

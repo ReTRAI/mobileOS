@@ -1,12 +1,12 @@
 package com.season.portal;
 
-import com.season.portal.auth.model.LoginModel;
 import com.season.portal.language.LanguageService;
 import com.season.portal.notifications.Notification;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -16,12 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.Context;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Map;
 
 @SpringBootApplication
 public class PortalApplication {
@@ -109,18 +105,5 @@ public class PortalApplication {
 		errorKeys = new ArrayList<>();
 		successKeys = new ArrayList<>();
 		messages = new HashMap<>();
-	}
-
-	public static boolean login(HttpSession httpSession, LoginModel model){
-
-		return true;
-	}
-
-	public static boolean logout(HttpSession httpSession){
-
-		SecurityContextHolder.getContext().setAuthentication(null);
-		httpSession.invalidate();
-
-		return true;
 	}
 }

@@ -15,14 +15,9 @@ import java.util.HashMap;
 public class ResselerController {
 
     @GetMapping("/resselers")
-    public ModelAndView resselersFilter(StringPageModel model) {
+    public ModelAndView resselers(StringPageModel model) {
         model.setNumPerPage(10);
         return resselersView(model);
-    }
-
-    @RequestMapping(value={"/resselers"})
-    public ModelAndView resselers(){
-        return resselersView(new StringPageModel(10));
     }
 
     public ModelAndView resselersView(StringPageModel model){

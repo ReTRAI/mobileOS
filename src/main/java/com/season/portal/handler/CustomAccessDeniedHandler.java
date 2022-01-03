@@ -19,6 +19,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         PortalApplication.addMsg("errorTitle","api_error_403_title");
         PortalApplication.addMsg("errorMsg","api_error_403_message");
-        response.sendRedirect( "/errorHandler");
+        response.sendRedirect( "/securityErrorHandler");
     }
 }

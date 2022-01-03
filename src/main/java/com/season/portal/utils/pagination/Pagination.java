@@ -17,8 +17,6 @@ public class Pagination {
     private int actualPage;
     private int numPerPage;
 
-
-
     private int totalElements;
     private ArrayList<Integer> pagination;
 
@@ -97,8 +95,7 @@ public class Pagination {
         return (actualPage - 1) * numPerPage;
     }
 
-    public String addUrlParam(String urlParams, String key, String value){
-
+    private HashMap<String, String> urlParamsToHashMap(String urlParams){
         HashMap<String, String> query_pairs = new HashMap<String, String>();
         if(urlParams != null && !urlParams.equals("")){
             String[] pairs = urlParams.split("&");
@@ -109,8 +106,12 @@ public class Pagination {
                 }
             }
         }
+        return query_pairs;
+    }
 
+    public String addUrlParam(String urlParams, String key, String value){
 
+        HashMap<String, String> query_pairs = urlParamsToHashMap(urlParams);
         query_pairs.put(key, value);
 
         urlParams = "";
@@ -119,4 +120,52 @@ public class Pagination {
         }
         return urlParams;
     }
+
+    public String getSortUrl(String urlBase, String urlParams, String sortName){
+
+        HashMap<String, String> query_pairs = urlParamsToHashMap(urlParams);
+
+        String order = "ascending";
+        String oldSort  = query_pairs.get("sort");
+
+
+        if(oldSort != null && oldSort.equals(sortName)){
+            String oldOrder = query_pairs.get("order");
+
+            if(oldOrder != null && oldOrder.equals("ascending")){
+                order="descending";
+            }
+        }
+
+        query_pairs.put("sort", sortName);
+        query_pairs.put("order", order);
+        query_pairs.put("page", "1");
+
+        urlParams = "";
+
+        for (Map.Entry<String,String> pair : query_pairs.entrySet()) {
+            urlParams += pair.getKey()+"="+pair.getValue()+"&";
+        }
+        return urlBase+'?'+urlParams;
+    }
+
+    public String getSortClass(String urlParams, String sortName){
+
+        HashMap<String, String> query_pairs = urlParamsToHashMap(urlParams);
+
+        String oldSort=query_pairs.get("sort");
+
+        if(oldSort != null && oldSort.equals(sortName)){
+            String order = query_pairs.get("order");
+
+            if(order != null && order.equals("ascending")){
+                return "sorting_asc";
+            }
+            else{
+                return "sorting_desc";
+            }
+        }
+        return "";
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.season.portal.language;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.validation.BindingResult;
@@ -13,23 +15,26 @@ import java.util.Map;
 
 @RestController
 public class LanguageController {
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     private Map<String, String> getTranslations(Resource rTranslation, String code){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> translation = null;
         Resource rSharedTranslation = new ClassPathResource("/private/language/shared_"+code+
                 ".json");
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, String> translation =  mapper.readValue(rTranslation.getInputStream(), Map.class);
-            Map<String, String> sharedTranslation =  mapper.readValue(rSharedTranslation.getInputStream(), Map.class);
 
+        try {
+            translation =  mapper.readValue(rTranslation.getInputStream(), Map.class);
+
+            Map<String, String> sharedTranslation =  mapper.readValue(rSharedTranslation.getInputStream(), Map.class);
             translation.putAll(sharedTranslation);
             translation.put("code", code);
-            return translation;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
-        return null;
+
+        return translation;
     }
 
     @PostMapping(value={"/getIndexTranslation"})

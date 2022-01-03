@@ -10,7 +10,7 @@
 
     </style>
 
-    <title class="toTranslate" data-langKey="errorHandler_tab_title">Nice</title>
+    <title class="toTranslate" data-langKey="dashboard_tab_title">Nice</title>
 </head>
 <!-- END: Head-->
 
@@ -40,22 +40,8 @@
 
             <!-- -->
             <section id="dashboard">
-                <h2 class="toTranslate"
-                    th:with="langKey=${T(com.season.portal.utils.Utils).gsbk(messages, 'errorTitle', '')}"
-                    th:attr="data-langKey=${langKey}">Error</h2>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between pb-0">
-                        <h4 class="card-title toTranslate mb-2"
-                            th:with="langKey=${T(com.season.portal.utils.Utils).gsbk(messages, 'errorMsg', '')}"
-                            th:attr="data-langKey=${langKey}">
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <button type="button"
-                                class="btn btn-primary waves-effect waves-float waves-light toTranslate"
-                                data-langKey="utils_back" onclick="history.back()">Back</button>
-                    </div>
-                </div>
+                <h2 class="toTranslate" data-langKey="support_new_title">Activations</h2>
+
             </section>
 
         </div>
@@ -69,7 +55,12 @@
 <script>
     $(window).on('load', function() {
         setupLanguage();
+        showInMenu("menu_support_new");
+
     });
+
+
+
 </script>
 
 </body>

@@ -1,10 +1,9 @@
 package com.season.portal.auth;
 
 import com.season.portal.PortalApplication;
-import com.season.portal.auth.model.LoginModel;
-import com.season.portal.dashboard.DashboardController;
-import com.season.portal.language.LanguageService;
-import com.season.portal.utils.validation.PasswordValidator;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,16 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Objects;
 
 @Controller
 public class AuthController {
     @Autowired
     private AuthenticationManager authManager;
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     private boolean validateLogin(HttpServletRequest request, String email, String pass){
 
@@ -46,7 +44,7 @@ public class AuthController {
             }
         }
         catch (Exception ex){
-
+            LOGGER.error(ex.getMessage());
         }
 
         if(!result){
@@ -57,47 +55,45 @@ public class AuthController {
     }
 
     @RequestMapping(value={"/login"})
-    public ModelAndView login(HttpSession httpSession){
-        return loginView(httpSession, new LoginModel());
+    public ModelAndView login(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null || auth instanceof AnonymousAuthenticationToken){
+            return loginView(new LoginModel());
+
+        }
+        return new ModelAndView("redirect:/dashboard");
     }
+
+    @PostMapping(value={"/login"})
+    public ModelAndView login(@Valid LoginModel model, BindingResult result, HttpServletRequest request){
+
+        if(!result.hasErrors()){
+            if(validateLogin(request, model.getEmail(), model.getPassword())){
+                return new ModelAndView("redirect:/dashboard");
+            }
+        }
+
+        return loginView( model);
+    }
+
+
+    private ModelAndView loginView(LoginModel model){
+        ModelAndView mv = new ModelAndView("login");
+
+        mv.addObject("loginModel", model);
+
+        return PortalApplication.addStatus(mv);
+    }
+
     /**/
     @RequestMapping(value={"/logout"})
     public ModelAndView logout(HttpSession httpSession){
 
-        PortalApplication.logout(httpSession);
+        SecurityContextHolder.getContext().setAuthentication(null);
+        httpSession.invalidate();
+
         PortalApplication.addSuccessKey("api_logout_success");
         return new ModelAndView("redirect:/login");
     }
     /**/
-
-
-
-    @PostMapping(value={"/login"})
-    public ModelAndView login(@Valid LoginModel model, BindingResult result, HttpSession httpSession, HttpServletRequest request){
-
-        if(!result.hasErrors()){
-            if(validateLogin(request, model.getEmail(), model.getPassword())){
-
-                if(PortalApplication.login(httpSession, model)){
-                    return new ModelAndView("redirect:/dashboard");
-                }
-                else{
-                    PortalApplication.addSuccessKey("api_login_invalid_session");
-                }
-            }
-
-        }
-
-        return loginView(httpSession, model);
-    }
-
-
-    private ModelAndView loginView(HttpSession httpSession, LoginModel model){
-        ModelAndView mv = new ModelAndView("login");
-
-        mv.addObject("loginModel", model);
-        mv.addObject("userRole", httpSession.getAttribute("USER_ROLE"));
-
-        return PortalApplication.addStatus(mv);
-    }
 }
