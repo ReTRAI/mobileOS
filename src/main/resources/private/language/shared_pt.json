@@ -7,6 +7,7 @@
 	"utils_lang_error":"Ocorreu um erro ao obter as traduções.",
 
 	"errorHandler_tab_title":"Portal | Erro",
+	"api_error_ajax":"Ocorreu um erro a executar este pedido.",
 	"api_error_title":"Erro",
 	"api_error_message":"Ocorreu um erro na realização deste processo.",
 	"api_error_403_title":"Erro 403",
@@ -26,6 +27,7 @@
 	"utils_form_password_atLeast0": "Requer 1 caractere de 3 destas 4 categorias: \n ● Caracteres em minúsculas; \n ● Caracteres maiúsculos; \n ● Números (0-9); \n ● Símbolos ",
 	"utils_form_password_atLeast1": " ;",
 	"utils_form_password_sequence": "A palavra-passe não pode conter um ponto '.' imediatamente antes de um arroba '@'.",
+	"utils_form_langCode_invalid":"Código de idioma inválido",
 
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "pedro@example.com",

@@ -138,6 +138,7 @@
 <th:block th:replace="shared/common :: common-translate"/>
 <script>
     $(window).on('load', function() {
+        $("#login_langCode").val($("#languageSelector").val());
         setupLanguage();
     });
 

@@ -7,9 +7,6 @@ public class PageModel {
     private String sort;
     private String order;
 
-
-
-
     public PageModel() {
         this.page = 1;
         this.numPerPage = 10;

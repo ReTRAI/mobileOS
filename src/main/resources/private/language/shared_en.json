@@ -4,9 +4,10 @@
 	"utils_lang_en":"English",
 	"utils_lang_ru":"русский",
 	
-	"utils_lang_error":"There was an error getting the translations. ",
+	"utils_lang_error":"There was an error getting the translations.",
 
 	"errorHandler_tab_title":"Portal | Error",
+	"api_error_ajax":"An error occurred while performing this request.",
 	"api_error_title":"Error",
 	"api_error_message":"An error occurred while performing this process.",
 	"api_error_403_title":"Error 403",
@@ -26,6 +27,7 @@
 	"utils_form_password_atLeast0": "Requires 1 character from 3 out of this 4 categories:\n ● Lowercase characters;\n ● Uppercase characters;\n ● Numbers (0-9);\n ● Symbols ",
 	"utils_form_password_atLeast1": " ;",
 	"utils_form_password_sequence": "Cannot contain a dot character '.' immediately preceding the '@' symbol",
+	"utils_form_langCode_invalid":"Invalid language code",
 
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "john@example.com",

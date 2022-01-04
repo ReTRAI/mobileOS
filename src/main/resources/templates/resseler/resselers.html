@@ -50,7 +50,7 @@
                         <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
                     </div>
                     <div class="card-body">
-                        <form id="filters" th:object="${stringPageModel}" class="form" method="get" action="/resselers">
+                        <form id="filters" th:object="${stringPageModel}" class="form" method="get" th:action="@{/resselers}">
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">

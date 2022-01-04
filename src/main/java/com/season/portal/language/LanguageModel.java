@@ -1,5 +1,6 @@
 package com.season.portal.language;
 
+import com.season.portal.utils.validation.ILangCodeValidatorConstrain;
 import com.season.portal.utils.validation.IPasswordValidatorConstrain;
 
 import javax.validation.constraints.Email;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 public class LanguageModel {
     @NotNull(message = "utils_form_required")
     @NotBlank(message = "utils_form_required")
+    @ILangCodeValidatorConstrain
     private String code;
 
     public LanguageModel() {
@@ -20,6 +22,6 @@ public class LanguageModel {
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.code = code.toLowerCase();
     }
 }

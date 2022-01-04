@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 //Setting HTTPS
                 .requiresChannel().anyRequest().requiresSecure()
+
                 /*
                 .and().formLogin()
                     .loginPage("/login")

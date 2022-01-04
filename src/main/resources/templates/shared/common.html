@@ -7,9 +7,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui"/>
+    <meta http-equiv="Content-Security-Policy">
 
-    <meta th:name="_csrf" th:content="${_csrf.token}"/>
-    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta th:name="_csrf" th:if="${_csrf}" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:if="${_csrf}" th:content="${_csrf.headerName}"/>
 
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/ico/favicon.ico}"/>
 
@@ -92,22 +93,26 @@
         });
 
         function addErrorByKey(key){
-
+            addStatusByKey(key, "alert-danger");
+        }
+        function addSuccessByKey(key){
+            addStatusByKey(key, "alert-success");
+        }
+        function addStatusByKey(key, clss){
             let status = '';
-            status += '<div class="alert alert-danger alert-dismissible fade show p-2" role="alert">';
+            status += '<div class="alert '+clss+' alert-dismissible fade show p-2" role="alert">';
             status += '    <span class="toTranslate" data-langKey="'+key+'">'+TRANSLATION[key]+'</span>';
             status += '    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
             status += '</div>';
 
             $(".status").append(status);
         }
-
         function showInMenu(id){
             $("#"+id).parents(".has-sub").addClass("open");
             $("#"+id).addClass("active");
         }
 
-        function portalPost(url, data, sFun, eFun){
+        function portalPost(url, data, successFun, errorFun, criticalFun){
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -119,8 +124,38 @@
                     xhr.setRequestHeader(header, token);
                 }
             })
-            .done(sFun)
-            .fail(eFun);
+            .done(function(result){
+                if(result != "" && result != null && result != undefined){
+                    if(result.errorKeys){
+                        for(let i = 0; i < result.errorKeys.length; i++){
+                            addErrorByKey(result.errorKeys[i]);
+                        }
+                    }
+                    if(result.successKeys){
+                        for(let i = 0; i < result.successKeys.length; i++){
+                            addSuccessByKey(result.successKeys[i]);
+                        }
+                    }
+                    if(result.worked){
+                        successFun(result.result);
+                    }
+                    else if (typeof errorFun === 'function') {
+                        errorFun();
+                    }
+                }
+                else{
+                    addErrorByKey("utils_lang_error");
+                    if (typeof criticalFun === 'function') {
+                        criticalFun();
+                    }
+                }
+            })
+            .fail(function translateError(xhr, status, error){
+                addErrorByKey("utils_lang_error");
+                if (typeof criticalFun === 'function') {
+                    criticalFun();
+                }
+            });
         }
     </script>
 </th:block>
@@ -128,9 +163,7 @@
     <script>
         let TRANSLATION = {};
 
-        function translateError(xhr, status, error){
-            addErrorByKey("utils_lang_error");
-        }
+
 
         function changeLanguage(that){
             let code = $(that).attr("data-langcode");
@@ -141,22 +174,17 @@
             translate(code);
         }
 
-        function translateSuccess(json){
-            if(json != ""){
-                TRANSLATION = json;
-                $(".toTranslate").each(function( index ) {
-                    $( this ).text(json[$( this ).attr("data-langKey")]);
-                });
-                $(".toTranslateInput").each(function( index ) {
-                    $( this ).attr("placeholder", json[$( this ).attr("data-langKey")]);
-                });
+        function translateSuccess(result){
+            TRANSLATION = result;
+            $(".toTranslate").each(function( index ) {
+                $( this ).text(TRANSLATION[$( this ).attr("data-langKey")]);
+            });
+            $(".toTranslateInput").each(function( index ) {
+                $( this ).attr("placeholder", TRANSLATION[$( this ).attr("data-langKey")]);
+            });
 
-                $(".lang.active").removeClass("active");
-                $("#lang_"+json["code"]).addClass("active");
-            }
-            else{
-                addErrorByKey("utils_lang_error");
-            }
+            $(".lang.active").removeClass("active");
+            $("#lang_"+TRANSLATION["code"]).addClass("active");
         }
     </script>
 
@@ -173,18 +201,20 @@
             }
 
             translate(code);
-            $("#login_langCode").val(code);
         }
 
         function translate(code){
-            portalPost("/getIndexTranslation", {"code":code}, translateSuccess, translateError);
+            portalPost("/getIndexTranslation", {"code":code}, translateSuccess, translateError, translateError);
         }
 
+        function translateError(){
+            $("#languageSelector").val(TRANSLATION["code"]);
+        }
 
     </script>
     <script  sec:authorize="isAuthenticated()">
         function translate(code){
-            portalPost("/getTranslation", {"code":code}, translateSuccess, translateError);
+            portalPost("/getTranslation", {"code":code}, translateSuccess);
         }
 
         function setupLanguage(){
