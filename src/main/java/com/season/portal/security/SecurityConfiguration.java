@@ -36,32 +36,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
         /**/
-        http.authorizeRequests()
-                .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
-                .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
-                .antMatchers("/dashboard", "/getTranslation").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
-                .antMatchers( "/getIndexTranslation").permitAll()
-                .antMatchers( "/errorHandler", "/error").permitAll()
-                .and()
-                //Setting HTTPS
-                .requiresChannel().anyRequest().requiresSecure()
+        http
+            .authorizeRequests()
+            .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
+            .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
+            .antMatchers("/dashboard", "/getTranslation").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
+            .antMatchers( "/getIndexTranslation").permitAll()
+            .antMatchers( "/errorHandler", "/error").permitAll()
+            .and()
+            //Setting HTTPS
+            .requiresChannel().anyRequest().requiresSecure()
 
-                /*
-                .and().formLogin()
-                    .loginPage("/login")
-                    .failureHandler((req,res,exp)->{  // Failure handler invoked after authentication failure
+            /*
+            .and().formLogin()
+                .loginPage("/login")
+                .failureHandler((req,res,exp)->{  // Failure handler invoked after authentication failure
 
-                        res.sendRedirect("/loginError"); // Redirect user to login page with error message.
-                    })
-                    .defaultSuccessUrl("/dashboard")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .permitAll()
-                */
-                .and()
-                .logout().logoutSuccessUrl("/login")
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+                    res.sendRedirect("/loginError"); // Redirect user to login page with error message.
+                })
+                .defaultSuccessUrl("/dashboard")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .permitAll()
+            */
+            .and()
+            .logout().logoutSuccessUrl("/login")
+            .and()
+            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+        ;
 
         /**/
     }

@@ -6,6 +6,7 @@ import com.season.portal.utils.validation.LangCodeValidator;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
 import org.slf4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -47,6 +48,13 @@ public class PortalApplication {
 				collection.addPattern("/*");
 				securityConstraint.addCollection(collection);
 				context.addConstraint(securityConstraint);
+
+				// Define Same site cookie parameter
+				Rfc6265CookieProcessor rfc6265CookieProcessor = new Rfc6265CookieProcessor();
+				rfc6265CookieProcessor.setSameSiteCookies("Strict");
+				context.setCookieProcessor(rfc6265CookieProcessor);
+
+
 
 			}
 		};
