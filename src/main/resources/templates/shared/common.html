@@ -126,7 +126,7 @@
             $("#"+id).addClass("active");
         }
 
-        function portalPost(url, data, successFun, errorFun, criticalFun){
+        function portalPost(url, data, successFun, errorFun, exceptionFun){
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -158,16 +158,20 @@
                     }
                 }
                 else{
-                    addErrorByKey("utils_lang_error");
+                    addErrorByKey("api_error_ajax");
                     if (typeof criticalFun === 'function') {
-                        criticalFun();
+                        exceptionFun();
                     }
                 }
             })
-            .fail(function translateError(xhr, status, error){
-                addErrorByKey("utils_lang_error");
+            .fail(function (xhr, status, error){
+                if(xhr.status == 403){
+                    addErrorByKey("api_error_sessionExpired");
+                }else{
+                    addErrorByKey("api_error_ajax");
+                }
                 if (typeof criticalFun === 'function') {
-                    criticalFun();
+                    exceptionFun();
                 }
             });
         }
@@ -176,8 +180,6 @@
 <th:block th:fragment="common-translate">
     <script>
         let TRANSLATION = {};
-
-
 
         function changeLanguage(that){
             let code = $(that).attr("data-langcode");
@@ -218,19 +220,24 @@
         }
 
         function translate(code){
-            portalPost("/getIndexTranslation", {"code":code}, translateSuccess, translateError, translateError);
+            portalPost("/getIndexTranslation", {"code":code}, translateSuccess, translateError, translateException);
         }
 
         function translateError(){
+            addErrorByKey("utils_lang_error");
             $("#languageSelector").val(TRANSLATION["code"]);
         }
-
+        function translateException(){
+            $("#languageSelector").val(TRANSLATION["code"]);
+        }
     </script>
     <script  sec:authorize="isAuthenticated()">
         function translate(code){
-            portalPost("/getTranslation", {"code":code}, translateSuccess);
+            portalPost("/getTranslation", {"code":code}, translateSuccess, translateError);
         }
-
+        function translateError(){
+            addErrorByKey("utils_lang_error");
+        }
         function setupLanguage(){
             let code = $(".lang.active").attr("data-langcode");
 

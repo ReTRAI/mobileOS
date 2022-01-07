@@ -5,9 +5,12 @@
 	"utils_lang_ru":"русский",
 	
 	"utils_lang_error":"There was an error getting the translations.",
-
+	
+	"api_error_sessionExpired":"Session expired, relogin to access this resource.",
+	
 	"errorHandler_tab_title":"Portal | Error",
 	"api_error_ajax":"An error occurred while performing this request.",
+	
 	"api_error_title":"Error",
 	"api_error_message":"An error occurred while performing this process.",
 	"api_error_403_title":"Error 403",

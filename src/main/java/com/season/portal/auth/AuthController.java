@@ -26,6 +26,7 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authManager;
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final int SESSION_MAX_INACTIVE_TIME_SEC = 300;
 
     private boolean validateLogin(HttpServletRequest request, String email, String pass){
 
@@ -38,6 +39,7 @@ public class AuthController {
             sc.setAuthentication(auth);
             HttpSession session = request.getSession(true);
             session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
+            session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
 
             if(auth.isAuthenticated()){
                result = true;

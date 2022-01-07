@@ -27,48 +27,23 @@ import java.util.HashMap;
 public class ErrorHandlerController implements ErrorController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    //Vem do CustomAccessDeniedHandler
-    @RequestMapping(value={"/securityErrorHandler"})
-    public ModelAndView errorHandler(HttpServletRequest request){
-        ModelAndView mv = new ModelAndView("errorHandler");
-        mv.addObject("errorTitle", request.getAttribute("errorTitle"));
-        mv.addObject("errorMsg", request.getAttribute("errorMsg"));
-        return PortalApplication.addStatus(mv);
-    }
-
-    //geral da aplicação
     @RequestMapping(value={"/error"})
     public ModelAndView error(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new ModelAndView("errorHandler");
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         mv.addObject("errorTitle","api_error_title");
         mv.addObject("errorMsg","api_error_message");
 
         PortalApplication.log(LOGGER, request, "Status code: "+response.getStatus());
 
-        if(status != null){
-
-            switch(status.toString()){
-                case "404":
-                case "403":
-                    mv.addObject("errorTitle","api_error_"+status.toString()+"_title");
-                    mv.addObject("errorMsg","api_error_"+status.toString()+"_message");
-                    break;
-            }
+        switch(response.getStatus()){
+            case 404:
+            case 403:
+                mv.addObject("errorTitle","api_error_"+response.getStatus()+"_title");
+                mv.addObject("errorMsg","api_error_"+response.getStatus()+"_message");
+                break;
         }
 
         return PortalApplication.addStatus(mv);
     }
-    /*
-    @PostMapping(value={"/error"})
-    public RestModel getTranslation(HttpServletRequest request, HttpServletResponse response) {
-        RestModel restModel = new RestModel();
-
-        PortalApplication.log(LOGGER, request, "Status code: "+response.getStatus());
-        restModel.addErrorKey("api_error_message");
-
-        return PortalApplication.addStatus(restModel);
-    }
-    */
 }

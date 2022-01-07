@@ -9,10 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -67,11 +71,17 @@ public class LanguageController {
     public RestHashMapModel getTranslation(@Valid LanguageModel model, BindingResult result, HttpServletRequest request) {
         RestHashMapModel restModel = new RestHashMapModel();
         if(!result.hasErrors()){
-            Resource resource = new ClassPathResource("/private/language/translation_"+model.getCode()+".json");
-            HashMap<String, String> r = getTranslations(resource, model.getCode());
-            if(r != null)
-                restModel.setResult(r, true);
 
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if(auth == null || auth instanceof AnonymousAuthenticationToken){
+                restModel.addErrorKey("api_error_sessionExpired");
+            }
+            else{
+                Resource resource = new ClassPathResource("/private/language/translation_"+model.getCode()+".json");
+                HashMap<String, String> r = getTranslations(resource, model.getCode());
+                if(r != null)
+                    restModel.setResult(r, true);
+            }
         }
         else{
             PortalApplication.addErrorKey(result);
