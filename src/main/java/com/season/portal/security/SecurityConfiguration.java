@@ -38,19 +38,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .requiresChannel().anyRequest().requiresSecure()
 
             .and()
-            .authorizeRequests()
-                .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
-                .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
-                .antMatchers("/dashboard").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
-                .antMatchers( "/getTranslation").permitAll()
-                .antMatchers( "/getIndexTranslation").permitAll()
-                .antMatchers( "/errorHandler", "/error").permitAll()
+                .authorizeRequests()
+                    .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
+                    .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
+                    .antMatchers("/dashboard").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
+                    .antMatchers( "/", "/login").permitAll()
+                    .antMatchers( "/getIndexTranslation").permitAll()
+                    .antMatchers( "/errorHandler", "/error").permitAll()
+                    .antMatchers( "/css/**", "/ico/**", "/js/**", "/media/**", "/vendors/**").permitAll()
+                    .anyRequest().authenticated()
+            .and()
+                .x509()
+            .and()
+                .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/login")
 
             .and()
-            .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/login")
-
-            .and()
-            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
         ;
 
         /**/

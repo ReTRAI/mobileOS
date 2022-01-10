@@ -35,46 +35,6 @@ public class PortalApplication {
 		SpringApplication.run(PortalApplication.class, args);
 	}
 
-	//https://www.youtube.com/watch?v=HLSmjZ5vN0w
-	@Bean
-	public ServletWebServerFactory servletContainer(){
-		// Enable SSL Trafic
-		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory(){
-			@Override
-			protected void postProcessContext(org.apache.catalina.Context context) {
-				SecurityConstraint securityConstraint = new SecurityConstraint();
-				securityConstraint.setUserConstraint("CONFIDENTIAL");
-				SecurityCollection collection = new SecurityCollection();
-				collection.addPattern("/*");
-				securityConstraint.addCollection(collection);
-				context.addConstraint(securityConstraint);
-
-				// Define Same site cookie parameter
-				Rfc6265CookieProcessor rfc6265CookieProcessor = new Rfc6265CookieProcessor();
-				rfc6265CookieProcessor.setSameSiteCookies("Strict");
-				context.setCookieProcessor(rfc6265CookieProcessor);
-
-
-
-			}
-		};
-
-		tomcat.addAdditionalTomcatConnectors( httpToHttpsRedicetConnector());
-		return tomcat;
-	}
-
-	private Connector httpToHttpsRedicetConnector() {
-		int normalport = 8080;
-		int securePort = 8443;
-		Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
-		connector.setScheme("http");
-		connector.setPort(normalport);
-		connector.setSecure(false);
-		connector.setRedirectPort(securePort);
-		return connector;
-	}
-
-
 	public static void addErrorKey(String sKey) {
 		errorKeys.add(sKey);
 	}
@@ -119,6 +79,11 @@ public class PortalApplication {
 		return pr;
 	}
 
+	private static void clearStatus() {
+		errorKeys = new ArrayList<>();
+		successKeys = new ArrayList<>();
+	}
+
 	public static void log(Logger LOGGER, String msg){
 		LOGGER.error(msg+ "\n-----------------------------------------------\n");
 	}
@@ -147,8 +112,5 @@ public class PortalApplication {
 	}
 
 
-	private static void clearStatus() {
-		errorKeys = new ArrayList<>();
-		successKeys = new ArrayList<>();
-	}
+
 }
