@@ -8,6 +8,7 @@ import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -21,6 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +32,7 @@ import java.util.List;
 @SpringBootApplication
 public class PortalApplication {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private static ArrayList<String> errorKeys = new ArrayList<>();
 	private static ArrayList<String> successKeys = new ArrayList<>();
 
@@ -56,7 +61,7 @@ public class PortalApplication {
 		mv.addObject("successKeys",successKeys);
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth.isAuthenticated()){
+		if(auth != null && auth.isAuthenticated()){
 
 			ArrayList<Notification> notifications = new ArrayList<Notification>();
 			notifications.add(new Notification(1l, "login/", "Login", "go to login page"));
@@ -111,6 +116,65 @@ public class PortalApplication {
 		log(LOGGER, logMsg);
 	}
 
+	public static void logout(HttpServletRequest request){
+		invalidateSSLSession(request);
+
+		request.setAttribute("javax.servlet.request.X509Certificate", "");
+
+		HttpSession session= request.getSession(false);
+		if(session != null) {
+			session.invalidate();
+		}
+
+		SecurityContextHolder.getContext().setAuthentication(null);
+		SecurityContextHolder.clearContext();
+	}
+
+	public static boolean invalidateSSLSession(HttpServletRequest httpRequest) {
+		Logger LOGGER = LoggerFactory.getLogger(PortalApplication.class);
+
+         /*
+        SSLSessionManager mgr =(SSLSessionManager)request.getAttribute("javax.servlet.request.ssl_session_mgr");
+        if(mgr != null) {
+            mgr.invalidateSession();
+        }
+        try {
+            final SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init( null, null, null );
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        }catch (Exception e){
+            LOGGER.error("Failed to get SSLContext: " + e.getMessage(), e);
+        }
+        */
+
+
+		Method invalidateSessionMethod = null;
+		Object mgr = httpRequest.getAttribute("javax.servlet.request.ssl_session_mgr");
+		if (mgr != null) {
+			try {
+				invalidateSessionMethod =
+						mgr.getClass().getMethod("invalidateSession");
+				if (invalidateSessionMethod == null) {
+					log(LOGGER, "Failed to reset SSL: failed to return method");
+				}
+
+				invalidateSessionMethod.setAccessible(true);
+			} catch (Exception e) {
+				log(LOGGER, e);
+			}
+
+			// Invalidate the session
+			try {
+				invalidateSessionMethod.invoke(mgr);
+				return true;
+			} catch (Exception e) {
+				log(LOGGER, e);
+			}
+		}
+
+		return false;
+	}
 
 
 }

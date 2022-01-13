@@ -1,5 +1,6 @@
 {
 	"api_login_invalid": "Email ou palavra-chave inválida.",
+	"api_login_invalid_mismatch": "Utilizador incompativel.",
 	"api_logout_success": "Logout efetuado com sucesso.",
 	"api_login_invalid_session": "Ocorreu um erro a criar a sessão.",
 

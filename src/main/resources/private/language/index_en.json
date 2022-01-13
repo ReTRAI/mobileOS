@@ -1,5 +1,6 @@
 {
 	"api_login_invalid": "Invalid email or password",
+	"api_login_invalid_mismatch": "User mismatch.",
 	"api_logout_success": "Successfully logged out.",
 	"api_login_invalid_session": "There was an error creating the session.",
 

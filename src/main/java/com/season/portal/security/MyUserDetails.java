@@ -17,9 +17,18 @@ public class MyUserDetails implements UserDetails {
     public MyUserDetails(String userName){
         this.userName = userName;
         password = "Qwerty123";
-        GrantedAuthority a = new SimpleGrantedAuthority("ROLE_RESSELER");
+        GrantedAuthority a = new SimpleGrantedAuthority("ROLE_SUPPORT");
         authorities = new ArrayList<GrantedAuthority>();
         authorities.add(a);
+    }
+
+    public MyUserDetails(String userName, String sufixRole){
+        this(userName);
+        for (int i = authorities.toArray().length-1; i >=0; i--) {
+            String authorotyName = authorities.get(i).toString();
+            GrantedAuthority a = new SimpleGrantedAuthority(authorotyName+sufixRole);
+            authorities.add(a);
+        }
     }
 
     @Override

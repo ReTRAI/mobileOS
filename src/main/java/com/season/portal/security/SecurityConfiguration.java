@@ -12,6 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+
+import javax.annotation.Resource;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -24,12 +28,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
-
-
+    /*
+    @Resource
+    CustomAuthProvider customAuthProvider;
+    */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.userDetailsService(userDetailsService);
+        //auth.authenticationProvider(customAuthProvider);
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,23 +48,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             .and()
                 .authorizeRequests()
-                    .antMatchers("/resselers","/resseler/**").hasRole("ADMIN")
+                    .antMatchers("/resselers","/resseler/**").hasAnyRole("ADMIN")
                     .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
                     .antMatchers("/dashboard").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
-                    .antMatchers( "/", "/login").permitAll()
+
+                    .antMatchers( "/", "/login", "/logout").permitAll()
                     .antMatchers( "/getIndexTranslation").permitAll()
                     .antMatchers( "/errorHandler", "/error").permitAll()
                     .antMatchers( "/css/**", "/ico/**", "/js/**", "/media/**", "/vendors/**").permitAll()
                     .anyRequest().authenticated()
             .and()
-                .x509()
-            .and()
-                .logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/login")
+                //.x509()
+                //.x509AuthenticationFilter(getCustomFilter())
 
-            .and()
+                //.and()
+                .logout()
+                    .clearAuthentication(true)
+                    .invalidateHttpSession(true)
+
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessUrl("/login")
+                    .addLogoutHandler(new HeaderWriterLogoutHandler(
+                        new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL)))
+                .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
         ;
-
         /**/
     }
 

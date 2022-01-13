@@ -105,7 +105,18 @@
                 });
             }
         });
-
+        function clearSSLState() {
+            try{
+                document.execCommand("ClearAuthenticationCache");
+                if(window.crypto){
+                    window.crypto.logout();
+                }
+            }
+            catch (e) {
+                //console.log("clearSSLState");
+                //console.error(e);
+            }
+        }
         function addErrorByKey(key){
             addStatusByKey(key, "alert-danger");
         }
@@ -139,6 +150,7 @@
                 }
             })
             .done(function(result){
+
                 if(result != "" && result != null && result != undefined){
                     if(result.errorKeys){
                         for(let i = 0; i < result.errorKeys.length; i++){
@@ -204,7 +216,8 @@
         }
     </script>
 
-    <script  sec:authorize="!isAuthenticated()">
+    <!--  sec:authorize="!isAuthenticated()"   sec:authorize="!hasRole('ROLE_IS_LOGGED')"-->
+    <script sec:authorize="!isAuthenticated()" >
         function setupLanguage(){
             //for index
             let code = $("#languageSelector").val();
@@ -231,7 +244,9 @@
             $("#languageSelector").val(TRANSLATION["code"]);
         }
     </script>
-    <script  sec:authorize="isAuthenticated()">
+
+    <!--sec:authorize="isAuthenticated()"-->
+    <script sec:authorize="isAuthenticated()">
         function translate(code){
             portalPost("/getTranslation", {"code":code}, translateSuccess, translateError);
         }

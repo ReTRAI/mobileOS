@@ -27,4 +27,9 @@ public class MyUserDetailsService implements UserDetailsService {
 
         return result;
     }
+
+    public UserDetails loadToLogin(String username) throws UsernameNotFoundException {
+        UserDetails result = new MyUserDetails(username, "_LOGGED");
+        return result;
+    }
 }
