@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @Controller
@@ -15,7 +16,7 @@ public class DashboardController {
         return dashboardView();
     }
 
-    public ModelAndView dashboardView(){
+    private ModelAndView dashboardView(){
         ModelAndView mv = new ModelAndView("dashboard");
 
         HashMap<String, String> overview = new HashMap<String, String>();

@@ -58,6 +58,7 @@
 
                                 <li class="scrollable-container media-list">
                                     <th:block th:each="notification : ${notifications}">
+                                        <!--<p th:text="${session.CERTIFICATION_VALIDITY}"></p>-->
                                         <a class="d-flex"
 
                                            th:href="${(notification.getPath() == '')?'#':notification.getPath()}">
@@ -99,6 +100,8 @@
             </div>
         </nav>
     </header>
+
+
 </th:block>
 
 </body>

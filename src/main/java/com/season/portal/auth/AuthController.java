@@ -32,6 +32,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.season.portal.utils.Utils.certificateExpireIn;
 
 
 @Controller
@@ -40,7 +44,7 @@ public class AuthController {
     private AuthenticationManager authManager;
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    private final int SESSION_MAX_INACTIVE_TIME_SEC = 300;
+    private final int SESSION_MAX_INACTIVE_TIME_SEC = 10;
 
     private boolean validateLogin(HttpServletRequest request, String email, String pass){
 
@@ -50,6 +54,8 @@ public class AuthController {
         X509Certificate[] certificates = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate");
         if (certificates != null && certificates.length > 0) {
             certificateEmail = Utils.parseCertificate(certificates[0].getSubjectX500Principal(), "CN");
+
+
         }
 
         if(certificateEmail.equals(email)){
@@ -65,6 +71,10 @@ public class AuthController {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
                     session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
+
+
+                    int expireIn = certificateExpireIn(certificates[0]);
+                    session.setAttribute("CERTIFICATION_VALIDITY", expireIn);
 
                     result = true;
                 }
@@ -122,10 +132,10 @@ public class AuthController {
     @RequestMapping(value={"/logout"})
     public void logout(HttpServletRequest request, HttpServletResponse response){
 
-        PortalApplication.logout(request);
+        PortalApplication.logout(request, response);
         PortalApplication.addSuccessKey("api_logout_success");
 
-        response.addHeader("Connection", "close");// open new socket next time
+
         //response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setStatus(HttpServletResponse.SC_FOUND);
         response.setHeader("Location", "https://localhost:8443/login");
@@ -140,6 +150,4 @@ public class AuthController {
         //return new ModelAndView("redirect:/login");
         //return loginView(new LoginModel());
     }
-
-    /**/
 }

@@ -37,9 +37,8 @@ public class TransactionInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        PortalApplication.logout(request);
+        PortalApplication.logout(request, response);
         PortalApplication.addErrorKey("api_error_sessionExpired");
-        response.addHeader("Connection", "close");
 
         response.setStatus(HttpServletResponse.SC_FOUND);
         response.setHeader("Location", "https://localhost:8443/login");

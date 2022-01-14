@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,7 +21,7 @@ public class ResselerController {
         return resselersView(model);
     }
 
-    public ModelAndView resselersView(StringPageModel model){
+    private ModelAndView resselersView(StringPageModel model){
         ModelAndView mv = new ModelAndView("resseler/resselers");
 
         ArrayList<Resseler> resselers = new ArrayList<Resseler>();

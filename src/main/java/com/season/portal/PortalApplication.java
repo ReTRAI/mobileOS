@@ -3,17 +3,10 @@ package com.season.portal;
 import com.season.portal.notifications.Notification;
 import com.season.portal.utils.model.RestModel;
 import com.season.portal.utils.validation.LangCodeValidator;
-import org.apache.catalina.connector.Connector;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
@@ -21,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,6 +22,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.season.portal.utils.Utils.certificateExpireIn;
 
 @SpringBootApplication
 public class PortalApplication {
@@ -116,7 +112,7 @@ public class PortalApplication {
 		log(LOGGER, logMsg);
 	}
 
-	public static void logout(HttpServletRequest request){
+	public static void logout(HttpServletRequest request, HttpServletResponse response){
 		invalidateSSLSession(request);
 
 		request.setAttribute("javax.servlet.request.X509Certificate", "");
@@ -128,6 +124,9 @@ public class PortalApplication {
 
 		SecurityContextHolder.getContext().setAuthentication(null);
 		SecurityContextHolder.clearContext();
+
+		response.addHeader("Connection", "close");// open new socket next time
+
 	}
 
 	public static boolean invalidateSSLSession(HttpServletRequest httpRequest) {

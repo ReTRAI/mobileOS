@@ -38,9 +38,19 @@ public class ErrorHandlerController implements ErrorController {
 
         switch(response.getStatus()){
             case 404:
-            case 403:
                 mv.addObject("errorTitle","api_error_"+response.getStatus()+"_title");
                 mv.addObject("errorMsg","api_error_"+response.getStatus()+"_message");
+                break;
+            case 403:
+                mv.addObject("errorTitle","api_error_"+response.getStatus()+"_title");
+
+                HttpSession session = request.getSession(false);
+                if(session.isNew()){
+                    mv.addObject("errorMsg","api_error_sessionExpired");
+                }
+                else{
+                    mv.addObject("errorMsg","api_error_"+response.getStatus()+"_message");
+                }
                 break;
         }
 

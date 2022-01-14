@@ -58,19 +58,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers( "/css/**", "/ico/**", "/js/**", "/media/**", "/vendors/**").permitAll()
                     .anyRequest().authenticated()
             .and()
-                //.x509()
-                //.x509AuthenticationFilter(getCustomFilter())
-
-                //.and()
                 .logout()
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
-
                     .deleteCookies("JSESSIONID")
+
                     .logoutSuccessUrl("/login")
                     .addLogoutHandler(new HeaderWriterLogoutHandler(
                         new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL)))
-                .and()
+            .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
         ;
         /**/

@@ -2,6 +2,8 @@ package com.season.portal.utils;
 
 import javax.security.auth.x500.X500Principal;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Utils {
@@ -31,5 +33,16 @@ public class Utils {
         }
 
         return result;
+    }
+    public static int certificateExpireIn(X509Certificate certificate){
+        Date certExpiryDate = certificate.getNotAfter();
+        Date today = new Date();
+        long dateDiff = (certExpiryDate.getTime() - today.getTime());
+        long expiresIn = dateDiff / (24 * 60 * 60 * 1000);
+        /** /
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+        String text =("Expires On: " + certExpiryDate + "\tFormated Date: " + ft.format(certExpiryDate) + "\tToday's Date: " + ft.format(today) + "\tExpires In: "+ expiresIn);
+        /**/
+        return (int)expiresIn;
     }
 }
