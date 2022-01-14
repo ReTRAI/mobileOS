@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org">
+<!-- BEGIN: Head-->
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/tables/datatable/dataTables.bootstrap5.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/pickers/flatpickr/flatpickr.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/plugins/forms/pickers/form-flat-pickr.min.css}" />
+    <th:block th:replace="shared/common :: common-style"/>
+
+    <style>
+    </style>
+
+    <title class="toTranslate" data-langKey="devices_tab_title">Portal</title>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+<!-- BEGIN: Header-->
+<th:block th:replace="shared/header :: header"/>
+<!-- END: Header-->
+
+<!-- BEGIN: Main Menu-->
+<th:block th:replace="shared/sidemenu :: sideMenu"/>
+<!-- END: Main Menu-->
+
+
+<!-- BEGIN: Content-->
+<th:block th:with="baseUrl=${#httpServletRequest.requestURI}, queryUrl=${#httpServletRequest.queryString}">
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <th:block th:replace="shared/common :: common-status"/>
+        </div>
+
+        <div class="content-body">
+
+            <!-- -->
+            <section id="devices">
+                <h2 class="toTranslate" data-langKey="devices_title">Devices</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="filters" th:object="${deviceModel}" class="form" method="get"
+                              th:action="@{/devices}">
+                            <div class="row">
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-active"
+                                               data-langKey="utils_form_active">Name or Id</label>
+                                        <select id="filter-active" class="form-select" th:field="*{active}"
+                                             >
+                                            <option th:value="-1" class="toTranslate" data-langKey="utils_all"></option>
+                                            <option th:value="1" class="toTranslate" data-langKey="utils_yes"></option>
+                                            <option th:value="0" class="toTranslate" data-langKey="utils_no"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-free"
+                                               data-langKey="utils_form_free">Free</label>
+                                        <select id="filter-free" class="form-select" th:field="*{free}">
+                                            <option th:value="-1" class="toTranslate" data-langKey="utils_all"></option>
+                                            <option th:value="1" class="toTranslate" data-langKey="utils_yes"></option>
+                                            <option th:value="0" class="toTranslate" data-langKey="utils_no"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-wiped"
+                                               data-langKey="utils_form_wiped">Wiped</label>
+                                        <select id="filter-wiped" class="form-select" th:field="*{wiped}">
+                                            <option th:value="-1" class="toTranslate" data-langKey="utils_all"></option>
+                                            <option th:value="1" class="toTranslate" data-langKey="utils_yes"></option>
+                                            <option th:value="0" class="toTranslate" data-langKey="utils_no"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-blocked"
+                                               data-langKey="utils_form_blocked">Blocked</label>
+                                        <select id="filter-blocked" class="form-select" th:field="*{blocked}">
+                                            <option th:value="-1" class="toTranslate" data-langKey="utils_all"></option>
+                                            <option th:value="1" class="toTranslate" data-langKey="utils_yes"></option>
+                                            <option th:value="0" class="toTranslate" data-langKey="utils_no"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-suspended"
+                                               data-langKey="utils_form_suspended">suspended</label>
+                                        <select id="filter-suspended" class="form-select" th:field="*{suspended}">
+                                            <option th:value="-1" class="toTranslate" data-langKey="utils_all"></option>
+                                            <option th:value="1" class="toTranslate" data-langKey="utils_yes"></option>
+                                            <option th:value="0" class="toTranslate" data-langKey="utils_no"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="mb-0 toTranslate" data-langKey="utils_form_expireBetween">Expira entre:</p>
+                            <div class="row">
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-startDate"
+                                               data-langKey="utils_form_startDate">suspended</label>
+                                        <div class="input-group input-group-merge"
+                                             th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}">
+                                            <input type="text" id="filter-startDate"
+                                                   th:field="*{startDate}"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput"
+                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                            <span class="input-group-text cursor-pointer"
+                                                  onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
+                                        </div>
+                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startDate')}"
+                                           th:attr="data-langKey=${err}"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-endDate"
+                                               data-langKey="utils_form_endDate">suspended</label>
+                                        <div class="input-group input-group-merge"
+                                             th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}">
+                                            <input type="text" id="filter-endDate"
+                                                   th:field="*{endDate}"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput"
+                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                            <span class="input-group-text cursor-pointer"
+                                                    onclick="$('#filter-endDate').val('')"><i data-feather="x"></i></span>
+                                        </div>
+                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endDate')}"
+                                           th:attr="data-langKey=${err}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-1">
+                                        <div class="fake-label">
+                                            <button type="submit"
+                                                    class="btn btn-primary me-1 waves-effect waves-float waves-light toTranslate" data-langKey="utils_submit">Submit</button>
+                                            <button type="button" onclick="resetForm('filters')"
+                                                    class="btn btn-outline-secondary waves-effect toTranslate"
+                                                    data-langKey="utils_reset">
+                                                Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-responsive dataTables_wrapper">
+                        <table class="table table-striped dataTable ">
+                            <thead>
+                                <tr>
+                                    <th class="toTranslate" data-langKey="utils_table_id">Id</th>
+                                    <th class="toTranslate text-center" data-langKey="utils_table_active">Active</th>
+                                    <th class="toTranslate text-center" data-langKey="utils_table_free">Free</th>
+                                    <th class="toTranslate text-center" data-langKey="utils_table_wiped">Wiped</th>
+                                    <th class="toTranslate text-center" data-langKey="utils_table_blocked">Blocked</th>
+                                    <th class="toTranslate text-center" data-langKey="utils_table_suspended">Suspended</th>
+
+                                    <th class="sorting toTranslate text-center" data-langKey="utils_table_expireDate"
+                                        th:with="sortName='expireDate'"
+                                        th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                        th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                        >Expire Date</th>
+
+                                    <th class="toTranslate text-center" data-langKey="utils_table_actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="device : ${devices}">
+                                    <td th:text="${device.getGuid()}"></td>
+                                    <td class="text-center">
+                                       <span th:attr="data-feather=${device.isActive()?'check-circle':'circle'}"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span th:attr="data-feather=${device.isFree()?'check-circle':'circle'}"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span th:attr="data-feather=${device.isWiped()?'check-circle':'circle'}"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span th:attr="data-feather=${device.isBlocked()?'check-circle':'circle'}"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span th:attr="data-feather=${device.isSuspended()?'check-circle':'circle'}"></span>
+                                    </td>
+                                    <td class="text-center"
+                                        th:text="${T(com.season.portal.utils.Utils).dateToStr(device.getExpire())}">
+                                    </td>
+                                    <td>
+                                        <div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer">
+
+                            <th:block
+                                    th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${Pagination}, ${devices.size()} )"/>
+
+
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+</div>
+</th:block>
+<!-- END: Content-->
+
+<th:block th:replace="shared/common :: common-script"/>
+<th:block th:replace="shared/common :: common-translate"/>
+<script th:src="@{/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
+<script>
+    $(window).on('load', function() {
+        setupLanguage();
+        showInMenu("menu_devices");
+        $('.flatpickr-basic').flatpickr();
+    });
+
+    function resetForm(formId){
+        $("#filter-active").val("-1");
+        $("#filter-free").val("-1");
+        $("#filter-wiped").val("-1");
+        $("#filter-blocked").val("-1");
+        $("#filter-suspended").val("-1");
+        $("#filter-startDate").val("");
+        $("#filter-endDate").val("");
+        $("#"+formId).submit();
+    }
+</script>
+
+</body>
+<!-- END: Body-->
+
+</html>

@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
                     .antMatchers("/resselers","/resseler/**").hasAnyRole("ADMIN")
+                    .antMatchers("/devices","/device").hasAnyRole("ADMIN")
                     .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
                     .antMatchers("/dashboard").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
 

@@ -17,7 +17,7 @@ public class MyUserDetails implements UserDetails {
     public MyUserDetails(String userName){
         this.userName = userName;
         password = "Qwerty123";
-        GrantedAuthority a = new SimpleGrantedAuthority("ROLE_SUPPORT");
+        GrantedAuthority a = new SimpleGrantedAuthority("ROLE_ADMIN");
         authorities = new ArrayList<GrantedAuthority>();
         authorities.add(a);
     }

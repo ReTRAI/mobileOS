@@ -44,7 +44,7 @@ public class AuthController {
     private AuthenticationManager authManager;
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    private final int SESSION_MAX_INACTIVE_TIME_SEC = 10;
+    private final int SESSION_MAX_INACTIVE_TIME_SEC = 300;
 
     private boolean validateLogin(HttpServletRequest request, String email, String pass){
 
@@ -54,8 +54,6 @@ public class AuthController {
         X509Certificate[] certificates = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate");
         if (certificates != null && certificates.length > 0) {
             certificateEmail = Utils.parseCertificate(certificates[0].getSubjectX500Principal(), "CN");
-
-
         }
 
         if(certificateEmail.equals(email)){
@@ -71,7 +69,6 @@ public class AuthController {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
                     session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
-
 
                     int expireIn = certificateExpireIn(certificates[0]);
                     session.setAttribute("CERTIFICATION_VALIDITY", expireIn);

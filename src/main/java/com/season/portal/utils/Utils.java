@@ -2,6 +2,7 @@ package com.season.portal.utils;
 
 import javax.security.auth.x500.X500Principal;
 import java.security.cert.X509Certificate;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,4 +46,45 @@ public class Utils {
         /**/
         return (int)expiresIn;
     }
+    public static String dateToStr(Date d){
+        return dateToStr(d, new SimpleDateFormat ("yyyy-MM-dd"));
+    }
+    public static String dateTimeToStr(Date d){
+        return dateToStr(d, new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"));
+    }
+    public static String timeToStr(Date d){
+        return dateToStr(d, new SimpleDateFormat ("HH:mm:ss"));
+    }
+    public static String dateToStr(Date d, String pattern){
+        return dateToStr(d, new SimpleDateFormat (pattern));
+    }
+    public static String dateToStr(Date d, SimpleDateFormat ft){
+        String result = "";
+        if(d != null)
+            result = ft.format(d);
+        return result;
+    }
+    public static Date strToDate(String strDate){
+        return strToDate(strDate, new SimpleDateFormat ("yyyy-MM-dd"));
+    }
+    public static Date strToDateTime(String strDate){
+        return strToDate(strDate, new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"));
+    }
+    public static Date strToTime(String strDate){
+        return strToDate(strDate, new SimpleDateFormat ("HH:mm:ss"));
+    }
+    public static Date strToDate(String strDate, String pattern){
+        return strToDate(strDate, new SimpleDateFormat (pattern));
+    }
+    public static Date strToDate(String s, SimpleDateFormat ft){
+        Date result = null;
+        try {
+            result = ft.parse(s);
+        } catch (ParseException e) {
+            //e.printStackTrace();
+        }
+        return result;
+    }
+
+
 }

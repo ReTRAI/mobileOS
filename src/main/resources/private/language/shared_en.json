@@ -31,6 +31,7 @@
 	"utils_form_password_atLeast1": " ;",
 	"utils_form_password_sequence": "Cannot contain a dot character '.' immediately preceding the '@' symbol",
 	"utils_form_langCode_invalid":"Invalid language code",
+	"utils_form_date_invalid":"Invalid date format",
 
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "john@example.com",

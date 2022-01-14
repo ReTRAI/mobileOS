@@ -8,3 +8,6 @@
 .navbar-brand img{
     width:35px;
 }
+.input-group.is-invalid .input-group-text, .input-group.is-invalid .form-control{
+    border-color: #ea5455!important;
+}

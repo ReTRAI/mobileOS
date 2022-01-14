@@ -78,38 +78,39 @@
                                         <input id="login_password"
                                                type="password"
                                                th:field="*{password}"
-                                               th:errorclass="is-invalid"
                                                class="form-control form-control-merge toTranslateInput"
                                                data-langKey="utils_form_passwordPlaceholder"
                                                placeholder="*********"/>
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-                                        <th:block th:each="err : ${#fields.errors('password')}">
-                                            <th:block th:switch="${err}">
-                                                <p th:case="utils_form_password_numChar" class="invalid-feedback">
+
+                                    </div>
+                                    <th:block th:each="err : ${#fields.errors('password')}">
+                                        <th:block th:switch="${err}">
+                                            <p th:case="utils_form_password_numChar" class="invalid-feedback">
                                                     <span class="toTranslate "
                                                           data-langKey="utils_form_password_numChar0"></span>
-                                                    <span
-                                                            th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_MIN_CHAR}"></span>
-                                                    <span class="toTranslate "
-                                                          data-langKey="utils_form_password_numChar1"></span>
-                                                    <span
-                                                            th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_MAX_CHAR}"></span>
-                                                    <span class="toTranslate "
-                                                          data-langKey="utils_form_password_numChar2"></span>
-                                                </p>
-                                                <p th:case="utils_form_password_atLeast" class="invalid-feedback">
+                                                <span
+                                                        th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_MIN_CHAR}"></span>
+                                                <span class="toTranslate "
+                                                      data-langKey="utils_form_password_numChar1"></span>
+                                                <span
+                                                        th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_MAX_CHAR}"></span>
+                                                <span class="toTranslate "
+                                                      data-langKey="utils_form_password_numChar2"></span>
+                                            </p>
+                                            <p th:case="utils_form_password_atLeast" class="invalid-feedback">
                                                     <span class="toTranslate "
                                                           data-langKey="utils_form_password_atLeast0"></span>
-                                                    <span
-                                                            th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_SPECIAL_CHAR}"></span>
-                                                    <span class="toTranslate "
-                                                          data-langKey="utils_form_password_atLeast1"></span>
-                                                </p>
-                                                <p th:case="*" class="invalid-feedback toTranslate"
-                                                   th:attr="data-langKey=${err}"></p>
-                                            </th:block>
+                                                <span
+                                                        th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_SPECIAL_CHAR}"></span>
+                                                <span class="toTranslate "
+                                                      data-langKey="utils_form_password_atLeast1"></span>
+                                            </p>
+                                            <p th:case="*" class="invalid-feedback toTranslate"
+                                               th:attr="data-langKey=${err}"></p>
                                         </th:block>
-                                    </div>
+                                    </th:block>
+
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 toTranslate"
                                         data-langKey="index_signin">Sign in
