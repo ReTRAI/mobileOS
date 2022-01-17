@@ -1,7 +1,7 @@
 package com.season.portal.devices;
 
 import com.season.portal.utils.model.PageModel;
-import com.season.portal.utils.validation.IDateValidatorConstrain;
+import com.season.portal.utils.validation.constrain.IDateValidatorConstrain;
 
 //DTO (Data Transfer Object)
 public class DeviceModel extends PageModel {

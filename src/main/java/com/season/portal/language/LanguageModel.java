@@ -1,9 +1,7 @@
 package com.season.portal.language;
 
-import com.season.portal.utils.validation.ILangCodeValidatorConstrain;
-import com.season.portal.utils.validation.IPasswordValidatorConstrain;
+import com.season.portal.utils.validation.constrain.ILangCodeValidatorConstrain;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 

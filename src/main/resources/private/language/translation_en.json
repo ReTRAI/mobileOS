@@ -11,6 +11,8 @@
 	"utils_all":"All",
 	"utils_yes":"Yes",
 	"utils_no":"No",
+	"utils_open":"Open",
+	"utils_view":"Show",
 
 	"utils_form_nameId":"Name or Id",
 	"utils_form_nameId_placeholder":"Enter name or id",

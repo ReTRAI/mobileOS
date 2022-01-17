@@ -1,10 +1,10 @@
 package com.season.portal.utils.validation;
 
+import com.season.portal.utils.validation.constrain.ILangCodeValidatorConstrain;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class LangCodeValidator implements ConstraintValidator<ILangCodeValidatorConstrain, String> {
     public static String[] LANGUAGE_CODES = {"pt", "en"};

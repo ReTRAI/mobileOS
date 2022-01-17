@@ -1,8 +1,9 @@
 package com.season.portal.utils.validation;
 
+import com.season.portal.utils.validation.constrain.IPasswordValidatorConstrain;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

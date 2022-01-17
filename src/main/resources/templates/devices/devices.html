@@ -205,8 +205,13 @@
                                         th:text="${T(com.season.portal.utils.Utils).dateToStr(device.getExpire())}">
                                     </td>
                                     <td>
-                                        <div>
-
+                                        <div class="d-flex align-items-center justify-content-around">
+                                            <a class="me-1 toTranslateAttr" href="#"
+                                               data-bs-toggle="tooltip" data-bs-placement="top"
+                                               data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
+                                            >
+                                                <i class="font-medium-2 text-body" data-feather="eye"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

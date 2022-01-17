@@ -210,6 +210,15 @@
             $(".toTranslateInput").each(function( index ) {
                 $( this ).attr("placeholder", TRANSLATION[$( this ).attr("data-langKey")]);
             });
+            $(".toTranslateAttr").each(function( index ) {
+                var attr = $(this).attr("data-langAttr");
+                $( this ).attr(attr, TRANSLATION[$( this ).attr("data-langKey")]);
+            });
+            //update tooltips
+            $('[data-bs-toggle="tooltip"]').each(function( index ) {
+                new bootstrap.Tooltip(this);
+            });
+
 
             $(".lang.active").removeClass("active");
             $("#lang_"+TRANSLATION["code"]).addClass("active");

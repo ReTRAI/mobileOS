@@ -1,7 +1,7 @@
 package com.season.portal.auth;
 
-import com.season.portal.utils.validation.ILangCodeValidatorConstrain;
-import com.season.portal.utils.validation.IPasswordValidatorConstrain;
+import com.season.portal.utils.validation.constrain.ILangCodeValidatorConstrain;
+import com.season.portal.utils.validation.constrain.IPasswordValidatorConstrain;
 import com.season.portal.utils.validation.LangCodeValidator;
 
 import javax.validation.constraints.Email;

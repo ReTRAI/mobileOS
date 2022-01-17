@@ -22,9 +22,10 @@ public class DeviceController {
     public ModelAndView devices(@Valid DeviceModel model, BindingResult result, ModelMap modelMap) {
         model.setNumPerPage(10);
 
+        /*
         if(result.hasErrors()){
-            modelMap.put(BindingResult.class.getName()+".ciclo",result);
         }
+        */
 
         return devicesView(model);
     }
@@ -50,6 +51,4 @@ public class DeviceController {
 
         return PortalApplication.addStatus(mv);
     }
-
-
 }
