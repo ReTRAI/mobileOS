@@ -103,6 +103,7 @@
 	
 	"device_title":"Dispositivo",
 	"device_tab_title":"Portal | Dispositivo",
+	"device_invalid":"Dispositivo inválido",
 
 	"end": "fim"
 }

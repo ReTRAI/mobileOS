@@ -6,6 +6,13 @@
 .fake-label{
     margin-top:1.7rem;
 }
+
+.primary-colorH{
+transition: color .15s ease-in-out;
+}
+.primary-colorH:hover{
+    color:#7367F0 !important;
+}
 /* Header:START*****************************************/
 .modern-nav-toggle .contCollapsed{
     display:none;
@@ -24,3 +31,22 @@
     float:right;
 }
 /* Header:END*****************************************/
+/* Tables:START*****************************************/
+.actions{
+    padding-left:0.7rem;
+    padding-right:0.7rem;
+}
+.actions a, .actions button {
+    width:40px;
+    height:30px;
+    background-color:transparent;
+    border:none;
+
+}
+/* Tables:END*****************************************/
+/* Form:START*****************************************/
+.formDate{
+    background-color: inherit !important;
+}
+
+/* Form:END*****************************************/

@@ -49,7 +49,7 @@
                         <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
                     </div>
                     <div class="card-body">
-                        <form id="filters" th:object="${deviceModel}" class="form" method="get"
+                        <form id="filters" th:object="${devicePageModel}" class="form" method="GET"
                               th:action="@{/devices}">
                             <div class="row">
                                 <div class="col-md-2 col-12">
@@ -120,7 +120,7 @@
                                              th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}">
                                             <input type="text" id="filter-startDate"
                                                    th:field="*{startDate}"
-                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
                                                    data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
                                             <span class="input-group-text cursor-pointer"
                                                   onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
@@ -137,7 +137,7 @@
                                              th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}">
                                             <input type="text" id="filter-endDate"
                                                    th:field="*{endDate}"
-                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
                                                    data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
                                             <span class="input-group-text cursor-pointer"
                                                     onclick="$('#filter-endDate').val('')"><i data-feather="x"></i></span>
@@ -204,14 +204,17 @@
                                     <td class="text-center"
                                         th:text="${T(com.season.portal.utils.Utils).dateToStr(device.getExpire())}">
                                     </td>
-                                    <td>
+                                    <td class="actions">
                                         <div class="d-flex align-items-center justify-content-around">
-                                            <a class="me-1 toTranslateAttr" href="#"
+                                            <button type="button" onclick="openDevice(this)"
+                                               th:attr="data-guid=${device.getGuid()}"
+                                               class="align-items-center d-flex justify-content-around toTranslateAttr"
                                                data-bs-toggle="tooltip" data-bs-placement="top"
                                                data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
                                             >
-                                                <i class="font-medium-2 text-body" data-feather="eye"></i>
-                                            </a>
+                                                <i class="font-medium-2 text-body primary-colorH"
+                                                   data-feather="eye"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -233,7 +236,10 @@
 
         </div>
     </div>
-
+    <form id="openDevice" class="d-none" method="POST"
+        th:object="${guidModel}" th:action="@{/device}">
+        <input id="openDevice-value" type="hidden" th:field="*{value}"/>
+    </form>
 </div>
 </th:block>
 <!-- END: Content-->
@@ -257,6 +263,12 @@
         $("#filter-startDate").val("");
         $("#filter-endDate").val("");
         $("#"+formId).submit();
+    }
+
+    function openDevice(that){
+        var guid = $(that).attr("data-guid");
+        $("#openDevice-value").val(guid);
+        $("#openDevice").submit();
     }
 </script>
 

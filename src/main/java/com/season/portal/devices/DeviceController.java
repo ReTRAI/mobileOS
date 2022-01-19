@@ -1,14 +1,12 @@
 package com.season.portal.devices;
 
 import com.season.portal.PortalApplication;
-import com.season.portal.auth.LoginModel;
-import com.season.portal.resseler.Resseler;
-import com.season.portal.utils.model.StringPageModel;
+import com.season.portal.utils.model.GuidModel;
 import com.season.portal.utils.pagination.Pagination;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -19,7 +17,7 @@ import java.util.Date;
 public class DeviceController {
 
     @GetMapping("/devices")
-    public ModelAndView devices(@Valid DeviceModel model, BindingResult result, ModelMap modelMap) {
+    public ModelAndView devices(@Valid DevicePageModel model, BindingResult result) {
         model.setNumPerPage(10);
 
         /*
@@ -29,7 +27,7 @@ public class DeviceController {
 
         return devicesView(model);
     }
-    private ModelAndView devicesView(DeviceModel model){
+    private ModelAndView devicesView(DevicePageModel model){
         ModelAndView mv = new ModelAndView("devices/devices");
 
         ArrayList<Device> devices = new ArrayList<Device>();
@@ -47,8 +45,29 @@ public class DeviceController {
 
         mv.addObject("devices", devices);
         mv.addObject("Pagination", devicesPag);
-        mv.addObject("deviceModel", model);
+        mv.addObject("devicePageModel", model);
+        mv.addObject("guidModel", new GuidModel());
+        return PortalApplication.addStatus(mv);
+    }
+
+    @PostMapping("/device")
+    public ModelAndView deviceOpen(@Valid GuidModel model, BindingResult result) {
+
+        if(result.hasErrors()){
+            PortalApplication.addErrorKey("device_invalid");
+            return devicesView(new DevicePageModel());
+        }
+
+        return deviceView(model);
+    }
+
+    private ModelAndView deviceView(GuidModel model){
+        ModelAndView mv = new ModelAndView("devices/device");
+
+        Device d = new Device((long) model.getValue(), true, false, false, true, false, new Date());
+        mv.addObject("device", d);
 
         return PortalApplication.addStatus(mv);
     }
+
 }

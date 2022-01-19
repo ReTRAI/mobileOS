@@ -21,10 +21,13 @@ public class ConnectorConfiguration {
             protected void postProcessContext(org.apache.catalina.Context context) {
                 SecurityConstraint securityConstraint = new SecurityConstraint();
                 securityConstraint.setUserConstraint("CONFIDENTIAL");
+
                 SecurityCollection collection = new SecurityCollection();
                 collection.addPattern("/*");
+
                 securityConstraint.addCollection(collection);
                 context.addConstraint(securityConstraint);
+
 
                 // Define Same site cookie parameter
                 Rfc6265CookieProcessor rfc6265CookieProcessor = new Rfc6265CookieProcessor();
@@ -40,7 +43,7 @@ public class ConnectorConfiguration {
 
     private Connector httpToHttpsRedicetConnector() {
         int normalport = 8080;
-        int securePort = 8443;
+        int securePort = 8445;
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
         connector.setPort(normalport);

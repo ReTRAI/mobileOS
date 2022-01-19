@@ -4,7 +4,7 @@ import com.season.portal.utils.model.PageModel;
 import com.season.portal.utils.validation.constrain.IDateValidatorConstrain;
 
 //DTO (Data Transfer Object)
-public class DeviceModel extends PageModel {
+public class DevicePageModel extends PageModel {
     private int active;
     private int free;
     private int wiped;
@@ -19,7 +19,7 @@ public class DeviceModel extends PageModel {
     @IDateValidatorConstrain
     private String endDate;
 
-    public DeviceModel() {
+    public DevicePageModel() {
         this.active = -1;
         this.free = -1;
         this.wiped = -1;
@@ -27,7 +27,7 @@ public class DeviceModel extends PageModel {
         this.suspended = -1;
     }
 
-    public DeviceModel(Integer numPerPage) {
+    public DevicePageModel(Integer numPerPage) {
         super(0, numPerPage);
     }
 

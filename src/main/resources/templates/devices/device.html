@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org">
+<!-- BEGIN: Head-->
+
+<head>
+    <th:block th:replace="shared/common :: common-style"/>
+
+    <style>
+    </style>
+
+    <title class="toTranslate" data-langKey="device_tab_title">Portal</title>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+<!-- BEGIN: Header-->
+<th:block th:replace="shared/header :: header"/>
+<!-- END: Header-->
+
+<!-- BEGIN: Main Menu-->
+<th:block th:replace="shared/sidemenu :: sideMenu"/>
+<!-- END: Main Menu-->
+
+
+<!-- BEGIN: Content-->
+<th:block th:with="baseUrl=${#httpServletRequest.requestURI}, queryUrl=${#httpServletRequest.queryString}">
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <th:block th:replace="shared/common :: common-status"/>
+        </div>
+
+        <div class="content-body">
+
+            <!-- -->
+            <section id="device">
+                <div class="d-flex mb-1">
+                    <div class="d-flex align-items-center">
+                        <h2 class="m-0">
+                            <span class="toTranslate" data-langKey="device_title">Device</span>
+                            <span th:text="${device.getGuid()}"> #</span>
+                        </h2>
+                    </div>
+                    <!--<div class="nav navbar-nav align-items-center flex-row  ms-auto">
+                        <button class="btn-icon btn btn-outline-primary ms-1">
+                            Tasks
+                        </button>
+                        <button class="btn-icon btn btn-outline-primary ms-1">
+                            <i class="font-medium-2 text-primary" data-feather="eye"></i>
+                        </button>
+                        <button class="btn-icon btn btn-outline-primary ms-1">
+                            <i class="font-medium-2 text-primary" data-feather="eye"></i>
+                        </button>
+
+                    </div>-->
+                    <!-- navbar -->
+                    <nav class="navbar navbar-expand-md justify-content-end justify-content-md-between ms-auto">
+                        <button class="btn btn-icon navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i data-feather="align-justify" class="font-medium-5"></i>
+                        </button>
+
+                        <!-- collapse  -->
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div class="d-flex flex-row-reverse mt-1 mt-md-0">
+                                <ul class="nav nav-pills mb-0 ">
+                                    <li class="nav-item ms-1 mb-1 mb-md-0">
+                                        <a class="nav-link fw-bold btn btn-outline-secondary" href="#">
+                                            <span class="d-none d-md-block">Feed</span>
+                                            <i data-feather="rss" class="d-block d-md-none"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ms-1 mb-1 mb-md-0">
+                                        <a class="nav-link fw-bold btn btn-outline-primary" href="#">
+                                            <span class="d-none d-md-block">About</span>
+                                            <i data-feather="info" class="d-block d-md-none"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ms-1 mb-1 mb-md-0">
+                                        <a class="nav-link fw-bold" href="#">
+                                            <span class="d-none d-md-block">Photos</span>
+                                            <i data-feather="image" class="d-block d-md-none"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ms-1 mb-1 mb-md-0">
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Primary
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#">Option 1</a>
+                                                <a class="dropdown-item" href="#">Option 2</a>
+                                                <a class="dropdown-item" href="#">Option 3</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--/ collapse  -->
+                    </nav>
+                    <!--/ navbar -->
+                </div>
+
+                <div class="card">
+                    <div class="card-header d-flex">
+
+                    </div>
+                    <div class="card-body">
+                    </div>
+
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+</div>
+</th:block>
+<!-- END: Content-->
+
+<th:block th:replace="shared/common :: common-script"/>
+<th:block th:replace="shared/common :: common-translate"/>
+<script>
+    $(window).on('load', function() {
+        setupLanguage();
+        showInMenu("menu_devices");
+    });
+</script>
+
+</body>
+<!-- END: Body-->
+
+</html>
