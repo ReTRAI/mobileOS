@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+//teste
 import static com.season.portal.utils.Utils.certificateExpireIn;
 
 @SpringBootApplication
