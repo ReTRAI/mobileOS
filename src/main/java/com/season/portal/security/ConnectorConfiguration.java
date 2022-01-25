@@ -43,7 +43,7 @@ public class ConnectorConfiguration {
 
     private Connector httpToHttpsRedicetConnector() {
         int normalport = 8080;
-        int securePort = 8445;
+        int securePort = 8443;
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
         connector.setPort(normalport);

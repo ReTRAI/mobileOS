@@ -27,19 +27,12 @@ import java.util.List;
 import static com.season.portal.utils.Utils.certificateExpireIn;
 
 @SpringBootApplication
-public class PortalApplication extends SpringBootServletInitializer {
+public class PortalApplication{
 
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private static ArrayList<String> errorKeys = new ArrayList<>();
 	private static ArrayList<String> successKeys = new ArrayList<>();
 
-/*
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		//
-		return builder.sources(SpringBootWarDeploymentApplication.class);
-	}
-*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(PortalApplication.class, args);
