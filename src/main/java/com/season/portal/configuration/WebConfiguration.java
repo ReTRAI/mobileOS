@@ -1,4 +1,4 @@
-package com.season.portal.security;
+package com.season.portal.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

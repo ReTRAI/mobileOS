@@ -1,9 +1,10 @@
-package com.season.portal.security;
+package com.season.portal.configuration;
 
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ConnectorConfiguration {
+    @Autowired
+    PortalConfiguration portalConfig;
 
     //https://www.youtube.com/watch?v=HLSmjZ5vN0w
     @Bean
@@ -41,14 +44,13 @@ public class ConnectorConfiguration {
         return tomcat;
     }
 
+
     private Connector httpToHttpsRedicetConnector() {
-        int normalport = 8080;
-        int securePort = 8449;
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
-        connector.setPort(normalport);
+        connector.setPort(portalConfig.getNormalPort());
         connector.setSecure(false);
-        connector.setRedirectPort(securePort);
+        connector.setRedirectPort(portalConfig.getSslPort());
         return connector;
     }
 }

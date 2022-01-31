@@ -2,6 +2,7 @@ package com.season.portal.auth;
 
 import com.season.portal.PortalApplication;
 
+import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
 import org.apache.tomcat.util.net.SSLSessionManager;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ import static com.season.portal.utils.Utils.certificateExpireIn;
 
 
 @Controller
-public class AuthController {
+public class AuthController extends ModelViewBaseController {
     @Autowired
     private AuthenticationManager authManager;
 
@@ -122,7 +123,7 @@ public class AuthController {
 
         mv.addObject("loginModel", model);
 
-        return PortalApplication.addStatus(mv);
+        return dispatchView(mv);
     }
 
     /**/
@@ -132,19 +133,7 @@ public class AuthController {
         PortalApplication.logout(request, response);
         PortalApplication.addSuccessKey("api_logout_success");
 
-
-        //response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setStatus(HttpServletResponse.SC_FOUND);
-        response.setHeader("Location", "https://localhost:8443/login");
-
-
-
-        /** /
-        ModelAndView mv = new ModelAndView("errorHandler");
-        mv.addObject("errorTitle","api_logout_success");
-        return PortalApplication.addStatus(mv);
-        /**/
-        //return new ModelAndView("redirect:/login");
-        //return loginView(new LoginModel());
+        response.setHeader("Location", portalConfig.getPortalURL("login"));
     }
 }

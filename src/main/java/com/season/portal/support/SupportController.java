@@ -3,6 +3,7 @@ package com.season.portal.support;
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.LoginModel;
 import com.season.portal.resseler.Resseler;
+import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.model.StringPageModel;
 import com.season.portal.utils.pagination.Pagination;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
-public class SupportController {
+public class SupportController extends ModelViewBaseController {
 
     @GetMapping("/support/new")
     public ModelAndView supportNew() {
@@ -39,7 +40,7 @@ public class SupportController {
 
         mv.addObject("supportModel", model);
 
-        return PortalApplication.addStatus(mv);
+        return dispatchView(mv);
     }
 
 }

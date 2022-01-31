@@ -1,4 +1,4 @@
-package com.season.portal.security;
+package com.season.portal.configuration;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.utils.Utils;

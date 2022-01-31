@@ -2,6 +2,7 @@ package com.season.portal.handler;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.language.LanguageModel;
+import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.model.RestHashMapModel;
 import com.season.portal.utils.model.RestModel;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 
 @Controller
-public class ErrorHandlerController implements ErrorController {
+public class ErrorHandlerController extends ModelViewBaseController implements ErrorController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value={"/error"})
@@ -54,6 +55,6 @@ public class ErrorHandlerController implements ErrorController {
                 break;
         }
 
-        return PortalApplication.addStatus(mv);
+        return dispatchView(mv);
     }
 }

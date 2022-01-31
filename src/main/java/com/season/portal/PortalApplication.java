@@ -5,6 +5,8 @@ import com.season.portal.utils.model.RestModel;
 import com.season.portal.utils.validation.LangCodeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -28,7 +30,6 @@ import static com.season.portal.utils.Utils.certificateExpireIn;
 
 @SpringBootApplication
 public class PortalApplication{
-
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private static ArrayList<String> errorKeys = new ArrayList<>();
 	private static ArrayList<String> successKeys = new ArrayList<>();
@@ -57,6 +58,7 @@ public class PortalApplication{
 
 		mv.addObject("errorKeys",errorKeys);
 		mv.addObject("successKeys",successKeys);
+
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth != null && auth.isAuthenticated()){
@@ -176,6 +178,4 @@ public class PortalApplication{
 
 		return false;
 	}
-
-
 }

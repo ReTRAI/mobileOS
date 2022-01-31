@@ -1,6 +1,7 @@
 package com.season.portal.dashboard;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.utils.ModelViewBaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @Controller
-public class DashboardController {
+public class DashboardController extends ModelViewBaseController {
 
     @RequestMapping(value={"/dashboard"})
     public ModelAndView dashboard(){
@@ -47,6 +48,6 @@ public class DashboardController {
         mv.addObject("inactive", inactive);
         mv.addObject("expiring", expiring);
         mv.addObject("activations", activations);
-        return PortalApplication.addStatus(mv);
+        return dispatchView(mv);
     }
 }

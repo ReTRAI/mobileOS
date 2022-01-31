@@ -1,6 +1,7 @@
 package com.season.portal.resseler;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.model.StringPageModel;
 import com.season.portal.utils.pagination.Pagination;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Controller
-public class ResselerController {
+public class ResselerController extends ModelViewBaseController {
 
     @GetMapping("/resselers")
     public ModelAndView resselers(StringPageModel model) {
@@ -59,7 +60,7 @@ public class ResselerController {
         mv.addObject("resselerPag", resselerPag);
         mv.addObject("stringPageModel", model);
 
-        return PortalApplication.addStatus(mv);
+        return dispatchView(mv);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.season.portal.devices;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.model.GuidModel;
 import com.season.portal.utils.pagination.Pagination;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
-public class DeviceController {
+public class DeviceController extends ModelViewBaseController {
 
     @GetMapping("/devices")
     public ModelAndView devices(@Valid DevicePageModel model, BindingResult result) {
@@ -47,7 +48,7 @@ public class DeviceController {
         mv.addObject("Pagination", devicesPag);
         mv.addObject("devicePageModel", model);
         mv.addObject("guidModel", new GuidModel());
-        return PortalApplication.addStatus(mv);
+        return dispatchView(mv);
     }
 
     @PostMapping("/device")
@@ -67,7 +68,7 @@ public class DeviceController {
         Device d = new Device((long) model.getValue(), true, false, false, true, false, new Date());
         mv.addObject("device", d);
 
-        return PortalApplication.addStatus(mv);
+        return dispatchView(mv);
     }
 
 }

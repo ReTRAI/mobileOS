@@ -1,4 +1,4 @@
-package com.season.portal.security;
+package com.season.portal.configuration;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

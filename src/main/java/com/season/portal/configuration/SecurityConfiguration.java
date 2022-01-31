@@ -1,4 +1,4 @@
-package com.season.portal.security;
+package com.season.portal.configuration;
 
 import com.season.portal.handler.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +28,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
-    /*
-    @Resource
-    CustomAuthProvider customAuthProvider;
-    */
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.userDetailsService(userDetailsService);
-        //auth.authenticationProvider(customAuthProvider);
     }
 
 
