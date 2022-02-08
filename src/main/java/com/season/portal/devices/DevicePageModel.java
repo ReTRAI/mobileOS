@@ -5,11 +5,14 @@ import com.season.portal.utils.validation.constrain.IDateValidatorConstrain;
 
 //DTO (Data Transfer Object)
 public class DevicePageModel extends PageModel {
+    /*
     private int active;
     private int free;
     private int wiped;
     private int blocked;
     private int suspended;
+    */
+    private String state;
 
     //Gives big text message if cant convert
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -20,56 +23,24 @@ public class DevicePageModel extends PageModel {
     private String endDate;
 
     public DevicePageModel() {
-        this.active = -1;
+        this.state = "";
+        /*this.active = -1;
         this.free = -1;
         this.wiped = -1;
         this.blocked = -1;
-        this.suspended = -1;
+        this.suspended = -1;*/
     }
 
     public DevicePageModel(Integer numPerPage) {
         super(0, numPerPage);
     }
 
-
-    public int getActive() {
-        return active;
+    public String getState() {
+        return state;
     }
 
-    public void setActive(int activate) {
-        this.active = activate;
-    }
-
-    public int getFree() {
-        return free;
-    }
-
-    public void setFree(int free) {
-        this.free = free;
-    }
-
-    public int getWiped() {
-        return wiped;
-    }
-
-    public void setWiped(int wiped) {
-        this.wiped = wiped;
-    }
-
-    public int getBlocked() {
-        return blocked;
-    }
-
-    public void setBlocked(int blocked) {
-        this.blocked = blocked;
-    }
-
-    public int getSuspended() {
-        return suspended;
-    }
-
-    public void setSuspended(int suspended) {
-        this.suspended = suspended;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getStartDate() {

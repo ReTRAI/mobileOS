@@ -50,8 +50,8 @@
                     </div>
                     <div class="card-body">
                         <form id="filters" th:object="${devicePageModel}" class="form" method="GET"
-                              th:action="@{/devices}">
-                            <div class="row">
+                              th:action="@{${portalURL} + 'devices'}">
+                            <!--<div class="row">
                                 <div class="col-md-2 col-12">
                                     <div class="mb-1">
                                         <label class="form-label toTranslate" for="filter-active"
@@ -108,45 +108,68 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>-->
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <p class="mb-0 toTranslate" data-langKey="utils_form_expireBetween">Expira entre:</p>
+                                    <div class="row">
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label toTranslate" for="filter-startDate"
+                                                       data-langKey="utils_form_startDate">suspended</label>
+                                                <div class="input-group input-group-merge"
+                                                     th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}">
+                                                    <input type="text" id="filter-startDate"
+                                                           th:field="*{startDate}"
+                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                                    <span class="input-group-text cursor-pointer"
+                                                          onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
+                                                </div>
+                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startDate')}"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label toTranslate" for="filter-endDate"
+                                                       data-langKey="utils_form_endDate">suspended</label>
+                                                <div class="input-group input-group-merge"
+                                                     th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}">
+                                                    <input type="text" id="filter-endDate"
+                                                           th:field="*{endDate}"
+                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                                    <span class="input-group-text cursor-pointer"
+                                                          onclick="$('#filter-endDate').val('')"><i data-feather="x"></i></span>
+                                                </div>
+                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endDate')}"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <p class="mb-0 opacity-0">Empty</p>
+                                    <div class="row">
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label toTranslate" for="filter-state"
+                                                       data-langKey="utils_form_state">State</label>
+                                                <select id="filter-state" class="form-select" th:field="*{state}">
+                                                    <option value="" class="toTranslate" data-langKey="utils_all"></option>
+                                                    <option th:value="active" class="toTranslate" data-langKey="api_deviceState_active"></option>
+                                                    <option th:value="free" class="toTranslate" data-langKey="api_deviceState_free"></option>
+                                                    <option th:value="wiped" class="toTranslate" data-langKey="api_deviceState_wiped"></option>
+                                                    <option th:value="blocked" class="toTranslate" data-langKey="api_deviceState_blocked"></option>
+                                                    <option th:value="suspended" class="toTranslate" data-langKey="api_deviceState_suspended"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <p class="mb-0 toTranslate" data-langKey="utils_form_expireBetween">Expira entre:</p>
-                            <div class="row">
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-startDate"
-                                               data-langKey="utils_form_startDate">suspended</label>
-                                        <div class="input-group input-group-merge"
-                                             th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}">
-                                            <input type="text" id="filter-startDate"
-                                                   th:field="*{startDate}"
-                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
-                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
-                                            <span class="input-group-text cursor-pointer"
-                                                  onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
-                                        </div>
-                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startDate')}"
-                                           th:attr="data-langKey=${err}"></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-endDate"
-                                               data-langKey="utils_form_endDate">suspended</label>
-                                        <div class="input-group input-group-merge"
-                                             th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}">
-                                            <input type="text" id="filter-endDate"
-                                                   th:field="*{endDate}"
-                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
-                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
-                                            <span class="input-group-text cursor-pointer"
-                                                    onclick="$('#filter-endDate').val('')"><i data-feather="x"></i></span>
-                                        </div>
-                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endDate')}"
-                                           th:attr="data-langKey=${err}"></p>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">
@@ -168,11 +191,11 @@
                             <thead>
                                 <tr>
                                     <th class="toTranslate" data-langKey="utils_table_id">Id</th>
-                                    <th class="toTranslate text-center" data-langKey="utils_table_active">Active</th>
-                                    <th class="toTranslate text-center" data-langKey="utils_table_free">Free</th>
-                                    <th class="toTranslate text-center" data-langKey="utils_table_wiped">Wiped</th>
-                                    <th class="toTranslate text-center" data-langKey="utils_table_blocked">Blocked</th>
-                                    <th class="toTranslate text-center" data-langKey="utils_table_suspended">Suspended</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceState_active">Active</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceState_free">Free</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceState_wiped">Wiped</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceState_blocked">Blocked</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceState_suspended">Suspended</th>
 
                                     <th class="sorting toTranslate text-center" data-langKey="utils_table_expireDate"
                                         th:with="sortName='expireDate'"
@@ -255,11 +278,12 @@
     });
 
     function resetForm(formId){
-        $("#filter-active").val("-1");
+        $("#filter-state").val("");
+        /*$("#filter-active").val("-1");
         $("#filter-free").val("-1");
         $("#filter-wiped").val("-1");
         $("#filter-blocked").val("-1");
-        $("#filter-suspended").val("-1");
+        $("#filter-suspended").val("-1");*/
         $("#filter-startDate").val("");
         $("#filter-endDate").val("");
         $("#"+formId).submit();

@@ -54,7 +54,9 @@ public class ErrorHandlerController extends ModelViewBaseController implements E
                 }
                 break;
         }
-
+        if(request.getMethod().equals("POST")) {
+            return null;
+        }
         return dispatchView(mv);
     }
 }

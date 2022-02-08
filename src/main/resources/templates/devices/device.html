@@ -40,70 +40,70 @@
 
             <!-- -->
             <section id="device">
-                <div class="d-flex mb-1">
-                    <div class="d-flex align-items-center">
-                        <h2 class="m-0">
+                <div class="d-flex">
+                    <div class="d-flex">
+                        <h2 class="mx-0 mt-0  mb-1">
                             <span class="toTranslate" data-langKey="device_title">Device</span>
                             <span th:text="${device.getGuid()}"> #</span>
                         </h2>
                     </div>
-                    <!--<div class="nav navbar-nav align-items-center flex-row  ms-auto">
-                        <button class="btn-icon btn btn-outline-primary ms-1">
-                            Tasks
-                        </button>
-                        <button class="btn-icon btn btn-outline-primary ms-1">
-                            <i class="font-medium-2 text-primary" data-feather="eye"></i>
-                        </button>
-                        <button class="btn-icon btn btn-outline-primary ms-1">
-                            <i class="font-medium-2 text-primary" data-feather="eye"></i>
-                        </button>
 
-                    </div>-->
                     <!-- navbar -->
-                    <nav class="navbar navbar-expand-md justify-content-end justify-content-md-between ms-auto">
-                        <button class="btn btn-icon navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <i data-feather="align-justify" class="font-medium-5"></i>
-                        </button>
-
-                        <!-- collapse  -->
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="d-flex flex-row-reverse mt-1 mt-md-0">
-                                <ul class="nav nav-pills mb-0 ">
-                                    <li class="nav-item ms-1 mb-1 mb-md-0">
-                                        <a class="nav-link fw-bold btn btn-outline-secondary" href="#">
-                                            <span class="d-none d-md-block">Feed</span>
-                                            <i data-feather="rss" class="d-block d-md-none"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ms-1 mb-1 mb-md-0">
-                                        <a class="nav-link fw-bold btn btn-outline-primary" href="#">
-                                            <span class="d-none d-md-block">About</span>
-                                            <i data-feather="info" class="d-block d-md-none"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ms-1 mb-1 mb-md-0">
-                                        <a class="nav-link fw-bold" href="#">
-                                            <span class="d-none d-md-block">Photos</span>
-                                            <i data-feather="image" class="d-block d-md-none"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ms-1 mb-1 mb-md-0">
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Primary
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">Option 1</a>
-                                                <a class="dropdown-item" href="#">Option 2</a>
-                                                <a class="dropdown-item" href="#">Option 3</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="ms-auto">
+                        <div class="d-flex d-lg-none justify-content-end">
+                            <button class="btn btn-icon pt-25 pe-0 collapsed"
+                                    type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarSupportedContent"
+                                    aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <i data-feather="x" class="font-medium-5 contExpanded"></i>
+                                <i data-feather="menu" class="font-medium-5 contCollapsed"></i>
+                            </button>
                         </div>
+                        <!-- collapse  -->
+                        <nav class="collapse navbar-collapse d-lg-block" id="navbarSupportedContent">
+                            <ul class="nav justify-content-end">
+                                <li class="nav-item mb-1 ">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger dropdown-toggle"
+                                                data-bs-toggle="dropdown" data-bs-target="#navbarDropdown" aria-expanded="false">
+                                            Action
+                                        </button>
+                                        <ul id="navbarDropdown" class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item mb-1 ms-1">
+                                    <button type="button" class="btn btn-danger">
+                                        Action
+                                    </button>
+                                </li>
+                                <li class="nav-item mb-1 ms-1">
+                                    <a class="nav-link" href="#">Link</a>
+                                </li>
+                                <li class="nav-item mb-1 ms-1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+                                                data-bs-target="#navbarDropdownNoUl" >
+                                            Primary
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="navbarDropdownNoUl">
+                                            <a class="dropdown-item" href="#">Option 1</a>
+                                            <a class="dropdown-item" href="#">Option 2</a>
+                                            <a class="dropdown-item" href="#">Option 3</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
                         <!--/ collapse  -->
-                    </nav>
+                    </div>
                     <!--/ navbar -->
                 </div>
 
@@ -112,6 +112,7 @@
 
                     </div>
                     <div class="card-body">
+
                     </div>
 
                     <div class="card-footer">

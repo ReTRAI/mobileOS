@@ -3,6 +3,12 @@
 	"api_userRole_ROLE_RESSELER":"Resseler",
 	"api_userRole_ROLE_SUPPORT":"Support",
 
+	"api_deviceState_ACTIVE":"Active",
+	"api_deviceState_FREE":"Free",
+	"api_deviceState_WIPED":"Wiped",
+	"api_deviceState_BLOCKED":"Blocked",
+	"api_deviceState_SUSPENDED":"Suspended",
+	
 	"utils_feminine_new":"new",
 	"utils_feminine_news":"news",
 	"utils_filters":"Filters",
@@ -25,6 +31,7 @@
 	"utils_form_endDate":"End",
 	"utils_form_datePlaceholder":"YYYY-MM-DD",
 	"utils_form_expireBetween":"Expire between:",
+	"utils_form_state":"State",
 	
 	"utils_table_id":"Id",
 	"utils_table_name":"Name",
@@ -64,6 +71,7 @@
 	"menu_canceled":"Canceled",
 	"menu_completed":"Completed",
 	"menu_logout":"Logout",
+	"menu_viewAdmin":"Admin view",
 
 	"header_notifications_title":"Notifications",
 	"header_notifications_readAll":"Read all notifications",

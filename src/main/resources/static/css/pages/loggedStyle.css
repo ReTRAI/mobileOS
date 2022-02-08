@@ -14,16 +14,16 @@ transition: color .15s ease-in-out;
     color:#7367F0 !important;
 }
 /* Header:START*****************************************/
-.modern-nav-toggle .contCollapsed{
+.contCollapsed{
     display:none;
 }
-.modern-nav-toggle .contExpanded{
+.contExpanded{
     display:block;
 }
-.modern-nav-toggle.collapsed .contCollapsed{
+.collapsed .contCollapsed{
     display:block;
 }
-.modern-nav-toggle.collapsed .contExpanded{
+.collapsed .contExpanded{
     display:none;
 }
 
@@ -50,3 +50,21 @@ transition: color .15s ease-in-out;
 }
 
 /* Form:END*****************************************/
+.checkView .checkViewTrue, .checkViewIB .checkViewTrue{
+    display:none;
+}
+.checkView .checkViewFalse{
+    display:block;
+}
+.checkViewIB .checkViewFalse{
+    display:inline-block;
+}
+.checkView[data-checkView="true"] .checkViewTrue{
+    display:block;
+}
+.checkView[data-checkView="true"] .checkViewFalse, .checkViewIB[data-checkView="true"] .checkViewFalse{
+    display:none;
+}
+.checkViewIB[data-checkView="true"] .checkViewTrue{
+    display:inline-block;
+}

@@ -14,12 +14,10 @@ import java.io.IOException;
 
 @Controller
 public class PortalController {
-    @Autowired
-    ClientUser client;
 
     @RequestMapping("/")
     public ModelAndView index(HttpSession httpSession){
-        var ola = client.getUserById(1);
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth == null || auth instanceof AnonymousAuthenticationToken){
             return new ModelAndView("redirect:/login");

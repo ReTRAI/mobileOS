@@ -23,10 +23,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         if(request.getMethod().equals("POST")){
             PortalApplication.log(LOGGER, request, "Status code: "+response.getStatus());
-            response.sendError(403);
         }
-        else{
-            response.sendError(403, "/error");
-        }
+        response.sendError(403, "/error");
     }
 }

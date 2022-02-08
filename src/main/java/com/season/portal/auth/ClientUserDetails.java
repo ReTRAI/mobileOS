@@ -1,34 +1,30 @@
-package com.season.portal.configuration;
+package com.season.portal.auth;
 
+import com.season.portal.client.users.generated.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-public class MyUserDetails implements UserDetails {
+public class ClientUserDetails implements UserDetails {
 
     private String userName;
-    private String password;
+    private String userEmail;
     private ArrayList<GrantedAuthority> authorities;
+    private boolean AccountNonExpired = false;
+    private boolean AccountNonLocked = false;
+    private boolean CredentialsNonExpired = false;
+    private boolean Enabled = false;
 
-    public MyUserDetails(String userName){
-        this.userName = userName;
-        password = "Qwerty123";
+    public ClientUserDetails(User user){
+        userName = user.getUserName();
+        userEmail = user.getUserEmail();
+
         GrantedAuthority a = new SimpleGrantedAuthority("ROLE_ADMIN");
         authorities = new ArrayList<GrantedAuthority>();
         authorities.add(a);
-    }
-
-    public MyUserDetails(String userName, String sufixRole){
-        this(userName);
-        for (int i = authorities.toArray().length-1; i >=0; i--) {
-            String authorotyName = authorities.get(i).toString();
-            GrantedAuthority a = new SimpleGrantedAuthority(authorotyName+sufixRole);
-            authorities.add(a);
-        }
     }
 
     @Override
@@ -37,32 +33,34 @@ public class MyUserDetails implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() {return null;}
 
     @Override
     public String getUsername() {
         return userName;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return AccountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return AccountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return CredentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return Enabled;
     }
 }

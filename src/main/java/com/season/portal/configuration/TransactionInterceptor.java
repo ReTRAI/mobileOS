@@ -2,6 +2,8 @@ package com.season.portal.configuration;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.cert.X509Certificate;
 
 public class TransactionInterceptor implements HandlerInterceptor {
+
+    private String sessionExpiredUrl;
+
+    public TransactionInterceptor(PortalConfiguration portalConfig) {
+        sessionExpiredUrl = portalConfig.getPortalURL("index");
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -33,7 +41,7 @@ public class TransactionInterceptor implements HandlerInterceptor {
         String commonName = Utils.parseCertificate(certificates[0].getSubjectX500Principal(), "CN");
         String emailuserName = auth.getName();
 
-        if(commonName.equals(emailuserName)){
+        /*if(commonName.equals(emailuserName)){
             return true;
         }
 
@@ -41,8 +49,9 @@ public class TransactionInterceptor implements HandlerInterceptor {
         PortalApplication.addErrorKey("api_error_sessionExpired");
 
         response.setStatus(HttpServletResponse.SC_FOUND);
-        response.setHeader("Location", "https://localhost:8443/login");
+        response.setHeader("Location", sessionExpiredUrl);
 
-        return false;
+        return false;*/
+        return true;
     }
 }

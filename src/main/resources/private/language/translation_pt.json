@@ -3,6 +3,12 @@
 	"api_userRole_ROLE_RESSELER":"Revendedor",
 	"api_userRole_ROLE_SUPPORT":"Suporte",
 	
+	"api_deviceState_ACTIVE":"Activo",
+	"api_deviceState_FREE":"Livre",
+	"api_deviceState_WIPED":"Limpo",
+	"api_deviceState_BLOCKED":"Bloqueado",
+	"api_deviceState_SUSPENDED":"Suspenso",
+	
 	"utils_feminine_new":"nova",
 	"utils_feminine_news":"novas",
 	"utils_filters":"Filtros",
@@ -25,6 +31,7 @@
 	"utils_form_endDate":"Fim",
 	"utils_form_datePlaceholder":"YYYY-MM-DD",
 	"utils_form_expireBetween":"Expira entre:",
+	"utils_form_state":"Estado",
 
 	"utils_table_id":"Id",
 	"utils_table_name":"Nome",
@@ -64,6 +71,7 @@
 	"menu_canceled":"Cancelados",
 	"menu_completed":"Completos",
 	"menu_logout":"Sair",
+	"menu_viewAdmin":"Visão Admin.",
 
 	"header_notifications_title":"Notificações",
 	"header_notifications_readAll":"Marcar todas como lidas",

@@ -2,6 +2,8 @@ package com.season.portal.auth;
 
 import com.season.portal.PortalApplication;
 
+import com.season.portal.auth.admin.AdminController;
+import com.season.portal.client.users.ClientUser;
 import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
 import org.apache.tomcat.util.net.SSLSessionManager;
@@ -12,6 +14,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,6 +47,7 @@ public class AuthController extends ModelViewBaseController {
     @Autowired
     private AuthenticationManager authManager;
 
+
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final int SESSION_MAX_INACTIVE_TIME_SEC = 300;
 
@@ -59,6 +63,7 @@ public class AuthController extends ModelViewBaseController {
 
         if(certificateEmail.equals(email)){
             try{
+
                 UsernamePasswordAuthenticationToken authReq
                         = new UsernamePasswordAuthenticationToken(email, pass);
                 Authentication auth = authManager.authenticate(authReq);
@@ -70,6 +75,9 @@ public class AuthController extends ModelViewBaseController {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
                     session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
+                    if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+                        AdminController.initAdminView(session);
+                    }
 
                     int expireIn = certificateExpireIn(certificates[0]);
                     session.setAttribute("CERTIFICATION_VALIDITY", expireIn);

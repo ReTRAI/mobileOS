@@ -11,14 +11,13 @@
                 <ul class="nav navbar-nav align-items-center">
                     <li class="nav-item nav-toggle">
                         <a class="nav-link modern-nav-toggle pe-0 my-0" data-bs-toggle="collapse">
+
                             <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="menu"></i>
                             <div class="d-none d-xl-block">
                                 <div class="contExpanded">
                                     <div class="toLoadReplace"
                                          th:attr="data-toLoad=${portalURL + 'media/icons/menuCollapsed.svg'}"
-                                         data-class="ficon"
-                                    ></div>
-
+                                         data-class="ficon"></div>
                                 </div>
                                 <div class="contCollapsed">
                                     <div class="toLoadReplace"
@@ -33,7 +32,16 @@
                 </ul>
                 <th:block sec:authorize="isAuthenticated()">
                     <ul class="nav navbar-nav align-items-center ms-auto">
-
+                        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                            <button id="AdminViewBtn" type="button"
+                                class="btn btn-outline-secondary checkViewIB" onclick="toggleAdminView()"
+                                th:attr="data-checkView=${adminView}"
+                            >
+                                <span class="me-25">Admin View</span>
+                                <i data-feather="circle" class="checkViewFalse"></i>
+                                <i data-feather="check-circle" class="checkViewTrue"></i>
+                            </button>
+                        </li>
                         <li th:if="${notifications != null && notifications.size() > 0}"
                             class="nav-item dropdown dropdown-notification me-25">
                             <a class="nav-link" href="#"

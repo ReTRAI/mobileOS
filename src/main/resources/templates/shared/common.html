@@ -274,6 +274,19 @@
             $("#menu_lang").removeClass("open");
         }
     </script>
+
+    <script sec:authorize="isAuthenticated()">
+        function toggleAdminView(){
+            portalPost("toggleAdminView", {}, toggleAdminViewHandler);
+        }
+
+        function toggleAdminViewHandler(result){
+           //$("#AdminViewBtn").attr("data-checkView", result+"");
+           location.reload();
+        }
+
+    </script>
+
 </th:block>
 </body>
 </html>

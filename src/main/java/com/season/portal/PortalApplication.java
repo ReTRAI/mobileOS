@@ -1,5 +1,7 @@
 package com.season.portal;
 
+import com.season.portal.auth.admin.AdminController;
+import com.season.portal.language.LanguageController;
 import com.season.portal.notifications.Notification;
 import com.season.portal.utils.model.RestModel;
 import com.season.portal.utils.validation.LangCodeValidator;
@@ -12,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -24,13 +27,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import static com.season.portal.utils.Utils.certificateExpireIn;
+import static com.season.portal.utils.validation.LangCodeValidator.LANGUAGE_CODES;
 
 @SpringBootApplication
 public class PortalApplication{
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
 	private static ArrayList<String> errorKeys = new ArrayList<>();
 	private static ArrayList<String> successKeys = new ArrayList<>();
 
@@ -52,17 +58,22 @@ public class PortalApplication{
 		successKeys.add(sKey);
 	}
 
-	public static ModelAndView addStatus(ModelAndView mv) {
-		mv.addObject("langCodes", LangCodeValidator.LANGUAGE_CODES);
-		mv.addObject("selectedLang", "pt");
+	public static ModelAndView addStatus(ModelAndView mv, HttpServletRequest request) {
+		mv.addObject("langCodes", LANGUAGE_CODES);
 
 		mv.addObject("errorKeys",errorKeys);
 		mv.addObject("successKeys",successKeys);
 
+		HttpSession session = request.getSession(true);
+		String code = LanguageController.getCurrentLanguageCode(session);
+		if(!Arrays.asList(LANGUAGE_CODES).contains(code)){
+			code = "pt";
+		}
+		mv.addObject("selectedLang", code);
+
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth != null && auth.isAuthenticated()){
-
 			ArrayList<Notification> notifications = new ArrayList<Notification>();
 			notifications.add(new Notification(1l, "login/", "Login", "go to login page"));
 			notifications.add(new Notification(2l, "logout/", "Logout", ""));
@@ -71,6 +82,12 @@ public class PortalApplication{
 			mv.addObject("notifications", notifications);
 			mv.addObject("userName", auth.getName());
 			mv.addObject("userRole", auth.getAuthorities().toString());
+
+
+			if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+
+				mv.addObject("adminView",AdminController.getAdminView(session));
+			}
 		}
 
 		clearStatus();

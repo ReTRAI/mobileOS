@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,6 +28,8 @@ import java.util.Map;
 @RestController
 public class LanguageController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final static String SESSION_LANGUAGE_CODE = "SESSION_LANGUAGE_CODE";
+
 
     private HashMap<String, String> getTranslations(Resource rTranslation, String code){
         ObjectMapper mapper = new ObjectMapper();
@@ -56,8 +59,11 @@ public class LanguageController {
             Resource resource = new ClassPathResource("/private/language/index_"+model.getCode()+".json");
             HashMap<String, String> r = getTranslations(resource, model.getCode());
 
-            if(r != null)
+            if(r != null) {
                 restModel.setResult(r, true);
+                HttpSession session = request.getSession(true);
+                session.setAttribute(SESSION_LANGUAGE_CODE, model.getCode());
+            }
         }
         else{
             PortalApplication.addErrorKey(result);
@@ -71,7 +77,6 @@ public class LanguageController {
     public RestHashMapModel getTranslation(@Valid LanguageModel model, BindingResult result, HttpServletRequest request) {
         RestHashMapModel restModel = new RestHashMapModel();
         if(!result.hasErrors()){
-
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if(auth == null || auth instanceof AnonymousAuthenticationToken){
                 restModel.addErrorKey("api_error_sessionExpired");
@@ -79,8 +84,11 @@ public class LanguageController {
             else{
                 Resource resource = new ClassPathResource("/private/language/translation_"+model.getCode()+".json");
                 HashMap<String, String> r = getTranslations(resource, model.getCode());
-                if(r != null)
+                if(r != null){
                     restModel.setResult(r, true);
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute(SESSION_LANGUAGE_CODE, model.getCode());
+                }
             }
         }
         else{
@@ -89,5 +97,9 @@ public class LanguageController {
         }
 
         return (RestHashMapModel)PortalApplication.addStatus(restModel);
+    }
+
+    public static String getCurrentLanguageCode(HttpSession session){
+        return (String)session.getAttribute(SESSION_LANGUAGE_CODE);
     }
 }

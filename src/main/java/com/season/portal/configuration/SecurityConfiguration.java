@@ -1,9 +1,12 @@
 package com.season.portal.configuration;
 
+import com.season.portal.auth.CustomAuthenticationProvider;
+import com.season.portal.auth.MyUserDetailsService;
 import com.season.portal.handler.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,19 +22,19 @@ import javax.annotation.Resource;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    /*@Autowired
+    UserDetailsService userDetailsService;*/
+
     @Autowired
-    UserDetailsService userDetailsService;
+    private CustomAuthenticationProvider customAuthProvider;
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){return new CustomAccessDeniedHandler();}
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        //auth.userDetailsService(userDetailsService);
+        auth.authenticationProvider(customAuthProvider);
     }
 
 
@@ -43,8 +46,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             .and()
                 .authorizeRequests()
+                    .antMatchers("/toggleAdminView").hasRole("ADMIN")
                     .antMatchers("/resselers","/resseler/**").hasAnyRole("ADMIN")
                     .antMatchers("/devices","/device").hasAnyRole("ADMIN")
+
                     .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
                     .antMatchers("/dashboard").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
 
@@ -73,6 +78,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
 
 }

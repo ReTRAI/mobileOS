@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mobile.com/serverapi/users/base" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mobile.com/serverapi/users/base" targetNamespace="http://www.mobile.com/serverapi/users/base">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mobile.com/serverapi/users/base">
+
+    <xs:element name="getUserByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getUserByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllUsersRequest">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="getAllUsersResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="users" type="tns:user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userName" type="xs:string"/>
+                <xs:element name="userCode" type="xs:string"/>
+                <xs:element name="userEmail" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="val" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element name="userId" type="xs:int"/>
+            <xs:element name="userName" type="xs:string"/>
+            <xs:element name="userCode" type="xs:string"/>
+            <xs:element name="userEmail" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getUserByIdRequest">
+    <wsdl:part element="tns:getUserByIdRequest" name="getUserByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setUserRequest">
+    <wsdl:part element="tns:setUserRequest" name="setUserRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllUsersResponse">
+    <wsdl:part element="tns:getAllUsersResponse" name="getAllUsersResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setUserResponse">
+    <wsdl:part element="tns:setUserResponse" name="setUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUserByIdResponse">
+    <wsdl:part element="tns:getUserByIdResponse" name="getUserByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllUsersRequest">
+    <wsdl:part element="tns:getAllUsersRequest" name="getAllUsersRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UsersPort">
+    <wsdl:operation name="getUserById">
+      <wsdl:input message="tns:getUserByIdRequest" name="getUserByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getUserByIdResponse" name="getUserByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUser">
+      <wsdl:input message="tns:setUserRequest" name="setUserRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setUserResponse" name="setUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllUsers">
+      <wsdl:input message="tns:getAllUsersRequest" name="getAllUsersRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllUsersResponse" name="getAllUsersResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UsersPortSoap11" type="tns:UsersPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getUserById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getUserByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUserByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllUsers">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getAllUsersRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllUsersResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UsersPortService">
+    <wsdl:port binding="tns:UsersPortSoap11" name="UsersPortSoap11">
+      <soap:address location="http://localhost:8080/ServerAPI/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
