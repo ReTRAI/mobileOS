@@ -1,17 +1,27 @@
 package com.season.portal.client.users;
 
+import com.season.portal.PortalApplication;
 import com.season.portal.client.users.generated.GetUserByIdRequest;
 import com.season.portal.client.users.generated.GetUserByIdResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import com.season.portal.client.users.generated.GetAllUsersRequest;
 import com.season.portal.client.users.generated.GetAllUsersResponse;
 
 public class ClientUser extends WebServiceGatewaySupport{
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
     public GetAllUsersResponse getAllUsers() {
         GetAllUsersRequest request = new GetAllUsersRequest();
 
-        GetAllUsersResponse response = (GetAllUsersResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(request);
+        GetAllUsersResponse response = null;
+        try {
+            response = (GetAllUsersResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+        }
+
         return response;
     }
 
@@ -19,8 +29,13 @@ public class ClientUser extends WebServiceGatewaySupport{
         GetUserByIdRequest request = new GetUserByIdRequest();
         request.setUserId(userId);
 
-        GetUserByIdResponse response = (GetUserByIdResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(request);
+        GetUserByIdResponse response = null;
+        try {
+            response = (GetUserByIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+        }
+
         return response;
     }
 }
