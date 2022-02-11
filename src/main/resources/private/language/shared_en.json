@@ -32,6 +32,13 @@
 	"utils_form_password_sequence": "Cannot contain a dot character '.' immediately preceding the '@' symbol",
 	"utils_form_langCode_invalid":"Invalid language code",
 	"utils_form_date_invalid":"Invalid date format",
+	"utils_form_minmaxChar0": "The field must be between ",
+	"utils_form_minmaxChar1": " and ",
+	"utils_form_minmaxChar2": " characters.",
+	"utils_form_file_invalid": "Invalid file.",
+	"utils_form_file_sizeExceeded0": "File size must be under ",
+	"utils_form_file_sizeExceeded1": "MB.",
+	"utils_form_file_invalidType": "Invalid file type.",
 
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "john@example.com",

@@ -115,7 +115,7 @@
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
 					<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
-					<generatePackage>com.season.portal.client.users.generated</generatePackage>
+					<generatePackage>com.season.portal.client.generated</generatePackage>
 					<schemaDirectory>${project.basedir}/src/main/resources/wsdls</schemaDirectory>
 					<schemaIncludes>
 						<include>users.wsdl</include>

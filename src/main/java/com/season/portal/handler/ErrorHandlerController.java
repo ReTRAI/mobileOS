@@ -30,14 +30,25 @@ public class ErrorHandlerController extends ModelViewBaseController implements E
 
     @RequestMapping(value={"/error"})
     public ModelAndView error(HttpServletRequest request, HttpServletResponse response){
+        int statusCode = response.getStatus();
+        PortalApplication.log(LOGGER, request, "Status code: "+statusCode);
+
+        //Endpoint original
+        String uri = request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI).toString();
+        //Se o pedido for a um endpoint REST é marcado para não ser devolvida a página html de resposta de erro
+        switch(uri){
+            case "/getTranslation":
+            case "/getIndexTranslation":
+            case "/toggleAdminView":
+                return null;
+        }
+
         ModelAndView mv = new ModelAndView("errorHandler");
 
         mv.addObject("errorTitle","api_error_title");
         mv.addObject("errorMsg","api_error_message");
 
-        PortalApplication.log(LOGGER, request, "Status code: "+response.getStatus());
-
-        switch(response.getStatus()){
+        switch(statusCode){
             case 404:
                 mv.addObject("errorTitle","api_error_"+response.getStatus()+"_title");
                 mv.addObject("errorMsg","api_error_"+response.getStatus()+"_message");
@@ -54,9 +65,8 @@ public class ErrorHandlerController extends ModelViewBaseController implements E
                 }
                 break;
         }
-        if(request.getMethod().equals("POST")) {
-            return null;
-        }
+
+
         return dispatchView(mv);
     }
 }

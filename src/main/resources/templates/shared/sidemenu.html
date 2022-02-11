@@ -1,6 +1,6 @@
 <html xmlns:th="https://www.thymeleaf.org"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="https://www.thymeleaf.org "
+      xsi:schemaLocation="https://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
@@ -9,7 +9,7 @@
         <div class="navbar-header mb-2">
             <ul class="nav navbar-nav flex-row mt-1">
                 <li class="nav-item me-auto">
-                    <a class="navbar-brand"th:href="@{/}">
+                    <a class="navbar-brand"th:href="${portalURL}">
                         <img src="/media/logo.png" alt="logo" class="me-1"/>
                         <h2 class="brand-text toTranslate" data-langKey="utils_brand">Portal</h2>
                     </a>
@@ -31,7 +31,7 @@
                         <i data-feather="more-horizontal"></i>
                     </li>
                     <li id="menu_dashboard" class=" nav-item">
-                        <a class="d-flex align-items-center" th:href="@{dashboard}">
+                        <a class="d-flex align-items-center" th:href="${portalURL + 'dashboard'}">
                             <i data-feather='activity'></i>
                             <span class="menu-title text-truncate toTranslate"
                                   data-langKey="menu_dashboard"
@@ -46,26 +46,26 @@
                         </a>
                         <ul class="menu-content">
                             <li id="menu_resseler_list">
-                                <a class="d-flex align-items-center" th:href="@{/resselers}">
+                                <a class="d-flex align-items-center" th:href="${portalURL + 'resselers'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_list">List</span>
                                 </a>
                             </li>
                             <li id="menu_resseler_balance">
-                                <a class="d-flex align-items-center" th:href="@{/resseler}">
+                                <a class="d-flex align-items-center" th:href="${portalURL + 'resseler'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_balance">Balance
                                     </span>
                                 </a>
                             </li>
                             <li id="menu_resseler_log">
-                                <a class="d-flex align-items-center" th:href="@{/resseler}">
+                                <a class="d-flex align-items-center" th:href="${portalURL + 'resseler'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_log">Log</span>
                                 </a>
                             </li>
                             <li id="menu_resseler_lookup">
-                                <a class="d-flex align-items-center" th:href="@{/resseler}">
+                                <a class="d-flex align-items-center" th:href="${portalURL + 'resseler'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_lookup">Lookup
                                     </span>
@@ -75,7 +75,7 @@
                     </li>
 
                     <li id="menu_devices" class="nav-item">
-                        <a class="d-flex align-items-center"th:href="@{devices}">
+                        <a class="d-flex align-items-center"th:href="${portalURL + 'devices'}">
                             <i data-feather='smartphone'></i>
                             <span
                                     class="menu-title text-truncate toTranslate"
@@ -84,7 +84,7 @@
                         </a>
                     </li>
                     <li id="menu_wallet" class=" nav-item">
-                        <a class="d-flex align-items-center"th:href="@{wallet}">
+                        <a class="d-flex align-items-center"th:href="${portalURL + 'wallet'}">
                             <div class="toLoadReplace"
                                  th:attr="data-toLoad=${portalURL + 'media/icons/wallet.svg'}"
                                  ></div>
@@ -99,20 +99,20 @@
                         </a>
                         <ul class="menu-content">
                             <li id="menu_support_new">
-                                <a class="d-flex align-items-center"th:href="@{support/new}">
+                                <a class="d-flex align-items-center"th:href="${portalURL + 'ticket/new'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_new">New</span>
                                 </a>
                             </li>
                             <li id="menu_support_open">
-                                <a class="d-flex align-items-center"th:href="@{support}">
+                                <a class="d-flex align-items-center"th:href="${portalURL + 'support'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_open">Open
                                     </span>
                                 </a>
                             </li>
                             <li id="menu_support_onProgress">
-                                <a class="d-flex align-items-center"th:href="@{support/onProgress}">
+                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/onProgress'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_onProgress">On
                                         Progress
@@ -120,21 +120,21 @@
                                 </a>
                             </li>
                             <li id="menu_support_pending">
-                                <a class="d-flex align-items-center"th:href="@{support/pending}">
+                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/pending'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_pending">Pending
                                     </span>
                                 </a>
                             </li>
                             <li id="menu_support_canceled">
-                                <a class="d-flex align-items-center"th:href="@{support/canceled}">
+                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/canceled'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate" data-langKey="menu_canceled">Canceled
                                     </span>
                                 </a>
                             </li>
                             <li id="menu_support_completed">
-                                <a class="d-flex align-items-center"th:href="@{support/completed}">
+                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/completed'}">
                                     <i data-feather="circle"></i>
                                     <span class="menu-item text-truncate toTranslate"
                                           data-langKey="menu_completed">Completed
@@ -181,7 +181,7 @@
                 <!-- LOGOUT -->
                 <th:block sec:authorize="isAuthenticated()">
                     <li id="menu_logout" class=" nav-item">
-                        <a class="d-flex align-items-center"th:href="@{logout}" onclick="clearSSLState()">
+                        <a class="d-flex align-items-center"th:href="${portalURL + 'logout'}" onclick="clearSSLState()">
                             <i data-feather='user-x'></i>
                             <span class="menu-title text-truncate toTranslate" data-langKey="menu_logout"
                             >Logout</span>
@@ -191,7 +191,7 @@
                 <!-- LOGIN -->
                 <th:block sec:authorize="!isAuthenticated()">
                     <li id="menu_login" class=" nav-item">
-                        <a class="d-flex align-items-center"th:href="@{login}">
+                        <a class="d-flex align-items-center"th:href="${portalURL + 'login'}">
                             <i data-feather='user-check'></i>
                             <span class="menu-title text-truncate toTranslate" data-langKey="menu_login"
                             >Login</span>

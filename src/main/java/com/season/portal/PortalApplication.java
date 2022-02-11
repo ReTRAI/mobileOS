@@ -66,9 +66,7 @@ public class PortalApplication{
 
 		HttpSession session = request.getSession(true);
 		String code = LanguageController.getCurrentLanguageCode(session);
-		if(!Arrays.asList(LANGUAGE_CODES).contains(code)){
-			code = "pt";
-		}
+
 		mv.addObject("selectedLang", code);
 
 

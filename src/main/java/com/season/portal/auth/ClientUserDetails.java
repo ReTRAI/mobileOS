@@ -1,6 +1,6 @@
 package com.season.portal.auth;
 
-import com.season.portal.client.users.generated.User;
+import com.season.portal.client.generated.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

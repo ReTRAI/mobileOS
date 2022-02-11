@@ -32,6 +32,14 @@
 	"utils_form_datePlaceholder":"YYYY-MM-DD",
 	"utils_form_expireBetween":"Expira entre:",
 	"utils_form_state":"Estado",
+	"utils_form_title":"Título",
+	"utils_form_title_placeholder":"Insira o título",
+	"utils_form_detail":"Detalhes",
+	"utils_form_detail_placeholder":"Insira o detalhe",
+	"utils_form_file":"Ficheiro",
+	"utils_form_file_placeholder":"Selecione o ficheiro",
+	"utils_form_files":"Ficheiros",
+	"utils_form_files_placeholder":"Selecione o ficheiros",
 
 	"utils_table_id":"Id",
 	"utils_table_name":"Nome",
@@ -112,6 +120,10 @@
 	"device_title":"Dispositivo",
 	"device_tab_title":"Portal | Dispositivo",
 	"device_invalid":"Dispositivo inválido",
+	
+	"ticketNew_tab_title":"Portal | Novo Ticket",
+	"ticketNew_title":"Novo Ticket",
+	"ticketNew_form_file":"Selecione uma ou mais imagens para evidenciar o problema.",
 
 	"end": "fim"
 }

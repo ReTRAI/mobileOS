@@ -16,7 +16,7 @@ public class ClientUserConfiguration {
     @Bean
     public Jaxb2Marshaller marshallerClientUser() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setContextPath("com.season.portal.client.users.generated");
+        marshaller.setContextPath("com.season.portal.client.generated");
         return marshaller;
     }
     @Bean

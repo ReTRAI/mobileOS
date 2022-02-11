@@ -22,8 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.season.portal.utils.validation.LangCodeValidator.LANGUAGE_CODES;
 
 @RestController
 public class LanguageController {
@@ -100,6 +103,13 @@ public class LanguageController {
     }
 
     public static String getCurrentLanguageCode(HttpSession session){
-        return (String)session.getAttribute(SESSION_LANGUAGE_CODE);
+        String code = (String)session.getAttribute(SESSION_LANGUAGE_CODE);
+        if(!Arrays.asList(LANGUAGE_CODES).contains(code)){
+            if (LANGUAGE_CODES.length>0)
+                code = LANGUAGE_CODES[0];
+            else
+                code = "";
+        }
+        return code;
     }
 }

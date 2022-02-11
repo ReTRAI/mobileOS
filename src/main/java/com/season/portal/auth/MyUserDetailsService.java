@@ -1,7 +1,6 @@
 package com.season.portal.auth;
 
 import com.season.portal.client.users.ClientUser;
-import com.season.portal.client.users.generated.GetUserByIdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -52,7 +52,7 @@
                                 sit amet, consectetur adipisicing elit.
                                 Eveniet exercitationem mollitia quaerat quas velit vitae.</p>
 
-                            <form th:object="${loginModel}" class="auth-login-form mt-2" th:action="@{/login}"
+                            <form th:object="${loginModel}" class="auth-login-form mt-2" th:action="@{${portalURL} + 'login'}"
                                   method="POST">
                                 <input id="login_langCode" type="hidden" th:field="*{langCode}"/>
 
@@ -87,8 +87,8 @@
                                     <th:block th:each="err : ${#fields.errors('password')}">
                                         <th:block th:switch="${err}">
                                             <p th:case="utils_form_password_numChar" class="invalid-feedback">
-                                                    <span class="toTranslate "
-                                                          data-langKey="utils_form_password_numChar0"></span>
+                                                <span class="toTranslate "
+                                                      data-langKey="utils_form_password_numChar0"></span>
                                                 <span
                                                         th:text="${T(com.season.portal.utils.validation.PasswordValidator).PASS_MIN_CHAR}"></span>
                                                 <span class="toTranslate "

@@ -32,6 +32,14 @@
 	"utils_form_datePlaceholder":"YYYY-MM-DD",
 	"utils_form_expireBetween":"Expire between:",
 	"utils_form_state":"State",
+	"utils_form_title":"Title",
+	"utils_form_title_placeholder":"Enter title",
+	"utils_form_detail":"Details",
+	"utils_form_detail_placeholder":"Enter details",
+	"utils_form_file":"File",
+	"utils_form_file_placeholder":"Select file",
+	"utils_form_files":"Files",
+	"utils_form_files_placeholder":"Select files",
 	
 	"utils_table_id":"Id",
 	"utils_table_name":"Name",
@@ -113,6 +121,9 @@
 	"device_tab_title":"Portal | Device",
 	"device_invalid":"Invalid device",
 	
+	"ticketNew_tab_title":"Portal | New Ticket",
+	"ticketNew_title":"New Ticket",
+	"ticketNew_form_file":"Select one or more images to evidence the problem",
 	
 	"end": "fim"
 }

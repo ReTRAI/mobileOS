@@ -1,13 +1,13 @@
 package com.season.portal.client.users;
 
 import com.season.portal.PortalApplication;
-import com.season.portal.client.users.generated.GetUserByIdRequest;
-import com.season.portal.client.users.generated.GetUserByIdResponse;
+import com.season.portal.client.generated.GetAllUsersRequest;
+import com.season.portal.client.generated.GetAllUsersResponse;
+import com.season.portal.client.generated.GetUserByIdRequest;
+import com.season.portal.client.generated.GetUserByIdResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
-import com.season.portal.client.users.generated.GetAllUsersRequest;
-import com.season.portal.client.users.generated.GetAllUsersResponse;
 
 public class ClientUser extends WebServiceGatewaySupport{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());

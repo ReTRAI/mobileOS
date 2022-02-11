@@ -1,11 +1,10 @@
 package com.season.portal.client.user;
 
+import com.season.portal.client.generated.GetAllUsersResponse;
+import com.season.portal.client.generated.GetUserByIdResponse;
+import com.season.portal.client.generated.User;
 import com.season.portal.client.users.ClientUser;
-import com.season.portal.client.users.generated.GetAllUsersRequest;
-import com.season.portal.client.users.generated.GetAllUsersResponse;
-import com.season.portal.client.users.generated.GetUserByIdResponse;
 
-import com.season.portal.client.users.generated.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,8 +20,10 @@ public class ClientUserTest {
     @Test
     public void getAllUsers() {
         GetAllUsersResponse response = client.getAllUsers();
-        if(response.getUsers() != null){
-            //assertEquals("pedro.di.moura@gmail.com", response.getUser().getUserEmail());
+        if(response != null){
+            if(response.getUsers() != null){
+                //assertEquals("pedro.di.moura@gmail.com", response.getUser().getUserEmail());
+            }
         }
     }
 
