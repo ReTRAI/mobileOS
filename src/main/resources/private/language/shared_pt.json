@@ -36,9 +36,11 @@
 	"utils_form_minmaxChar1": " e ",
 	"utils_form_minmaxChar2": " caracteres.",
 	"utils_form_file_invalid": "Ficheiro inválido.",
-	"utils_form_file_sizeExceeded0": "O ficheiro tem de ter um peso inferior a ",
+	"utils_form_file_sizeExceeded0": "Os ficheiros tem de ter um peso inferior a ",
 	"utils_form_file_sizeExceeded1": "MB.",
 	"utils_form_file_invalidType": "Tipo de ficheiro inválido.",
+	"utils_form_file_maxFiles0": "Só pode selecionar um máximo de ",
+	"utils_form_file_maxFiles1": " ficheiros.",
 	
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "pedro@example.com",

@@ -15,6 +15,24 @@
           data-langKey="utils_form_minmaxChar2"></span>
 </th:block>
 
+<th:block th:fragment="fileSize(fileSize)">
+    <span class="toTranslate "
+          data-langKey="utils_form_file_sizeExceeded0"></span>
+    <span
+            th:text="${fileSize}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_file_sizeExceeded1"></span>
+</th:block>
+
+<th:block th:fragment="maxFiles(maxFiles)">
+    <span class="toTranslate "
+          data-langKey="utils_form_file_maxFiles0"></span>
+    <span
+            th:text="${maxFiles}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_file_maxFiles1"></span>
+</th:block>
+
 </body>
 </html>
 

@@ -12,34 +12,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FileValidator implements ConstraintValidator<IFileValidatorConstrain, MultipartFile> {
+public class FileValidator extends FileValidatorUtils implements ConstraintValidator<IFileValidatorConstrain, MultipartFile> {
 
-    private boolean canBeNull;
+    private boolean required;
     private String[] fileTypes;
     private long maxSizeMB;
 
     @Override
     public void initialize(IFileValidatorConstrain constraintAnnotation) {
-        canBeNull = constraintAnnotation.canBeNull();
+        required = constraintAnnotation.required();
         fileTypes = constraintAnnotation.fileTypes();
-        maxSizeMB = constraintAnnotation.maxSizeMB();
-        if(maxSizeMB > 0)
-            maxSizeMB *=1024*1024;
-
-        String[] groups = constraintAnnotation.fileTypeGroups();
-        if(groups.length > 0) {
-            List<String> typeList = new ArrayList<String>(Arrays.asList(fileTypes));
-            for (String group : groups){
-                switch (group) {
-                    case "image":
-                        typeList.add("jpg");
-                        typeList.add("png");
-                        typeList.add("jpeg");
-                        break;
-                }
-            }
-            fileTypes = typeList.toArray(fileTypes);
-        }
+        maxSizeMB = calcMaxMBSize(constraintAnnotation.maxSizeMB());
+        fileTypes = groupsToFileTypes(constraintAnnotation.fileTypeGroups(), fileTypes);
     }
 
     @Override
@@ -48,61 +32,19 @@ public class FileValidator implements ConstraintValidator<IFileValidatorConstrai
 
         if(!validateEmpty(f, context))
             return false;
-        
+
+        //If not required no further validation
         if(f.isEmpty())
             return true;
         
-        return validateFileSize(f, context) &&
-               validateFileType(f, context);
-    }
-
-    private boolean validateFileSize(MultipartFile f, ConstraintValidatorContext context) {
-        boolean valid = true;
-        long fs = f.getSize();
-        if(maxSizeMB > 0){
-            if (f.getSize() > maxSizeMB){
-                context.buildConstraintViolationWithTemplate(
-                        "utils_form_file_sizeExceeded").addConstraintViolation();
-                valid = false;
-            }
-        }
-
-
-        return valid;
-    }
-
-    private boolean validateFileType(MultipartFile f, ConstraintValidatorContext context) {
-        boolean valid = false;
-
-        if (fileTypes.length > 0){
-            String type = f.getContentType().toLowerCase();
-
-            for (String ft : fileTypes){
-                switch(ft){
-                    case "jpeg":
-                    case "jpg":
-                    case "png":
-                        if(type.equals("image/"+ft))
-                            valid = true;
-                        break;
-                }
-
-            }
-        }
-        else
-            valid = true;
-
-        if(!valid)
-            context.buildConstraintViolationWithTemplate(
-                    "utils_form_file_invalidType").addConstraintViolation();
-
-        return valid;
+        return validateFileSize(f, context, maxSizeMB) &&
+               validateFileType(f, context, fileTypes);
     }
 
     public boolean validateEmpty(MultipartFile f, ConstraintValidatorContext context) {
         boolean valid = true;
         
-        if (!canBeNull && f.isEmpty()){
+        if (required && f.isEmpty()){
             context.buildConstraintViolationWithTemplate(
                     "utils_form_required").addConstraintViolation();
             valid = false;

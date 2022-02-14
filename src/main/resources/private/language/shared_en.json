@@ -39,6 +39,8 @@
 	"utils_form_file_sizeExceeded0": "File size must be under ",
 	"utils_form_file_sizeExceeded1": "MB.",
 	"utils_form_file_invalidType": "Invalid file type.",
+	"utils_form_file_maxFiles0": "Select at maximum ",
+	"utils_form_file_maxFiles1": " files.",
 
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "john@example.com",

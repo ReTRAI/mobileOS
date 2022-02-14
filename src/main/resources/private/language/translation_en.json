@@ -124,6 +124,9 @@
 	"ticketNew_tab_title":"Portal | New Ticket",
 	"ticketNew_title":"New Ticket",
 	"ticketNew_form_file":"Select one or more images to evidence the problem",
+	"ticketNew_form_file_detail0":"Select up to ",
+	"ticketNew_form_file_detail1":" images with a maximum of ",
+	"ticketNew_form_file_detail2":"Mb each to highlight the problem.",
 	
 	"end": "fim"
 }

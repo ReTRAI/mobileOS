@@ -123,7 +123,9 @@
 	
 	"ticketNew_tab_title":"Portal | Novo Ticket",
 	"ticketNew_title":"Novo Ticket",
-	"ticketNew_form_file":"Selecione uma ou mais imagens para evidenciar o problema.",
+	"ticketNew_form_file_detail0":"Selecione até ",
+	"ticketNew_form_file_detail1":" imagens com um máximo de ",
+	"ticketNew_form_file_detail2":"Mb cada uma para evidenciar o problema.",
 
 	"end": "fim"
 }

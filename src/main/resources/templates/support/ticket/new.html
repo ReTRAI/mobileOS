@@ -7,7 +7,9 @@
     <th:block th:replace="shared/common :: common-style"/>
 
     <style>
-
+        #filter-detail{
+            min-height: 151px !important;
+        }
     </style>
 
     <title class="toTranslate" data-langKey="ticketNew_tab_title"></title>
@@ -69,18 +71,37 @@
                                     </div>
                                     <div class="mb-1">
                                         <label class="form-label toTranslate" for="filter-files" data-langKey="utils_form_files">Files</label>
-                                        <input id="filter-files" type="file" class="form-control toTranslateInput"
-                                               data-langKey="utils_form_files_placeholder"
-                                               th:errorclass="is-invalid"
-                                               th:field="*{files}"/>
-                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('files')}"
-                                           th:attr="data-langKey=${err}"></p>
+                                        <p id="ticketNew_form_file_detail">
+                                            <small class="toTranslate" data-langKey="ticketNew_form_file_detail0"></small><span th:text="${T(com.season.portal.support.TicketModel).filesMaxFiles}"></span><small class="toTranslate" data-langKey="ticketNew_form_file_detail1"></small><span th:text="${T(com.season.portal.support.TicketModel).filesMaxFileSizeMB}"></span><small class="toTranslate" data-langKey="ticketNew_form_file_detail2"></small>
+                                        </p>
+                                            <th:block th:with="accepted=${T(com.season.portal.utils.validation.FileValidatorUtils).getAcceptTypes({'image'}, {})}">
+                                                <input id="filter-files" type="file" class="form-control toTranslateInput" multiple="multiple"
+                                                       data-langKey="utils_form_files_placeholder" onchange="checkFiles(this)"
+                                                       th:attr="accept=${accepted}"
+                                                       th:errorclass="is-invalid"
+                                                       th:field="*{files}"/>
+                                            </th:block>
+
+                                        <th:block th:each="err : ${#fields.errors('files')}">
+                                            <th:block th:switch="${err}">
+                                                <p th:case="utils_form_file_maxFiles" class="invalid-feedback"
+                                                   th:with="maxFiles=${T(com.season.portal.support.TicketModel).filesMaxFiles}">
+                                                    <th:block th:replace="shared/validation :: maxFiles(${maxFiles})"/>
+                                                </p>
+                                                <p th:case="utils_form_file_sizeExceeded" class="invalid-feedback"
+                                                   th:with="fileSize=${T(com.season.portal.support.TicketModel).filesMaxFileSizeMB}">
+                                                    <th:block th:replace="shared/validation :: fileSize(${fileSize})"/>
+                                                </p>
+                                                <p th:case="*" class="invalid-feedback toTranslate"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </th:block>
+                                        </th:block>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-detail" data-langKey="utils_form_detail">Files</label>
-                                        <textarea id="filter-detail" class="form-control toTranslateInput textareaDouble"
+                                        <label class="form-label toTranslate" for="filter-detail" data-langKey="utils_form_detail">Details</label>
+                                        <textarea id="filter-detail" class="form-control toTranslateInput"
                                                   data-langKey="utils_form_detail_placeholder"
                                                   th:errorclass="is-invalid"
                                                   th:field="*{detail}">
@@ -130,7 +151,20 @@
         showInMenu("menu_support_new");
     });
 
-
+    function checkFiles(that){
+        const files = that.files;
+        var valid = true;
+        if (files.length > [[${T(com.season.portal.support.TicketModel).filesMaxFiles}]]) {
+            $(that).addClass("is-invalid");
+            $("#ticketNew_form_file_detail").addClass("text-danger");
+            valid = false;
+        }
+        else{
+            $(that).removeClass("is-invalid");
+            $("#ticketNew_form_file_detail").removeClass("text-danger");
+        }
+        return valid;
+    }
 
 </script>
 
