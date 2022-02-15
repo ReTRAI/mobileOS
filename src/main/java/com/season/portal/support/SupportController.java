@@ -2,7 +2,7 @@ package com.season.portal.support;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.LoginModel;
-import com.season.portal.resseler.Resseler;
+import com.season.portal.reseller.Reseller;
 import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.model.StringPageModel;
 import com.season.portal.utils.pagination.Pagination;

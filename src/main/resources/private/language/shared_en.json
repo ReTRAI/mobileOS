@@ -51,9 +51,11 @@
 	"menu_theme":"Theme",
 	"menu_login":"Login",
 
+	"api_ClientUser_GetUserRolesByUserIdResponse_": "There was an error getting user roles.",
+	"api_ClientUser_GetUserRolesByUserIdResponse_noCode": "There was an error getting user roles.",
+	"api_ClientUser_GetUserRolesByUserIdResponse_ex": "There was an error getting user roles.",
 
-
-
+	
 
 	"end": "fim"
 }

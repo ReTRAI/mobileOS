@@ -1,5 +1,13 @@
 {
-	"api_login_invalid": "Invalid email or password",
+	"api_ClientUser_tryLogin_USER_INACTIVE": "Inactive user.",
+	"api_ClientUser_tryLogin_USER_BLOCKED": "Blocked user.",
+	"api_ClientUser_tryLogin_WRONG_CREDENTIALS": "Invalid email or password.",
+	"api_ClientUser_tryLogin_LOGIN_FAILED": "There was an error logging in.",
+	"api_ClientUser_tryLogin_noCode": "There was an error logging in.",
+	"api_ClientUser_tryLogin_ex": "There was an error logging in.",
+	
+	"api_CustomAuthenticationProvider_authenticate_noRoles":"No role to login ",
+
 	"api_login_invalid_mismatch": "User mismatch.",
 	"api_logout_success": "Successfully logged out.",
 	"api_login_invalid_session": "There was an error creating the session.",

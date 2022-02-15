@@ -2,6 +2,28 @@
       xsi:schemaLocation="https://www.thymeleaf.org ">
 <body>
 
+<th:block th:fragment="passMinMaxChar(minChar, maxChar)">
+    <span class="toTranslate "
+          data-langKey="utils_form_password_numChar0"></span>
+    <span
+            th:text="${minChar}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_password_numChar1"></span>
+    <span
+            th:text="${maxChar}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_password_numChar2"></span>
+</th:block>
+
+<th:block th:fragment="passAtLeastChar(specialChar)">
+    <span class="toTranslate "
+          data-langKey="utils_form_password_atLeast0"></span>
+    <span
+            th:text="${specialChar}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_password_atLeast1"></span>
+</th:block>
+
 <th:block th:fragment="minMaxChar(minChar, maxChar)">
     <span class="toTranslate "
           data-langKey="utils_form_minmaxChar0"></span>

@@ -1,6 +1,5 @@
 package com.season.portal.client.user;
 
-import com.season.portal.client.generated.GetAllUsersResponse;
 import com.season.portal.client.generated.GetUserByIdResponse;
 import com.season.portal.client.generated.User;
 import com.season.portal.client.users.ClientUser;
@@ -16,20 +15,10 @@ public class ClientUserTest {
 
     @Autowired
     ClientUser client;
-
-    @Test
-    public void getAllUsers() {
-        GetAllUsersResponse response = client.getAllUsers();
-        if(response != null){
-            if(response.getUsers() != null){
-                //assertEquals("pedro.di.moura@gmail.com", response.getUser().getUserEmail());
-            }
-        }
-    }
-
+    /*
     @Test
     public void getUserById_1() {
-        GetUserByIdResponse response = client.getUserById(1);
+        GetUserByIdResponse response = client.getUserById(9);
         if(response != null){
             User u = response.getUser();
             if(u != null){
@@ -37,4 +26,5 @@ public class ClientUserTest {
             }
         }
     }
+    */
 }

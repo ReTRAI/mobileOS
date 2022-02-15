@@ -47,7 +47,6 @@ public class AuthController extends ModelViewBaseController {
     @Autowired
     private AuthenticationManager authManager;
 
-
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final int SESSION_MAX_INACTIVE_TIME_SEC = 300;
 
@@ -62,35 +61,25 @@ public class AuthController extends ModelViewBaseController {
         }
 
         if(certificateEmail.equals(email)){
-            try{
+            UsernamePasswordAuthenticationToken authReq
+                    = new UsernamePasswordAuthenticationToken(email, pass);
+            Authentication auth = authManager.authenticate(authReq);
 
-                UsernamePasswordAuthenticationToken authReq
-                        = new UsernamePasswordAuthenticationToken(email, pass);
-                Authentication auth = authManager.authenticate(authReq);
+            if(auth.isAuthenticated()){
+                SecurityContext sc = SecurityContextHolder.getContext();
+                sc.setAuthentication(auth);
 
-                if(auth.isAuthenticated()){
-                    SecurityContext sc = SecurityContextHolder.getContext();
-                    sc.setAuthentication(auth);
-
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
-                    session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
-                    if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
-                        AdminController.initAdminView(session);
-                    }
-
-                    int expireIn = certificateExpireIn(certificates[0]);
-                    session.setAttribute("CERTIFICATION_VALIDITY", expireIn);
-
-                    result = true;
+                HttpSession session = request.getSession(true);
+                session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
+                session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
+                if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+                    AdminController.initAdminView(session);
                 }
-                else{
-                    PortalApplication.addErrorKey("api_login_invalid");
-                }
-            }
-            catch (Exception ex){
-                LOGGER.error(ex.getMessage());
-                PortalApplication.addErrorKey("api_login_invalid");
+
+                int expireIn = certificateExpireIn(certificates[0]);
+                session.setAttribute("CERTIFICATION_VALIDITY", expireIn);
+
+                result = true;
             }
         }
         else{
@@ -144,5 +133,30 @@ public class AuthController extends ModelViewBaseController {
 
         response.setStatus(HttpServletResponse.SC_FOUND);
         response.setHeader("Location", portalConfig.getPortalURL("login"));
+    }
+
+    @RequestMapping(value={"/changePassword"})
+    public ModelAndView changePassword(){
+        return changePasswordView(new ChangePassModel());
+    }
+
+    @PostMapping(value={"/changePassword"})
+    public ModelAndView changePassword(@Valid ChangePassModel model, BindingResult result){
+
+        if(!result.hasErrors()){
+            /*if(validateChangePass(request, model.getEmail(), model.getPassword())){
+                //return new ModelAndView("redirect:/dashboard");
+                return new ModelAndView("redirect:/ticket/new");
+            }*/
+        }
+
+        return changePasswordView( model);
+    }
+
+
+    private ModelAndView changePasswordView(ChangePassModel model){
+        ModelAndView mv = new ModelAndView("changePassword");
+        mv.addObject("changePassModel", model);
+        return dispatchView(mv);
     }
 }

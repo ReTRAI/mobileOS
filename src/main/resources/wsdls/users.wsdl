@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mobile.com/serverapi/users/base" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mobile.com/serverapi/users/base" targetNamespace="http://www.mobile.com/serverapi/users/base">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mob.com/serverapi/users/base" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mob.com/serverapi/users/base" targetNamespace="http://www.mob.com/serverapi/users/base">
   <wsdl:types>
-    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mobile.com/serverapi/users/base">
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mob.com/serverapi/users/base">
 
+    <!-- getUserById-->
     <xs:element name="getUserByIdRequest">
         <xs:complexType>
             <xs:sequence>
@@ -18,66 +19,241 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getAllUsersRequest">
-        <xs:complexType/>
-    </xs:element>
-    <xs:element name="getAllUsersResponse">
+    <!-- getUserRolesByUserId-->
+    <xs:element name="getUserRolesByUserIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="users" type="tns:user"/>
+                <xs:element name="userId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getUserRolesByUserIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="userRole" type="tns:userRole"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
+    <!-- userLogin-->
+    <xs:element name="userLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userEmail" type="xs:string"/>
+                <xs:element name="userPassword" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="userLoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- setUser-->
     <xs:element name="setUserRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userName" type="xs:string"/>
-                <xs:element name="userCode" type="xs:string"/>
                 <xs:element name="userEmail" type="xs:string"/>
+                <xs:element name="userPassword" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="setUserResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="val" type="xs:boolean"/>
+                <xs:element name="user" type="tns:user"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <!-- unblockUser-->
+    <xs:element name="unblockUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+                <xs:element name="actionUserId" type="xs:int"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="unblockUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- changeUserPw-->
+    <xs:element name="changeUserPwRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:int"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="changeUserPwResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- inactivateUser-->
+    <xs:element name="inactivateUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+                <xs:element name="actionUserId" type="xs:int"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="inactivateUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- changeLangPreference-->
+    <xs:element name="changeLangPreferenceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+                <xs:element name="lang" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:int"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="changeLangPreferenceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- changeThemePreference-->
+    <xs:element name="changeThemePreferenceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+                <xs:element name="theme" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="changeThemePreferenceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Endpoint User Object-->
     <xs:complexType name="user">
         <xs:sequence>
             <xs:element name="userId" type="xs:int"/>
             <xs:element name="userName" type="xs:string"/>
-            <xs:element name="userCode" type="xs:string"/>
             <xs:element name="userEmail" type="xs:string"/>
+            <xs:element name="userStatus" type="xs:string"/>
+            <xs:element name="languagePreference" type="xs:string"/>
+            <xs:element name="themePreference" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
+    <!-- Endpoint UserRole Object-->
+    <xs:complexType name="userRole">
+        <xs:sequence>
+            <xs:element name="userRoleId" type="xs:int"/>
+            <xs:element name="userRoleName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
   </wsdl:types>
-  <wsdl:message name="getUserByIdRequest">
-    <wsdl:part element="tns:getUserByIdRequest" name="getUserByIdRequest">
+  <wsdl:message name="getUserByIdResponse">
+    <wsdl:part element="tns:getUserByIdResponse" name="getUserByIdResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="setUserRequest">
-    <wsdl:part element="tns:setUserRequest" name="setUserRequest">
+  <wsdl:message name="inactivateUserRequest">
+    <wsdl:part element="tns:inactivateUserRequest" name="inactivateUserRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getAllUsersResponse">
-    <wsdl:part element="tns:getAllUsersResponse" name="getAllUsersResponse">
+  <wsdl:message name="unblockUserResponse">
+    <wsdl:part element="tns:unblockUserResponse" name="unblockUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeUserPwRequest">
+    <wsdl:part element="tns:changeUserPwRequest" name="changeUserPwRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="setUserResponse">
     <wsdl:part element="tns:setUserResponse" name="setUserResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getUserByIdResponse">
-    <wsdl:part element="tns:getUserByIdResponse" name="getUserByIdResponse">
+  <wsdl:message name="changeLangPreferenceRequest">
+    <wsdl:part element="tns:changeLangPreferenceRequest" name="changeLangPreferenceRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getAllUsersRequest">
-    <wsdl:part element="tns:getAllUsersRequest" name="getAllUsersRequest">
+  <wsdl:message name="setUserRequest">
+    <wsdl:part element="tns:setUserRequest" name="setUserRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUserRolesByUserIdRequest">
+    <wsdl:part element="tns:getUserRolesByUserIdRequest" name="getUserRolesByUserIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeLangPreferenceResponse">
+    <wsdl:part element="tns:changeLangPreferenceResponse" name="changeLangPreferenceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUserRolesByUserIdResponse">
+    <wsdl:part element="tns:getUserRolesByUserIdResponse" name="getUserRolesByUserIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeUserPwResponse">
+    <wsdl:part element="tns:changeUserPwResponse" name="changeUserPwResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeThemePreferenceRequest">
+    <wsdl:part element="tns:changeThemePreferenceRequest" name="changeThemePreferenceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="userLoginRequest">
+    <wsdl:part element="tns:userLoginRequest" name="userLoginRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="unblockUserRequest">
+    <wsdl:part element="tns:unblockUserRequest" name="unblockUserRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changeThemePreferenceResponse">
+    <wsdl:part element="tns:changeThemePreferenceResponse" name="changeThemePreferenceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUserByIdRequest">
+    <wsdl:part element="tns:getUserByIdRequest" name="getUserByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="userLoginResponse">
+    <wsdl:part element="tns:userLoginResponse" name="userLoginResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inactivateUserResponse">
+    <wsdl:part element="tns:inactivateUserResponse" name="inactivateUserResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="UsersPort">
@@ -87,16 +263,52 @@
       <wsdl:output message="tns:getUserByIdResponse" name="getUserByIdResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="inactivateUser">
+      <wsdl:input message="tns:inactivateUserRequest" name="inactivateUserRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:inactivateUserResponse" name="inactivateUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unblockUser">
+      <wsdl:input message="tns:unblockUserRequest" name="unblockUserRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:unblockUserResponse" name="unblockUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeUserPw">
+      <wsdl:input message="tns:changeUserPwRequest" name="changeUserPwRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:changeUserPwResponse" name="changeUserPwResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="setUser">
       <wsdl:input message="tns:setUserRequest" name="setUserRequest">
     </wsdl:input>
       <wsdl:output message="tns:setUserResponse" name="setUserResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getAllUsers">
-      <wsdl:input message="tns:getAllUsersRequest" name="getAllUsersRequest">
+    <wsdl:operation name="changeLangPreference">
+      <wsdl:input message="tns:changeLangPreferenceRequest" name="changeLangPreferenceRequest">
     </wsdl:input>
-      <wsdl:output message="tns:getAllUsersResponse" name="getAllUsersResponse">
+      <wsdl:output message="tns:changeLangPreferenceResponse" name="changeLangPreferenceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserRolesByUserId">
+      <wsdl:input message="tns:getUserRolesByUserIdRequest" name="getUserRolesByUserIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getUserRolesByUserIdResponse" name="getUserRolesByUserIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeThemePreference">
+      <wsdl:input message="tns:changeThemePreferenceRequest" name="changeThemePreferenceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:changeThemePreferenceResponse" name="changeThemePreferenceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="userLogin">
+      <wsdl:input message="tns:userLoginRequest" name="userLoginRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:userLoginResponse" name="userLoginResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
@@ -111,6 +323,33 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="inactivateUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="inactivateUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="inactivateUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="unblockUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="unblockUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="unblockUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeUserPw">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="changeUserPwRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="changeUserPwResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="setUser">
       <soap:operation soapAction=""/>
       <wsdl:input name="setUserRequest">
@@ -120,19 +359,46 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getAllUsers">
+    <wsdl:operation name="changeLangPreference">
       <soap:operation soapAction=""/>
-      <wsdl:input name="getAllUsersRequest">
+      <wsdl:input name="changeLangPreferenceRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getAllUsersResponse">
+      <wsdl:output name="changeLangPreferenceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserRolesByUserId">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getUserRolesByUserIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUserRolesByUserIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeThemePreference">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="changeThemePreferenceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="changeThemePreferenceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="userLogin">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="userLoginRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="userLoginResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="UsersPortService">
     <wsdl:port binding="tns:UsersPortSoap11" name="UsersPortSoap11">
-      <soap:address location="http://localhost:8080/ServerAPI/"/>
+      <soap:address location="http://localhost:8080/serverapi/"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

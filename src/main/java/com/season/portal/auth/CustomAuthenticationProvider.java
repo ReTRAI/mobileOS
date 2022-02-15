@@ -1,20 +1,21 @@
 package com.season.portal.auth;
 
-import com.season.portal.client.generated.GetUserByIdResponse;
-import com.season.portal.client.generated.User;
+import com.season.portal.PortalApplication;
+import com.season.portal.client.generated.*;
 import com.season.portal.client.users.ClientUser;
+import com.season.portal.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -23,30 +24,35 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     ClientUser client;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        final String username = (authentication.getPrincipal() == null) ? "NONE_PROVIDED" : authentication.getName();
+        final String email = (authentication.getPrincipal() == null) ? "NONE_PROVIDED" : authentication.getName();
         final String pass = (authentication.getPrincipal() == null) ? "NONE_PROVIDED" : authentication.getCredentials().toString();
-        // get user details using Spring security user details service
 
-        return createSuccessfulAuthentication(authentication, new MyUserDetails(username));
-        /*ClientUserDetails userDetails = null;
-        try {
-            GetUserByIdResponse userResponse = client.getUserById(1);
-            if(validateUserResponseLogin(userResponse)){
-                userDetails = new ClientUserDetails(userResponse.getUser());
-                return createSuccessfulAuthentication(authentication, userDetails);
+        ClientUserDetails userDetails = null;
+        UserLoginResponse userResponse = client.tryLogin(email, pass);
+
+        if(validateUserLoginResponse(userResponse)){
+            User user = userResponse.getUser();
+            GetUserRolesByUserIdResponse rolesResponse = client.getRolesById(user.getUserId());
+            if(rolesResponse != null){
+                List<UserRole> roles = rolesResponse.getUserRole();
+                if(true/*roles.size() > 0*/){
+                    userDetails = new ClientUserDetails(user, Utils.rolesToGrantedAuthorities(roles));
+                    return createSuccessfulAuthentication(authentication, userDetails);
+                }
+                else{
+                    PortalApplication.addErrorKey("api_CustomAuthenticationProvider_authenticate_noRoles");
+                }
             }
-        } catch (UsernameNotFoundException exception) {
-            throw new BadCredentialsException("invalid login details");
         }
 
-        return null;*/
+        return createUnsuccessfulAuthentication();
     }
 
-    private boolean validateUserResponseLogin(GetUserByIdResponse userResponse) {
+    private boolean validateUserLoginResponse(UserLoginResponse userResponse) {
         boolean valid = false;
-        if(userResponse == null){
+        if(userResponse != null){
             User user = userResponse.getUser();
-            if(user.getUserId() == 0) {
+            if(user.getUserId() != 0) {
                 /*
                 if(!user.getBlocked()){
 
@@ -65,8 +71,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     private Authentication createSuccessfulAuthentication(final Authentication authentication, final UserDetails user) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), authentication.getCredentials(), user.getAuthorities());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, authentication.getCredentials(), user.getAuthorities());
         token.setDetails(authentication.getDetails());
+        return token;
+    }
+
+    private Authentication createUnsuccessfulAuthentication() {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(null, null, null );
+        token.setAuthenticated(false);
         return token;
     }
 }

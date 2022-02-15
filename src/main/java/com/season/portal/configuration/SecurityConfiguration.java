@@ -47,11 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
                     .antMatchers("/toggleAdminView").hasRole("ADMIN")
-                    .antMatchers("/resselers","/resseler/**").hasAnyRole("ADMIN")
+                    .antMatchers("/resellers","/reseller/**").hasAnyRole("ADMIN")
                     .antMatchers("/devices","/device").hasAnyRole("ADMIN")
 
                     .antMatchers("/support","/support/**").hasAnyRole("SUPPORT", "ADMIN")
-                    .antMatchers("/dashboard").hasAnyRole("SUPPORT","RESSELER", "ADMIN")
+                    .antMatchers("/dashboard").hasAnyRole("SUPPORT","Reseller", "ADMIN")
 
                     .antMatchers( "/", "/login", "/logout").permitAll()
                     .antMatchers( "/getIndexTranslation").permitAll()

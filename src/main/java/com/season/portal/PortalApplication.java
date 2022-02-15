@@ -1,5 +1,7 @@
 package com.season.portal;
 
+import com.season.portal.auth.ChangePassModel;
+import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.auth.admin.AdminController;
 import com.season.portal.language.LanguageController;
 import com.season.portal.notifications.Notification;
@@ -19,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ws.soap.client.SoapFaultClientException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
@@ -59,10 +62,8 @@ public class PortalApplication{
 	}
 
 	public static ModelAndView addStatus(ModelAndView mv, HttpServletRequest request) {
-		mv.addObject("langCodes", LANGUAGE_CODES);
 
-		mv.addObject("errorKeys",errorKeys);
-		mv.addObject("successKeys",successKeys);
+
 
 		HttpSession session = request.getSession(true);
 		String code = LanguageController.getCurrentLanguageCode(session);
@@ -71,26 +72,47 @@ public class PortalApplication{
 
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
 		if(auth != null && auth.isAuthenticated()){
-			ArrayList<Notification> notifications = new ArrayList<Notification>();
-			notifications.add(new Notification(1l, "login/", "Login", "go to login page"));
-			notifications.add(new Notification(2l, "logout/", "Logout", ""));
-			notifications.add(new Notification(3l, "", "No link", "test sub"));
+			var principal = auth.getPrincipal();
 
-			mv.addObject("notifications", notifications);
-			mv.addObject("userName", auth.getName());
-			mv.addObject("userRole", auth.getAuthorities().toString());
+			//Logged
+			if(principal instanceof ClientUserDetails){
 
+				mv.addObject("userName", auth.getName());
+				mv.addObject("userRole", auth.getAuthorities().toString());
+				if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+					mv.addObject("adminView",AdminController.getAdminView(session));
+				}
 
-			if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+				if(((ClientUserDetails)principal).needChangPass()){
+					String viewName = mv.getViewName();
+					mv.addObject("needToChangePass",true);
 
-				mv.addObject("adminView",AdminController.getAdminView(session));
+					if(!viewName.equals("changePassword")){
+						mv.setViewName("changePassword");
+						mv.addObject("changePassModel", new ChangePassModel());
+						addErrorKey("api_needToChangePass");
+					}
+
+				}
+				else{
+					ArrayList<Notification> notifications = new ArrayList<Notification>();
+					notifications.add(new Notification(1l, "login/", "Login", "go to login page"));
+					notifications.add(new Notification(2l, "logout/", "Logout", ""));
+					notifications.add(new Notification(3l, "", "No link", "test sub"));
+					mv.addObject("notifications", notifications);
+				}
 			}
 		}
 
+		mv.addObject("langCodes", LANGUAGE_CODES);
+		mv.addObject("errorKeys",errorKeys);
+		mv.addObject("successKeys",successKeys);
 		clearStatus();
 		return mv;
 	}
+
 	public static RestModel addStatus(RestModel pr) {
 		pr.addErrorKeys(errorKeys);
 		pr.addSuccessKeys(successKeys);
@@ -109,6 +131,10 @@ public class PortalApplication{
 	}
 	public static void log(Logger LOGGER, Exception ex){
 		log(LOGGER, ex.getMessage());
+	}
+
+	public static void log(Logger LOGGER, SoapFaultClientException ex, String code){
+		log(LOGGER, code+ "\n" +ex.getMessage());
 	}
 	public static void log(Logger LOGGER, HttpServletRequest request){
 

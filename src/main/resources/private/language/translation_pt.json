@@ -1,6 +1,6 @@
 {
 	"api_userRole_ROLE_ADMIN":"Administrador",
-	"api_userRole_ROLE_RESSELER":"Revendedor",
+	"api_userRole_ROLE_Reseller":"Revendedor",
 	"api_userRole_ROLE_SUPPORT":"Suporte",
 	
 	"api_deviceState_ACTIVE":"Activo",
@@ -9,10 +9,13 @@
 	"api_deviceState_BLOCKED":"Bloqueado",
 	"api_deviceState_SUSPENDED":"Suspenso",
 	
+	"api_needToChangePass":"É necessário alterar a palavra-chave.",
+	
 	"utils_feminine_new":"nova",
 	"utils_feminine_news":"novas",
 	"utils_filters":"Filtros",
 	"utils_submit":"Submeter",
+	"utils_change":"Alterar",
 	"utils_reset":"Limpar",
 	"utils_all":"Todos",
 	"utils_yes":"Sim",
@@ -40,7 +43,10 @@
 	"utils_form_file_placeholder":"Selecione o ficheiro",
 	"utils_form_files":"Ficheiros",
 	"utils_form_files_placeholder":"Selecione o ficheiros",
-
+	"utils_form_oldPassword":"Palavra-chave anterior",
+	"utils_form_newPassword":"Nova palavra-chave",
+	"utils_form_checkPassword":"Confirmação",
+	
 	"utils_table_id":"Id",
 	"utils_table_name":"Nome",
 	"utils_table_balance":"Balanço",
@@ -64,7 +70,7 @@
 	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
-	"menu_resseler":"Revendedor",
+	"menu_reseller":"Revendedor",
 	"menu_list":"Lista",
 	"menu_balance":"Balanço",
 	"menu_log":"Registo",
@@ -80,6 +86,8 @@
 	"menu_completed":"Completos",
 	"menu_logout":"Sair",
 	"menu_viewAdmin":"Visão Admin.",
+	"menu_profile":"Perfil",
+	"menu_profile_changePassword":"Palavra-chave",
 
 	"header_notifications_title":"Notificações",
 	"header_notifications_readAll":"Marcar todas como lidas",
@@ -111,8 +119,8 @@
 	"dashboard_activations_val2":"1 Mês",
 	"dashboard_activations_val3":"3 Meses",
 
-	"resseler_title":"Revendedores",
-	"resseler_tab_title":"Portal | Revendedor",
+	"reseller_title":"Revendedores",
+	"reseller_tab_title":"Portal | Revendedor",
 	
 	"devices_title":"Dispositivos",
 	"devices_tab_title":"Portal | Dispositivos",

@@ -1,14 +1,45 @@
 package com.season.portal.utils;
 
+import com.season.portal.PortalApplication;
+import com.season.portal.client.generated.UserRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.ws.soap.SoapFault;
+import org.springframework.ws.soap.SoapFaultDetail;
+import org.springframework.ws.soap.SoapFaultDetailElement;
+import org.springframework.ws.soap.client.SoapFaultClientException;
+import org.w3c.dom.Node;
+
 import javax.security.auth.x500.X500Principal;
+import javax.xml.transform.dom.DOMSource;
 import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class Utils {
 
+    public static String getSoapCode(SoapFaultClientException soapEx){
+        String code = "";
+        try {
+            SoapFault soapFault = soapEx.getSoapFault();
+            SoapFaultDetail detail  = soapFault.getFaultDetail();
+            SoapFaultDetailElement detailElementChild = detail.getDetailEntries().next();
+            DOMSource domDetailSource = (DOMSource)detailElementChild.getSource();
+            Node detailNode = domDetailSource.getNode();
+            Node detailChildNode_code = detailNode.getFirstChild();
+            code = detailChildNode_code.getTextContent();
+        }catch (Exception e){
+            PortalApplication.log(LoggerFactory.getLogger(new Utils().getClass()), e);
+        }
+
+        return code;
+    }
     public static String gsbk(HashMap<String, String> hm, String key, String defaultValue ){
 
         if(hm != null){
@@ -87,4 +118,17 @@ public class Utils {
     }
 
 
+    public static ArrayList<GrantedAuthority> rolesToGrantedAuthorities(List<UserRole> roles) {
+        ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        GrantedAuthority a = new SimpleGrantedAuthority("ROLE_ADMIN");
+        authorities.add(a);
+
+        for(UserRole role:roles){
+            GrantedAuthority ga = new SimpleGrantedAuthority(role.getUserRoleName());
+            authorities.add(ga);
+        }
+
+        return authorities;
+    }
 }

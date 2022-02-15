@@ -1,6 +1,6 @@
 {
 	"api_userRole_ROLE_ADMIN":"Admin",
-	"api_userRole_ROLE_RESSELER":"Resseler",
+	"api_userRole_ROLE_Reseller":"Reseller",
 	"api_userRole_ROLE_SUPPORT":"Support",
 
 	"api_deviceState_ACTIVE":"Active",
@@ -9,10 +9,13 @@
 	"api_deviceState_BLOCKED":"Blocked",
 	"api_deviceState_SUSPENDED":"Suspended",
 	
+	"api_needToChangePass":"Password must be changed",
+	
 	"utils_feminine_new":"new",
 	"utils_feminine_news":"news",
 	"utils_filters":"Filters",
 	"utils_submit":"Submit",
+	"utils_change":"Change",
 	"utils_reset":"Reset",
 	"utils_all":"All",
 	"utils_yes":"Yes",
@@ -40,6 +43,9 @@
 	"utils_form_file_placeholder":"Select file",
 	"utils_form_files":"Files",
 	"utils_form_files_placeholder":"Select files",
+	"utils_form_oldPassword":"Old password",
+	"utils_form_newPassword":"New password",
+	"utils_form_checkPassword":"Check password",
 	
 	"utils_table_id":"Id",
 	"utils_table_name":"Name",
@@ -64,7 +70,7 @@
 	
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
-	"menu_resseler":"Resseler",
+	"menu_reseller":"Reseller",
 	"menu_list":"List",
 	"menu_balance":"Bal<br/>ance",
 	"menu_log":"Log",
@@ -80,6 +86,8 @@
 	"menu_completed":"Completed",
 	"menu_logout":"Logout",
 	"menu_viewAdmin":"Admin view",
+	"menu_profile":"Profile",
+	"menu_profile_changePassword":"Password",
 
 	"header_notifications_title":"Notifications",
 	"header_notifications_readAll":"Read all notifications",
@@ -111,8 +119,8 @@
 	"dashboard_activations_val2":"1 Month",
 	"dashboard_activations_val3":"3 Months",
 
-	"resseler_title":"Resselers",
-	"resseler_tab_title":"Portal | Resseler",
+	"reseller_title":"Resellers",
+	"reseller_tab_title":"Portal | Reseller",
 	
 	"devices_title":"Devices",
 	"devices_tab_title":"Portal | Devices",

@@ -24,127 +24,146 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <!-- START NAVBAR -->
+
                 <th:block sec:authorize="isAuthenticated()">
+                    <!-- START NAVBAR -->
+                    <th:block th:if="${!needToChangePass}">
+                        <li class=" navigation-header">
+                            <span class="toTranslate" data-langKey="menu_navBar">NavBar</span>
+                            <i data-feather="more-horizontal"></i>
+                        </li>
+                        <li id="menu_dashboard" class=" nav-item">
+                            <a class="d-flex align-items-center" th:href="${portalURL + 'dashboard'}">
+                                <i data-feather='activity'></i>
+                                <span class="menu-title text-truncate toTranslate"
+                                      data-langKey="menu_dashboard"
+                                >Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li class=" nav-item">
+                            <a class="d-flex align-items-center" href="#">
+                                <i data-feather='users'></i>
+                                <span class="menu-title text-truncate toTranslate" data-langKey="menu_reseller">Reseller</span>
+                            </a>
+                            <ul class="menu-content">
+                                <li id="menu_reseller_list">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'resellers'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_list">List</span>
+                                    </a>
+                                </li>
+                                <li id="menu_reseller_balance">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'reseller'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_balance">Balance
+                                        </span>
+                                    </a>
+                                </li>
+                                <li id="menu_reseller_log">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'reseller'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_log">Log</span>
+                                    </a>
+                                </li>
+                                <li id="menu_reseller_lookup">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'reseller'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_lookup">Lookup
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li id="menu_devices" class="nav-item">
+                            <a class="d-flex align-items-center"th:href="${portalURL + 'devices'}">
+                                <i data-feather='smartphone'></i>
+                                <span
+                                        class="menu-title text-truncate toTranslate"
+                                        data-langKey="menu_devices"
+                                >Devices</span>
+                            </a>
+                        </li>
+                        <li id="menu_wallet" class=" nav-item">
+                            <a class="d-flex align-items-center"th:href="${portalURL + 'wallet'}">
+                                <div class="toLoadReplace"
+                                     th:attr="data-toLoad=${portalURL + 'media/icons/wallet.svg'}"
+                                     ></div>
+                                <span class="menu-title text-truncate toTranslate" data-langKey="menu_wallet">Wallet</span>
+                            </a>
+                        </li>
+                        <li class=" nav-item">
+                            <a class="d-flex align-items-center" href="#">
+                                <div class="toLoadReplace"
+                                     th:attr="data-toLoad=${portalURL + 'media/icons/support.svg'}"></div>
+                                <span class="menu-title text-truncate toTranslate" data-langKey="menu_support">Support</span>
+                            </a>
+                            <ul class="menu-content">
+                                <li id="menu_support_new">
+                                    <a class="d-flex align-items-center"th:href="${portalURL + 'ticket/new'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_new">New</span>
+                                    </a>
+                                </li>
+                                <li id="menu_support_open">
+                                    <a class="d-flex align-items-center"th:href="${portalURL + 'support'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_open">Open
+                                        </span>
+                                    </a>
+                                </li>
+                                <li id="menu_support_onProgress">
+                                    <a class="d-flex align-items-center"th:href="${portalURL + 'support/onProgress'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_onProgress">On
+                                            Progress
+                                        </span>
+                                    </a>
+                                </li>
+                                <li id="menu_support_pending">
+                                    <a class="d-flex align-items-center"th:href="${portalURL + 'support/pending'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_pending">Pending
+                                        </span>
+                                    </a>
+                                </li>
+                                <li id="menu_support_canceled">
+                                    <a class="d-flex align-items-center"th:href="${portalURL + 'support/canceled'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_canceled">Canceled
+                                        </span>
+                                    </a>
+                                </li>
+                                <li id="menu_support_completed">
+                                    <a class="d-flex align-items-center"th:href="${portalURL + 'support/completed'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate"
+                                              data-langKey="menu_completed">Completed
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </th:block>
+                    <!-- END NAVBAR -->
+                    <!-- START PROFILE -->
                     <li class=" navigation-header">
-                        <span class="toTranslate" data-langKey="menu_navBar">NavBar</span>
+                        <span class="toTranslate" data-langKey="menu_profile">Profile</span>
                         <i data-feather="more-horizontal"></i>
                     </li>
-                    <li id="menu_dashboard" class=" nav-item">
-                        <a class="d-flex align-items-center" th:href="${portalURL + 'dashboard'}">
-                            <i data-feather='activity'></i>
+                    <li id="menu_profile_changePassword" class="nav-item">
+                        <a class="d-flex align-items-center" th:href="${portalURL + 'changePassword'}">
+                            <i data-feather='shield'></i>
                             <span class="menu-title text-truncate toTranslate"
-                                  data-langKey="menu_dashboard"
-                            >Dashboard</span>
+                                  data-langKey="menu_profile_changePassword"
+                            >Password</span>
                         </a>
                     </li>
-
-                    <li class=" nav-item">
-                        <a class="d-flex align-items-center" href="#">
-                            <i data-feather='users'></i>
-                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_resseler">Resseler</span>
-                        </a>
-                        <ul class="menu-content">
-                            <li id="menu_resseler_list">
-                                <a class="d-flex align-items-center" th:href="${portalURL + 'resselers'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_list">List</span>
-                                </a>
-                            </li>
-                            <li id="menu_resseler_balance">
-                                <a class="d-flex align-items-center" th:href="${portalURL + 'resseler'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_balance">Balance
-                                    </span>
-                                </a>
-                            </li>
-                            <li id="menu_resseler_log">
-                                <a class="d-flex align-items-center" th:href="${portalURL + 'resseler'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_log">Log</span>
-                                </a>
-                            </li>
-                            <li id="menu_resseler_lookup">
-                                <a class="d-flex align-items-center" th:href="${portalURL + 'resseler'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_lookup">Lookup
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li id="menu_devices" class="nav-item">
-                        <a class="d-flex align-items-center"th:href="${portalURL + 'devices'}">
-                            <i data-feather='smartphone'></i>
-                            <span
-                                    class="menu-title text-truncate toTranslate"
-                                    data-langKey="menu_devices"
-                            >Devices</span>
-                        </a>
-                    </li>
-                    <li id="menu_wallet" class=" nav-item">
-                        <a class="d-flex align-items-center"th:href="${portalURL + 'wallet'}">
-                            <div class="toLoadReplace"
-                                 th:attr="data-toLoad=${portalURL + 'media/icons/wallet.svg'}"
-                                 ></div>
-                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_wallet">Wallet</span>
-                        </a>
-                    </li>
-                    <li class=" nav-item">
-                        <a class="d-flex align-items-center" href="#">
-                            <div class="toLoadReplace"
-                                 th:attr="data-toLoad=${portalURL + 'media/icons/support.svg'}"></div>
-                            <span class="menu-title text-truncate toTranslate" data-langKey="menu_support">Support</span>
-                        </a>
-                        <ul class="menu-content">
-                            <li id="menu_support_new">
-                                <a class="d-flex align-items-center"th:href="${portalURL + 'ticket/new'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_new">New</span>
-                                </a>
-                            </li>
-                            <li id="menu_support_open">
-                                <a class="d-flex align-items-center"th:href="${portalURL + 'support'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_open">Open
-                                    </span>
-                                </a>
-                            </li>
-                            <li id="menu_support_onProgress">
-                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/onProgress'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_onProgress">On
-                                        Progress
-                                    </span>
-                                </a>
-                            </li>
-                            <li id="menu_support_pending">
-                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/pending'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_pending">Pending
-                                    </span>
-                                </a>
-                            </li>
-                            <li id="menu_support_canceled">
-                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/canceled'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate" data-langKey="menu_canceled">Canceled
-                                    </span>
-                                </a>
-                            </li>
-                            <li id="menu_support_completed">
-                                <a class="d-flex align-items-center"th:href="${portalURL + 'support/completed'}">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item text-truncate toTranslate"
-                                          data-langKey="menu_completed">Completed
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <!-- END PROFILE -->
                 </th:block>
-                <!-- END NAVBAR -->
+
+
                 <!-- START SETTINGS -->
                 <li class=" navigation-header">
                     <span class="toTranslate" data-langKey="menu_settings">Settings</span>
@@ -189,7 +208,7 @@
                     </li>
                 </th:block>
                 <!-- LOGIN -->
-                <th:block sec:authorize="!isAuthenticated()">
+                <th:block sec:authorize="isAnonymous()">
                     <li id="menu_login" class=" nav-item">
                         <a class="d-flex align-items-center"th:href="${portalURL + 'login'}">
                             <i data-feather='user-check'></i>

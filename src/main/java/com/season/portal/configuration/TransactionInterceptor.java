@@ -1,6 +1,7 @@
 package com.season.portal.configuration;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,9 +40,15 @@ public class TransactionInterceptor implements HandlerInterceptor {
         // return true or false depending on whether you want the controller to handle the request or terminate request processing.
         X509Certificate[] certificates = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate");
         String commonName = Utils.parseCertificate(certificates[0].getSubjectX500Principal(), "CN");
-        String emailuserName = auth.getName();
+        String emailuserName = "";
 
-        /*if(commonName.equals(emailuserName)){
+        var principal = auth.getPrincipal();
+        if(principal instanceof ClientUserDetails){
+            emailuserName = ((ClientUserDetails)principal).getUserEmail();
+        }
+        //
+
+        if(commonName.equals(emailuserName)){
             return true;
         }
 
@@ -51,7 +58,6 @@ public class TransactionInterceptor implements HandlerInterceptor {
         response.setStatus(HttpServletResponse.SC_FOUND);
         response.setHeader("Location", sessionExpiredUrl);
 
-        return false;*/
-        return true;
+        return false;
     }
 }

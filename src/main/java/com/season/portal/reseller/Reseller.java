@@ -1,6 +1,6 @@
-package com.season.portal.resseler;
+package com.season.portal.reseller;
 
-public class Resseler {
+public class Reseller {
     private Long guid;
     private String name;
     private float balance;
@@ -10,7 +10,7 @@ public class Resseler {
     private int free;
     private int wiped;
 
-    public Resseler(Long guid, String name, float balance, int devices, int activated, int notActivated, int free, int wiped) {
+    public Reseller(Long guid, String name, float balance, int devices, int activated, int notActivated, int free, int wiped) {
         this.guid = guid;
         this.name = name;
         this.balance = balance;

@@ -1,6 +1,7 @@
 package com.season.portal.auth;
 
 import com.season.portal.client.generated.User;
+import com.season.portal.client.users.ClientUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,18 +14,27 @@ public class ClientUserDetails implements UserDetails {
     private String userName;
     private String userEmail;
     private ArrayList<GrantedAuthority> authorities;
+
     private boolean AccountNonExpired = false;
     private boolean AccountNonLocked = false;
     private boolean CredentialsNonExpired = false;
     private boolean Enabled = false;
 
-    public ClientUserDetails(User user){
+    private String theme = "D";
+    private String language = "D";
+    private String status = "";
+
+    public ClientUserDetails(User user, ArrayList<GrantedAuthority> authorities){
         userName = user.getUserName();
         userEmail = user.getUserEmail();
+        theme = user.getThemePreference();
+        language = user.getLanguagePreference();
+        status = user.getUserStatus();
+        this.authorities = authorities;
+    }
 
-        GrantedAuthority a = new SimpleGrantedAuthority("ROLE_ADMIN");
-        authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(a);
+    public boolean needChangPass() {
+        return (status.equals(ClientUser.USER_STATUS.CHANGEPW.name()));
     }
 
     @Override

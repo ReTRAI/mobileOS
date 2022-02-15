@@ -50,6 +50,10 @@
 	"menu_settings":"Definições",
 	"menu_theme":"Tema",
 	"menu_login":"Entrar",
+	
+	"api_ClientUser_GetUserRolesByUserIdResponse_": "Ocorreu um erro a obter os perfis do utilizador.",
+	"api_ClientUser_GetUserRolesByUserIdResponse_noCode": "Ocorreu um erro a obter os perfis do utilizador.",
+	"api_ClientUser_GetUserRolesByUserIdResponse_ex": "Ocorreu um erro a obter os perfis do utilizador.",
 
 	"end": "fim"
 }

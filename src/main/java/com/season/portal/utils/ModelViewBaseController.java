@@ -1,8 +1,11 @@
 package com.season.portal.utils;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.configuration.PortalConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +20,11 @@ public class ModelViewBaseController {
 
     public ModelAndView dispatchView(ModelAndView mv ){
         mv.addObject("portalURL", portalConfig.getPortalURL());
+
         return PortalApplication.addStatus(mv, request);
     }
+
+
 
 
 }
