@@ -1,5 +1,7 @@
 package com.season.portal.utils.model;
 
+import java.util.Locale;
+
 public class PageModel {
 
     private Integer page;
@@ -10,16 +12,19 @@ public class PageModel {
     public PageModel() {
         this.page = 1;
         this.numPerPage = 10;
+        this.order = "asc";
     }
 
     public PageModel(Integer numPerPage) {
         this.page = 1;
         this.numPerPage = numPerPage;
+        this.order = "asc";
     }
 
     public PageModel(Integer page, Integer numPerPage) {
         this.page = page;
         this.numPerPage = numPerPage;
+        this.order = "asc";
     }
 
     public Integer getPage() {
@@ -42,6 +47,7 @@ public class PageModel {
         return sort;
     }
 
+
     public void setSort(String sort) {
         this.sort = sort;
     }
@@ -53,5 +59,40 @@ public class PageModel {
     public void setOrder(String order) {
         this.order = order;
     }
+    public String getValidSort() {
+        if(sort == null)
+            return "";
+        return sort;
+    }
+
+    public Integer getValidNumPerPage() {
+        if(numPerPage < 1)
+            return 1;
+        return numPerPage;
+    }
+
+    public String getValidOrder() {
+        String validOder = "asc";
+
+        if(order != null){
+            switch (order.toLowerCase(Locale.ROOT)){
+                case "asc":
+                case "desc":
+                    validOder = order;
+                    break;
+            }
+        }
+
+        return validOder;
+    }
+
+    public Integer getValidOffset(){
+        Integer offset = (page-1) * numPerPage;
+        if(offset<0)
+            offset = 0;
+        return offset;
+    }
+
+
 }
 

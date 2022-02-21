@@ -3,8 +3,10 @@
 <body>
 
 <th:block th:fragment="pagination(sharedP_baseUrl, sharedP_queryUrl, sharedP_Pagination, sharedP_elementsSize)">
+    <p th:if="${sharedP_Pagination.getTotalElements() == 0}"
+       class="toTranslate text-center fw-bolder" data-langKey="utils_pagination_noElements"></p>
     <div class="row justify-content-between">
-        <div class="col-lg-6 col-12">
+        <div class="col-lg-6 col-12"  th:if="${sharedP_Pagination.getTotalElements() > 0}">
             <p class="page-link-text" >
                 <span class="toTranslate" data-langKey="utils_pagination_0">Showing </span>
                 <span th:text="${sharedP_Pagination.getOffset()+1}"></span>
@@ -15,34 +17,37 @@
                 <span class="toTranslate"  data-langKey="utils_pagination_3"> entries</span>
             </p>
         </div>
-        <div class="col-lg-6 col-12">
-            <nav class="nav navbar-nav align-items-end ms-auto" aria-label="Table navigation">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item first">
-                        <a class="page-link toTranslate" data-langKey="utils_pagination_first"
-                           th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', 1)}"
-                        >
-                            First
-                        </a>
-                    </li>
-                    <li class="page-item"
-                        th:each="page : ${sharedP_Pagination.getPagination()}"
-                        th:classappend="${page == sharedP_Pagination.getActualPage()} ? active : ''">
-                        <a class="page-link"
-                           th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', page)}"
-                           th:text="${page}"></a>
-                    </li>
+        <th:block th:if="${sharedP_Pagination.getTotalPages() > 1}">
+            <div class="col-lg-6 col-12">
+                <nav class="nav navbar-nav align-items-end ms-auto" aria-label="Table navigation">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item first">
+                            <a class="page-link toTranslate" data-langKey="utils_pagination_first"
+                               th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', 1)}"
+                            >
+                                First
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:each="page : ${sharedP_Pagination.getPagination()}"
+                            th:classappend="${page == sharedP_Pagination.getActualPage()} ? active : ''">
+                            <a class="page-link"
+                               th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', page)}"
+                               th:text="${page}"></a>
+                        </li>
 
-                    <li class="page-item last">
-                        <a class="page-link toTranslate" data-langKey="utils_pagination_last"
-                           th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', sharedP_Pagination.getTotalPages())}"
-                        >
-                            Last
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                        <li class="page-item last">
+                            <a class="page-link toTranslate" data-langKey="utils_pagination_last"
+                               th:href="${sharedP_baseUrl+'?'+ sharedP_Pagination.addUrlParam(sharedP_queryUrl, 'page', sharedP_Pagination.getTotalPages())}"
+                            >
+                                Last
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </th:block>
+
     </div>
 </th:block>
 

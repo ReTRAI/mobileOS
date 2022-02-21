@@ -16,6 +16,15 @@ public class PortalConfiguration {
     private int sslPort;
 
     private String clientUserURI;
+    private String clientResellerURI;
+
+    public String getClientResellerURI() {
+        return clientResellerURI;
+    }
+
+    public void setClientResellerURI(String clientResellerURI) {
+        this.clientResellerURI = clientResellerURI;
+    }
 
     public String getClientUserURI() {
         return clientUserURI;

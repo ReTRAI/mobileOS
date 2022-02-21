@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org">
+<!-- BEGIN: Head-->
+
+<head>
+    <th:block th:replace="shared/common :: common-style"/>
+
+    <style>
+    </style>
+
+    <title class="toTranslate" data-langKey="users_tab_title">Portal</title>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+<!-- BEGIN: Header-->
+<th:block th:replace="shared/header :: header"/>
+<!-- END: Header-->
+
+<!-- BEGIN: Main Menu-->
+<th:block th:replace="shared/sidemenu :: sideMenu"/>
+<!-- END: Main Menu-->
+
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <th:block th:replace="shared/common :: common-status"/>
+        </div>
+
+        <div class="content-body">
+            <section th:if="${User == null}">
+                <th:block th:replace="shared/header :: headerTitle0"/>
+                    <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="users_user_invalidTitle">User</h2>
+                <th:block th:replace="shared/header :: headerTitle1Back2('userNavBar')"/>
+            </section>
+
+            <section id="user" th:if="${User != null}">
+                <th:block th:replace="shared/header :: headerTitle0"/>
+                    <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="users_user_title">User</h2>
+                <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item mb-1 ms-1"
+                            th:if="${T(com.season.portal.utils.Utils).hasRole(roles, 'RESELLER')}" >
+                            <form th:object="${guidModel_addReseller}" method="POST" th:action="@{${portalURL} + 'users/addReseller'}">
+                                <input type="hidden" th:field="*{value}"/>
+                                <button type="submit"
+                                        class="btn btn-primary toTranslate"
+                                        data-langKey="users_user_addReseller" onclick="">Add Reseller</button>
+                            </form>
+
+                        </li>
+                        <li class="nav-item mb-1 ms-1">
+                            <button type="button"
+                                    class="btn btn-primary toTranslate"
+                                    data-langKey="utils_back" onclick="history.back()">Back</button>
+                        </li>
+
+                    </ul>
+                <th:block th:replace="shared/header :: headerTitle2"/>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_nickname"></label>
+                                <input class="form-control"
+                                       th:value="${User.getUserName()}" readonly="readonly"/>
+                            </div>
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_email"></label>
+                                <input class="form-control"
+                                       th:value="${User.getUserEmail()}" readonly="readonly"/>
+                            </div>
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_creationDate"></label>
+                                <input class="form-control"
+                                       th:value="${User.getCreationDate()}" readonly="readonly"/>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_status"></label>
+                                <input class="form-control toTranslateValue"
+                                       th:attr="data-langKey=${'api_userStatus_'+User.getUserStatus()}" readonly="readonly"/>
+                            </div>
+                            <div class="col-md-8 col-12 mb-1">
+                                <div class="d-flex fake-label">
+                                    <th:block
+                                            th:if="${(User.getUserStatus().equals(T(com.season.portal.client.users.ClientUser.USER_STATUS).BLOCKED.name()))}">
+                                        <button type="button" class="btn btn-primary toTranslate me-2" data-langKey="users_user_unblockUser">
+                                            Unblock
+                                        </button>
+                                    </th:block>
+                                    <th:block
+                                            th:if="${!(User.getUserStatus().equals(T(com.season.portal.client.users.ClientUser.USER_STATUS).INACTIVE.name()))}">
+                                        <button type="button" class="btn btn-danger toTranslate me-2" data-langKey="users_user_inactivateUser">
+                                            Inactivate
+                                        </button>
+                                    </th:block>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h4 class="card-title toTranslate" data-langKey="dashboard_overview">Overview</h4>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="addNewCard" tabindex="-1" aria-labelledby="addNewCardTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-sm-5 mx-50 pb-5">
+                <h1 class="text-center mb-1" id="addNewCardTitle">Add New Card</h1>
+                <p class="text-center">Add card for future billing</p>
+
+                <!-- form -->
+                <form id="addNewCardValidation" class="row gy-1 gx-2 mt-75" onsubmit="return false">
+                    <div class="col-12">
+                        <label class="form-label" for="modalAddCardNumber">Card Number</label>
+                        <div class="input-group input-group-merge">
+                            <input id="modalAddCardNumber" name="modalAddCard" class="form-control add-credit-card-mask" type="text" placeholder="1356 3215 6548 7898" aria-describedby="modalAddCard2" data-msg="Please enter your credit card number" />
+                            <span class="input-group-text cursor-pointer p-25" id="modalAddCard2">
+                                            <span class="add-card-type"></span>
+                                        </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label" for="modalAddCardName">Name On Card</label>
+                        <input type="text" id="modalAddCardName" class="form-control" placeholder="John Doe" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="modalAddCardExpiryDate">Exp. Date</label>
+                        <input type="text" id="modalAddCardExpiryDate" class="form-control add-expiry-date-mask" placeholder="MM/YY" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="modalAddCardCvv">CVV</label>
+                        <input type="text" id="modalAddCardCvv" class="form-control add-cvv-code-mask" maxlength="3" placeholder="654" />
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex align-items-center">
+                            <div class="form-check form-switch form-check-primary me-25">
+                                <input type="checkbox" class="form-check-input" id="saveCard" checked />
+                                <label class="form-check-label" for="saveCard">
+                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                </label>
+                            </div>
+                            <label class="form-check-label fw-bolder" for="saveCard">Save Card for future billing?</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary me-1 mt-1">Submit</button>
+                        <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END: Content-->
+
+<th:block th:replace="shared/common :: common-script"/>
+<th:block th:replace="shared/common :: common-translate"/>
+<script>
+    $(window).on('load', function() {
+        setupLanguage();
+        showInMenu("menu_users");
+    });
+</script>
+
+</body>
+<!-- END: Body-->
+
+</html>

@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mob.com/serverapi/reseller/base" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mob.com/serverapi/reseller/base" targetNamespace="http://www.mob.com/serverapi/reseller/base">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mob.com/serverapi/reseller/base">
+
+    <!-- getResellerById-->
+    <xs:element name="getResellerByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getResellerByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reseller" type="tns:reseller"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getResellerByUserId-->
+    <xs:element name="getResellerByUserIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getResellerByUserIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reseller" type="tns:reseller"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getResellerByUserDeviceName-->
+    <xs:element name="getResellerByUserDeviceNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userDeviceName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getResellerByUserDeviceNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reseller" type="tns:reseller"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getResellerFiltered-->
+    <xs:element name="getResellerFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="resellerName" type="xs:string"/>
+                <xs:element name="onlyChildren" type="xs:boolean"/>
+                <xs:element name="field" type="xs:string"/>
+                <xs:element name="orderField" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getResellerFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="reseller" type="tns:reseller"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getResellerBalanceMovements-->
+    <xs:element name="getResellerBalanceMovementsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getResellerBalanceMovementsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="resellerBalance" type="tns:resellerBalance"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getCountResellerFiltered-->
+    <xs:element name="getCountResellerFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="resellerName" type="xs:string"/>
+                <xs:element name="onlyChildren" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getCountResellerFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getResellerAssociation-->
+    <xs:element name="getResellerAssociationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="parentResellerId" type="xs:string"/>
+                <xs:element name="childResellerId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getResellerAssociationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerAssociation" type="tns:resellerAssociation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- setReseller-->
+    <xs:element name="setResellerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setResellerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reseller" type="tns:reseller"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- setResellerBalanceMovement-->
+    <xs:element name="setResellerBalanceMovementRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="debitCredit" type="xs:string"/>
+                <xs:element name="movementValue" type="xs:float"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setResellerBalanceMovementResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- setResellerAssociation-->
+    <xs:element name="setResellerAssociationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="parentResselerId" type="xs:string"/>
+                <xs:element name="childResselerId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setResellerAssociationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- removeReseller-->
+    <xs:element name="removeResellerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="removeResellerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- removeResellerAssociation-->
+    <xs:element name="removeResellerAssociationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="parentResellerId" type="xs:string"/>
+                <xs:element name="childResellerId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="removeResellerAssociationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Endpoint Reseller Object-->
+    <xs:complexType name="reseller">
+        <xs:sequence>
+            <xs:element name="resellerId" type="xs:string"/>
+            <xs:element name="userId" type="xs:string"/>
+            <xs:element name="resellerName" type="xs:string"/>
+            <xs:element name="currentBalance" type="xs:float"/>
+            <xs:element name="totalDevices" type="xs:long"/>
+            <xs:element name="activeDevices" type="xs:long"/>
+            <xs:element name="inactiveDevices" type="xs:long"/>
+            <xs:element name="freeDevices" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Endpoint ResellerAssociation Object-->
+    <xs:complexType name="resellerAssociation">
+        <xs:sequence>
+            <xs:element name="resellerAssociationId" type="xs:string"/>
+            <xs:element name="parentResellerId" type="xs:string"/>
+            <xs:element name="childResellerId" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Endpoint RsellerBalance Object-->
+    <xs:complexType name="resellerBalance">
+        <xs:sequence>
+            <xs:element name="resellerBalanceId" type="xs:string"/>
+            <xs:element name="debitCredit" type="xs:string"/>
+            <xs:element name="movementValue" type="xs:float"/>
+            <xs:element name="movementDate" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getResellerByUserDeviceNameRequest">
+    <wsdl:part element="tns:getResellerByUserDeviceNameRequest" name="getResellerByUserDeviceNameRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeResellerRequest">
+    <wsdl:part element="tns:removeResellerRequest" name="removeResellerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerByIdResponse">
+    <wsdl:part element="tns:getResellerByIdResponse" name="getResellerByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerByIdRequest">
+    <wsdl:part element="tns:getResellerByIdRequest" name="getResellerByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerFilteredRequest">
+    <wsdl:part element="tns:getResellerFilteredRequest" name="getResellerFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerResponse">
+    <wsdl:part element="tns:setResellerResponse" name="setResellerResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerByUserDeviceNameResponse">
+    <wsdl:part element="tns:getResellerByUserDeviceNameResponse" name="getResellerByUserDeviceNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerAssociationRequest">
+    <wsdl:part element="tns:getResellerAssociationRequest" name="getResellerAssociationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerBalanceMovementResponse">
+    <wsdl:part element="tns:setResellerBalanceMovementResponse" name="setResellerBalanceMovementResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerBalanceMovementsRequest">
+    <wsdl:part element="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountResellerFilteredRequest">
+    <wsdl:part element="tns:getCountResellerFilteredRequest" name="getCountResellerFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerAssociationResponse">
+    <wsdl:part element="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeResellerAssociationRequest">
+    <wsdl:part element="tns:removeResellerAssociationRequest" name="removeResellerAssociationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerAssociationResponse">
+    <wsdl:part element="tns:getResellerAssociationResponse" name="getResellerAssociationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerBalanceMovementsResponse">
+    <wsdl:part element="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeResellerResponse">
+    <wsdl:part element="tns:removeResellerResponse" name="removeResellerResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerBalanceMovementRequest">
+    <wsdl:part element="tns:setResellerBalanceMovementRequest" name="setResellerBalanceMovementRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerByUserIdResponse">
+    <wsdl:part element="tns:getResellerByUserIdResponse" name="getResellerByUserIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountResellerFilteredResponse">
+    <wsdl:part element="tns:getCountResellerFilteredResponse" name="getCountResellerFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerFilteredResponse">
+    <wsdl:part element="tns:getResellerFilteredResponse" name="getResellerFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeResellerAssociationResponse">
+    <wsdl:part element="tns:removeResellerAssociationResponse" name="removeResellerAssociationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerByUserIdRequest">
+    <wsdl:part element="tns:getResellerByUserIdRequest" name="getResellerByUserIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerRequest">
+    <wsdl:part element="tns:setResellerRequest" name="setResellerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerAssociationRequest">
+    <wsdl:part element="tns:setResellerAssociationRequest" name="setResellerAssociationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ResellerPort">
+    <wsdl:operation name="getResellerByUserDeviceName">
+      <wsdl:input message="tns:getResellerByUserDeviceNameRequest" name="getResellerByUserDeviceNameRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerByUserDeviceNameResponse" name="getResellerByUserDeviceNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeReseller">
+      <wsdl:input message="tns:removeResellerRequest" name="removeResellerRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:removeResellerResponse" name="removeResellerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerById">
+      <wsdl:input message="tns:getResellerByIdRequest" name="getResellerByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerByIdResponse" name="getResellerByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerFiltered">
+      <wsdl:input message="tns:getResellerFilteredRequest" name="getResellerFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerFilteredResponse" name="getResellerFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setReseller">
+      <wsdl:input message="tns:setResellerRequest" name="setResellerRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setResellerResponse" name="setResellerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerAssociation">
+      <wsdl:input message="tns:getResellerAssociationRequest" name="getResellerAssociationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerAssociationResponse" name="getResellerAssociationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setResellerBalanceMovement">
+      <wsdl:input message="tns:setResellerBalanceMovementRequest" name="setResellerBalanceMovementRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setResellerBalanceMovementResponse" name="setResellerBalanceMovementResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerBalanceMovements">
+      <wsdl:input message="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountResellerFiltered">
+      <wsdl:input message="tns:getCountResellerFilteredRequest" name="getCountResellerFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getCountResellerFilteredResponse" name="getCountResellerFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setResellerAssociation">
+      <wsdl:input message="tns:setResellerAssociationRequest" name="setResellerAssociationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeResellerAssociation">
+      <wsdl:input message="tns:removeResellerAssociationRequest" name="removeResellerAssociationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:removeResellerAssociationResponse" name="removeResellerAssociationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerByUserId">
+      <wsdl:input message="tns:getResellerByUserIdRequest" name="getResellerByUserIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerByUserIdResponse" name="getResellerByUserIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ResellerPortSoap11" type="tns:ResellerPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getResellerByUserDeviceName">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerByUserDeviceNameRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerByUserDeviceNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeReseller">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="removeResellerRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeResellerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setReseller">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setResellerRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setResellerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerAssociation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerAssociationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerAssociationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setResellerBalanceMovement">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setResellerBalanceMovementRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setResellerBalanceMovementResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerBalanceMovements">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerBalanceMovementsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerBalanceMovementsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountResellerFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCountResellerFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCountResellerFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setResellerAssociation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setResellerAssociationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setResellerAssociationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeResellerAssociation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="removeResellerAssociationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeResellerAssociationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerByUserId">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerByUserIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerByUserIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ResellerPortService">
+    <wsdl:port binding="tns:ResellerPortSoap11" name="ResellerPortSoap11">
+      <soap:address location="http://localhost:8080/serverapi/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

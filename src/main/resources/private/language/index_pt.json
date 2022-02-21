@@ -4,10 +4,11 @@
 	"api_ClientUser_tryLogin_WRONG_CREDENTIALS": "Email ou palavra-chave inválida.",
 	"api_ClientUser_tryLogin_LOGIN_FAILED": "Ocorreu um erro ao fazer login.",
 	"api_ClientUser_tryLogin_noCode": "Ocorreu um erro ao fazer login.",
-	"api_ClientUser_tryLogin_ex": "Ocorreu um erro ao fazer login.",
+	"api_ClientUser_tryLogin_ex": "Ocorreu uma excepção ao fazer login.",
 	
 	"api_CustomAuthenticationProvider_authenticate_noRoles":"Não tem perfil associado para fazer login.",
 	
+	"api_login_invalid_certificate": "Certificado inválido.",
 	"api_login_invalid_mismatch": "Utilizador incompativel.",
 	"api_logout_success": "Logout efetuado com sucesso.",
 	"api_login_invalid_session": "Ocorreu um erro a criar a sessão.",

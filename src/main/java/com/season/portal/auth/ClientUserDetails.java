@@ -1,16 +1,15 @@
 package com.season.portal.auth;
 
-import com.season.portal.client.generated.User;
+import com.season.portal.client.generated.user.User;
 import com.season.portal.client.users.ClientUser;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class ClientUserDetails implements UserDetails {
-
+    private String userId;
     private String userName;
     private String userEmail;
     private ArrayList<GrantedAuthority> authorities;
@@ -25,6 +24,7 @@ public class ClientUserDetails implements UserDetails {
     private String status = "";
 
     public ClientUserDetails(User user, ArrayList<GrantedAuthority> authorities){
+        userId = user.getUserId();
         userName = user.getUserName();
         userEmail = user.getUserEmail();
         theme = user.getThemePreference();
@@ -43,7 +43,9 @@ public class ClientUserDetails implements UserDetails {
     }
 
     @Override
-    public String getPassword() {return null;}
+    public String getPassword() {
+        return null;
+    }
 
     @Override
     public String getUsername() {
@@ -52,6 +54,10 @@ public class ClientUserDetails implements UserDetails {
 
     public String getUserEmail() {
         return userEmail;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     @Override

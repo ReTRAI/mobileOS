@@ -107,20 +107,37 @@
 				<version>0.14.0</version>
 				<executions>
 					<execution>
+						<id>user-generate</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
+						<configuration>
+							<schemaLanguage>WSDL</schemaLanguage>
+							<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+							<generatePackage>com.season.portal.client.generated.user</generatePackage>
+							<schemaDirectory>${project.basedir}/src/main/resources/wsdls</schemaDirectory>
+							<schemaIncludes>
+								<include>users.wsdl</include>
+							</schemaIncludes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>reseller-generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaLanguage>WSDL</schemaLanguage>
+							<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+							<generatePackage>com.season.portal.client.generated.reseller</generatePackage>
+							<schemaDirectory>${project.basedir}/src/main/resources/wsdls</schemaDirectory>
+							<schemaIncludes>
+								<include>resellers.wsdl</include>
+							</schemaIncludes>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<schemaLanguage>WSDL</schemaLanguage>
-					<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
-					<generatePackage>com.season.portal.client.generated</generatePackage>
-					<schemaDirectory>${project.basedir}/src/main/resources/wsdls</schemaDirectory>
-					<schemaIncludes>
-						<include>users.wsdl</include>
-					</schemaIncludes>
-				</configuration>
+
 			</plugin>
 		</plugins>
 	</build>

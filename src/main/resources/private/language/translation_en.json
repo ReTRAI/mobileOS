@@ -1,4 +1,6 @@
 {
+	"api_invalidUserDetails":"Invalid user.",
+	
 	"api_userRole_ROLE_ADMIN":"Admin",
 	"api_userRole_ROLE_Reseller":"Reseller",
 	"api_userRole_ROLE_SUPPORT":"Support",
@@ -9,7 +11,42 @@
 	"api_deviceState_BLOCKED":"Blocked",
 	"api_deviceState_SUSPENDED":"Suspended",
 	
+	"api_userStatus_CHANGEPW":"Change password",
+	"api_userStatus_BLOCKED":"Blocked",
+	"api_userStatus_INACTIVE":"Inactive",
+	"api_userStatus_ACTIVE":"Active",
+	
 	"api_needToChangePass":"Password must be changed",
+	"api_passNotMatch":"Passwords do not match.",
+	"api_email_alreadyUsed":"Email already in use.",
+	"api_nickname_alreadyUsed":"Nickname already in use.",
+	
+	"api_ClientUser_changePass_noCode":"There was an error updating password.",
+	"api_ClientUser_changePass_":"There was an error updating password.",
+	"api_ClientUser_changePass_ex":"There was an exception updating password.",
+	"api_ClientUser_validateChangeUserPwResponse_success":"Password updated successfully.",
+	"api_ClientUser_validateChangeUserPwResponse_error":"There was an exception updating password.",
+	"api_ClientUser_existUserEmail_noCode":"There was an error verifying the email.",
+	"api_ClientUser_existUserEmail_":"There was an error verifying the email.",
+	"api_ClientUser_existUserEmail_ex":"There was an exception verifying the email.",
+	"api_ClientUser_existUserName_noCode":"There was an error verifying the nickname.",
+	"api_ClientUser_existUserName_":"There was an error verifying the nickname.",
+	"api_ClientUser_existUserName_ex":"There was an exception verifying the nickname.",
+	"api_ClientUser_unblockUser_noCode":"There was an error unlocking the user.",
+	"api_ClientUser_unblockUser_":"There was an error unlocking the user.",
+	"api_ClientUser_unblockUser_ex":"There was an exception unlocking the user.",
+	"api_ClientUser_countUserFiltered_noCode":"There was an error counting the user list.",
+	"api_ClientUser_countUserFiltered_":"There was an error counting the user list.",
+	"api_ClientUser_countUserFiltered_ex":"There was an exception counting the user list.",
+	"api_ClientUser_getUserFiltered_noCode":"There was an error getting the user list.",
+	"api_ClientUser_getUserFiltered_":"There was an error getting the user list.",
+	"api_ClientUser_getUserFiltered_ex":"There was an exception getting the user list.",
+	"api_ClientUser_getUserById_noCode":"There was an error getting the user.",
+	"api_ClientUser_getUserById_":"There was an error getting the user.",
+	"api_ClientUser_getUserById_ex":"There was an exception getting the user.",
+	"api_ClientUser_getRolesById_noCode":"There was an error getting the user roles.",
+	"api_ClientUser_getRolesById_":"There was an error getting the user roles.",
+	"api_ClientUser_getRolesById_ex":"There was an exception getting the user roles.",
 	
 	"utils_feminine_new":"new",
 	"utils_feminine_news":"news",
@@ -34,7 +71,9 @@
 	"utils_form_endDate":"End",
 	"utils_form_datePlaceholder":"YYYY-MM-DD",
 	"utils_form_expireBetween":"Expire between:",
-	"utils_form_state":"State",
+	"utils_form_createdBetween":"Created between:",
+	"utils_form_creationDate":"Creation date",
+	"utils_form_status":"Status",
 	"utils_form_title":"Title",
 	"utils_form_title_placeholder":"Enter title",
 	"utils_form_detail":"Details",
@@ -60,7 +99,12 @@
 	"utils_table_blocked":"Blocked",
 	"utils_table_suspended":"Suspended",
 	"utils_table_expireDate":"Expire Date",
+	"utils_table_creationDate":"Creation Date",
+	"utils_table_nickname":"Nickname",
+	"utils_table_email":"Email",
+	"utils_table_status":"Status",
 	
+	"utils_pagination_noElements":"There are no elements to display.",
 	"utils_pagination_0":"Showing ",
 	"utils_pagination_1":" to ",
 	"utils_pagination_2":" of ",
@@ -88,7 +132,11 @@
 	"menu_viewAdmin":"Admin view",
 	"menu_profile":"Profile",
 	"menu_profile_changePassword":"Password",
-
+	"menu_users":"Users",
+	"menu_users_new":"New",
+	"menu_users_list":"List",
+	"menu_users_log":"Log",
+	
 	"header_notifications_title":"Notifications",
 	"header_notifications_readAll":"Read all notifications",
 
@@ -135,6 +183,23 @@
 	"ticketNew_form_file_detail0":"Select up to ",
 	"ticketNew_form_file_detail1":" images with a maximum of ",
 	"ticketNew_form_file_detail2":"Mb each to highlight the problem.",
+	
+	"profile_changePassword_title":"Update password",
+	"profile_changePassword_tab_title":"Portal | Password",
+	
+	"users_tab_title":"Portal | Users",
+	"users_new_title":"New user",
+	"users_user_invalidTitle":"Invalid User",
+	"users_user_inactivateUser":"Inactivate",
+	"users_user_unblockUser":"Unblock",
+	"users_user_addReseller":"Add reseller",
+	"users_user_addAdmin":"Add admin",
+	"users_user_addSupport":"Add support",
+	
+	"users_user_title":"User",
+	
+
+	"users_list_title":"Users",
 	
 	"end": "fim"
 }

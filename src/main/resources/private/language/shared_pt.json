@@ -42,6 +42,8 @@
 	"utils_form_file_maxFiles0": "Só pode selecionar um máximo de ",
 	"utils_form_file_maxFiles1": " ficheiros.",
 	
+	"utils_form_nickname": "Nome",
+	"utils_form_nicknamePlaceholder": "Inserir nome",
 	"utils_form_email": "Email",
 	"utils_form_emailPlaceholder": "pedro@example.com",
 	"utils_form_password": "Palavra-chave",

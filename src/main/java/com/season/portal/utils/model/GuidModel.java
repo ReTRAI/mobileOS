@@ -1,21 +1,22 @@
 package com.season.portal.utils.model;
 
 public class GuidModel {
-    private Long value;
 
-    public Long getValue() {
+    private String value;
+
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
     public GuidModel() {
-        value=-1l;
+        value="";
     }
 
-    public GuidModel(Long value) {
+    public GuidModel(String value) {
         this.value = value;
     }
 }

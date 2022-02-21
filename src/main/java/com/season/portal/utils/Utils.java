@@ -1,11 +1,13 @@
 package com.season.portal.utils;
 
 import com.season.portal.PortalApplication;
-import com.season.portal.client.generated.UserRole;
-import org.slf4j.Logger;
+import com.season.portal.auth.ClientUserDetails;
+import com.season.portal.client.generated.user.UserRole;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ws.soap.SoapFault;
 import org.springframework.ws.soap.SoapFaultDetail;
 import org.springframework.ws.soap.SoapFaultDetailElement;
@@ -15,7 +17,6 @@ import org.w3c.dom.Node;
 import javax.security.auth.x500.X500Principal;
 import javax.xml.transform.dom.DOMSource;
 import java.security.cert.X509Certificate;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,23 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Utils {
+
+    public static ClientUserDetails getPrincipalDetails(boolean addMsg){
+        ClientUserDetails user = null;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if(auth != null && auth.isAuthenticated()) {
+            var principal = auth.getPrincipal();
+            if (principal instanceof ClientUserDetails) {
+                user = (ClientUserDetails)principal;
+            }
+        }
+
+        if(user == null && addMsg)
+            PortalApplication.addErrorKey("api_invalidUserDetails");
+
+        return user;
+    }
 
     public static String getSoapCode(SoapFaultClientException soapEx){
         String code = "";
@@ -40,6 +58,7 @@ public class Utils {
 
         return code;
     }
+
     public static String gsbk(HashMap<String, String> hm, String key, String defaultValue ){
 
         if(hm != null){
@@ -50,6 +69,7 @@ public class Utils {
 
         return defaultValue;
     }
+
     public static String parseCertificate(X500Principal certificate, String param){
         String result = "";
 
@@ -77,11 +97,12 @@ public class Utils {
         /**/
         return (int)expiresIn;
     }
+
     public static String dateToStr(Date d){
         return dateToStr(d, new SimpleDateFormat ("yyyy-MM-dd"));
     }
     public static String dateTimeToStr(Date d){
-        return dateToStr(d, new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"));
+        return dateToStr(d, new SimpleDateFormat ("yyyy-MM-dd HH:mm"));
     }
     public static String timeToStr(Date d){
         return dateToStr(d, new SimpleDateFormat ("HH:mm:ss"));
@@ -99,10 +120,10 @@ public class Utils {
         return strToDate(strDate, new SimpleDateFormat ("yyyy-MM-dd"));
     }
     public static Date strToDateTime(String strDate){
-        return strToDate(strDate, new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"));
+        return strToDate(strDate, new SimpleDateFormat ("yyyy-MM-dd HH:mm"));
     }
     public static Date strToTime(String strDate){
-        return strToDate(strDate, new SimpleDateFormat ("HH:mm:ss"));
+        return strToDate(strDate, new SimpleDateFormat ("HH:mm"));
     }
     public static Date strToDate(String strDate, String pattern){
         return strToDate(strDate, new SimpleDateFormat (pattern));
@@ -111,24 +132,53 @@ public class Utils {
         Date result = null;
         try {
             result = ft.parse(s);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             //e.printStackTrace();
         }
         return result;
     }
-
+    public static String strToStrDate(String strDate){
+        return strToStrDate(strDate, new SimpleDateFormat ("yyyy-MM-dd"));
+    }
+    public static String strToStrDate(String strDate, SimpleDateFormat originalDateFt){
+        String result = "";
+        Date date = strToDate(strDate, originalDateFt);
+        if(date != null) {
+            result = dateToStr(date);
+        }
+        return result;
+    }
+    public static String strToStrDateTime(String strDate){
+        return strToStrDateTime(strDate, new SimpleDateFormat ("yyyy-MM-dd HH:mm"));
+    }
+    public static String strToStrDateTime(String strDate, SimpleDateFormat originalDateFt){
+        String result = "";
+        Date date = strToDate(strDate, originalDateFt);
+        if(date != null) {
+            result = dateTimeToStr(date);
+        }
+        return result;
+    }
 
     public static ArrayList<GrantedAuthority> rolesToGrantedAuthorities(List<UserRole> roles) {
         ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        GrantedAuthority a = new SimpleGrantedAuthority("ROLE_ADMIN");
-        authorities.add(a);
-
         for(UserRole role:roles){
-            GrantedAuthority ga = new SimpleGrantedAuthority(role.getUserRoleName());
+            GrantedAuthority ga = new SimpleGrantedAuthority("ROLE_"+role.getUserRoleName());
             authorities.add(ga);
         }
 
         return authorities;
     }
+    public static boolean hasRole(List<UserRole> roles, String checkRole) {
+        boolean has = false;
+        for(UserRole role:roles) {
+            if (role.getUserRoleName().equals(checkRole)){
+                has = true;
+                break;
+            }
+        }
+        return has;
+    }
+
 }

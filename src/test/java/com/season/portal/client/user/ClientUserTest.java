@@ -1,10 +1,7 @@
 package com.season.portal.client.user;
 
-import com.season.portal.client.generated.GetUserByIdResponse;
-import com.season.portal.client.generated.User;
 import com.season.portal.client.users.ClientUser;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

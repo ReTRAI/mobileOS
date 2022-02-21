@@ -9,25 +9,12 @@ public class ChangePassModel {
     @NotNull(message = "utils_form_required")
     @NotBlank(message = "utils_form_required")
     @IPasswordValidatorConstrain
-    private String oldPass;
-
-    @NotNull(message = "utils_form_required")
-    @NotBlank(message = "utils_form_required")
-    @IPasswordValidatorConstrain
     private String newPass;
 
     @NotNull(message = "utils_form_required")
     @NotBlank(message = "utils_form_required")
     @IPasswordValidatorConstrain
     private String checkPass;
-
-    public String getOldPass() {
-        return oldPass;
-    }
-
-    public void setOldPass(String oldPass) {
-        this.oldPass = oldPass;
-    }
 
     public String getNewPass() {
         return newPass;

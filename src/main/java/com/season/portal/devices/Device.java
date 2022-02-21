@@ -3,7 +3,7 @@ package com.season.portal.devices;
 import java.util.Date;
 
 public class Device {
-    private Long guid;
+    private String guid;
     private boolean active;
     private boolean free;
     private boolean wiped;
@@ -11,11 +11,11 @@ public class Device {
     private boolean suspended;
     private Date expire;
 
-    public Long getGuid() {
+    public String getGuid() {
         return guid;
     }
 
-    public void setGuid(Long guid) {
+    public void setGuid(String guid) {
         this.guid = guid;
     }
 
@@ -70,7 +70,7 @@ public class Device {
     public Device() {
 
     }
-    public Device(Long guid, boolean active, boolean free, boolean wiped, boolean blocked, boolean suspended, Date expire) {
+    public Device(String guid, boolean active, boolean free, boolean wiped, boolean blocked, boolean suspended, Date expire) {
         this.guid = guid;
         this.active = active;
         this.free = free;

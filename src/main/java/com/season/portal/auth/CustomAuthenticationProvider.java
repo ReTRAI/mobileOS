@@ -1,7 +1,10 @@
 package com.season.portal.auth;
 
 import com.season.portal.PortalApplication;
-import com.season.portal.client.generated.*;
+import com.season.portal.client.generated.user.GetUserRolesByUserIdResponse;
+import com.season.portal.client.generated.user.User;
+import com.season.portal.client.generated.user.UserLoginResponse;
+import com.season.portal.client.generated.user.UserRole;
 import com.season.portal.client.users.ClientUser;
 import com.season.portal.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +12,9 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,7 +35,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             GetUserRolesByUserIdResponse rolesResponse = client.getRolesById(user.getUserId());
             if(rolesResponse != null){
                 List<UserRole> roles = rolesResponse.getUserRole();
-                if(true/*roles.size() > 0*/){
+                if(roles.size() > 0){
                     userDetails = new ClientUserDetails(user, Utils.rolesToGrantedAuthorities(roles));
                     return createSuccessfulAuthentication(authentication, userDetails);
                 }
@@ -51,15 +51,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private boolean validateUserLoginResponse(UserLoginResponse userResponse) {
         boolean valid = false;
         if(userResponse != null){
-            User user = userResponse.getUser();
-            if(user.getUserId() != 0) {
-                /*
-                if(!user.getBlocked()){
+            /*User user = userResponse.getUser();
 
-                }
-                */
-                valid = true;
-            }
+            if(!user.getBlocked()){
+
+            }*/
+
+            valid = true;
+
         }
         return valid;
     }

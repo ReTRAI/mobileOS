@@ -17,10 +17,10 @@ public class Pagination {
     private int actualPage;
     private int numPerPage;
 
-    private int totalElements;
+    private long totalElements;
     private ArrayList<Integer> pagination;
 
-    public int getTotalElements() {
+    public long getTotalElements() {
         return totalElements;
     }
 
@@ -59,11 +59,11 @@ public class Pagination {
         this.pagination = pagination;
     }
 
-    public Pagination(int totalElements, int actualPage, int numPerPage,
+    public Pagination(long totalElements, int actualPage, int numPerPage,
                       int paginationNum) {
         this.totalElements = totalElements;
 
-        this.totalPages = (totalElements + numPerPage - 1) / numPerPage;
+        this.totalPages = (int) ((totalElements + numPerPage - 1) / numPerPage);
 
         this.actualPage = (actualPage < 1)?1:(actualPage > totalPages)?totalPages:actualPage;
 
@@ -125,15 +125,15 @@ public class Pagination {
 
         HashMap<String, String> query_pairs = urlParamsToHashMap(urlParams);
 
-        String order = "ascending";
+        String order = "asc";
         String oldSort  = query_pairs.get("sort");
 
 
         if(oldSort != null && oldSort.equals(sortName)){
             String oldOrder = query_pairs.get("order");
 
-            if(oldOrder != null && oldOrder.equals("ascending")){
-                order="descending";
+            if(oldOrder != null && oldOrder.equals("asc")){
+                order="desc";
             }
         }
 
@@ -158,7 +158,7 @@ public class Pagination {
         if(oldSort != null && oldSort.equals(sortName)){
             String order = query_pairs.get("order");
 
-            if(order != null && order.equals("ascending")){
+            if(order != null && order.equals("asc")){
                 return "sorting_asc";
             }
             else{

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org ">
+<!-- BEGIN: Head-->
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/tables/datatable/dataTables.bootstrap5.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/pickers/flatpickr/flatpickr.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/plugins/forms/pickers/form-flat-pickr.min.css}" />
+    <th:block th:replace="shared/common :: common-style"/>
+
+
+
+    <style>
+
+    </style>
+
+    <title class="toTranslate" data-langKey="users_tab_title"></title>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+<!-- BEGIN: Header-->
+<th:block th:replace="shared/header :: header"/>
+<!-- END: Header-->
+
+<!-- BEGIN: Main Menu-->
+<th:block th:replace="shared/sidemenu :: sideMenu"/>
+<!-- END: Main Menu-->
+
+
+<!-- BEGIN: Content-->
+<th:block th:with="baseUrl=${#httpServletRequest.requestURI}, queryUrl=${#httpServletRequest.queryString}">
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <th:block th:replace="shared/common :: common-status"/>
+        </div>
+
+        <div class="content-body">
+
+            <!-- -->
+            <section id="reseller">
+                <h2 class="toTranslate" data-langKey="users_list_title"></h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title toTranslate" data-langKey="utils_filters"></h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="filters" th:object="${usersListPageModel}" class="form" method="get" th:action="@{${portalURL} + 'users/list'}">
+
+                            <div class="row">
+                                <div class="col-md-4 col-12 mb-1">
+
+                                    <label class="form-label toTranslate" for="filter-nickname" data-langKey="utils_form_nickname"></label>
+                                    <input id="filter-nickname" type="text" th:errorclass="is-invalid"
+                                           class="form-control toTranslateInput" data-langKey="utils_form_nicknamePlaceholder"
+                                           placeholder="" th:field="*{nickName}">
+                                </div>
+                                <div class="col-md-4 col-12 mb-1">
+
+                                    <label class="form-label toTranslate" for="filter-email" data-langKey="utils_form_email"></label>
+                                    <input id="filter-email" type="email" th:errorclass="is-invalid"
+                                           class="form-control toTranslateInput" data-langKey="utils_form_emailPlaceholder"
+                                           placeholder="" th:field="*{email}">
+                                    <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('email')}"
+                                       th:attr="data-langKey=${err}"></p>
+                                </div>
+                                <div class="col-md-4 col-12 mb-1">
+                                    <label class="form-label toTranslate" for="filter-status"
+                                           data-langKey="utils_form_status">Status</label>
+                                    <select id="filter-status" class="form-select" th:field="*{status}" th:errorclass="is-invalid">
+                                        <option value="" class="toTranslate" data-langKey="utils_all"></option>
+                                        <th:block th:each="userStatus : ${T(com.season.portal.client.users.ClientUser.USER_STATUS).values()}">
+                                            <option th:value="${userStatus}" class="toTranslate"
+                                                    th:attr="data-langKey=${'api_userStatus_'+userStatus}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="mb-0 toTranslate" data-langKey="utils_form_createdBetween"></p>
+                            <div class="row">
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-startDate"
+                                               data-langKey="utils_form_startDate"></label>
+                                        <div class="input-group input-group-merge"
+                                             th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}">
+                                            <input type="text" id="filter-startDate"
+                                                   th:field="*{startDate}"
+                                                   th:errorclass="is-invalid"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                   data-langKey="utils_form_datePlaceholder"/>
+                                            <span class="input-group-text cursor-pointer"
+                                                  onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
+                                        </div>
+                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startDate')}"
+                                           th:attr="data-langKey=${err}"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-endDate"
+                                               data-langKey="utils_form_endDate"></label>
+                                        <div class="input-group input-group-merge"
+                                             th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}">
+                                            <input type="text" id="filter-endDate"
+                                                   th:errorclass="is-invalid"
+                                                   th:field="*{endDate}"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                   data-langKey="utils_form_datePlaceholder"/>
+                                            <span class="input-group-text cursor-pointer"
+                                                  onclick="$('#filter-endDate').val('')"><i data-feather="x"></i></span>
+                                        </div>
+                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endDate')}"
+                                           th:attr="data-langKey=${err}"></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-1">
+                                        <div class="fake-label">
+                                            <button type="submit"
+                                                    class="btn btn-primary me-1 waves-effect waves-float waves-light toTranslate" data-langKey="utils_submit">Submit</button>
+                                            <button type="button" onclick="resetForm('filters')"
+                                                    class="btn btn-outline-secondary waves-effect toTranslate"
+                                                    data-langKey="utils_reset">
+                                                Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="table-responsive dataTables_wrapper">
+                        <table class="table table-striped dataTable ">
+                            <thead>
+                            <tr>
+                                <th class="sorting toTranslate" data-langKey="utils_table_nickname"
+                                    th:with="sortName='userName'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                ></th>
+                                <th class="sorting toTranslate" data-langKey="utils_table_email"
+                                    th:with="sortName='userEmail'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                ></th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_status"
+                                    th:with="sortName='userStatus'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                ></th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_creationDate"
+                                    th:with="sortName='creationDate'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                ></th>
+
+                                <th class="toTranslate text-center" data-langKey="utils_table_actions"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="ele : ${elements}">
+                                    <td th:text="${ele.getUserName()}"></td>
+                                    <td th:text="${ele.getUserEmail()}"></td>
+                                    <td class="text-center toTranslate"
+                                        th:attr="data-langKey=${'api_userStatus_'+ele.getUserStatus()}"></td>
+                                    <td class="text-center" th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getCreationDate())}"></td>
+                                    <td class="actions">
+                                        <div class="d-flex align-items-center justify-content-around">
+                                            <button type="button" onclick="openUser(this)"
+                                                    th:attr="data-guid=${ele.getUserId()}"
+                                                    class="align-items-center d-flex justify-content-around toTranslateAttr"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
+                                            >
+                                                <i class="font-medium-2 text-body primary-colorH"
+                                                   data-feather="eye"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                            <th:block
+                                    th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${Pagination}, ${elements.size()} )"/>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+    <form id="openUser" class="d-none" method="POST"
+          th:object="${guidModel}" th:action="@{/user}">
+        <input id="openUser-value" type="hidden" th:field="*{value}"/>
+    </form>
+</div>
+</th:block>
+<!-- END: Content-->
+
+<th:block th:replace="shared/common :: common-script"/>
+<th:block th:replace="shared/common :: common-translate"/>
+<script th:src="@{/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
+<script>
+    $(window).on('load', function() {
+        setupLanguage();
+        showInMenu("menu_users_list");
+        $('.flatpickr-basic').flatpickr();
+    });
+
+    function resetForm(formId){
+        $("#filter-nickname").val("");
+        $("#filter-email").val("");
+        $("#filter-status").val("");
+        $("#filter-startDate").val("");
+        $("#filter-endDate").val("");
+        $("#"+formId).submit();
+    }
+
+    function openUser(that){
+        var guid = $(that).attr("data-guid");
+        $("#openUser-value").val(guid);
+        $("#openUser").submit();
+    }
+</script>
+
+</body>
+<!-- END: Body-->
+
+</html>

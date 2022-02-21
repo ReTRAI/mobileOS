@@ -114,6 +114,64 @@
 
 </th:block>
 
+<th:block th:fragment="headerTitle0">
+    <div class="d-flex">
+        <div class="d-flex">
+
+</th:block>
+<th:block th:fragment="headerTitle1(navBar)">
+        </div>
+
+        <!-- navbar -->
+        <div class="ms-auto">
+            <div class="d-flex d-lg-none justify-content-end" >
+                <button class="btn btn-icon pt-25 pe-0 collapsed"
+                        type="button" data-bs-toggle="collapse"
+                        th:attr="data-bs-target=${'#' + navBar}, aria-controls=${navBar}"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <i data-feather="x" class="font-medium-5 contExpanded"></i>
+                    <i data-feather="menu" class="font-medium-5 contCollapsed"></i>
+                </button>
+            </div>
+            <!-- collapse  -->
+            <nav class="collapse navbar-collapse d-lg-block" th:id="${navBar}">
+
+</th:block>
+<th:block th:fragment="headerTitle2">
+            </nav>
+        <!--/ collapse  -->
+        </div>
+    <!--/ navbar -->
+    </div>
+</th:block>
+<th:block th:fragment="headerTitle1Back2(navBar)">
+        </div>
+        <!-- navbar -->
+        <div class="ms-auto">
+            <div class="d-flex d-lg-none justify-content-end" >
+                <button class="btn btn-icon pt-25 pe-0 collapsed"
+                        type="button" data-bs-toggle="collapse"
+                        th:attr="data-bs-target=${'#' + navBar}, aria-controls=${navBar}"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <i data-feather="x" class="font-medium-5 contExpanded"></i>
+                    <i data-feather="menu" class="font-medium-5 contCollapsed"></i>
+                </button>
+            </div>
+            <!-- collapse  -->
+            <nav class="collapse navbar-collapse d-lg-block" th:id="${navBar}">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item mb-1 ms-1">
+                        <button type="button"
+                                class="btn btn-primary toTranslate"
+                                data-langKey="utils_back" onclick="history.back()">Back</button>
+                    </li>
+                </ul>
+            </nav>
+            <!--/ collapse  -->
+        </div>
+        <!--/ navbar -->
+    </div>
+</th:block>
 </body>
 </html>
 

@@ -27,7 +27,7 @@
 
                 <th:block sec:authorize="isAuthenticated()">
                     <!-- START NAVBAR -->
-                    <th:block th:if="${!needToChangePass}">
+                    <th:block th:if="${!(needToChangePass==true)}">
                         <li class=" navigation-header">
                             <span class="toTranslate" data-langKey="menu_navBar">NavBar</span>
                             <i data-feather="more-horizontal"></i>
@@ -145,6 +145,33 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class=" nav-item" id="menu_users">
+                            <a class="d-flex align-items-center" href="#">
+                                <i data-feather='user'></i>
+                                <span class="menu-title text-truncate toTranslate" data-langKey="menu_users">Users</span>
+                            </a>
+                            <ul class="menu-content">
+                                <li id="menu_users_new">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'users/new'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_users_new">New</span>
+                                    </a>
+                                </li>
+                                <li id="menu_users_list">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'users/list'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_users_list">List</span>
+                                    </a>
+                                </li>
+                                <li id="menu_users_log">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'users/log'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_users_log">Log</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </th:block>
                     <!-- END NAVBAR -->
                     <!-- START PROFILE -->

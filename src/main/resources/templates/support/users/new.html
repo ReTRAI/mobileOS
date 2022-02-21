@@ -10,7 +10,7 @@
 
     </style>
 
-    <title class="toTranslate" data-langKey="profile_changePassword_tab_title">Nice</title>
+    <title class="toTranslate" data-langKey="users_tab_title"></title>
 </head>
 <!-- END: Head-->
 
@@ -40,29 +40,58 @@
 
             <!-- -->
             <section>
-                <h2 class="toTranslate" data-langKey="profile_changePassword_title">Change Password</h2>
+                <h2 class="toTranslate" data-langKey="users_new_title">New User</h2>
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" th:object="${changePassModel}" onsubmit="return validateForm();"
-                              class="auth-login-form" th:action="@{${portalURL} + 'changePassword'}"
-                              >
+                        <form method="POST" th:object="${newUserModel}" onsubmit="return validateForm();"
+                              class="auth-login-form" th:action="@{${portalURL} + 'users/new'}"
+                        >
+                            <div class="row">
+                                <div class="col-md-4 col-12 mb-1">
+                                    <label class="form-label toTranslate" for="newUserModel_nickname"
+                                           data-langKey="utils_form_nickname">Nickname</label>
+                                    <input id="newUserModel_nickname" type="text" th:field="*{nickname}" th:errorclass="is-invalid"
+                                           class="form-control toTranslateInput"
+                                           data-langKey="utils_form_nicknamePlaceholder"
+                                           placeholder="Enter nickname"
+                                           onfocusout="validateNick(this)"
+                                    />
+                                    <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('nickname')}"
+                                       th:attr="data-langKey=${err}"></p>
+
+                                </div>
+
+                                <div class="col-md-4 col-12 mb-1">
+                                    <label class="form-label toTranslate" for="newUserModel_email"
+                                           data-langKey="utils_form_email">Email</label>
+                                    <input id="newUserModel_email" type="email" th:field="*{email}" th:errorclass="is-invalid"
+                                           class="form-control toTranslateInput"
+                                           data-langKey="utils_form_emailPlaceholder"
+                                           placeholder="pedro@example.com"
+                                           onfocusout="validateEmail(this)"
+                                    />
+                                    <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('email')}"
+                                       th:attr="data-langKey=${err}"></p>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label toTranslate" for="changePassModel_newPass"
-                                               data-langKey="utils_form_newPassword">New password</label>
+                                        <label class="form-label toTranslate" for="newUserModel_pass"
+                                               data-langKey="utils_form_password">Password</label>
                                         <div class="input-group input-group-merge form-password-toggle"
-                                             th:classappend="${#fields.hasErrors('newPass') ? 'is-invalid' : ''}">
-                                            <input id="changePassModel_newPass"
+                                             th:classappend="${#fields.hasErrors('pass') ? 'is-invalid' : ''}">
+                                            <input id="newUserModel_pass"
                                                    type="password"
-                                                   th:field="*{newPass}"
+                                                   th:field="*{pass}"
                                                    class="form-control form-control-merge toTranslateInput"
                                                    data-langKey="utils_form_passwordPlaceholder"
                                                    placeholder="*********"/>
                                             <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
 
                                         </div>
-                                        <th:block th:each="err : ${#fields.errors('newPass')}">
+                                        <th:block th:each="err : ${#fields.errors('pass')}">
                                             <th:block th:switch="${err}">
                                                 <p th:case="utils_form_password_numChar" class="invalid-feedback"
                                                    th:with="minChar=${T(com.season.portal.utils.validation.PasswordValidator).PASS_MIN_CHAR},
@@ -82,11 +111,11 @@
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label toTranslate" for="changePassModel_checkPassword"
+                                        <label class="form-label toTranslate" for="newUserModel_checkPass"
                                                data-langKey="utils_form_checkPassword">Check password</label>
                                         <div class="input-group input-group-merge form-password-toggle"
                                              th:classappend="${#fields.hasErrors('checkPass') ? 'is-invalid' : ''}">
-                                            <input id="changePassModel_checkPassword"
+                                            <input id="newUserModel_checkPass"
                                                    type="password"
                                                    th:field="*{checkPass}"
                                                    class="form-control form-control-merge toTranslateInput"
@@ -121,7 +150,7 @@
                                         <div class="fake-label">
                                             <button type="submit"
                                                     class="btn btn-primary me-1 waves-effect waves-float waves-light toTranslate"
-                                                    data-langKey="utils_change">Change</button>
+                                                    data-langKey="utils_add">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -130,6 +159,7 @@
                     </div>
                 </div>
             </section>
+
         </div>
     </div>
 
@@ -141,18 +171,17 @@
 <script>
     $(window).on('load', function() {
         setupLanguage();
-        showInMenu("menu_profile_changePassword");
-
+        showInMenu("menu_users_new");
     });
 
     function validateForm(){
         var valid = true;
 
-        var newPass=$("#changePassModel_newPass").val();
-        var checkPass=$("#changePassModel_checkPassword").val();
+        var pass=$("#newUserModel_pass").val();
+        var checkPass=$("#newUserModel_checkPass").val();
 
 
-        if(newPass != checkPass){
+        if(pass != checkPass){
             addErrorByKey("api_passNotMatch");
             valid = false;
         }
@@ -160,6 +189,37 @@
         return valid;
     }
 
+    function validateNick(that){
+        var value = $(that).val();
+        if(value != ""){
+            portalPost("users/validNickname", {'value':value}, validateNickHandler);
+        }
+    }
+
+    function validateNickHandler(result){
+        if(result){
+            $("#newUserModel_nickname").removeClass("border-warning");
+        }else{
+            $("#newUserModel_nickname").addClass("border-warning");
+            $("#newUserModel_nickname").after(getStatusByKey("api_nickname_alreadyUsed", "alert-danger"));
+        }
+    }
+
+    function validateEmail(that){
+        var value = $(that).val();
+        if(value != ""){
+            portalPost("users/validEmail", {'value':value}, validateEmailHandler);
+        }
+    }
+
+    function validateEmailHandler(result){
+        if(result){
+            $("#newUserModel_email").removeClass("border-warning");
+        }else{
+            $("#newUserModel_email").addClass("border-warning");
+            $("#newUserModel_email").after(getStatusByKey("api_email_alreadyUsed", "alert-danger"));
+        }
+    }
 </script>
 
 </body>

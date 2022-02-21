@@ -3,19 +3,18 @@ package com.season.portal;
 import com.season.portal.auth.ChangePassModel;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.auth.admin.AdminController;
+import com.season.portal.client.generated.user.GetUserByIdResponse;
+import com.season.portal.client.users.ClientUser;
 import com.season.portal.language.LanguageController;
 import com.season.portal.notifications.Notification;
 import com.season.portal.utils.model.RestModel;
-import com.season.portal.utils.validation.LangCodeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
@@ -24,20 +23,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import static com.season.portal.utils.Utils.certificateExpireIn;
+
 import static com.season.portal.utils.validation.LangCodeValidator.LANGUAGE_CODES;
 
 @SpringBootApplication
 public class PortalApplication{
+
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	private static ArrayList<String> errorKeys = new ArrayList<>();
@@ -218,5 +215,26 @@ public class PortalApplication{
 		}
 
 		return false;
+	}
+
+	public static boolean updatePrincipal(ClientUser client, boolean addMsg) {
+		boolean valid = false;
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		if(auth != null && auth.isAuthenticated()) {
+			var principal = auth.getPrincipal();
+			if (principal instanceof ClientUserDetails) {
+				ClientUserDetails user = (ClientUserDetails)principal;
+				GetUserByIdResponse response = client.getUserById(user.getUserId());
+				if(response != null){
+					ClientUserDetails newUser = new ClientUserDetails(response.getUser(), (ArrayList<GrantedAuthority>) user.getAuthorities());
+					Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, "userObject.getPassword()", newUser.getAuthorities());
+					SecurityContextHolder.getContext().setAuthentication(authentication);
+					valid = true;
+				}
+			}
+		}
+
+		return valid;
 	}
 }
