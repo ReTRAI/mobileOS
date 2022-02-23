@@ -1,14 +1,8 @@
 package com.season.portal.client.support;
 
 import com.season.portal.PortalApplication;
-import com.season.portal.client.generated.reseller.GetResellerByUserIdRequest;
-import com.season.portal.client.generated.reseller.GetResellerByUserIdResponse;
-import com.season.portal.client.generated.reseller.SetResellerRequest;
-import com.season.portal.client.generated.reseller.SetResellerResponse;
-import com.season.portal.client.generated.support.GetSupportByUserIdRequest;
-import com.season.portal.client.generated.support.GetSupportByUserIdResponse;
-import com.season.portal.client.generated.support.SetSupportRequest;
-import com.season.portal.client.generated.support.SetSupportResponse;
+import com.season.portal.client.generated.support.*;
+import com.season.portal.support.SupportListPageModel;
 import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +39,33 @@ public class ClientSupport extends WebServiceGatewaySupport{
         return response;
     }
 
+    public RemoveSupportResponse removeSupport(String supportId, String actionUserId) {
+        RemoveSupportRequest request = new RemoveSupportRequest();
+        request.setSupportId(supportId);
+        request.setActionUserId(actionUserId);
+
+        RemoveSupportResponse response = null;
+        try {
+            response = (RemoveSupportResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_removeSupport_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_removeSupport_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_removeSupport_ex");
+        }
+
+        return response;
+    }
+
     public GetSupportByUserIdResponse getSupportByUserId(String userId) {
         GetSupportByUserIdRequest request = new GetSupportByUserIdRequest();
         request.setUserId(userId);
@@ -57,19 +78,194 @@ public class ClientSupport extends WebServiceGatewaySupport{
             String code = Utils.getSoapCode(soapEx);
 
             if(code.equals(""))
-                PortalApplication.addErrorKey("api_ClientSupport_getResellerByUserId_noCode");
+                PortalApplication.addErrorKey("api_ClientSupport_getSupportByUserId_noCode");
             else
-                PortalApplication.addErrorKey("api_ClientSupport_getResellerByUserId_"+code);
+                PortalApplication.addErrorKey("api_ClientSupport_getSupportByUserId_"+code);
 
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
             PortalApplication.log(LOGGER, e);
-            PortalApplication.addErrorKey("api_ClientSupport_getResellerByUserId_ex");
+            PortalApplication.addErrorKey("api_ClientSupport_getSupportByUserId_ex");
         }
 
         return response;
     }
 
+    public SetSupportAssociationResponse setSupportAssociation(String parentSupportId, String childSupportId, String actionUserId ){
+        SetSupportAssociationRequest request = new SetSupportAssociationRequest();
+        request.setParentSupportId(parentSupportId);
+        request.setChildSupportId(childSupportId);
+        request.setActionUserId(actionUserId);
+
+        SetSupportAssociationResponse response = null;
+        try {
+            response = (SetSupportAssociationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_setSupportAssociation_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_setSupportAssociation_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_setSupportAssociation_ex");
+        }
+
+        return response;
+    }
+
+    public RemoveSupportAssociationResponse removeSupportAssociation(String parentSupportId, String childSupportId, String actionUserId ){
+        RemoveSupportAssociationRequest request = new RemoveSupportAssociationRequest();
+        request.setParentSupportId(parentSupportId);
+        request.setChildSupportId(childSupportId);
+        request.setActionUserId(actionUserId);
+
+        RemoveSupportAssociationResponse response = null;
+        try {
+            response = (RemoveSupportAssociationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_removeSupportAssociation_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_removeSupportAssociation_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_removeSupportAssociation_ex");
+        }
+
+        return response;
+    }
+
+    public GetSupportParentByChildIdResponse getParent(String childSupportId, boolean addMsg_dontExist){
+        GetSupportParentByChildIdRequest request = new GetSupportParentByChildIdRequest();
+        request.setChildSupportId(childSupportId);
+
+        GetSupportParentByChildIdResponse response = null;
+        try {
+            response = (GetSupportParentByChildIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+            switch(code){
+                case "":
+                    PortalApplication.addErrorKey("api_ClientSupport_getParent_noCode");
+                    break;
+                case "ASSOCIATION_DONT_EXISTS":
+                    if(addMsg_dontExist)
+                        PortalApplication.addErrorKey("api_ClientSupport_getParent_"+code);
+                    break;
+                default:
+                    PortalApplication.addErrorKey("api_ClientSupport_getParent_"+code);
+                    break;
+            }
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_getParent_ex");
+        }
+
+        return response;
+    }
+
+
+    public GetCountSupportFilteredResponse countSupportFiltered(SupportListPageModel model){
+        String SupportName=model.getSupportName();
+        SupportName = (SupportName == null)?"":SupportName;
+
+        return countSupportFiltered(
+                model.getSupportId(),
+                SupportName,
+                model.isOnlyChildren()
+        );
+    }
+    public GetCountSupportFilteredResponse countSupportFiltered(String SupportId, String SupportName, boolean onlyChildren){
+        GetCountSupportFilteredRequest request = new GetCountSupportFilteredRequest();
+        request.setSupportId(SupportId);
+        request.setSupportName(SupportName);
+        request.setOnlyChildren(onlyChildren);
+
+        GetCountSupportFilteredResponse response = null;
+        try {
+            response = (GetCountSupportFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_countSupportFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_countSupportFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_countSupportFiltered_ex");
+        }
+
+        return response;
+    }
+
+    public GetSupportFilteredResponse getSupportFiltered(SupportListPageModel model){
+        String SupportName=model.getSupportName();
+        SupportName = (SupportName == null)?"":SupportName;
+
+        return getSupportFiltered(
+                model.getSupportId(),
+                SupportName,
+                model.isOnlyChildren(),
+                model.getValidOffset(),
+                model.getValidNumPerPage(),
+                model.getValidSort(),
+                model.getValidOrder()
+        );
+    }
+    public GetSupportFilteredResponse getSupportFiltered(String SupportId, String SupportName, boolean onlyChildren,
+                                                           int offset, int numberRecords, String field, String order){
+        GetSupportFilteredRequest request = new GetSupportFilteredRequest();
+        request.setSupportId(SupportId);
+        request.setSupportName(SupportName);
+        request.setOnlyChildren(onlyChildren);
+
+        request.setOffset(offset);
+        request.setNumberRecords(numberRecords);
+        request.setField(field);
+        request.setOrderField(order);
+
+        GetSupportFilteredResponse response = null;
+        try {
+            response = (GetSupportFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_getSupportFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_getSupportFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_getSupportFiltered_ex");
+        }
+
+        return response;
+    }
 }
 

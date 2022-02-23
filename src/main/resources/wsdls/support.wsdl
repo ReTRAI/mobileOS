@@ -80,6 +80,46 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- getTicketDetailFiltered-->
+    <xs:element name="getTicketDetailFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:string"/>
+                <xs:element name="startDetailDate" type="xs:string"/>
+                <xs:element name="endDetailDate" type="xs:string"/>
+                <xs:element name="field" type="xs:string"/>
+                <xs:element name="orderField" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getTicketDetailFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="ticketDetail" type="tns:ticketDetail"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getCountTicketDetailFiltered-->
+    <xs:element name="getCountTicketDetailFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:string"/>
+                <xs:element name="startDetailDate" type="xs:string"/>
+                <xs:element name="endDetailDate" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getCountTicketDetailFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- getCountSupportFiltered-->
     <xs:element name="getCountSupportFilteredRequest">
         <xs:complexType>
@@ -134,6 +174,22 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- getSupportParentByChildId-->
+    <xs:element name="getSupportParentByChildIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="childSupportId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getSupportParentByChildIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="support" type="tns:support"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- setSupport-->
     <xs:element name="setSupportRequest">
         <xs:complexType>
@@ -182,6 +238,43 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="ticket" type="tns:ticket"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- setTicketDetail-->
+    <xs:element name="setTicketDetailRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setTicketDetailResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- updateTicket -->
+    <xs:element name="updateTicketRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="assignedUserId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="updateTicketResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -249,6 +342,18 @@
             <xs:element name="assignedUserId" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
+
+    <!-- Endpoint TicketDetail Object-->
+    <xs:complexType name="ticketDetail">
+        <xs:sequence>
+            <xs:element name="ticketId" type="xs:string"/>
+            <xs:element name="ticketDetailId" type="xs:string"/>
+            <xs:element name="detail" type="xs:string"/>
+            <xs:element name="originalMessage" type="xs:boolean"/>
+            <xs:element name="detailDate" type="xs:string"/>
+            <xs:element name="detailUserId" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
   </wsdl:types>
   <wsdl:message name="getSupportFilteredRequest">
@@ -259,6 +364,14 @@
     <wsdl:part element="tns:getSupportAssociationResponse" name="getSupportAssociationResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="updateTicketRequest">
+    <wsdl:part element="tns:updateTicketRequest" name="updateTicketRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSupportParentByChildIdRequest">
+    <wsdl:part element="tns:getSupportParentByChildIdRequest" name="getSupportParentByChildIdRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="removeSupportResponse">
     <wsdl:part element="tns:removeSupportResponse" name="removeSupportResponse">
     </wsdl:part>
@@ -267,24 +380,12 @@
     <wsdl:part element="tns:getSupportByIdResponse" name="getSupportByIdResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getSupportByUserIdRequest">
-    <wsdl:part element="tns:getSupportByUserIdRequest" name="getSupportByUserIdRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getSupportByUserIdResponse">
-    <wsdl:part element="tns:getSupportByUserIdResponse" name="getSupportByUserIdResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="setSupportRequest">
-    <wsdl:part element="tns:setSupportRequest" name="setSupportRequest">
+  <wsdl:message name="getSupportParentByChildIdResponse">
+    <wsdl:part element="tns:getSupportParentByChildIdResponse" name="getSupportParentByChildIdResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="removeSupportAssociationRequest">
     <wsdl:part element="tns:removeSupportAssociationRequest" name="removeSupportAssociationRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getTicketFilteredResponse">
-    <wsdl:part element="tns:getTicketFilteredResponse" name="getTicketFilteredResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getSupportFilteredResponse">
@@ -303,16 +404,12 @@
     <wsdl:part element="tns:getSupportAssociationRequest" name="getSupportAssociationRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getTicketDetailFilteredRequest">
+    <wsdl:part element="tns:getTicketDetailFilteredRequest" name="getTicketDetailFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getCountSupportFilteredRequest">
     <wsdl:part element="tns:getCountSupportFilteredRequest" name="getCountSupportFilteredRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getCountSupportFilteredResponse">
-    <wsdl:part element="tns:getCountSupportFilteredResponse" name="getCountSupportFilteredResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="removeSupportAssociationResponse">
-    <wsdl:part element="tns:removeSupportAssociationResponse" name="removeSupportAssociationResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getCountTicketFilteredRequest">
@@ -333,6 +430,54 @@
   </wsdl:message>
   <wsdl:message name="getCountTicketFilteredResponse">
     <wsdl:part element="tns:getCountTicketFilteredResponse" name="getCountTicketFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateTicketResponse">
+    <wsdl:part element="tns:updateTicketResponse" name="updateTicketResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountTicketDetailFilteredRequest">
+    <wsdl:part element="tns:getCountTicketDetailFilteredRequest" name="getCountTicketDetailFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSupportByUserIdRequest">
+    <wsdl:part element="tns:getSupportByUserIdRequest" name="getSupportByUserIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSupportByUserIdResponse">
+    <wsdl:part element="tns:getSupportByUserIdResponse" name="getSupportByUserIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountTicketDetailFilteredResponse">
+    <wsdl:part element="tns:getCountTicketDetailFilteredResponse" name="getCountTicketDetailFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setSupportRequest">
+    <wsdl:part element="tns:setSupportRequest" name="setSupportRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setTicketDetailRequest">
+    <wsdl:part element="tns:setTicketDetailRequest" name="setTicketDetailRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTicketFilteredResponse">
+    <wsdl:part element="tns:getTicketFilteredResponse" name="getTicketFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTicketDetailFilteredResponse">
+    <wsdl:part element="tns:getTicketDetailFilteredResponse" name="getTicketDetailFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountSupportFilteredResponse">
+    <wsdl:part element="tns:getCountSupportFilteredResponse" name="getCountSupportFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeSupportAssociationResponse">
+    <wsdl:part element="tns:removeSupportAssociationResponse" name="removeSupportAssociationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setTicketDetailResponse">
+    <wsdl:part element="tns:setTicketDetailResponse" name="setTicketDetailResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="removeSupportRequest">
@@ -360,6 +505,18 @@
       <wsdl:output message="tns:getSupportAssociationResponse" name="getSupportAssociationResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="updateTicket">
+      <wsdl:input message="tns:updateTicketRequest" name="updateTicketRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updateTicketResponse" name="updateTicketResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSupportParentByChildId">
+      <wsdl:input message="tns:getSupportParentByChildIdRequest" name="getSupportParentByChildIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getSupportParentByChildIdResponse" name="getSupportParentByChildIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="removeSupport">
       <wsdl:input message="tns:removeSupportRequest" name="removeSupportRequest">
     </wsdl:input>
@@ -372,34 +529,22 @@
       <wsdl:output message="tns:getSupportByIdResponse" name="getSupportByIdResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getSupportByUserId">
-      <wsdl:input message="tns:getSupportByUserIdRequest" name="getSupportByUserIdRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:getSupportByUserIdResponse" name="getSupportByUserIdResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="setSupport">
-      <wsdl:input message="tns:setSupportRequest" name="setSupportRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:setSupportResponse" name="setSupportResponse">
-    </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="removeSupportAssociation">
       <wsdl:input message="tns:removeSupportAssociationRequest" name="removeSupportAssociationRequest">
     </wsdl:input>
       <wsdl:output message="tns:removeSupportAssociationResponse" name="removeSupportAssociationResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getTicketFiltered">
-      <wsdl:input message="tns:getTicketFilteredRequest" name="getTicketFilteredRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:getTicketFilteredResponse" name="getTicketFilteredResponse">
-    </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="setTicket">
       <wsdl:input message="tns:setTicketRequest" name="setTicketRequest">
     </wsdl:input>
       <wsdl:output message="tns:setTicketResponse" name="setTicketResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketDetailFiltered">
+      <wsdl:input message="tns:getTicketDetailFilteredRequest" name="getTicketDetailFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getTicketDetailFilteredResponse" name="getTicketDetailFilteredResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getCountSupportFiltered">
@@ -414,10 +559,40 @@
       <wsdl:output message="tns:getCountTicketFilteredResponse" name="getCountTicketFilteredResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="setSupport">
+      <wsdl:input message="tns:setSupportRequest" name="setSupportRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setSupportResponse" name="setSupportResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="setSupportAssociation">
       <wsdl:input message="tns:setSupportAssociationRequest" name="setSupportAssociationRequest">
     </wsdl:input>
       <wsdl:output message="tns:setSupportAssociationResponse" name="setSupportAssociationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountTicketDetailFiltered">
+      <wsdl:input message="tns:getCountTicketDetailFilteredRequest" name="getCountTicketDetailFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getCountTicketDetailFilteredResponse" name="getCountTicketDetailFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSupportByUserId">
+      <wsdl:input message="tns:getSupportByUserIdRequest" name="getSupportByUserIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getSupportByUserIdResponse" name="getSupportByUserIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setTicketDetail">
+      <wsdl:input message="tns:setTicketDetailRequest" name="setTicketDetailRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setTicketDetailResponse" name="setTicketDetailResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketFiltered">
+      <wsdl:input message="tns:getTicketFilteredRequest" name="getTicketFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getTicketFilteredResponse" name="getTicketFilteredResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
@@ -441,6 +616,24 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="updateTicket">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateTicketRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateTicketResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSupportParentByChildId">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getSupportParentByChildIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSupportParentByChildIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="removeSupport">
       <soap:operation soapAction=""/>
       <wsdl:input name="removeSupportRequest">
@@ -459,24 +652,6 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getSupportByUserId">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="getSupportByUserIdRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getSupportByUserIdResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="setSupport">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="setSupportRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="setSupportResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="removeSupportAssociation">
       <soap:operation soapAction=""/>
       <wsdl:input name="removeSupportAssociationRequest">
@@ -486,21 +661,21 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getTicketFiltered">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="getTicketFilteredRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getTicketFilteredResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="setTicket">
       <soap:operation soapAction=""/>
       <wsdl:input name="setTicketRequest">
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="setTicketResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketDetailFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getTicketDetailFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTicketDetailFilteredResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
@@ -522,12 +697,57 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="setSupport">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setSupportRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setSupportResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="setSupportAssociation">
       <soap:operation soapAction=""/>
       <wsdl:input name="setSupportAssociationRequest">
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="setSupportAssociationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountTicketDetailFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCountTicketDetailFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCountTicketDetailFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSupportByUserId">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getSupportByUserIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSupportByUserIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setTicketDetail">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setTicketDetailRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setTicketDetailResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getTicketFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTicketFilteredResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

@@ -2,12 +2,7 @@ package com.season.portal.client.reseller;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.client.generated.reseller.*;
-import com.season.portal.client.generated.user.GetCountUserFilteredRequest;
-import com.season.portal.client.generated.user.GetCountUserFilteredResponse;
-import com.season.portal.client.generated.user.GetUserFilteredRequest;
-import com.season.portal.client.generated.user.GetUserFilteredResponse;
 import com.season.portal.reseller.ResellerListPageModel;
-import com.season.portal.users.UsersListPageModel;
 import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +39,33 @@ public class ClientReseller extends WebServiceGatewaySupport{
         return response;
     }
 
+    public RemoveResellerResponse removeReseller(String resellerId, String actionUserId) {
+        RemoveResellerRequest request = new RemoveResellerRequest();
+        request.setResellerId(resellerId);
+        request.setActionUserId(actionUserId);
+
+        RemoveResellerResponse response = null;
+        try {
+            response = (RemoveResellerResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientReseller_removeReseller_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientReseller_removeReseller_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_removeReseller_ex");
+        }
+
+        return response;
+    }
+
     public GetResellerByUserIdResponse getResellerByUserId(String userId) {
         GetResellerByUserIdRequest request = new GetResellerByUserIdRequest();
         request.setUserId(userId);
@@ -72,8 +94,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
 
     public SetResellerAssociationResponse setResellerAssociation(String parentResellerId, String childResellerId, String actionUserId ){
         SetResellerAssociationRequest request = new SetResellerAssociationRequest();
-        request.setParentResselerId(parentResellerId);
-        request.setChildResselerId(childResellerId);
+        request.setParentResellerId(parentResellerId);
+        request.setChildResellerId(childResellerId);
         request.setActionUserId(actionUserId);
 
         SetResellerAssociationResponse response = null;
@@ -93,6 +115,68 @@ public class ClientReseller extends WebServiceGatewaySupport{
         } catch (Exception e){
             PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_setResellerAssociation_ex");
+        }
+
+        return response;
+    }
+
+    public RemoveResellerAssociationResponse removeResellerAssociation(String parentResellerId, String childResellerId, String actionUserId ){
+        RemoveResellerAssociationRequest request = new RemoveResellerAssociationRequest();
+        request.setParentResellerId(parentResellerId);
+        request.setChildResellerId(childResellerId);
+        request.setActionUserId(actionUserId);
+
+        RemoveResellerAssociationResponse response = null;
+        try {
+            response = (RemoveResellerAssociationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientReseller_removeResellerAssociation_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientReseller_removeResellerAssociation_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_removeResellerAssociation_ex");
+        }
+
+        return response;
+    }
+
+    public GetResellerParentByChildIdResponse getParent(String childResellerId, boolean addMsg_dontExist){
+        GetResellerParentByChildIdRequest request = new GetResellerParentByChildIdRequest();
+        request.setChildResellerId(childResellerId);
+
+        GetResellerParentByChildIdResponse response = null;
+        try {
+            response = (GetResellerParentByChildIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            switch(code){
+                case "":
+                    PortalApplication.addErrorKey("api_ClientReseller_getParent_noCode");
+                    break;
+                case "ASSOCIATION_DONT_EXISTS":
+                    if(addMsg_dontExist)
+                        PortalApplication.addErrorKey("api_ClientReseller_getParent_"+code);
+                    break;
+                default:
+                    PortalApplication.addErrorKey("api_ClientReseller_getParent_"+code);
+                    break;
+            }
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_getParent_ex");
         }
 
         return response;
@@ -183,5 +267,6 @@ public class ClientReseller extends WebServiceGatewaySupport{
 
         return response;
     }
+
 }
 

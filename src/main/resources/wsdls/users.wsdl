@@ -172,6 +172,24 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- activateUser-->
+    <xs:element name="activateUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="activateUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- changeLangPreference-->
     <xs:element name="changeLangPreferenceRequest">
         <xs:complexType>
@@ -343,8 +361,16 @@
     <wsdl:part element="tns:changeUserPwResponse" name="changeUserPwResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="activateUserResponse">
+    <wsdl:part element="tns:activateUserResponse" name="activateUserResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="userLoginRequest">
     <wsdl:part element="tns:userLoginRequest" name="userLoginRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="activateUserRequest">
+    <wsdl:part element="tns:activateUserRequest" name="activateUserRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="unblockUserRequest">
@@ -438,6 +464,12 @@
       <wsdl:input message="tns:getUserRolesByUserIdRequest" name="getUserRolesByUserIdRequest">
     </wsdl:input>
       <wsdl:output message="tns:getUserRolesByUserIdResponse" name="getUserRolesByUserIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="activateUser">
+      <wsdl:input message="tns:activateUserRequest" name="activateUserRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:activateUserResponse" name="activateUserResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="userLogin">
@@ -554,6 +586,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="getUserRolesByUserIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="activateUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="activateUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="activateUserResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

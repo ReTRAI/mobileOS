@@ -248,16 +248,14 @@ public class ClientUser extends WebServiceGatewaySupport{
         return valid;
     }
 
-    public UnblockUserResponse activateUser(String userId, String actionUserId) {
-        PortalApplication.addErrorKey("api_notImplementedYet");
-        return null;
-        /*UnblockUserRequest request = new UnblockUserRequest();
+    public ActivateUserResponse activateUser(String userId, String actionUserId) {
+        ActivateUserRequest request = new ActivateUserRequest();
         request.setUserId(userId);
         request.setActionUserId(actionUserId);
 
-        UnblockUserResponse response = null;
+        ActivateUserResponse response = null;
         try {
-            response = (UnblockUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+            response = (ActivateUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapCode(soapEx);
@@ -274,10 +272,10 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.addErrorKey("api_ClientUser_activateUser_ex");
         }
 
-        return response;*/
+        return response;
     }
 
-    public boolean validateActivateResponse(UnblockUserResponse response, boolean addMsg) {
+    public boolean validateActivateResponse(ActivateUserResponse response, boolean addMsg) {
         boolean valid = false;
 
         if(response != null){

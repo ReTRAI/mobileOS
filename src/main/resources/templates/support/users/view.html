@@ -152,10 +152,7 @@
                                             <input type="hidden" th:field="*{value}"/>
                                         </form>
                                     </th:block>
-
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -165,7 +162,56 @@
                     <div class="card-header d-flex justify-content-between pb-0">
                         <h4 class="card-title toTranslate" data-langKey="users_user_reseller">Reseller</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" >
+                         <th:block th:if="${!UserRole_Reseller.isEmpty()}">
+                            <div class="row">
+                                <div class="col-md-4 col-12 mb-1">
+                                    <label class="form-label toTranslate" data-langKey="utils_form_nickname"></label>
+                                    <input class="form-control"
+                                           th:value="${UserRole_Reseller.getName()}" readonly="readonly"/>
+                                </div>
+                                <div class="col-md-4 col-12 mb-1 d-flex fake-label">
+                                    <form th:object="${guidModel_removeReseller}" method="POST" th:action="@{${portalURL} + 'users/removeReseller'}">
+                                        <input type="hidden" th:field="*{value}"/>
+                                        <button type="submit"
+                                                class="btn btn-danger toTranslate"
+                                                data-langKey="users_user_removeReseller" onclick="">Remove Reseller</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <h5 class="card-title toTranslate" data-langKey="utils_hierarchy">Hierarchy</h5>
+                            <div class="row">
+                                <div class="col-md-4 col-12 mb-1" th:if="${!UserRole_ResellerParent.isEmpty()}">
+                                    <label class="form-label toTranslate" data-langKey="utils_form_nickname"></label>
+                                    <input class="form-control"
+                                           th:value="${UserRole_ResellerParent.getName()}" readonly="readonly"/>
+                                </div>
+                                <div class="col-md-8 col-12 mb-1 d-flex fake-label">
+                                    <div class="me-2" th:if="${!(UserRole_ResellerParent.isEmpty())}">
+
+                                        <form th:object="${hierarchyModel_removeParentReseller}" method="POST"
+                                              th:action="@{${portalURL} + 'users/removeParentReseller'}" >
+                                            <input type="hidden" th:field="*{parentId}"/>
+                                            <input type="hidden" th:field="*{childId}"/>
+                                            <button type="submit" class="btn btn-danger toTranslate me-2"
+                                                    data-langKey="">
+                                                Remove Parent
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="me-2" th:if="${!(UserRole_ResellerParent.isEmpty())}">
+
+                                        <form th:object="${guidModel_addParentReseller}" method="POST" th:action="@{${portalURL} + 'users/addParentReseller'}" >
+                                            <input type="hidden" th:field="*{value}"/>
+                                            <button type="submit" class="btn btn-primary toTranslate me-2"
+                                                    data-langKey="">
+                                                Add Parent
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
 
                     </div>
                 </div>

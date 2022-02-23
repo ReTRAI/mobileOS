@@ -124,6 +124,22 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- getResellerParentByChildId-->
+    <xs:element name="getResellerParentByChildIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="childResellerId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getResellerParentByChildIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reseller" type="tns:reseller"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- setReseller-->
     <xs:element name="setResellerRequest">
         <xs:complexType>
@@ -165,8 +181,8 @@
     <xs:element name="setResellerAssociationRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="parentResselerId" type="xs:string"/>
-                <xs:element name="childResselerId" type="xs:string"/>
+                <xs:element name="parentResellerId" type="xs:string"/>
+                <xs:element name="childResellerId" type="xs:string"/>
                 <xs:element name="actionUserId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -276,6 +292,38 @@
     <wsdl:part element="tns:getResellerByUserDeviceNameResponse" name="getResellerByUserDeviceNameResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getResellerBalanceMovementsRequest">
+    <wsdl:part element="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerAssociationResponse">
+    <wsdl:part element="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerBalanceMovementsResponse">
+    <wsdl:part element="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerFilteredResponse">
+    <wsdl:part element="tns:getResellerFilteredResponse" name="getResellerFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerParentByChildIdRequest">
+    <wsdl:part element="tns:getResellerParentByChildIdRequest" name="getResellerParentByChildIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerRequest">
+    <wsdl:part element="tns:setResellerRequest" name="setResellerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setResellerAssociationRequest">
+    <wsdl:part element="tns:setResellerAssociationRequest" name="setResellerAssociationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResellerParentByChildIdResponse">
+    <wsdl:part element="tns:getResellerParentByChildIdResponse" name="getResellerParentByChildIdResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getResellerAssociationRequest">
     <wsdl:part element="tns:getResellerAssociationRequest" name="getResellerAssociationRequest">
     </wsdl:part>
@@ -284,16 +332,8 @@
     <wsdl:part element="tns:setResellerBalanceMovementResponse" name="setResellerBalanceMovementResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getResellerBalanceMovementsRequest">
-    <wsdl:part element="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="getCountResellerFilteredRequest">
     <wsdl:part element="tns:getCountResellerFilteredRequest" name="getCountResellerFilteredRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="setResellerAssociationResponse">
-    <wsdl:part element="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="removeResellerAssociationRequest">
@@ -302,10 +342,6 @@
   </wsdl:message>
   <wsdl:message name="getResellerAssociationResponse">
     <wsdl:part element="tns:getResellerAssociationResponse" name="getResellerAssociationResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getResellerBalanceMovementsResponse">
-    <wsdl:part element="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="removeResellerResponse">
@@ -324,24 +360,12 @@
     <wsdl:part element="tns:getCountResellerFilteredResponse" name="getCountResellerFilteredResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getResellerFilteredResponse">
-    <wsdl:part element="tns:getResellerFilteredResponse" name="getResellerFilteredResponse">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="removeResellerAssociationResponse">
     <wsdl:part element="tns:removeResellerAssociationResponse" name="removeResellerAssociationResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getResellerByUserIdRequest">
     <wsdl:part element="tns:getResellerByUserIdRequest" name="getResellerByUserIdRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="setResellerRequest">
-    <wsdl:part element="tns:setResellerRequest" name="setResellerRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="setResellerAssociationRequest">
-    <wsdl:part element="tns:setResellerAssociationRequest" name="setResellerAssociationRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="ResellerPort">
@@ -375,6 +399,24 @@
       <wsdl:output message="tns:setResellerResponse" name="setResellerResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getResellerBalanceMovements">
+      <wsdl:input message="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setResellerAssociation">
+      <wsdl:input message="tns:setResellerAssociationRequest" name="setResellerAssociationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerParentByChildId">
+      <wsdl:input message="tns:getResellerParentByChildIdRequest" name="getResellerParentByChildIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getResellerParentByChildIdResponse" name="getResellerParentByChildIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getResellerAssociation">
       <wsdl:input message="tns:getResellerAssociationRequest" name="getResellerAssociationRequest">
     </wsdl:input>
@@ -387,22 +429,10 @@
       <wsdl:output message="tns:setResellerBalanceMovementResponse" name="setResellerBalanceMovementResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getResellerBalanceMovements">
-      <wsdl:input message="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
-    </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="getCountResellerFiltered">
       <wsdl:input message="tns:getCountResellerFilteredRequest" name="getCountResellerFilteredRequest">
     </wsdl:input>
       <wsdl:output message="tns:getCountResellerFilteredResponse" name="getCountResellerFilteredResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="setResellerAssociation">
-      <wsdl:input message="tns:setResellerAssociationRequest" name="setResellerAssociationRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="removeResellerAssociation">
@@ -465,6 +495,33 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getResellerBalanceMovements">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerBalanceMovementsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerBalanceMovementsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setResellerAssociation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setResellerAssociationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setResellerAssociationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerParentByChildId">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getResellerParentByChildIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResellerParentByChildIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getResellerAssociation">
       <soap:operation soapAction=""/>
       <wsdl:input name="getResellerAssociationRequest">
@@ -483,30 +540,12 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getResellerBalanceMovements">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="getResellerBalanceMovementsRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getResellerBalanceMovementsResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="getCountResellerFiltered">
       <soap:operation soapAction=""/>
       <wsdl:input name="getCountResellerFilteredRequest">
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="getCountResellerFilteredResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="setResellerAssociation">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="setResellerAssociationRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="setResellerAssociationResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

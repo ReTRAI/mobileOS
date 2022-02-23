@@ -3,10 +3,13 @@ package com.season.portal.users;
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.client.generated.reseller.GetResellerByUserIdResponse;
+import com.season.portal.client.generated.reseller.GetResellerParentByChildIdResponse;
 import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.reseller.SetResellerResponse;
 import com.season.portal.client.generated.support.GetSupportByUserIdResponse;
+import com.season.portal.client.generated.support.GetSupportParentByChildIdResponse;
 import com.season.portal.client.generated.support.SetSupportResponse;
+import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.*;
 import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.client.support.ClientSupport;
@@ -15,6 +18,7 @@ import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
 import com.season.portal.utils.model.GuidModel;
 import com.season.portal.utils.model.GuidRequiredModel;
+import com.season.portal.utils.model.HierarchyModel;
 import com.season.portal.utils.pagination.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,6 +41,9 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.AL
 @Controller
 public class UsersController extends ModelViewBaseController {
     @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
     ClientUser client;
 
     @Autowired
@@ -46,6 +53,7 @@ public class UsersController extends ModelViewBaseController {
     ClientSupport clientSupport;
 
     private String SESSION_USERS_CONTROLLER_LIST_MODEL = "SESSION_USERS_CONTROLLER_LIST_MODEL";
+    private String SESSION_USERS_CONTROLLER_USER = "SESSION_USERS_CONTROLLER_USER";
 
     //<editor-fold desc="UserList">
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
@@ -148,11 +156,21 @@ public class UsersController extends ModelViewBaseController {
         return userView(null);
     }
 
+    private ModelAndView userViewBySession(){
+        HttpSession session = request.getSession(true);
+        User u = (User)session.getAttribute(SESSION_USERS_CONTROLLER_USER);
+
+        return userView(u);
+    }
+
     private ModelAndView userView(User user){
         ModelAndView mv = new ModelAndView("support/users/view");
         mv.addObject("User", user);
 
         if(user != null){
+            HttpSession session = request.getSession(true);
+            session.setAttribute(SESSION_USERS_CONTROLLER_USER, user);
+
             GetUserRolesByUserIdResponse rolesResponse = client.getRolesById(user.getUserId());
 
             if(rolesResponse != null){
@@ -164,14 +182,30 @@ public class UsersController extends ModelViewBaseController {
                         case "RESELLER":
                             GetResellerByUserIdResponse resellerResponse = clientReseller.getResellerByUserId(user.getUserId());
                             if(resellerResponse != null){
-                                //Reseller r = resellerResponse.getReseller();
-                                mv.addObject("reseller", resellerResponse.getReseller());
+                                Reseller r = resellerResponse.getReseller();
+                                mv.addObject("UserRole_Reseller", new UserRoleModel(r));
+                                mv.addObject("guidModel_removeReseller", new GuidRequiredModel(r.getResellerId()));
+                                GetResellerParentByChildIdResponse resellerParentResponse = clientReseller.getParent(r.getResellerId(), false);
+                                mv.addObject("UserRole_ResellerParent", new UserRoleModel(resellerParentResponse));
+                                if(resellerParentResponse != null){
+                                    Reseller resellerParent = resellerParentResponse.getReseller();
+                                    mv.addObject("hierarchyModel_removeParentReseller", new HierarchyModel(resellerParent.getResellerId(), r.getResellerId()));
+                                }
+
                             }
                             break;
                         case "SUPPORT":
                             GetSupportByUserIdResponse supportResponse = clientSupport.getSupportByUserId(user.getUserId());
                             if(supportResponse != null){
-                                mv.addObject("support", supportResponse.getSupport());
+                                Support s = supportResponse.getSupport();
+                                mv.addObject("UserRole_Support", new UserRoleModel(s));
+                                mv.addObject("guidModel_removeSupport", new GuidRequiredModel(s.getSupportId()));
+                                GetSupportParentByChildIdResponse supportParentResponse = clientSupport.getParent(s.getSupportId(), false);
+                                mv.addObject("UserRole_ResellerParent", new UserRoleModel(supportParentResponse));
+                                if(supportParentResponse != null){
+                                    Support supportParent = supportParentResponse.getSupport();
+                                    mv.addObject("hierarchyModel_removeParentSupport", new HierarchyModel(supportParent.getSupportId(), s.getSupportId()));
+                                }
                             }
                             break;
                         case "ADMIN":
@@ -191,6 +225,9 @@ public class UsersController extends ModelViewBaseController {
 
         return dispatchView(mv);
     }
+    //</editor-fold>
+
+    //<editor-fold desc="User roles and hierarchy">
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/users/addReseller")
@@ -200,14 +237,44 @@ public class UsersController extends ModelViewBaseController {
             if (user != null) {
                 clientReseller.setReseller(model.getValue(), user.getUserId());
             }
-
-            return userViewById(model.getValue());
+            //return userViewById(model.getValue());
         }
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
         }
-        return userView(null);
+        return userViewBySession();
     }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/removeReseller")
+    public ModelAndView removeReseller(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                clientReseller.removeReseller(model.getValue(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/removeParentReseller")
+    public ModelAndView removeParentReseller(@Valid HierarchyModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                clientReseller.removeResellerAssociation(model.getParentId(), model.getChildId(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return userViewBySession();
+    }
+
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/users/addSupport")
@@ -218,12 +285,42 @@ public class UsersController extends ModelViewBaseController {
                 clientSupport.setSupport(model.getValue(), user.getUserId());
             }
 
-            return userViewById(model.getValue());
+            //return userViewById(model.getValue());
         }
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
         }
-        return userView(null);
+        return userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/removeSupport")
+    public ModelAndView removeSupport(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                clientSupport.removeSupport(model.getValue(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/removeParentSupport")
+    public ModelAndView removeParentSupport(@Valid HierarchyModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                clientSupport.removeSupportAssociation(model.getParentId(), model.getChildId(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return userViewBySession();
     }
     //</editor-fold>
 
@@ -236,14 +333,14 @@ public class UsersController extends ModelViewBaseController {
             if (user != null) {
                 UnblockUserResponse response = client.unblockUser(model.getValue(), user.getUserId());
                 client.validateUnblockUserResponse(response, true);
-            }
 
-            return userViewById(model.getValue());
+                return userViewById(model.getValue());
+            }
         }
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
         }
-        return userView(null);
+        return userViewBySession();
     }
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
@@ -261,7 +358,7 @@ public class UsersController extends ModelViewBaseController {
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
         }
-        return userView(null);
+        return userViewBySession();
     }
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
@@ -270,7 +367,7 @@ public class UsersController extends ModelViewBaseController {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                UnblockUserResponse response = client.activateUser(model.getValue(), user.getUserId());
+                ActivateUserResponse response = client.activateUser(model.getValue(), user.getUserId());
                 client.validateActivateResponse(response, true);
             }
 
@@ -279,7 +376,7 @@ public class UsersController extends ModelViewBaseController {
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
         }
-        return userView(null);
+        return userViewBySession();
     }
     //</editor-fold>
 }
