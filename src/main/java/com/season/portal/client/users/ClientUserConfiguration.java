@@ -1,5 +1,6 @@
 package com.season.portal.client.users;
 
+import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.configuration.PortalConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,4 +28,5 @@ public class ClientUserConfiguration {
         client.setUnmarshaller(marshallerClientUser);
         return client;
     }
+
 }

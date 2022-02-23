@@ -4,8 +4,9 @@
 	"utils_lang_en":"English",
 	"utils_lang_ru":"русский",
 	
-	"utils_lang_error":"There was an error getting the translations.",
+	"utils_lang_error":"An error occurred getting the translations.",
 	
+	"api_notImplementedYet":"Função não implementada.",
 	"api_error_sessionExpired":"Session expired, relogin to access this resource.",
 	
 	"errorHandler_tab_title":"Portal | Error",
@@ -41,6 +42,7 @@
 	"utils_form_file_invalidType": "Invalid file type.",
 	"utils_form_file_maxFiles0": "Select at maximum ",
 	"utils_form_file_maxFiles1": " files.",
+	"utils_form_guid_invalid":"Invalid guid.",
 	
 	"utils_form_nickname": "Nickname",
 	"utils_form_nicknamePlaceholder": "Enter nickname",
@@ -53,9 +55,9 @@
 	"menu_theme":"Theme",
 	"menu_login":"Login",
 
-	"api_ClientUser_GetUserRolesByUserIdResponse_": "There was an error getting user roles.",
-	"api_ClientUser_GetUserRolesByUserIdResponse_noCode": "There was an error getting user roles.",
-	"api_ClientUser_GetUserRolesByUserIdResponse_ex": "There was an error getting user roles.",
+	"api_ClientUser_GetUserRolesByUserIdResponse_": "An error occurred getting user roles.",
+	"api_ClientUser_GetUserRolesByUserIdResponse_noCode": "An error occurred getting user roles.",
+	"api_ClientUser_GetUserRolesByUserIdResponse_ex": "An error occurred getting user roles.",
 
 	
 

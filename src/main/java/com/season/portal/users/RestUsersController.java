@@ -11,9 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_SUP_ADMIN;
 
 
 @RestController
@@ -22,6 +25,7 @@ public class RestUsersController extends ModelViewBaseController {
     @Autowired
     ClientUser client;
 
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @ResponseBody
     @PostMapping(value={"users/validNickname"}, produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE})
     public RestBoolModel validNickname(StringModel model){
@@ -45,6 +49,7 @@ public class RestUsersController extends ModelViewBaseController {
         return (RestBoolModel)PortalApplication.addStatus(restBoolModel);
     }
 
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @ResponseBody
     @PostMapping(value={"users/validEmail"}, produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE})
     public RestBoolModel validEmail(StringModel model){

@@ -10,6 +10,7 @@ import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +30,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.cert.X509Certificate;
 
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_ADMIN;
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_ALL;
 import static com.season.portal.utils.Utils.certificateExpireIn;
 
 
@@ -130,11 +133,13 @@ public class AuthController extends ModelViewBaseController {
         response.setHeader("Location", portalConfig.getPortalURL("login"));
     }
 
+    @PreAuthorize(ALLOW_ROLES_ALL)
     @RequestMapping(value={"/changePassword"})
     public ModelAndView changePassword(){
         return changePasswordView(new ChangePassModel());
     }
 
+    @PreAuthorize(ALLOW_ROLES_ALL)
     @PostMapping(value={"/changePassword"})
     public ModelAndView changePassword(@Valid ChangePassModel model, BindingResult result){
 

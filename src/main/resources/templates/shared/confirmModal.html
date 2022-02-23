@@ -1,0 +1,75 @@
+<html xmlns:th="https://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org ">
+<body>
+
+<th:block th:fragment="confirmModal">
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-transparent">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-sm-5 mx-50 pb-5">
+                    <h1 class="text-center mb-1 toTranslate" id="confirmModal_title"></h1>
+                    <p class="text-center toTranslate" id="confirmModal_text"></p>
+
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-1 mt-1 toTranslate"
+                                id="confirmModal_submit">Submit</button>
+                        <button type="button" class="btn btn-outline-secondary mt-1 toTranslate"
+                                data-bs-dismiss="modal" aria-label="Close"
+                                id="confirmModal_cancel">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var CONFIRM_MODAL = null;
+        function confirmModal_init() {
+            CONFIRM_MODAL = new bootstrap.Modal(document.getElementById('confirmModal'));
+        }
+        function confirmModal_open(titleKey, textKey, submitKey, cancelKey, submitFun, cancelFun){
+            console.log("confirmModal_open");
+            $("#confirmModal_title").attr("data-langKey", titleKey);
+            $("#confirmModal_text").attr("data-langKey", textKey);
+            $("#confirmModal_submit").attr("data-langKey", submitKey);
+            $("#confirmModal_cancel").attr("data-langKey", cancelKey);
+
+            $("#confirmModal_submit").on('click', submitFun);
+            $("#confirmModal_cancel").on('click', cancelFun);
+
+            updateTranslations();
+
+            CONFIRM_MODAL.show();
+        }
+
+        function confirmModal_close(){
+            console.log("confirmModal_close");
+            $("#confirmModal_submit").off();
+            $("#confirmModal_cancel").off();
+
+            $("#confirmModal_title").attr("data-langKey", "");
+            $("#confirmModal_text").attr("data-langKey", "");
+            $("#confirmModal_submit").attr("data-langKey", "");
+            $("#confirmModal_cancel").attr("data-langKey", "");
+
+            $("#confirmModal_title").html("");
+            $("#confirmModal_text").html("");
+            $("#confirmModal_submit").html("");
+            $("#confirmModal_cancel").html("");
+            $("#confirmModal_title").text("");
+            $("#confirmModal_text").text("");
+            $("#confirmModal_submit").text("");
+            $("#confirmModal_cancel").text("");
+
+            CONFIRM_MODAL.hide();
+        }
+    </script>
+</th:block>
+
+</body>
+</html>
+

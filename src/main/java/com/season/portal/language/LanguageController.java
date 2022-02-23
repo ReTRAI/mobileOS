@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_ALL;
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_SUP_ADMIN;
 import static com.season.portal.utils.validation.LangCodeValidator.LANGUAGE_CODES;
 
 @RestController
@@ -77,6 +80,7 @@ public class LanguageController {
     }
 
     @PostMapping(value={"/getTranslation"})
+    @PreAuthorize(ALLOW_ROLES_ALL)
     public RestHashMapModel getTranslation(@Valid LanguageModel model, BindingResult result, HttpServletRequest request) {
         RestHashMapModel restModel = new RestHashMapModel();
         if(!result.hasErrors()){

@@ -208,8 +208,7 @@
             translate(code);
         }
 
-        function translateSuccess(result){
-            TRANSLATION = result;
+        function updateTranslations(){
             $(".toTranslate").each(function( index ) {
                 $( this ).text(TRANSLATION[$( this ).attr("data-langKey")]);
             });
@@ -227,7 +226,12 @@
             $('[data-bs-toggle="tooltip"]').each(function( index ) {
                 new bootstrap.Tooltip(this);
             });
+        }
 
+        function translateSuccess(result){
+            TRANSLATION = result;
+
+            updateTranslations();
 
             $(".lang.active").removeClass("active");
             $("#lang_"+TRANSLATION["code"]).addClass("active");

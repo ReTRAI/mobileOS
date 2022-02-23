@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org">
+<html class="loading dark-layout" lang="en" data-layout="dark-layout"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- BEGIN: Head-->
 
 <head>
@@ -47,8 +50,27 @@
                     <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="users_user_title">User</h2>
                 <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
                     <ul class="nav justify-content-end">
+                        <li class="nav-item mb-1 ms-1" sec:authorize="hasRole('ROLE_ADMIN')"
+                            th:if="${!(T(com.season.portal.utils.Utils).hasRole(roles, 'ADMIN'))}" >
+                            <form th:object="${guidModel_addAdmin}" method="POST" th:action="@{${portalURL} + 'users/addAdmin'}">
+                                <input type="hidden" th:field="*{value}"/>
+                                <button type="submit"
+                                        class="btn btn-primary toTranslate"
+                                        data-langKey="users_user_addAdmin" onclick="">Add Admin</button>
+                            </form>
+
+                        </li>
                         <li class="nav-item mb-1 ms-1"
-                            th:if="${T(com.season.portal.utils.Utils).hasRole(roles, 'RESELLER')}" >
+                            th:if="${!(T(com.season.portal.utils.Utils).hasRole(roles, 'SUPPORT'))}" >
+                            <form th:object="${guidModel_addSupport}" method="POST" th:action="@{${portalURL} + 'users/addSupport'}">
+                                <input type="hidden" th:field="*{value}"/>
+                                <button type="submit"
+                                        class="btn btn-primary toTranslate"
+                                        data-langKey="users_user_addSupport" onclick="">Add Support</button>
+                            </form>
+                        </li>
+                        <li class="nav-item mb-1 ms-1"
+                            th:if="${!(T(com.season.portal.utils.Utils).hasRole(roles, 'RESELLER'))}" >
                             <form th:object="${guidModel_addReseller}" method="POST" th:action="@{${portalURL} + 'users/addReseller'}">
                                 <input type="hidden" th:field="*{value}"/>
                                 <button type="submit"
@@ -96,16 +118,41 @@
                                 <div class="d-flex fake-label">
                                     <th:block
                                             th:if="${(User.getUserStatus().equals(T(com.season.portal.client.users.ClientUser.USER_STATUS).BLOCKED.name()))}">
-                                        <button type="button" class="btn btn-primary toTranslate me-2" data-langKey="users_user_unblockUser">
+
+                                        <button type="submit" class="btn btn-primary toTranslate me-2"
+                                                data-langKey="users_user_unblockUser" onClick="openUnblockModal()">
                                             Unblock
                                         </button>
+                                        <form th:object="${guidModel_unblock}" method="POST" th:action="@{${portalURL} + 'users/user/unblock'}"
+                                              id="formUnblock">
+                                            <input type="hidden" th:field="*{value}"/>
+                                        </form>
+                                    </th:block>
+                                    <th:block
+                                            th:if="${(User.getUserStatus().equals(T(com.season.portal.client.users.ClientUser.USER_STATUS).INACTIVE.name()))}">
+
+                                        <button type="button" class="btn btn-primary toTranslate me-2"
+                                                data-langKey="users_user_activateUser" onClick="openActivateModal()">
+                                            Activate
+                                        </button>
+                                        <form th:object="${guidModel_activate}" method="POST" th:action="@{${portalURL} + 'users/user/activate'}"
+                                              id="formActivate">
+                                            <input type="hidden" th:field="*{value}"/>
+                                        </form>
                                     </th:block>
                                     <th:block
                                             th:if="${!(User.getUserStatus().equals(T(com.season.portal.client.users.ClientUser.USER_STATUS).INACTIVE.name()))}">
-                                        <button type="button" class="btn btn-danger toTranslate me-2" data-langKey="users_user_inactivateUser">
+
+                                        <button type="button" class="btn btn-danger toTranslate me-2"
+                                                data-langKey="users_user_inactivateUser" onClick="openInactivateModal()">
                                             Inactivate
                                         </button>
+                                        <form th:object="${guidModel_inactivate}" method="POST" th:action="@{${portalURL} + 'users/user/inactivate'}"
+                                              id="formInactivate">
+                                            <input type="hidden" th:field="*{value}"/>
+                                        </form>
                                     </th:block>
+
 
                                 </div>
 
@@ -114,9 +161,18 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" th:if="${(T(com.season.portal.utils.Utils).hasRole(roles, 'RESELLER'))}">
                     <div class="card-header d-flex justify-content-between pb-0">
-                        <h4 class="card-title toTranslate" data-langKey="dashboard_overview">Overview</h4>
+                        <h4 class="card-title toTranslate" data-langKey="users_user_reseller">Reseller</h4>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+
+                <div class="card" th:if="${(T(com.season.portal.utils.Utils).hasRole(roles, 'SUPPORT'))}">
+                    <div class="card-header d-flex justify-content-between pb-0">
+                        <h4 class="card-title toTranslate" data-langKey="users_user_support">Support</h4>
                     </div>
                     <div class="card-body">
 
@@ -130,77 +186,41 @@
 
 </div>
 
-<div class="modal fade" id="addNewCard" tabindex="-1" aria-labelledby="addNewCardTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-transparent">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body px-sm-5 mx-50 pb-5">
-                <h1 class="text-center mb-1" id="addNewCardTitle">Add New Card</h1>
-                <p class="text-center">Add card for future billing</p>
 
-                <!-- form -->
-                <form id="addNewCardValidation" class="row gy-1 gx-2 mt-75" onsubmit="return false">
-                    <div class="col-12">
-                        <label class="form-label" for="modalAddCardNumber">Card Number</label>
-                        <div class="input-group input-group-merge">
-                            <input id="modalAddCardNumber" name="modalAddCard" class="form-control add-credit-card-mask" type="text" placeholder="1356 3215 6548 7898" aria-describedby="modalAddCard2" data-msg="Please enter your credit card number" />
-                            <span class="input-group-text cursor-pointer p-25" id="modalAddCard2">
-                                            <span class="add-card-type"></span>
-                                        </span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label" for="modalAddCardName">Name On Card</label>
-                        <input type="text" id="modalAddCardName" class="form-control" placeholder="John Doe" />
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <label class="form-label" for="modalAddCardExpiryDate">Exp. Date</label>
-                        <input type="text" id="modalAddCardExpiryDate" class="form-control add-expiry-date-mask" placeholder="MM/YY" />
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <label class="form-label" for="modalAddCardCvv">CVV</label>
-                        <input type="text" id="modalAddCardCvv" class="form-control add-cvv-code-mask" maxlength="3" placeholder="654" />
-                    </div>
-
-                    <div class="col-12">
-                        <div class="d-flex align-items-center">
-                            <div class="form-check form-switch form-check-primary me-25">
-                                <input type="checkbox" class="form-check-input" id="saveCard" checked />
-                                <label class="form-check-label" for="saveCard">
-                                    <span class="switch-icon-left"><i data-feather="check"></i></span>
-                                    <span class="switch-icon-right"><i data-feather="x"></i></span>
-                                </label>
-                            </div>
-                            <label class="form-check-label fw-bolder" for="saveCard">Save Card for future billing?</label>
-                        </div>
-                    </div>
-
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary me-1 mt-1">Submit</button>
-                        <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+<th:block th:replace="shared/confirmModal :: confirmModal"/>
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
 <th:block th:replace="shared/common :: common-translate"/>
+
 <script>
     $(window).on('load', function() {
         setupLanguage();
-        showInMenu("menu_users");
+        showInMenu("menu_users_list");
+        confirmModal_init();
     });
+
+    function openActivateModal(){
+        confirmModal_open("users_user_activateTitle", "", "users_user_activateUser", "utils_cancel", openActivateModalHandler, confirmModal_close);
+    }
+    function openActivateModalHandler(){
+        $("#formActivate").submit();
+    }
+
+    function openInactivateModal(){
+        confirmModal_open("users_user_inactivateTitle", "", "users_user_inactivateUser", "utils_cancel", openInactivateModalHandler, confirmModal_close);
+    }
+    function openInactivateModalHandler(){
+        $("#formInactivate").submit();
+    }
+
+    function openUnblockModal(){
+        confirmModal_open("users_user_unblockTitle", "", "users_user_unblockUser", "utils_cancel", openUnblockModalHandler, confirmModal_close);
+    }
+    function openUnblockModalHandler(){
+        $("#formUnblock").submit();
+    }
+
 </script>
 
 </body>

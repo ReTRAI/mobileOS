@@ -6,6 +6,7 @@
 	
 	"utils_lang_error":"Ocorreu um erro ao obter as traduções.",
 
+	"api_notImplementedYet":"Action not implemented yet.",
 	"api_error_sessionExpired":"A sua sessão expirou, faça novo login para aceder a este recurso.",
 
 	"errorHandler_tab_title":"Portal | Erro",
@@ -41,6 +42,7 @@
 	"utils_form_file_invalidType": "Tipo de ficheiro inválido.",
 	"utils_form_file_maxFiles0": "Só pode selecionar um máximo de ",
 	"utils_form_file_maxFiles1": " ficheiros.",
+	"utils_form_guid_invalid":"Guid inválido.",
 	
 	"utils_form_nickname": "Nome",
 	"utils_form_nicknamePlaceholder": "Inserir nome",

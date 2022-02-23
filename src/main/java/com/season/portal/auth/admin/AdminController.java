@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +37,8 @@ import javax.validation.Valid;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_ADMIN;
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_ALL;
 import static com.season.portal.utils.Utils.certificateExpireIn;
 
 
@@ -44,6 +47,7 @@ public class AdminController extends ModelViewBaseController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final static String SESSION_ADMIN_VIEW = "SESSION_ADMIN_VIEW";
 
+    @PreAuthorize(ALLOW_ROLES_ADMIN)
     @ResponseBody
     @PostMapping(value={"/toggleAdminView"}, produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE})
     public RestBoolModel toggleAdminView(HttpServletRequest request){

@@ -1,17 +1,19 @@
 package com.season.portal.dashboard;
 
-import com.season.portal.PortalApplication;
 import com.season.portal.utils.ModelViewBaseController;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.*;
 
 @Controller
 public class DashboardController extends ModelViewBaseController {
 
+    @PreAuthorize(ALLOW_ROLES_ALL)
     @RequestMapping(value={"/dashboard"})
     public ModelAndView dashboard(){
         return dashboardView();

@@ -204,9 +204,10 @@ public class ClientUser extends WebServiceGatewaySupport{
         return response;
     }
 
-    public UnblockUserResponse unblockUser(String userId) {
+    public UnblockUserResponse unblockUser(String userId, String actionUserId) {
         UnblockUserRequest request = new UnblockUserRequest();
         request.setUserId(userId);
+        request.setActionUserId(actionUserId);
 
         UnblockUserResponse response = null;
         try {
@@ -229,6 +230,114 @@ public class ClientUser extends WebServiceGatewaySupport{
 
         return response;
     }
+
+    public boolean validateUnblockUserResponse(UnblockUserResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientUser_validateUnblockUserResponse_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientUser_validateUnblockUserResponse_error");
+            }
+        }
+
+        return valid;
+    }
+
+    public UnblockUserResponse activateUser(String userId, String actionUserId) {
+        PortalApplication.addErrorKey("api_notImplementedYet");
+        return null;
+        /*UnblockUserRequest request = new UnblockUserRequest();
+        request.setUserId(userId);
+        request.setActionUserId(actionUserId);
+
+        UnblockUserResponse response = null;
+        try {
+            response = (UnblockUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientUser_activateUser_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientUser_activateUser_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientUser_activateUser_ex");
+        }
+
+        return response;*/
+    }
+
+    public boolean validateActivateResponse(UnblockUserResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientUser_validateActivateUserResponse_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientUser_validateActivateUserResponse_error");
+            }
+        }
+
+        return valid;
+    }
+
+    public InactivateUserResponse inactivateUser(String userId, String actionUserId) {
+        InactivateUserRequest request = new InactivateUserRequest();
+        request.setUserId(userId);
+        request.setActionUserId(actionUserId);
+
+        InactivateUserResponse response = null;
+        try {
+            response = (InactivateUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapCode(soapEx);
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientUser_inactivateUser_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientUser_inactivateUser_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientUser_inactivateUser_ex");
+        }
+
+        return response;
+    }
+
+    public boolean validateInactivateUserResponse(InactivateUserResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientUser_validateInactivateUserResponse_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientUser_validateInactivateUserResponse_error");
+            }
+        }
+
+        return valid;
+    }
+
 
     public SetUserResponse setUser(String email, String nickname, String pass, String actionUserId){
         SetUserRequest request = new SetUserRequest();
