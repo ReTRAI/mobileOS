@@ -1,4 +1,4 @@
-package com.season.portal.utils.model;
+package com.season.portal.users.hierarchy;
 
 import com.season.portal.utils.validation.constrain.IGuidValidatorConstrain;
 

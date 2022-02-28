@@ -2,7 +2,10 @@ package com.season.portal.utils;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
+import com.season.portal.client.generated.reseller.Reseller;
+import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.UserRole;
+import com.season.portal.users.UserRoleModel;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,10 +21,7 @@ import javax.security.auth.x500.X500Principal;
 import javax.xml.transform.dom.DOMSource;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Utils {
 
@@ -57,6 +57,30 @@ public class Utils {
         }
 
         return code;
+    }
+
+    public static String getSoapDetail(SoapFaultClientException soapEx, String name){
+        String message = "";
+        try {
+            SoapFault soapFault = soapEx.getSoapFault();
+            SoapFaultDetail detail  = soapFault.getFaultDetail();
+            var entries = detail.getDetailEntries();
+            while(entries.hasNext()) {
+                SoapFaultDetailElement detailElementChild = entries.next();
+                if(detailElementChild.getName().toString().equals(name)){
+                    DOMSource domDetailSource = (DOMSource)detailElementChild.getSource();
+                    Node detailNode = domDetailSource.getNode();
+                    Node detailChildNode_description = detailNode.getFirstChild();
+                    message = detailChildNode_description.getTextContent();
+                    break;
+                }
+            }
+
+        }catch (Exception e){
+            PortalApplication.log(LoggerFactory.getLogger(new Utils().getClass()), e);
+        }
+
+        return message;
     }
 
     public static String gsbk(HashMap<String, String> hm, String key, String defaultValue ){
@@ -181,4 +205,26 @@ public class Utils {
         return has;
     }
 
+
+    public static ArrayList<UserRoleModel> resellerToUserRole(ArrayList<Reseller> elements) {
+        ArrayList<UserRoleModel> result = new ArrayList<>();
+        if(elements != null){
+            for(Reseller e:elements){
+                UserRoleModel u = new UserRoleModel(e);
+                result.add(u);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<UserRoleModel> supportToUserRole(ArrayList<Support> elements) {
+        ArrayList<UserRoleModel> result = new ArrayList<>();
+        if(elements != null){
+            for(Support e:elements){
+                UserRoleModel u = new UserRoleModel(e);
+                result.add(u);
+            }
+        }
+        return result;
+    }
 }

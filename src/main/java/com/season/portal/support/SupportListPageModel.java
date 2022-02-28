@@ -10,6 +10,14 @@ public class SupportListPageModel extends PageModel {
     private String supportName;
     private boolean onlyChildren;
 
+    public SupportListPageModel(){super();}
+
+    public SupportListPageModel(String supportId, boolean onlyChildren){
+        super();
+        this.supportId = supportId;
+        this.onlyChildren = onlyChildren;
+    }
+
     public String getSupportId() {
         return supportId;
     }

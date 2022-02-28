@@ -22,7 +22,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (SetResellerResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientReseller_setReseller_noCode");
@@ -49,13 +49,14 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (RemoveResellerResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientReseller_removeReseller_noCode");
             else
                 PortalApplication.addErrorKey("api_ClientReseller_removeReseller_"+code);
 
+            var s = request.toString();
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
@@ -75,7 +76,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (GetResellerByUserIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientReseller_getResellerByUserId_noCode");
@@ -103,7 +104,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (SetResellerAssociationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientReseller_setResellerAssociation_noCode");
@@ -131,7 +132,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (RemoveResellerAssociationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientReseller_removeResellerAssociation_noCode");
@@ -157,7 +158,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (GetResellerParentByChildIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             switch(code){
                 case "":
@@ -172,7 +173,12 @@ public class ClientReseller extends WebServiceGatewaySupport{
                     break;
             }
 
-            PortalApplication.log(LOGGER, soapEx, code);
+            if(code.equals("ASSOCIATION_DONT_EXISTS")){
+                if(addMsg_dontExist)
+                    PortalApplication.log(LOGGER, soapEx, code);
+            }else{
+                PortalApplication.log(LOGGER, soapEx, code);
+            }
 
         } catch (Exception e){
             PortalApplication.log(LOGGER, e);
@@ -203,7 +209,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (GetCountResellerFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientReseller_countResellerFiltered_noCode");
@@ -251,7 +257,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
             response = (GetResellerFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientReseller_getResellerFiltered_noCode");
@@ -263,6 +269,32 @@ public class ClientReseller extends WebServiceGatewaySupport{
         } catch (Exception e){
             PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_getResellerFiltered_ex");
+        }
+
+        return response;
+    }
+
+    public GetResellerByIdResponse getResellerById(String resellerId) {
+        GetResellerByIdRequest request = new GetResellerByIdRequest();
+        request.setResellerId(resellerId);
+
+        GetResellerByIdResponse response = null;
+        try {
+            response = (GetResellerByIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientReseller_getResellerById_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientReseller_getResellerById_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_getResellerById_ex");
         }
 
         return response;

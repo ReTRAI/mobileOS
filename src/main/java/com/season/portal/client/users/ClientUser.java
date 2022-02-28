@@ -35,7 +35,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (ChangeUserPwResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_changePass_noCode");
@@ -79,7 +79,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (UserLoginResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals("")){
                 PortalApplication.addErrorKey("api_ClientUser_tryLogin_noCode");
@@ -107,7 +107,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (GetUserRolesByUserIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals("")){
                 PortalApplication.addErrorKey("api_ClientUser_getRolesById_noCode");
@@ -135,7 +135,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (GetUserByIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_getUserById_noCode");
@@ -161,7 +161,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (ExistUserEmailResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_existUserEmail_noCode");
@@ -187,7 +187,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (ExistUserNameResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_existUserName_noCode");
@@ -214,7 +214,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (UnblockUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_unblockUser_noCode");
@@ -258,7 +258,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (ActivateUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_activateUser_noCode");
@@ -302,7 +302,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (InactivateUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_inactivateUser_noCode");
@@ -349,7 +349,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (SetUserResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_setUser_noCode");
@@ -401,7 +401,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (GetCountUserFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_countUserFiltered_noCode");
@@ -461,7 +461,7 @@ public class ClientUser extends WebServiceGatewaySupport{
             response = (GetUserFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientUser_getUserFiltered_noCode");

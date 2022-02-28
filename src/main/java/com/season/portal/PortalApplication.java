@@ -7,6 +7,7 @@ import com.season.portal.client.generated.user.GetUserByIdResponse;
 import com.season.portal.client.users.ClientUser;
 import com.season.portal.language.LanguageController;
 import com.season.portal.notifications.Notification;
+import com.season.portal.utils.Utils;
 import com.season.portal.utils.model.RestModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,14 +125,15 @@ public class PortalApplication{
 	}
 
 	public static void log(Logger LOGGER, String msg){
-		LOGGER.error(msg+ "\n-----------------------------------------------\n");
+		String lastKey = (errorKeys.size()>0)?"Last Error Key - "+errorKeys.get(-1)+"\n":"";
+		LOGGER.error(msg+ "\n" + lastKey +"-----------------------------------------------\n");
 	}
 	public static void log(Logger LOGGER, Exception ex){
 		log(LOGGER, ex.getMessage());
 	}
 
-	public static void log(Logger LOGGER, SoapFaultClientException ex, String code){
-		log(LOGGER, code+ "\n" +ex.getMessage());
+	public static void log(Logger LOGGER, SoapFaultClientException soapEx, String code){
+		log(LOGGER, "SOAP ERROR \n code - " + code + "\n" + Utils.getSoapDetail(soapEx, "description"));
 	}
 	public static void log(Logger LOGGER, HttpServletRequest request){
 

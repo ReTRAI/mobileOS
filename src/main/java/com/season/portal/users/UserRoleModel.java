@@ -19,7 +19,6 @@ public class UserRoleModel {
 
     private boolean empty;
 
-
     public UserRoleModel() {
         empty = true;
     }

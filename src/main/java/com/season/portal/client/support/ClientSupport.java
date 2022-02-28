@@ -1,6 +1,7 @@
 package com.season.portal.client.support;
 
 import com.season.portal.PortalApplication;
+
 import com.season.portal.client.generated.support.*;
 import com.season.portal.support.SupportListPageModel;
 import com.season.portal.utils.Utils;
@@ -22,7 +23,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (SetSupportResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientSupport_setSupport_noCode");
@@ -49,7 +50,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (RemoveSupportResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientSupport_removeSupport_noCode");
@@ -75,7 +76,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (GetSupportByUserIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientSupport_getSupportByUserId_noCode");
@@ -103,7 +104,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (SetSupportAssociationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientSupport_setSupportAssociation_noCode");
@@ -131,7 +132,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (RemoveSupportAssociationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientSupport_removeSupportAssociation_noCode");
@@ -157,22 +158,27 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (GetSupportParentByChildIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
             switch(code){
                 case "":
                     PortalApplication.addErrorKey("api_ClientSupport_getParent_noCode");
                     break;
                 case "ASSOCIATION_DONT_EXISTS":
-                    if(addMsg_dontExist)
+                    if(addMsg_dontExist){
                         PortalApplication.addErrorKey("api_ClientSupport_getParent_"+code);
+                    }
+
                     break;
                 default:
                     PortalApplication.addErrorKey("api_ClientSupport_getParent_"+code);
                     break;
             }
-
-            PortalApplication.log(LOGGER, soapEx, code);
-
+            if(code.equals("ASSOCIATION_DONT_EXISTS")){
+                if(addMsg_dontExist)
+                    PortalApplication.log(LOGGER, soapEx, code);
+            }else{
+                PortalApplication.log(LOGGER, soapEx, code);
+            }
         } catch (Exception e){
             PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_getParent_ex");
@@ -203,7 +209,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (GetCountSupportFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientSupport_countSupportFiltered_noCode");
@@ -251,7 +257,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
             response = (GetSupportFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
-            String code = Utils.getSoapCode(soapEx);
+            String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
                 PortalApplication.addErrorKey("api_ClientSupport_getSupportFiltered_noCode");
@@ -267,5 +273,32 @@ public class ClientSupport extends WebServiceGatewaySupport{
 
         return response;
     }
+
+    public GetSupportByIdResponse getSupportById(String supportId) {
+        GetSupportByIdRequest request = new GetSupportByIdRequest();
+        request.setSupportId(supportId);
+
+        GetSupportByIdResponse response = null;
+        try {
+            response = (GetSupportByIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_getSupportById_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_getSupportById_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_getSupportById_ex");
+        }
+
+        return response;
+    }
+
 }
 

@@ -1,5 +1,6 @@
 {
 	"api_invalidUserDetails":"Invalid user.",
+	"api_session_invalidModel":"Invalid data model. ",
 	
 	"api_userRole_ROLE_ADMIN":"Admin",
 	"api_userRole_ROLE_Reseller":"Reseller",
@@ -66,9 +67,9 @@
 	"api_ClientReseller_removeReseller_noCode":"An error occurred removing the reseller.",
 	"api_ClientReseller_removeReseller_":"An error occurred removing the reseller.",
 	"api_ClientReseller_removeReseller_ex":"An exception occurred removing the reseller.",
-	"api_ClientReseller_getResellerByUserId_noCode":"An error occurred getting the reseller.",
-	"api_ClientReseller_getResellerByUserId_":"An error occurred getting the reseller.",
-	"api_ClientReseller_getResellerByUserId_ex":"An exception occurred getting the reseller.",
+	"api_ClientReseller_getResellerByUserId_noCode":"An error occurred getting the reseller by the user.",
+	"api_ClientReseller_getResellerByUserId_":"An error occurred getting the reseller by the user.",
+	"api_ClientReseller_getResellerByUserId_ex":"An exception occurred getting the reseller by the user.",
 	"api_ClientReseller_setResellerAssociation_noCode":"An error occurred associating the reseller.",
 	"api_ClientReseller_setResellerAssociation_":"An error occurred associating the reseller.",
 	"api_ClientReseller_setResellerAssociation_ex":"An exception occurred associating the reseller.",
@@ -84,6 +85,9 @@
 	"api_ClientReseller_getParent_noCode":"An error occurred getting the reseller hierarchy.",
 	"api_ClientReseller_getParent_ASSOCIATION_DONT_EXISTS":"Reseller without superior hierarchy.",
 	"api_ClientReseller_getParent_ex":"An exception occurred getting the reseller hierarchy.",
+	"api_ClientReseller_getResellerById_noCode":"An error occurred getting the reseller.",
+	"api_ClientReseller_getResellerById_":"An error occurred getting the reseller.",
+	"api_ClientReseller_getResellerById_ex":"An exception occurred getting the reseller.",
 	
 	"api_ClientSupport_setSupport_noCode":"An error occurred adding the support.",
 	"api_ClientSupport_setSupport_":"An error occurred adding the support.",
@@ -91,9 +95,9 @@
 	"api_ClientSupport_removeSupport_noCode":"An error occurred removing the support.",
 	"api_ClientSupport_removeSupport_":"An error occurred removing the support.",
 	"api_ClientSupport_removeSupport_ex":"An exception occurred removing the support.",
-	"api_ClientSupport_getSupportByUserId_noCode":"An error occurred getting the support.",
-	"api_ClientSupport_getSupportByUserId_":"An error occurred getting the support.",
-	"api_ClientSupport_getSupportByUserId_ex":"An exception occurred getting the support.",
+	"api_ClientSupport_getSupportByUserId_noCode":"An error occurred getting the support by the user.",
+	"api_ClientSupport_getSupportByUserId_":"An error occurred getting the support by the user.",
+	"api_ClientSupport_getSupportByUserId_ex":"An exception occurred getting the support by the user.",
 	"api_ClientSupport_setSupportAssociation_noCode":"An error occurred associating the support.",
 	"api_ClientSupport_setSupportAssociation_":"An error occurred associating the support.",
 	"api_ClientSupport_setSupportAssociation_ex":"An exception occurred associating the support.",
@@ -109,6 +113,9 @@
 	"api_ClientSupport_getParent_noCode":"An error occurred getting the support hierarchy.",
 	"api_ClientSupport_getParent_ASSOCIATION_DONT_EXISTS":"Support without superior hierarchy.",
 	"api_ClientSupport_getParent_ex":"An exception occurred getting the support hierarchy.",
+	"api_ClientSupport_getSupportById_noCode":"An error occurred getting the support.",
+	"api_ClientSupport_getSupportById_":"An error occurred getting the support.",
+	"api_ClientSupport_getSupportById_ex":"An exception occurred getting the support.",
 	
 	"utils_feminine_new":"new",
 	"utils_feminine_news":"news",
@@ -124,6 +131,7 @@
 	"utils_cancel":"Cancel",
 	"utils_associations":"Associations",
 	"utils_hierarchy":"Hierarchy",
+	"utils_remove":"Remove",
 
 	"utils_form_nameId":"Name or Id",
 	"utils_form_nameId_placeholder":"Enter name or id",
@@ -270,11 +278,25 @@
 	"users_user_removeReseller":"Remove reseller",
 	"users_user_removeSupport":"Remove support",
 	"users_user_removeAdmin":"Remove admin",
+	"users_user_removeResellerTitle":"Confirm reseller profile removal?",
+	"users_user_removeSupportTitle":"Confirm support profile removal?",
+	"users_user_removeParentResellerTitle":"Confirms the removal of the reseller's superior?",
+	"users_user_removeParentSupportTitle":"Confirms the removal of the support's superior?",
+	"users_user_parentName":"Superior's name",
+	"users_user_addParent":"Add superior",
+	"users_user_resellerChildCount_text0":"The reseller has ",
+	"users_user_resellerChildCount_text1":" childrens.",
+	"users_user_supportChildCount_text0":"The support has ",
+	"users_user_supportChildCount_text1":" childrens.",
+	"users_user_childList":"View childs",
 	
 	"users_user_title":"User",
 	
 	"users_list_title":"Users",
 	
-	
+	"hierarchy_parentList_tab_title":"Portal | Hierarquia",
+	"hierarchy_parentList_title":"Superiores",
+	"hierarchy_parentList_subtitle0":"Adicionar superior ao revendedor ",
+	"hierarchy_parentList_subtitle1":".",
 	"end": "fim"
 }

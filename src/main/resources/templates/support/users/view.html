@@ -80,9 +80,9 @@
 
                         </li>
                         <li class="nav-item mb-1 ms-1">
-                            <button type="button"
-                                    class="btn btn-primary toTranslate"
-                                    data-langKey="utils_back" onclick="history.back()">Back</button>
+                            <a class="btn btn-primary toTranslate" data-langKey="utils_back"
+                               th:href="${portalURL + 'users/listBack'}"
+                            >Back</a>
                         </li>
 
                     </ul>
@@ -159,7 +159,7 @@
                 </div>
 
                 <div class="card" th:if="${(T(com.season.portal.utils.Utils).hasRole(roles, 'RESELLER'))}">
-                    <div class="card-header d-flex justify-content-between pb-0">
+                    <div class="card-header d-flex justify-content-between pb-0 mb-1">
                         <h4 class="card-title toTranslate" data-langKey="users_user_reseller">Reseller</h4>
                     </div>
                     <div class="card-body" >
@@ -170,48 +170,74 @@
                                     <input class="form-control"
                                            th:value="${UserRole_Reseller.getName()}" readonly="readonly"/>
                                 </div>
-                                <div class="col-md-4 col-12 mb-1 d-flex fake-label">
-                                    <form th:object="${guidModel_removeReseller}" method="POST" th:action="@{${portalURL} + 'users/removeReseller'}">
+                                <div class="col-md-4 col-12 mb-1 d-flex fake-label" th:if="${(resellerChildCount==0 && UserRole_ResellerParent.isEmpty())}">
+                                    <button type="button"
+                                            class="btn btn-danger toTranslate"
+                                            data-langKey="users_user_removeReseller"  onClick="openRemoveResellerModal()">Remove Reseller</button>
+                                    <form id="formRemoveReseller" th:object="${guidModel_removeReseller}"
+                                          method="POST" th:action="@{${portalURL} + 'users/removeReseller'}">
                                         <input type="hidden" th:field="*{value}"/>
-                                        <button type="submit"
-                                                class="btn btn-danger toTranslate"
-                                                data-langKey="users_user_removeReseller" onclick="">Remove Reseller</button>
+
                                     </form>
                                 </div>
                             </div>
-                            <h5 class="card-title toTranslate" data-langKey="utils_hierarchy">Hierarchy</h5>
+                            <h5 class="toTranslate mb-1 mt-2" data-langKey="utils_hierarchy">Hierarchy</h5>
                             <div class="row">
                                 <div class="col-md-4 col-12 mb-1" th:if="${!UserRole_ResellerParent.isEmpty()}">
-                                    <label class="form-label toTranslate" data-langKey="utils_form_nickname"></label>
+                                    <label class="form-label toTranslate" data-langKey="users_user_parentName"></label>
                                     <input class="form-control"
                                            th:value="${UserRole_ResellerParent.getName()}" readonly="readonly"/>
                                 </div>
-                                <div class="col-md-8 col-12 mb-1 d-flex fake-label">
-                                    <div class="me-2" th:if="${!(UserRole_ResellerParent.isEmpty())}">
-
-                                        <form th:object="${hierarchyModel_removeParentReseller}" method="POST"
-                                              th:action="@{${portalURL} + 'users/removeParentReseller'}" >
-                                            <input type="hidden" th:field="*{parentId}"/>
-                                            <input type="hidden" th:field="*{childId}"/>
-                                            <button type="submit" class="btn btn-danger toTranslate me-2"
-                                                    data-langKey="">
-                                                Remove Parent
-                                            </button>
-                                        </form>
+                                <div class="col-md-8 col-12 mb-1 d-flex">
+                                    <div class="fake-label" th:if="${!(UserRole_ResellerParent.isEmpty())}">
+                                        <div class="me-2" >
+                                            <button type="button" class="btn btn-danger toTranslate me-2"
+                                                    data-langKey="utils_remove" onclick="openRemoveParentResellerModal()"
+                                            >Remove</button>
+                                            <form th:object="${hierarchyModel_removeParentReseller}" method="POST"
+                                                  th:action="@{${portalURL} + 'users/hierarchy/removeParentReseller'}"
+                                                  id="formRemoveParentReseller">
+                                                <input type="hidden" th:field="*{parentId}"/>
+                                                <input type="hidden" th:field="*{childId}"/>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="me-2" th:if="${!(UserRole_ResellerParent.isEmpty())}">
 
-                                        <form th:object="${guidModel_addParentReseller}" method="POST" th:action="@{${portalURL} + 'users/addParentReseller'}" >
+                                    <div class="me-2" th:if="${(UserRole_ResellerParent.isEmpty())}">
+                                        <form th:object="${guidModel_addParentReseller}" method="POST"
+                                              th:action="@{${portalURL} + 'users/hierarchy/addParentResellerList'}" >
                                             <input type="hidden" th:field="*{value}"/>
                                             <button type="submit" class="btn btn-primary toTranslate me-2"
-                                                    data-langKey="">
-                                                Add Parent
-                                            </button>
+                                                    data-langKey="users_user_addParent"
+                                            >Add Parent</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                        </th:block>
+                            <div class="row mt-1">
+                                <div class="col-md-4 col-12 mb-1">
+                                    <p>
+                                        <span class="toTranslate" data-langKey="users_user_resellerChildCount_text0"></span>
+                                        <span th:text="${resellerChildCount}"></span>
+                                        <span class="toTranslate" data-langKey="users_user_resellerChildCount_text1"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+
+                                 <form th:object="${guidModel_viewResellerChilds}"
+                                       method="POST" th:action="@{${portalURL} + 'users/hierarchy/resellerChildList'}"
+                                       th:if="${resellerChildCount>0}"
+                                 >
+                                     <input type="hidden" th:field="*{value}"/>
+                                     <button type="button"
+                                             class="btn btn-primary toTranslate me-2"
+                                             data-langKey="users_user_childList"
+                                     >View childs</button>
+                                 </form>
+                             </div>
+
+                         </th:block>
 
                     </div>
                 </div>
@@ -265,6 +291,37 @@
     }
     function openUnblockModalHandler(){
         $("#formUnblock").submit();
+    }
+
+
+
+    function openRemoveResellerModal(){
+        confirmModal_open("users_user_removeResellerTitle", "", "utils_remove", "utils_cancel", openRemoveResellerModalHandler, confirmModal_close);
+    }
+    function openRemoveResellerModalHandler(){
+        $("#formRemoveReseller").submit();
+    }
+
+    function openRemoveSupportModal(){
+        confirmModal_open("users_user_removeSupportTitle", "", "utils_remove", "utils_cancel", openRemoveSupportModalHandler, confirmModal_close);
+    }
+    function openRemoveSupportModalHandler(){
+        $("#formRemoveSupport").submit();
+    }
+
+
+    function openRemoveParentResellerModal(){
+        confirmModal_open("users_user_removeParentResellerTitle", "", "utils_remove", "utils_cancel", openRemoveParentResellerModalHandler, confirmModal_close);
+    }
+    function openRemoveParentResellerModalHandler(){
+        $("#formRemoveParentReseller").submit();
+    }
+
+    function openRemoveParentSupportModal(){
+        confirmModal_open("users_user_removeParentSupportTitle", "", "utils_remove", "utils_cancel", openRemoveParentSupportModalHandler, confirmModal_close);
+    }
+    function openRemoveParentSupportModalHandler(){
+        $("#formRemoveParentSupport").submit();
     }
 
 </script>

@@ -14,8 +14,8 @@ public class ClientResellerTest {
 
     @Test
     public void getUserById_1() {
-        SetResellerResponse response = client.setReseller("", "");
-        String ola = "";
+        //SetResellerResponse response = client.setReseller("", "");
+        //String ola = "";
         /*
         GetUserByIdResponse response = client.getUserById(9);
         if(response != null){

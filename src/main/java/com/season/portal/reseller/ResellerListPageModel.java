@@ -10,6 +10,14 @@ public class ResellerListPageModel extends PageModel {
     private String resellerName;
     private boolean onlyChildren;
 
+    public ResellerListPageModel(){super();}
+
+    public ResellerListPageModel(String resellerId, boolean onlyChildren){
+        super();
+        this.resellerId = resellerId;
+        this.onlyChildren = onlyChildren;
+    }
+
     public String getResellerId() {
         return resellerId;
     }
