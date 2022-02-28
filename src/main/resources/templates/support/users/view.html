@@ -217,9 +217,9 @@
                             <div class="row mt-1">
                                 <div class="col-md-4 col-12 mb-1">
                                     <p>
-                                        <span class="toTranslate" data-langKey="users_user_resellerChildCount_text0"></span>
-                                        <span th:text="${resellerChildCount}"></span>
-                                        <span class="toTranslate" data-langKey="users_user_resellerChildCount_text1"></span>
+                                        <span class="toTranslate" data-langKey="users_user_resellerChildCount_text0"></span
+                                        ><span th:text="${resellerChildCount}"></span
+                                        ><span class="toTranslate" data-langKey="users_user_resellerChildCount_text1"></span>
                                     </p>
                                 </div>
                             </div>
@@ -274,6 +274,7 @@
 
     function openActivateModal(){
         confirmModal_open("users_user_activateTitle", "", "users_user_activateUser", "utils_cancel", openActivateModalHandler, confirmModal_close);
+        $(".tooltip").remove();
     }
     function openActivateModalHandler(){
         $("#formActivate").submit();

@@ -5,8 +5,6 @@
 
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/tables/datatable/dataTables.bootstrap5.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/pickers/flatpickr/flatpickr.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/plugins/forms/pickers/form-flat-pickr.min.css}" />
     <th:block th:replace="shared/common :: common-style"/>
 
 
@@ -46,14 +44,36 @@
 
             <!-- -->
             <section id="parents">
-                <h2 class="toTranslate" data-langKey="hierarchy_parentList_title"></h2>
-                <h3>
-                    <span class="toTranslate" data-langKey="hierarchy_parentList_subtitle0"></span>
-                    <span th:text="${userRole.getName()}"></span>
-                    <span class="toTranslate" data-langKey="hierarchy_parentList_subtitle1"></span>
-                </h3>
+                <th:block th:replace="shared/header :: headerTitle0"/>
+                <div>
+                    <h2 class="toTranslate" data-langKey="hierarchy_parentList_title"></h2>
+                    <h3 th:if="${!UserRole.isEmpty()}">
+                        <span class="toTranslate" data-langKey="hierarchy_parentList_reseller_subtitle0"></span
+                        ><span th:text="${UserRole.getName()}"></span
+                    ><span class="toTranslate" data-langKey="hierarchy_parentList_reseller_subtitle1"></span>
+                    </h3>
+                </div>
+
+                <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
+                    <ul class="nav justify-content-end">
+
+                        <li class="nav-item mb-1 ms-1">
+
+                            <form id="openUser" class="" method="POST"
+                                  th:object="${guidModel_back}" th:action="@{${portalURL} + 'user'}">
+                                <input type="hidden" th:field="*{value}"/>
+                                <button type="submit"
+                                        class="btn btn-primary toTranslate"
+                                        data-langKey="utils_back">Back</button>
+                            </form>
+                        </li>
+
+                    </ul>
+                <th:block th:replace="shared/header :: headerTitle2"/>
+
+
                 <div class="card">
-                    <div class="card-header">
+                    <!--<div class="card-header">
                         <h4 class="card-title toTranslate" data-langKey="utils_filters"></h4>
                     </div>
                     <div class="card-body">
@@ -81,18 +101,13 @@
                             </div>
                         </form>
                     </div>
+                    -->
                     <div class="table-responsive dataTables_wrapper">
                         <table class="table table-striped dataTable ">
                             <thead>
                             <tr>
-                                <th class="sorting toTranslate" data-langKey="utils_table_nickname"
-                                    th:with="sortName='userName'"
-                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
-                                ></th>
-
-
-                                <th class="toTranslate text-center" data-langKey="utils_table_actions"></th>
+                                <th class="toTranslate" data-langKey="utils_table_nickname">Name</th>
+                                <th class="toTranslate text-center" data-langKey="utils_table_actions">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -100,14 +115,14 @@
                                     <td th:text="${ele.getName()}"></td>
                                     <td class="actions">
                                         <div class="d-flex align-items-center justify-content-around">
-                                            <button type="button" onclick="openUser(this)"
-                                                    th:attr="data-guid=${ele.getUserId()}"
+                                            <button type="button" onclick="openSelectModal(this)"
+                                                    th:attr="data-guid=${ele.getElementId()}, data-name=${ele.getName()}"
                                                     class="align-items-center d-flex justify-content-around toTranslateAttr"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
+                                                    data-langKey="utils_add" data-langAttr="data-bs-original-title" title="S"
                                             >
                                                 <i class="font-medium-2 text-body primary-colorH"
-                                                   data-feather="eye"></i>
+                                                   data-feather="plus"></i>
                                             </button>
                                         </div>
                                     </td>
@@ -126,37 +141,48 @@
 
         </div>
     </div>
-    <form id="openUser" class="d-none" method="POST"
-          th:object="${guidModel}" th:action="@{/user}">
-        <input id="openUser-value" type="hidden" th:field="*{value}"/>
+
+    <form id="selectSuperior" method="POST"
+          th:object="${hierarchyModel_addParent}"
+          th:action="@{${portalURL} + 'users/hierarchy/addParentReseller'}"
+    >
+        <input id="selectSuperior-parentId" type="hidden" th:field="*{parentId}"/>
+        <input type="hidden" th:field="*{childId}"/>
     </form>
 </div>
 </th:block>
+
+<th:block th:replace="shared/confirmModal :: confirmModal"/>
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
 <th:block th:replace="shared/common :: common-translate"/>
-<script th:src="@{/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
 <script>
     $(window).on('load', function() {
         setupLanguage();
         showInMenu("menu_users_list");
-        $('.flatpickr-basic').flatpickr();
+        confirmModal_init();
     });
 
-    function resetForm(formId){
-        $("#filter-nickname").val("");
-        $("#filter-email").val("");
-        $("#filter-status").val("");
-        $("#filter-startDate").val("");
-        $("#filter-endDate").val("");
-        $("#"+formId).submit();
-    }
-
-    function openUser(that){
+    function openSelectModal(that){
         var guid = $(that).attr("data-guid");
-        $("#openUser-value").val(guid);
-        $("#openUser").submit();
+        $("#selectSuperior-parentId").val(guid);
+        var childName = "[[${UserRole.getName()}]]";
+        var parentName = $(that).attr("data-name");
+
+        var tile = "";
+        tile += '<span class="toTranslate" data-langKey="hierarchy_parentList_reseller_confirmSelectTitle0"></span>';
+        tile += '<span>'+parentName+'</span>';
+        tile += '<span class="toTranslate" data-langKey="hierarchy_parentList_reseller_confirmSelectTitle1"></span>';
+        tile += '<span>'+childName+'</span>';
+        tile += '<span class="toTranslate" data-langKey="hierarchy_parentList_reseller_confirmSelectTitle2"></span>';
+
+        $("#confirmModal_title").append(tile);
+        confirmModal_open("", "", "utils_add", "utils_cancel", openSelectModalHandler, confirmModal_close);
+        $(".tooltip").remove();
+    }
+    function openSelectModalHandler(){
+        $("#selectSuperior").submit();
     }
 </script>
 

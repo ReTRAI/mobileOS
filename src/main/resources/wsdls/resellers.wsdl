@@ -73,6 +73,40 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- getAvailableResellerParent-->
+    <xs:element name="getAvailableResellerParentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAvailableResellerParentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="reseller" type="tns:reseller"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getCountAvailableResellerParent-->
+    <xs:element name="getCountAvailableResellerParentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getCountAvailableResellerParentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- getResellerBalanceMovements-->
     <xs:element name="getResellerBalanceMovementsRequest">
         <xs:complexType>
@@ -304,6 +338,10 @@
     <wsdl:part element="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getAvailableResellerParentRequest">
+    <wsdl:part element="tns:getAvailableResellerParentRequest" name="getAvailableResellerParentRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getResellerFilteredResponse">
     <wsdl:part element="tns:getResellerFilteredResponse" name="getResellerFilteredResponse">
     </wsdl:part>
@@ -320,6 +358,10 @@
     <wsdl:part element="tns:setResellerAssociationRequest" name="setResellerAssociationRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getAvailableResellerParentResponse">
+    <wsdl:part element="tns:getAvailableResellerParentResponse" name="getAvailableResellerParentResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getResellerParentByChildIdResponse">
     <wsdl:part element="tns:getResellerParentByChildIdResponse" name="getResellerParentByChildIdResponse">
     </wsdl:part>
@@ -330,6 +372,10 @@
   </wsdl:message>
   <wsdl:message name="setResellerBalanceMovementResponse">
     <wsdl:part element="tns:setResellerBalanceMovementResponse" name="setResellerBalanceMovementResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountAvailableResellerParentRequest">
+    <wsdl:part element="tns:getCountAvailableResellerParentRequest" name="getCountAvailableResellerParentRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getCountResellerFilteredRequest">
@@ -358,6 +404,10 @@
   </wsdl:message>
   <wsdl:message name="getCountResellerFilteredResponse">
     <wsdl:part element="tns:getCountResellerFilteredResponse" name="getCountResellerFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountAvailableResellerParentResponse">
+    <wsdl:part element="tns:getCountAvailableResellerParentResponse" name="getCountAvailableResellerParentResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="removeResellerAssociationResponse">
@@ -411,6 +461,12 @@
       <wsdl:output message="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getAvailableResellerParent">
+      <wsdl:input message="tns:getAvailableResellerParentRequest" name="getAvailableResellerParentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getAvailableResellerParentResponse" name="getAvailableResellerParentResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getResellerParentByChildId">
       <wsdl:input message="tns:getResellerParentByChildIdRequest" name="getResellerParentByChildIdRequest">
     </wsdl:input>
@@ -427,6 +483,12 @@
       <wsdl:input message="tns:setResellerBalanceMovementRequest" name="setResellerBalanceMovementRequest">
     </wsdl:input>
       <wsdl:output message="tns:setResellerBalanceMovementResponse" name="setResellerBalanceMovementResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountAvailableResellerParent">
+      <wsdl:input message="tns:getCountAvailableResellerParentRequest" name="getCountAvailableResellerParentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getCountAvailableResellerParentResponse" name="getCountAvailableResellerParentResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getCountResellerFiltered">
@@ -513,6 +575,15 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getAvailableResellerParent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getAvailableResellerParentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAvailableResellerParentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getResellerParentByChildId">
       <soap:operation soapAction=""/>
       <wsdl:input name="getResellerParentByChildIdRequest">
@@ -537,6 +608,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="setResellerBalanceMovementResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountAvailableResellerParent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCountAvailableResellerParentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCountAvailableResellerParentResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

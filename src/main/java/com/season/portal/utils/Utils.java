@@ -71,7 +71,10 @@ public class Utils {
                     DOMSource domDetailSource = (DOMSource)detailElementChild.getSource();
                     Node detailNode = domDetailSource.getNode();
                     Node detailChildNode_description = detailNode.getFirstChild();
-                    message = detailChildNode_description.getTextContent();
+                    if(detailChildNode_description != null){
+                        message = detailChildNode_description.getTextContent();
+                    }
+
                     break;
                 }
             }

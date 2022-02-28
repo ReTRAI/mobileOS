@@ -125,7 +125,7 @@ public class PortalApplication{
 	}
 
 	public static void log(Logger LOGGER, String msg){
-		String lastKey = (errorKeys.size()>0)?"Last Error Key - "+errorKeys.get(-1)+"\n":"";
+		String lastKey = (errorKeys.size()>0)?"Last Error Key - "+errorKeys.get(errorKeys.size()-1)+"\n":"";
 		LOGGER.error(msg+ "\n" + lastKey +"-----------------------------------------------\n");
 	}
 	public static void log(Logger LOGGER, Exception ex){
@@ -133,7 +133,8 @@ public class PortalApplication{
 	}
 
 	public static void log(Logger LOGGER, SoapFaultClientException soapEx, String code){
-		log(LOGGER, "SOAP ERROR \n code - " + code + "\n" + Utils.getSoapDetail(soapEx, "description"));
+		String description =  Utils.getSoapDetail(soapEx, "description");
+		log(LOGGER, "SOAP ERROR \n code - " + code + "\n" +description);
 	}
 	public static void log(Logger LOGGER, HttpServletRequest request){
 

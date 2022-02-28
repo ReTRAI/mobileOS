@@ -36,6 +36,9 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.AL
 @Controller
 public class HierarchyController extends ModelViewBaseController {
     @Autowired
+    private UsersController usersController;
+
+    @Autowired
     private HttpServletRequest request;
 
     @Autowired
@@ -50,7 +53,7 @@ public class HierarchyController extends ModelViewBaseController {
     private String SESSION_HIERARCHY_CONTROLLER_PARENT_RESELLER_USER_ID = "SESSION_HIERARCHY_CONTROLLER_PARENT_RESELLER_USER_ID";
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
-    @GetMapping("/users/hierarchy/addParentResellerList")
+    @PostMapping("/users/hierarchy/addParentResellerList")
     public ModelAndView addParentResellerList(@Valid GuidRequiredModel model, BindingResult result) {
         if(!result.hasErrors()){
             String userId = model.getValue();
@@ -70,7 +73,7 @@ public class HierarchyController extends ModelViewBaseController {
             }
         }
 
-        return new UsersController().userViewBySession();
+        return usersController.userViewBySession();
     }
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
@@ -86,7 +89,7 @@ public class HierarchyController extends ModelViewBaseController {
             }
         }
 
-        return new UsersController().userViewBySession();
+        return usersController.userViewBySession();
 
     }
 
@@ -99,18 +102,19 @@ public class HierarchyController extends ModelViewBaseController {
 
         if(resellerResponse != null) {
             Reseller r = resellerResponse.getReseller();
-            mv.addObject("userRole", new UserRoleModel(r));
+            mv.addObject("UserRole", new UserRoleModel(r));
 
             ArrayList<UserRoleModel> elements = new ArrayList<UserRoleModel>();
 
             long totalElements = 0;
             String parentName = (model.getParentName() == null)?"":model.getParentName();
-            GetCountResellerFilteredResponse responseCount = clientReseller.countResellerFiltered(model.getChildId(), parentName, false);
-
+            GetCountAvailableResellerParentResponse responseCount = clientReseller.countAvailableResellerParent(model.getChildId());
+            //var responseCount = clientReseller.countResellerFiltered("", "", false);
             if(responseCount != null){
                 totalElements = responseCount.getResult();
                 if(totalElements>0){
-                    GetResellerFilteredResponse response = clientReseller.getResellerFiltered(model.getChildId(), parentName, false,
+                    GetAvailableResellerParentResponse response = clientReseller.getAvailableResellerParent(model.getChildId(),
+                    //var response = clientReseller.getResellerFiltered("", "", false,
                             model.getValidOffset(),
                             model.getValidNumPerPage(),
                             model.getValidSort(),
@@ -125,6 +129,7 @@ public class HierarchyController extends ModelViewBaseController {
 
             Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
 
+            mv.addObject("guidModel_back", new GuidRequiredModel(userId));
             mv.addObject("elements", elements);
             mv.addObject("Pagination", pagination);
             mv.addObject("hierarchyViewParentPageModel", model);
@@ -132,7 +137,13 @@ public class HierarchyController extends ModelViewBaseController {
             return dispatchView(mv);
 
         }
-        return new UsersController().userViewById(userId);
+        return usersController.userViewById(userId);
+    }
+
+    private ModelAndView parentSupportListView(HierarchyViewParentPageModel model){
+        ModelAndView mv = new ModelAndView("support/hierarchy/hierarchyParentList");
+
+        return dispatchView(mv);
     }
 
     //<editor-fold desc="User roles and hierarchy actions">
@@ -149,7 +160,25 @@ public class HierarchyController extends ModelViewBaseController {
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
         }
-        return new UsersController().userViewBySession();
+        return usersController.userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/hierarchy/addParentReseller")
+    public ModelAndView addParentReseller(@Valid HierarchyModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                if(clientReseller.validateSetResellerAssociation(
+                        clientReseller.setResellerAssociation(model.getParentId(), model.getChildId(), user.getUserId()), true)){
+                    return usersController.userViewBySession();
+                }
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return parentResellerListView(new HierarchyViewParentPageModel(model.getChildId()));
     }
 
 
@@ -165,7 +194,25 @@ public class HierarchyController extends ModelViewBaseController {
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
         }
-        return new UsersController().userViewBySession();
+        return usersController.userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/hierarchy/addParentSupport")
+    public ModelAndView addParentSupport(@Valid HierarchyModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                if(clientSupport.validateSetSupportAssociation(
+                        clientSupport.setSupportAssociation(model.getParentId(), model.getChildId(), user.getUserId()), true)){
+                    return usersController.userViewBySession();
+                }
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return parentSupportListView(new HierarchyViewParentPageModel(model.getChildId()));
     }
     //</editor-fold>
 

@@ -57,7 +57,7 @@ public class UsersController extends ModelViewBaseController {
     //<editor-fold desc="UserList">
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @GetMapping("/users/listBack")
-    public ModelAndView usersListBySession(){
+    public ModelAndView usersListBySession(/*HttpServletRequest req*/){
         HttpSession session = request.getSession(true);
         UsersListPageModel model = (UsersListPageModel)session.getAttribute(SESSION_USERS_CONTROLLER_LIST_MODEL);
         if(model == null){
@@ -165,7 +165,7 @@ public class UsersController extends ModelViewBaseController {
         return userView(null);
     }
 
-    public ModelAndView userViewBySession(){
+    public ModelAndView userViewBySession(/*HttpServletRequest req*/){
         HttpSession session = request.getSession(true);
         User u = (User)session.getAttribute(SESSION_USERS_CONTROLLER_USER);
         if (u == null)
@@ -173,7 +173,7 @@ public class UsersController extends ModelViewBaseController {
         return userView(u);
     }
 
-    private ModelAndView userView(User user){
+    private ModelAndView userView(User user/*, HttpServletRequest req*/){
         ModelAndView mv = new ModelAndView("support/users/view");
         mv.addObject("User", user);
 
