@@ -50,7 +50,7 @@ public class HierarchyController extends ModelViewBaseController {
     @Autowired
     ClientSupport clientSupport;
 
-    private String SESSION_HIERARCHY_CONTROLLER_PARENT_RESELLER_USER_ID = "SESSION_HIERARCHY_CONTROLLER_PARENT_RESELLER_USER_ID";
+    private String SESSION_HIERARCHY_CONTROLLER_RESELLER = "SESSION_HIERARCHY_CONTROLLER_RESELLER";
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/users/hierarchy/addParentResellerList")
@@ -62,7 +62,7 @@ public class HierarchyController extends ModelViewBaseController {
             if(resellerResponse != null) {
                 Reseller r = resellerResponse.getReseller();
                 HttpSession session = request.getSession(true);
-                session.setAttribute(SESSION_HIERARCHY_CONTROLLER_PARENT_RESELLER_USER_ID, userId);
+                session.setAttribute(SESSION_HIERARCHY_CONTROLLER_RESELLER, r);
                 return parentResellerListView(
                         new HierarchyViewParentPageModel(r.getResellerId()));
             }
@@ -75,7 +75,6 @@ public class HierarchyController extends ModelViewBaseController {
 
         return usersController.userViewBySession();
     }
-
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @GetMapping("/users/hierarchy/parentResellerList")
     public ModelAndView parentResellerList(@Valid HierarchyViewParentPageModel model, BindingResult result) {
@@ -97,11 +96,9 @@ public class HierarchyController extends ModelViewBaseController {
         ModelAndView mv = new ModelAndView("support/hierarchy/hierarchyParentList");
 
         HttpSession session = request.getSession(true);
-        String userId = (String)session.getAttribute(SESSION_HIERARCHY_CONTROLLER_PARENT_RESELLER_USER_ID);
-        GetResellerByUserIdResponse resellerResponse = clientReseller.getResellerByUserId(userId);
+        Reseller r = (Reseller)session.getAttribute(SESSION_HIERARCHY_CONTROLLER_RESELLER);
 
-        if(resellerResponse != null) {
-            Reseller r = resellerResponse.getReseller();
+        if(r != null) {
             mv.addObject("UserRole", new UserRoleModel(r));
 
             ArrayList<UserRoleModel> elements = new ArrayList<UserRoleModel>();
@@ -129,7 +126,7 @@ public class HierarchyController extends ModelViewBaseController {
 
             Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
 
-            mv.addObject("guidModel_back", new GuidRequiredModel(userId));
+            mv.addObject("guidModel_back", new GuidRequiredModel(r.getUserId()));
             mv.addObject("elements", elements);
             mv.addObject("Pagination", pagination);
             mv.addObject("hierarchyViewParentPageModel", model);
@@ -137,8 +134,107 @@ public class HierarchyController extends ModelViewBaseController {
             return dispatchView(mv);
 
         }
-        return usersController.userViewById(userId);
+        return usersController.userViewBySession();
     }
+
+
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/hierarchy/viewResellerChildList")
+    public ModelAndView viewResellerChildList(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            String userId = model.getValue();
+
+            GetResellerByUserIdResponse resellerResponse = clientReseller.getResellerByUserId(userId);
+            if(resellerResponse != null) {
+                Reseller r = resellerResponse.getReseller();
+                HttpSession session = request.getSession(true);
+                session.setAttribute(SESSION_HIERARCHY_CONTROLLER_RESELLER, r);
+                return resellerChildListView(
+                        new HierarchyViewChildPageModel(r.getResellerId()));
+            }
+        }
+        else{
+            for (var e:result.getAllErrors()){
+                PortalApplication.addErrorKey(e.getDefaultMessage());
+            }
+        }
+
+        return usersController.userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @GetMapping("/users/hierarchy/resellerChildList")
+    public ModelAndView resellerChildList(@Valid HierarchyViewChildPageModel model, BindingResult result) {
+        model.setNumPerPage(10);
+        if(!result.hasErrors()){
+            return resellerChildListView(model);
+        }
+        else{
+            for (var e:result.getAllErrors()){
+                PortalApplication.addErrorKey(e.getDefaultMessage());
+            }
+        }
+
+        return usersController.userViewBySession();
+
+    }
+
+    private ModelAndView resellerChildListView(HierarchyViewChildPageModel model){
+        ModelAndView mv = new ModelAndView("support/hierarchy/hierarchyChildList");
+
+        HttpSession session = request.getSession(true);
+        Reseller r = (Reseller)session.getAttribute(SESSION_HIERARCHY_CONTROLLER_RESELLER);
+
+        if(r != null) {
+            mv.addObject("UserRole", new UserRoleModel(r));
+
+            ArrayList<UserRoleModel> elements = new ArrayList<UserRoleModel>();
+
+            long totalElements = 0;
+
+            GetCountResellerFilteredResponse responseCount = clientReseller.countResellerFiltered(
+                    new ResellerListPageModel(r.getResellerId(), true));
+
+            if(responseCount != null){
+                totalElements = responseCount.getResult();
+                if(totalElements>0){
+                    GetResellerFilteredResponse response = clientReseller.getResellerFiltered(
+                            model.getParentId(),
+                            model.getValidChildName(),
+                            true,
+                            model.getValidOffset(),
+                            model.getValidNumPerPage(),
+                            model.getValidSort(),
+                            model.getValidOrder());
+
+                    if(response != null){
+                        ArrayList<Reseller> resellers = new ArrayList(response.getReseller());
+                        elements = Utils.resellerToUserRole(resellers);
+                    }
+                }
+            }
+
+            Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
+
+            mv.addObject("guidModel_back", new GuidRequiredModel(r.getUserId()));
+            mv.addObject("elements", elements);
+            mv.addObject("Pagination", pagination);
+            mv.addObject("hierarchyViewChildPageModel", model);
+            mv.addObject("hierarchyModel_removeChild", new HierarchyModel(r.getResellerId(),""));
+            return dispatchView(mv);
+        }
+        return usersController.userViewBySession();
+    }
+
+
+
+
+
+
+
+
+
 
     private ModelAndView parentSupportListView(HierarchyViewParentPageModel model){
         ModelAndView mv = new ModelAndView("support/hierarchy/hierarchyParentList");
@@ -147,6 +243,22 @@ public class HierarchyController extends ModelViewBaseController {
     }
 
     //<editor-fold desc="User roles and hierarchy actions">
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/hierarchy/removeChildReseller")
+    public ModelAndView removeChildReseller(@Valid HierarchyModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                clientReseller.removeResellerAssociation(model.getParentId(), model.getChildId(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return resellerChildListView(
+                new HierarchyViewChildPageModel(model.getParentId()));
+    }
+
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/users/hierarchy/removeParentReseller")
@@ -181,6 +293,23 @@ public class HierarchyController extends ModelViewBaseController {
         return parentResellerListView(new HierarchyViewParentPageModel(model.getChildId()));
     }
 
+
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/hierarchy/removeChildSupport")
+    public ModelAndView removeChildSupport(@Valid HierarchyModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                clientSupport.removeSupportAssociation(model.getParentId(), model.getChildId(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return resellerChildListView(
+                new HierarchyViewChildPageModel(model.getParentId()));
+    }
 
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/users/hierarchy/removeParentSupport")

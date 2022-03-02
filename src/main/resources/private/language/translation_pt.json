@@ -324,6 +324,13 @@
 	"hierarchy_parentList_reseller_confirmSelectTitle1":" como superior do revendedor ",
 	"hierarchy_parentList_reseller_confirmSelectTitle2":"?",
 	
+	"hierarchy_childList_tab_title":"Portal | Hierarquia",
+	"hierarchy_childList_title":"Filhos",
+	"hierarchy_childList_reseller_subtitle0":"Desassociar filhos do revendedor ",
+	"hierarchy_childList_reseller_subtitle1":".",
+	"hierarchy_childList_reseller_confirmSelectTitle0":"Confirma a desassociação do ",
+	"hierarchy_childList_reseller_confirmSelectTitle1":" como filho do revendedor ",
+	"hierarchy_childList_reseller_confirmSelectTitle2":"?",
 	
 	"end": "fim"	
 }

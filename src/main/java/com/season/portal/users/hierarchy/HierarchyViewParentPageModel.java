@@ -8,6 +8,7 @@ public class HierarchyViewParentPageModel extends PageModel {
     @IGuidValidatorConstrain()
     private String childId;
 
+    //To search
     private String parentName;
 
     public HierarchyViewParentPageModel(String childId) {

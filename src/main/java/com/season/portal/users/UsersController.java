@@ -208,7 +208,7 @@ public class UsersController extends ModelViewBaseController {
                                         new ResellerListPageModel(r.getResellerId(), true));
                                 long resellerChilds = (resellerChildsResponse != null)?resellerChildsResponse.getResult():0;
                                 mv.addObject("resellerChildCount", resellerChilds);
-                                mv.addObject("guidModel_viewResellerChilds", new GuidRequiredModel(r.getResellerId()));
+                                mv.addObject("guidModel_viewResellerChilds", new GuidRequiredModel(user.getUserId()));
                             }
                             break;
                         case "SUPPORT":

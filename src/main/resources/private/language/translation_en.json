@@ -324,5 +324,13 @@
 	"hierarchy_parentList_reseller_confirmSelectTitle1":" has ",
 	"hierarchy_parentList_reseller_confirmSelectTitle2":" superior reseller?",
 	
+	"hierarchy_childList_tab_title":"Portal | Hierarchy",
+	"hierarchy_childList_title":"Childs",
+	"hierarchy_childList_reseller_subtitle0":"Remove child from reseller ",
+	"hierarchy_childList_reseller_subtitle1":".",
+	"hierarchy_childList_reseller_confirmSelectTitle0":"Confirm remove ",
+	"hierarchy_childList_reseller_confirmSelectTitle1":" has child reseller of ",
+	"hierarchy_childList_reseller_confirmSelectTitle2":"?",
+	
 	"end": "fim"
 }

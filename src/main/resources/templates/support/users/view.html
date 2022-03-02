@@ -226,11 +226,11 @@
                             <div class="d-flex">
 
                                  <form th:object="${guidModel_viewResellerChilds}"
-                                       method="POST" th:action="@{${portalURL} + 'users/hierarchy/resellerChildList'}"
+                                       method="POST" th:action="@{${portalURL} + 'users/hierarchy/viewResellerChildList'}"
                                        th:if="${resellerChildCount>0}"
                                  >
                                      <input type="hidden" th:field="*{value}"/>
-                                     <button type="button"
+                                     <button type="submit"
                                              class="btn btn-primary toTranslate me-2"
                                              data-langKey="users_user_childList"
                                      >View childs</button>
