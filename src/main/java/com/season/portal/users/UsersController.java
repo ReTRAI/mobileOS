@@ -35,6 +35,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 
+import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_ADMIN;
 import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_SUP_ADMIN;
 
 @Controller
@@ -230,6 +231,7 @@ public class UsersController extends ModelViewBaseController {
                                         new SupportListPageModel(s.getSupportId(), true));
                                 long supportChilds = (supportChildsResponse != null)?supportChildsResponse.getResult():0;
                                 mv.addObject("supportChildCount", supportChilds);
+                                mv.addObject("guidModel_viewSupportChilds", new GuidRequiredModel(user.getUserId()));
                             }
                             break;
                         case "ADMIN":
@@ -309,6 +311,36 @@ public class UsersController extends ModelViewBaseController {
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
                 clientSupport.removeSupport(model.getValue(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_ADMIN)
+    @PostMapping("/users/addAdmin")
+    public ModelAndView addAdmin(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                //client.setAdmin(model.getValue(), user.getUserId());
+            }
+        }
+        for (var e:result.getAllErrors()){
+            PortalApplication.addErrorKey(e.getDefaultMessage());
+        }
+        return userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_ADMIN)
+    @PostMapping("/users/removeAdmin")
+    public ModelAndView removeAdmin(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                //clientSupport.removeAdmin(model.getValue(), user.getUserId());
             }
         }
         for (var e:result.getAllErrors()){

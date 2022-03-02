@@ -2,7 +2,6 @@ package com.season.portal.client.support;
 
 import com.season.portal.PortalApplication;
 
-import com.season.portal.client.generated.reseller.*;
 import com.season.portal.client.generated.support.*;
 import com.season.portal.support.SupportListPageModel;
 import com.season.portal.utils.Utils;
@@ -129,10 +128,10 @@ public class ClientSupport extends WebServiceGatewaySupport{
             if(response.isResult()){
                 valid = true;
                 if(addMsg)
-                    PortalApplication.addSuccessKey("api_ClientReseller_validateSetSupportAssociation_success");
+                    PortalApplication.addSuccessKey("api_ClientSupport_validateSetSupportAssociation_success");
             }
             else if(addMsg){
-                PortalApplication.addErrorKey("api_ClientReseller_validateSetSupportAssociation_error");
+                PortalApplication.addErrorKey("api_ClientSupport_validateSetSupportAssociation_error");
             }
         }
 
@@ -318,61 +317,64 @@ public class ClientSupport extends WebServiceGatewaySupport{
         return response;
     }
 /*
-    public GetCountAvailableSupportParentResponse countAvailableResellerParent(String supportId){
-        GetCountAvailableSupportParentRequest request = new GetCountAvailableResellerParentRequest();
-        request.setResellerId(supportId);
+    public GetCountAvailableSupportParentResponse countAvailableSupportParent(String supportId){
+        GetCountAvailableSupportParentRequest request = new GetCountAvailableSupportParentRequest();
+        request.setSupportId(support);
 
-        GetCountAvailableResellerParentResponse response = null;
+        GetCountAvailableSupportParentResponse response = null;
         try {
-            response = (GetCountAvailableResellerParentResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+            response = (GetCountAvailableSupportParentResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
-                PortalApplication.addErrorKey("api_ClientReseller_countAvailableResellerParent_noCode");
+                PortalApplication.addErrorKey("api_ClientSupport_countAvailableSupportParent_noCode");
             else
-                PortalApplication.addErrorKey("api_ClientReseller_countAvailableResellerParent_"+code);
+                PortalApplication.addErrorKey("api_ClientSupport_countAvailableSupportParent_"+code);
 
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
             PortalApplication.log(LOGGER, e);
-            PortalApplication.addErrorKey("api_ClientReseller_countAvailableResellerParent_ex");
+            PortalApplication.addErrorKey("api_ClientSupport_countAvailableSupportParent_ex");
         }
 
         return response;
     }
-    public GetAvailableResellerParentResponse getResellerFiltered(String resellerId,
-                                                                  int offset, int numberRecords, String field, String order){
-        GetAvailableResellerParentRequest request = new GetAvailableResellerParentRequest();
-        request.setResellerId(resellerId);
+
+    public GetAvailableSupportParentResponse getAvailableSupportParent(String supportId,
+                                                                      int offset, int numberRecords, String field, String order){
+        GetAvailableSupportParentRequest request = new GetAvailableSupportParentRequest();
+        request.setSupportId(supportId);
 
         request.setOffset(offset);
         request.setNumberRecords(numberRecords);
         //request.setField(field);
         //request.setOrderField(order);
 
-        GetAvailableResellerParentResponse response = null;
+        GetAvailableSupportParentResponse response = null;
         try {
-            response = (GetAvailableResellerParentResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+            response = (GetAvailableSupportParentResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
-                PortalApplication.addErrorKey("api_ClientReseller_getAvailableResellerParent_noCode");
+                PortalApplication.addErrorKey("api_ClientSupport_getAvailableSupportParent_noCode");
             else
-                PortalApplication.addErrorKey("api_ClientReseller_getAvailableResellerParent_"+code);
+                PortalApplication.addErrorKey("api_ClientSupport_getAvailableSupportParent_"+code);
 
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
             PortalApplication.log(LOGGER, e);
-            PortalApplication.addErrorKey("api_ClientReseller_getAvailableResellerParent_ex");
+            PortalApplication.addErrorKey("api_ClientSupport_getAvailableSupportParent_ex");
         }
 
         return response;
-    }*/
+    }
+    */
+
 }
 

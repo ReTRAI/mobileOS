@@ -3,6 +3,10 @@ package com.season.portal.users.hierarchy;
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.client.generated.reseller.*;
+import com.season.portal.client.generated.support.GetCountSupportFilteredResponse;
+import com.season.portal.client.generated.support.GetSupportByUserIdResponse;
+import com.season.portal.client.generated.support.GetSupportFilteredResponse;
+import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.GetCountUserFilteredResponse;
 import com.season.portal.client.generated.user.GetUserFilteredResponse;
 import com.season.portal.client.generated.user.User;
@@ -10,6 +14,7 @@ import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.client.support.ClientSupport;
 import com.season.portal.client.users.ClientUser;
 import com.season.portal.reseller.ResellerListPageModel;
+import com.season.portal.support.SupportListPageModel;
 import com.season.portal.users.UserRoleModel;
 import com.season.portal.users.UsersController;
 import com.season.portal.users.UsersListPageModel;
@@ -51,7 +56,9 @@ public class HierarchyController extends ModelViewBaseController {
     ClientSupport clientSupport;
 
     private String SESSION_HIERARCHY_CONTROLLER_RESELLER = "SESSION_HIERARCHY_CONTROLLER_RESELLER";
+    private String SESSION_HIERARCHY_CONTROLLER_SUPPORT = "SESSION_HIERARCHY_CONTROLLER_SUPPORT";
 
+    //<editor-fold desc="Add parent reseller">
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/users/hierarchy/addParentResellerList")
     public ModelAndView addParentResellerList(@Valid GuidRequiredModel model, BindingResult result) {
@@ -93,7 +100,7 @@ public class HierarchyController extends ModelViewBaseController {
     }
 
     private ModelAndView parentResellerListView(HierarchyViewParentPageModel model){
-        ModelAndView mv = new ModelAndView("support/hierarchy/hierarchyParentList");
+        ModelAndView mv = new ModelAndView("support/hierarchy/reseller/hierarchyParentList");
 
         HttpSession session = request.getSession(true);
         Reseller r = (Reseller)session.getAttribute(SESSION_HIERARCHY_CONTROLLER_RESELLER);
@@ -136,9 +143,9 @@ public class HierarchyController extends ModelViewBaseController {
         }
         return usersController.userViewBySession();
     }
+    //</editor-fold>
 
-
-
+    //<editor-fold desc="Add child reseller">
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/users/hierarchy/viewResellerChildList")
     public ModelAndView viewResellerChildList(@Valid GuidRequiredModel model, BindingResult result) {
@@ -181,7 +188,7 @@ public class HierarchyController extends ModelViewBaseController {
     }
 
     private ModelAndView resellerChildListView(HierarchyViewChildPageModel model){
-        ModelAndView mv = new ModelAndView("support/hierarchy/hierarchyChildList");
+        ModelAndView mv = new ModelAndView("support/hierarchy/reseller/hierarchyChildList");
 
         HttpSession session = request.getSession(true);
         Reseller r = (Reseller)session.getAttribute(SESSION_HIERARCHY_CONTROLLER_RESELLER);
@@ -226,21 +233,187 @@ public class HierarchyController extends ModelViewBaseController {
         }
         return usersController.userViewBySession();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Add parent support">
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/hierarchy/addParentSupportList")
+    public ModelAndView addParentSupportList(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            String userId = model.getValue();
 
+            GetSupportByUserIdResponse response = clientSupport.getSupportByUserId(userId);
+            if(response != null) {
+                Support s = response.getSupport();
+                HttpSession session = request.getSession(true);
+                session.setAttribute(SESSION_HIERARCHY_CONTROLLER_SUPPORT, s);
+                return parentSupportListView(
+                        new HierarchyViewParentPageModel(s.getSupportId()));
+            }
+        }
+        else{
+            for (var e:result.getAllErrors()){
+                PortalApplication.addErrorKey(e.getDefaultMessage());
+            }
+        }
 
+        return usersController.userViewBySession();
+    }
 
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @GetMapping("/users/hierarchy/parentSupportList")
+    public ModelAndView parentSupportList(@Valid HierarchyViewParentPageModel model, BindingResult result) {
+        model.setNumPerPage(10);
+        if(!result.hasErrors()){
+            return parentSupportListView(model);
+        }
+        else{
+            for (var e:result.getAllErrors()){
+                PortalApplication.addErrorKey(e.getDefaultMessage());
+            }
+        }
 
+        return usersController.userViewBySession();
 
-
-
-
+    }
 
     private ModelAndView parentSupportListView(HierarchyViewParentPageModel model){
-        ModelAndView mv = new ModelAndView("support/hierarchy/hierarchyParentList");
+        ModelAndView mv = new ModelAndView("support/hierarchy/support/hierarchyParentList");
 
-        return dispatchView(mv);
+        HttpSession session = request.getSession(true);
+        Support s = (Support)session.getAttribute(SESSION_HIERARCHY_CONTROLLER_SUPPORT);
+
+        if(s != null) {
+            mv.addObject("UserRole", new UserRoleModel(s));
+
+            ArrayList<UserRoleModel> elements = new ArrayList<UserRoleModel>();
+
+            long totalElements = 0;
+            //GetCountAvailableResellerParentResponse responseCount = clientSupport.countAvailableSupportParent(model.getChildId());
+            var responseCount = clientSupport.countSupportFiltered("", "", false);
+            if(responseCount != null){
+                totalElements = responseCount.getResult();
+                if(totalElements>0){
+                    //GetAvailableResellerParentResponse response = clientSupport.getAvailableSupportParent(model.getChildId(),
+                    var response = clientSupport.getSupportFiltered("", "", false,
+                            model.getValidOffset(),
+                            model.getValidNumPerPage(),
+                            model.getValidSort(),
+                            model.getValidOrder());
+
+                    if(response != null){
+                        ArrayList<Support> supports = new ArrayList(response.getSupport());
+                        elements = Utils.supportToUserRole(supports);
+                    }
+                }
+            }
+
+            Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
+
+            mv.addObject("guidModel_back", new GuidRequiredModel(s.getUserId()));
+            mv.addObject("elements", elements);
+            mv.addObject("Pagination", pagination);
+            mv.addObject("hierarchyViewParentPageModel", model);
+            mv.addObject("hierarchyModel_addParent", new HierarchyModel("",s.getSupportId()));
+            return dispatchView(mv);
+
+        }
+        return usersController.userViewBySession();
     }
+    //</editor-fold>
+
+    //<editor-fold desc="Add child support">
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @PostMapping("/users/hierarchy/viewSupportChildList")
+    public ModelAndView viewSupportChildList(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            String userId = model.getValue();
+
+            GetSupportByUserIdResponse response = clientSupport.getSupportByUserId(userId);
+            if(response != null) {
+                Support s = response.getSupport();
+                HttpSession session = request.getSession(true);
+                session.setAttribute(SESSION_HIERARCHY_CONTROLLER_SUPPORT, s);
+                return supportChildListView(
+                        new HierarchyViewChildPageModel(s.getSupportId()));
+            }
+        }
+        else{
+            for (var e:result.getAllErrors()){
+                PortalApplication.addErrorKey(e.getDefaultMessage());
+            }
+        }
+
+        return usersController.userViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @GetMapping("/users/hierarchy/supportChildList")
+    public ModelAndView supportChildList(@Valid HierarchyViewChildPageModel model, BindingResult result) {
+        model.setNumPerPage(10);
+        if(!result.hasErrors()){
+            return supportChildListView(model);
+        }
+        else{
+            for (var e:result.getAllErrors()){
+                PortalApplication.addErrorKey(e.getDefaultMessage());
+            }
+        }
+
+        return usersController.userViewBySession();
+
+    }
+
+    private ModelAndView supportChildListView(HierarchyViewChildPageModel model){
+        ModelAndView mv = new ModelAndView("support/hierarchy/support/hierarchyChildList");
+
+        HttpSession session = request.getSession(true);
+        Support s = (Support)session.getAttribute(SESSION_HIERARCHY_CONTROLLER_SUPPORT);
+
+        if(s != null) {
+            mv.addObject("UserRole", new UserRoleModel(s));
+
+            ArrayList<UserRoleModel> elements = new ArrayList<UserRoleModel>();
+
+            long totalElements = 0;
+
+            GetCountSupportFilteredResponse responseCount = clientSupport.countSupportFiltered(
+                    new SupportListPageModel(s.getSupportId(), true));
+
+            if(responseCount != null){
+                totalElements = responseCount.getResult();
+                if(totalElements>0){
+                    GetSupportFilteredResponse response = clientSupport.getSupportFiltered(
+                            model.getParentId(),
+                            model.getValidChildName(),
+                            true,
+                            model.getValidOffset(),
+                            model.getValidNumPerPage(),
+                            model.getValidSort(),
+                            model.getValidOrder());
+
+                    if(response != null){
+                        ArrayList<Support> supports = new ArrayList(response.getSupport());
+                        elements = Utils.supportToUserRole(supports);
+                    }
+                }
+            }
+
+            Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
+
+            mv.addObject("guidModel_back", new GuidRequiredModel(s.getUserId()));
+            mv.addObject("elements", elements);
+            mv.addObject("Pagination", pagination);
+            mv.addObject("hierarchyViewChildPageModel", model);
+            mv.addObject("hierarchyModel_removeChild", new HierarchyModel(s.getSupportId(),""));
+            return dispatchView(mv);
+        }
+        return usersController.userViewBySession();
+    }
+    //</editor-fold>
+
+
+
 
     //<editor-fold desc="User roles and hierarchy actions">
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
