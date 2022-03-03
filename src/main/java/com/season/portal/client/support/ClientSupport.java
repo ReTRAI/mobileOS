@@ -13,6 +13,39 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 public class ClientSupport extends WebServiceGatewaySupport{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
+    public boolean validateSetSupport(SetSupportResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            Support ele = response.getSupport();
+            if(ele != null){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientSupport_validateSetSupport_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientSupport_validateSetSupport_error");
+            }
+        }
+        return valid;
+    }
+
+    public boolean validateRemoveSupport(RemoveSupportResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientSupport_validateRemoveSupport_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientSupport_validateRemoveSupport_error");
+            }
+        }
+        return valid;
+    }
+
     public SetSupportResponse setSupport(String userId, String actionUserId) {
         SetSupportRequest request = new SetSupportRequest();
         request.setUserId(userId);
@@ -316,10 +349,10 @@ public class ClientSupport extends WebServiceGatewaySupport{
 
         return response;
     }
-/*
+
     public GetCountAvailableSupportParentResponse countAvailableSupportParent(String supportId){
         GetCountAvailableSupportParentRequest request = new GetCountAvailableSupportParentRequest();
-        request.setSupportId(support);
+        request.setSupportId(supportId);
 
         GetCountAvailableSupportParentResponse response = null;
         try {
@@ -374,7 +407,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
 
         return response;
     }
-    */
+
 
 }
 

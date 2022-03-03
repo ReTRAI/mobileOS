@@ -225,7 +225,7 @@ public class UsersController extends ModelViewBaseController {
                                     mv.addObject("hierarchyModel_removeParentSupport", new HierarchyModel(supportParent.getSupportId(), s.getSupportId()));
                                 }
                                 else{
-                                    mv.addObject("guidModel_addParentSupport", new GuidRequiredModel(s.getSupportId()));
+                                    mv.addObject("guidModel_addParentSupport", new GuidRequiredModel(s.getUserId()));
                                 }
                                 GetCountSupportFilteredResponse supportChildsResponse = clientSupport.countSupportFiltered(
                                         new SupportListPageModel(s.getSupportId(), true));
@@ -235,7 +235,7 @@ public class UsersController extends ModelViewBaseController {
                             }
                             break;
                         case "ADMIN":
-
+                            mv.addObject("guidModel_removeAdmin", new GuidRequiredModel(user.getUserId()));
                             break;
                     }
                 }
@@ -261,9 +261,8 @@ public class UsersController extends ModelViewBaseController {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                clientReseller.setReseller(model.getValue(), user.getUserId());
+                clientReseller.validateSetReseller(clientReseller.setReseller(model.getValue(), user.getUserId()),true);
             }
-            //return userViewById(model.getValue());
         }
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
@@ -277,7 +276,7 @@ public class UsersController extends ModelViewBaseController {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                clientReseller.removeReseller(model.getValue(), user.getUserId());
+                clientReseller.validateRemoveReseller(clientReseller.removeReseller(model.getValue(), user.getUserId()), true);
             }
         }
         for (var e:result.getAllErrors()){
@@ -293,10 +292,8 @@ public class UsersController extends ModelViewBaseController {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                clientSupport.setSupport(model.getValue(), user.getUserId());
+                clientSupport.validateSetSupport(clientSupport.setSupport(model.getValue(), user.getUserId()), true);
             }
-
-            //return userViewById(model.getValue());
         }
         for (var e:result.getAllErrors()){
             PortalApplication.addErrorKey(e.getDefaultMessage());
@@ -310,7 +307,7 @@ public class UsersController extends ModelViewBaseController {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                clientSupport.removeSupport(model.getValue(), user.getUserId());
+                clientSupport.validateRemoveSupport(clientSupport.removeSupport(model.getValue(), user.getUserId()), true);
             }
         }
         for (var e:result.getAllErrors()){
@@ -325,7 +322,7 @@ public class UsersController extends ModelViewBaseController {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                //client.setAdmin(model.getValue(), user.getUserId());
+                client.validateSetAdmin(client.setAdmin(model.getValue(), user.getUserId()), true);
             }
         }
         for (var e:result.getAllErrors()){
@@ -340,7 +337,7 @@ public class UsersController extends ModelViewBaseController {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                //clientSupport.removeAdmin(model.getValue(), user.getUserId());
+                client.validateRemoveAdmin(client.removeAdmin(model.getValue(), user.getUserId()), true);
             }
         }
         for (var e:result.getAllErrors()){

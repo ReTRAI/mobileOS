@@ -2,6 +2,9 @@ package com.season.portal.client.reseller;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.client.generated.reseller.*;
+import com.season.portal.client.generated.support.RemoveSupportResponse;
+import com.season.portal.client.generated.support.SetSupportResponse;
+import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.ActivateUserResponse;
 import com.season.portal.reseller.ResellerListPageModel;
 import com.season.portal.utils.Utils;
@@ -12,6 +15,39 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 
 public class ClientReseller extends WebServiceGatewaySupport{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+    public boolean validateSetReseller(SetResellerResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            Reseller ele = response.getReseller();
+            if(ele != null){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientReseller_validateSetReseller_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientReseller_validateSetReseller_error");
+            }
+        }
+        return valid;
+    }
+
+    public boolean validateRemoveReseller(RemoveResellerResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientReseller_validateRemoveReseller_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientReseller_validateRemoveReseller_error");
+            }
+        }
+        return valid;
+    }
 
     public SetResellerResponse setReseller(String userId, String actionUserId) {
         SetResellerRequest request = new SetResellerRequest();

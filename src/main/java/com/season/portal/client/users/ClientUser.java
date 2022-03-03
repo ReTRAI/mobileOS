@@ -1,6 +1,9 @@
 package com.season.portal.client.users;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.client.generated.reseller.RemoveResellerResponse;
+import com.season.portal.client.generated.reseller.Reseller;
+import com.season.portal.client.generated.reseller.SetResellerResponse;
 import com.season.portal.client.generated.user.*;
 import com.season.portal.users.UsersListPageModel;
 import com.season.portal.utils.Utils;
@@ -477,5 +480,92 @@ public class ClientUser extends WebServiceGatewaySupport{
 
         return response;
     }
+
+    public SetUserAdminResponse setAdmin(String userId, String actionUserId) {
+        SetUserAdminRequest request = new SetUserAdminRequest();
+        request.setUserId(userId);
+        request.setActionUserId(actionUserId);
+
+        SetUserAdminResponse response = null;
+        try {
+            response = (SetUserAdminResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientUser_setAdmin_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientUser_setAdmin_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientUser_setAdmin_ex");
+        }
+
+        return response;
+    }
+
+    public RemoveUserAdminResponse removeAdmin(String userId, String actionUserId) {
+        RemoveUserAdminRequest request = new RemoveUserAdminRequest();
+        request.setUserId(userId);
+        request.setActionUserId(actionUserId);
+
+        RemoveUserAdminResponse response = null;
+        try {
+            response = (RemoveUserAdminResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientUser_removeAdmin_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientUser_removeAdmin_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientUser_removeAdmin_ex");
+        }
+
+        return response;
+    }
+
+    public boolean validateSetAdmin(SetUserAdminResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientUser_validateSetAdmin_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientUser_validateSetAdmin_error");
+            }
+        }
+        return valid;
+    }
+
+    public boolean validateRemoveAdmin(RemoveUserAdminResponse response, boolean addMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addMsg)
+                    PortalApplication.addSuccessKey("api_ClientUser_validateRemoveAdmin_success");
+            }
+            else if(addMsg){
+                PortalApplication.addErrorKey("api_ClientUser_validateRemoveAdmin_error");
+            }
+        }
+        return valid;
+    }
+
 }
 

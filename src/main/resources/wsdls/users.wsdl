@@ -259,6 +259,40 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- setUserAdmin-->
+    <xs:element name="setUserAdminRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setUserAdminResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- removeUserAdmin-->
+    <xs:element name="removeUserAdminRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="removeUserAdminResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- Endpoint User Object-->
     <xs:complexType name="user">
         <xs:sequence>
@@ -309,8 +343,20 @@
     <wsdl:part element="tns:setUserRequest" name="setUserRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="setUserAdminResponse">
+    <wsdl:part element="tns:setUserAdminResponse" name="setUserAdminResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="existUserEmailRequest">
     <wsdl:part element="tns:existUserEmailRequest" name="existUserEmailRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeUserAdminRequest">
+    <wsdl:part element="tns:removeUserAdminRequest" name="removeUserAdminRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setUserAdminRequest">
+    <wsdl:part element="tns:setUserAdminRequest" name="setUserAdminRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="changeThemePreferenceRequest">
@@ -339,6 +385,10 @@
   </wsdl:message>
   <wsdl:message name="unblockUserResponse">
     <wsdl:part element="tns:unblockUserResponse" name="unblockUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeUserAdminResponse">
+    <wsdl:part element="tns:removeUserAdminResponse" name="removeUserAdminResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="changeUserPwRequest">
@@ -430,10 +480,22 @@
       <wsdl:output message="tns:getUserFilteredResponse" name="getUserFilteredResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="setUserAdmin">
+      <wsdl:input message="tns:setUserAdminRequest" name="setUserAdminRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:setUserAdminResponse" name="setUserAdminResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="existUserEmail">
       <wsdl:input message="tns:existUserEmailRequest" name="existUserEmailRequest">
     </wsdl:input>
       <wsdl:output message="tns:existUserEmailResponse" name="existUserEmailResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeUserAdmin">
+      <wsdl:input message="tns:removeUserAdminRequest" name="removeUserAdminRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:removeUserAdminResponse" name="removeUserAdminResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="changeThemePreference">
@@ -535,12 +597,30 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="setUserAdmin">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setUserAdminRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setUserAdminResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="existUserEmail">
       <soap:operation soapAction=""/>
       <wsdl:input name="existUserEmailRequest">
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="existUserEmailResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeUserAdmin">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="removeUserAdminRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeUserAdminResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

@@ -10,6 +10,9 @@
     <th:block th:replace="shared/common :: common-style"/>
 
     <style>
+        .roleName:not(:last-child)::after{
+            content:", ";
+        }
     </style>
 
     <title class="toTranslate" data-langKey="users_tab_title">Portal</title>
@@ -47,7 +50,17 @@
 
             <section id="user" th:if="${User != null}">
                 <th:block th:replace="shared/header :: headerTitle0"/>
+                <div>
                     <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="users_user_title">User</h2>
+                    <p th:if="${roles.size() > 0}">
+                        <span class="toTranslate" data-langKey="utils_roles"></span
+                        >: <span class="roleName toTranslate"
+                                 th:each="role:${roles}"
+                                 th:attr="data-langKey=${'api_userRole_ROLE_'+role.getUserRoleName()}"></span
+                        >
+                    </p>
+                </div>
+
                 <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
                     <ul class="nav justify-content-end">
                         <li class="nav-item mb-1 ms-1" sec:authorize="hasRole('ROLE_ADMIN')"
@@ -58,7 +71,15 @@
                                         class="btn btn-primary toTranslate"
                                         data-langKey="users_user_addAdmin" onclick="">Add Admin</button>
                             </form>
-
+                        </li>
+                        <li class="nav-item mb-1 ms-1" sec:authorize="hasRole('ROLE_ADMIN')"
+                            th:if="${(T(com.season.portal.utils.Utils).hasRole(roles, 'ADMIN'))}" >
+                            <form th:object="${guidModel_removeAdmin}" method="POST" th:action="@{${portalURL} + 'users/removeAdmin'}">
+                                <input type="hidden" th:field="*{value}"/>
+                                <button type="submit"
+                                        class="btn btn-danger toTranslate"
+                                        data-langKey="users_user_removeAdmin" onclick="">Remove Admin</button>
+                            </form>
                         </li>
                         <li class="nav-item mb-1 ms-1"
                             th:if="${!(T(com.season.portal.utils.Utils).hasRole(roles, 'SUPPORT'))}" >

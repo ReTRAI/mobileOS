@@ -3,10 +3,7 @@ package com.season.portal.users.hierarchy;
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.client.generated.reseller.*;
-import com.season.portal.client.generated.support.GetCountSupportFilteredResponse;
-import com.season.portal.client.generated.support.GetSupportByUserIdResponse;
-import com.season.portal.client.generated.support.GetSupportFilteredResponse;
-import com.season.portal.client.generated.support.Support;
+import com.season.portal.client.generated.support.*;
 import com.season.portal.client.generated.user.GetCountUserFilteredResponse;
 import com.season.portal.client.generated.user.GetUserFilteredResponse;
 import com.season.portal.client.generated.user.User;
@@ -289,13 +286,13 @@ public class HierarchyController extends ModelViewBaseController {
             ArrayList<UserRoleModel> elements = new ArrayList<UserRoleModel>();
 
             long totalElements = 0;
-            //GetCountAvailableResellerParentResponse responseCount = clientSupport.countAvailableSupportParent(model.getChildId());
-            var responseCount = clientSupport.countSupportFiltered("", "", false);
+            GetCountAvailableSupportParentResponse responseCount = clientSupport.countAvailableSupportParent(model.getChildId());
+            //var responseCount = clientSupport.countSupportFiltered("", "", false);
             if(responseCount != null){
                 totalElements = responseCount.getResult();
                 if(totalElements>0){
-                    //GetAvailableResellerParentResponse response = clientSupport.getAvailableSupportParent(model.getChildId(),
-                    var response = clientSupport.getSupportFiltered("", "", false,
+                    GetAvailableSupportParentResponse response = clientSupport.getAvailableSupportParent(model.getChildId(),
+                    //var response = clientSupport.getSupportFiltered("", "", false,
                             model.getValidOffset(),
                             model.getValidNumPerPage(),
                             model.getValidSort(),

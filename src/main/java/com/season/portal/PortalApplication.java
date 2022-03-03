@@ -126,7 +126,16 @@ public class PortalApplication{
 
 	public static void log(Logger LOGGER, String msg){
 		String lastKey = (errorKeys.size()>0)?"Last Error Key - "+errorKeys.get(errorKeys.size()-1)+"\n":"";
-		LOGGER.error(msg+ "\n" + lastKey +"-----------------------------------------------\n");
+		String user = "";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth != null && auth.isAuthenticated()) {
+			var principal = auth.getPrincipal();
+			if (principal instanceof ClientUserDetails) {
+				ClientUserDetails cud = (ClientUserDetails) principal;
+				user = "UserId - " + cud.getUserId()+"\n";
+			}
+		}
+		LOGGER.error(user+msg+ "\n" + lastKey +"-----------------------------------------------\n");
 	}
 	public static void log(Logger LOGGER, Exception ex){
 		log(LOGGER, ex.getMessage());

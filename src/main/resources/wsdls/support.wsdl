@@ -190,6 +190,40 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- getAvailableSupportParent-->
+    <xs:element name="getAvailableSupportParentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supportId" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAvailableSupportParentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="support" type="tns:support"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getCountAvailableSupportParent-->
+    <xs:element name="getCountAvailableSupportParentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supportId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getCountAvailableSupportParentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- setSupport-->
     <xs:element name="setSupportRequest">
         <xs:complexType>
@@ -388,8 +422,16 @@
     <wsdl:part element="tns:removeSupportAssociationRequest" name="removeSupportAssociationRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getCountAvailableSupportParentResponse">
+    <wsdl:part element="tns:getCountAvailableSupportParentResponse" name="getCountAvailableSupportParentResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getSupportFilteredResponse">
     <wsdl:part element="tns:getSupportFilteredResponse" name="getSupportFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAvailableSupportParentRequest">
+    <wsdl:part element="tns:getAvailableSupportParentRequest" name="getAvailableSupportParentRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="setTicketRequest">
@@ -416,6 +458,10 @@
     <wsdl:part element="tns:getCountTicketFilteredRequest" name="getCountTicketFilteredRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getCountAvailableSupportParentRequest">
+    <wsdl:part element="tns:getCountAvailableSupportParentRequest" name="getCountAvailableSupportParentRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="setSupportResponse">
     <wsdl:part element="tns:setSupportResponse" name="setSupportResponse">
     </wsdl:part>
@@ -434,6 +480,10 @@
   </wsdl:message>
   <wsdl:message name="updateTicketResponse">
     <wsdl:part element="tns:updateTicketResponse" name="updateTicketResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAvailableSupportParentResponse">
+    <wsdl:part element="tns:getAvailableSupportParentResponse" name="getAvailableSupportParentResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getCountTicketDetailFilteredRequest">
@@ -533,6 +583,18 @@
       <wsdl:input message="tns:removeSupportAssociationRequest" name="removeSupportAssociationRequest">
     </wsdl:input>
       <wsdl:output message="tns:removeSupportAssociationResponse" name="removeSupportAssociationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountAvailableSupportParent">
+      <wsdl:input message="tns:getCountAvailableSupportParentRequest" name="getCountAvailableSupportParentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getCountAvailableSupportParentResponse" name="getCountAvailableSupportParentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailableSupportParent">
+      <wsdl:input message="tns:getAvailableSupportParentRequest" name="getAvailableSupportParentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getAvailableSupportParentResponse" name="getAvailableSupportParentResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="setTicket">
@@ -658,6 +720,24 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="removeSupportAssociationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountAvailableSupportParent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCountAvailableSupportParentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCountAvailableSupportParentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailableSupportParent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getAvailableSupportParentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAvailableSupportParentResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
