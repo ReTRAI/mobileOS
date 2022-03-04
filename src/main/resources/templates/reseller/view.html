@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- BEGIN: Head-->
+
+<head>
+    <th:block th:replace="shared/common :: common-style"/>
+
+    <style>
+        .roleName:not(:last-child)::after{
+            content:", ";
+        }
+    </style>
+
+    <title class="toTranslate" data-langKey="resellers_tab_title">Portal</title>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+<!-- BEGIN: Header-->
+<th:block th:replace="shared/header :: header"/>
+<!-- END: Header-->
+
+<!-- BEGIN: Main Menu-->
+<th:block th:replace="shared/sidemenu :: sideMenu"/>
+<!-- END: Main Menu-->
+
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <th:block th:replace="shared/common :: common-status"/>
+        </div>
+
+        <div class="content-body">
+            <section th:if="${Reseller == null}">
+                <th:block th:replace="shared/header :: headerTitle0"/>
+                    <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="resellers_reseller_invalidReseller">Invalid Reseller</h2>
+                <th:block th:replace="shared/header :: headerTitle1Back2('userNavBar')"/>
+            </section>
+
+            <section id="user" th:if="${Reseller != null}">
+                <th:block th:replace="shared/header :: headerTitle0"/>
+                <div>
+                    <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="resellers_reseller_title">Reseller</h2>
+                </div>
+
+                <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item mb-1 ms-1"
+                            th:if="${resellerHistory}" >
+                            <a class="btn btn-primary toTranslate" data-langKey="utils_back"
+                               th:href="${portalURL + 'resellers/resellerHistory'}"
+                            >Back</a>
+                        </li>
+                        <li class="nav-item mb-1 ms-1"
+                            th:if="${!resellerHistory}">
+                            <a class="btn btn-primary toTranslate" data-langKey="utils_back"
+                               th:href="${portalURL + 'resellers/listBack'}"
+                            >Back</a>
+                        </li>
+                    </ul>
+                <th:block th:replace="shared/header :: headerTitle2"/>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_nickname">Name</label>
+                                <input class="form-control"
+                                       th:value="${Reseller.getResellerName()}" readonly="readonly"/>
+                            </div>
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_balance">Balance</label>
+                                <input class="form-control"
+                                       th:value="${Reseller.getCurrentBalance()}" readonly="readonly"/>
+                            </div>
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_totalDevices">Total Devices</label>
+                                <input class="form-control"
+                                       th:value="${Reseller.getTotalDevices()}" readonly="readonly"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between pb-0 mb-1">
+                        <h4 class="card-title toTranslate" data-langKey="utils_devices">Devices</h4>
+                    </div>
+                    <div class="card-body" >
+
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+</div>
+
+
+<th:block th:replace="shared/confirmModal :: confirmModal"/>
+<!-- END: Content-->
+
+<th:block th:replace="shared/common :: common-script"/>
+<th:block th:replace="shared/common :: common-translate"/>
+
+<script>
+    $(window).on('load', function() {
+        setupLanguage();
+        showInMenu("menu_reseller_list");
+        confirmModal_init();
+    });
+
+    function openActivateModal(){
+        confirmModal_open("users_user_activateTitle", "", "users_user_activateUser", "utils_cancel", openActivateModalHandler, confirmModal_close);
+        $(".tooltip").remove();
+    }
+    function openActivateModalHandler(){
+        $("#formActivate").submit();
+    }
+
+    function openInactivateModal(){
+        confirmModal_open("users_user_inactivateTitle", "", "users_user_inactivateUser", "utils_cancel", openInactivateModalHandler, confirmModal_close);
+    }
+    function openInactivateModalHandler(){
+        $("#formInactivate").submit();
+    }
+
+    function openUnblockModal(){
+        confirmModal_open("users_user_unblockTitle", "", "users_user_unblockUser", "utils_cancel", openUnblockModalHandler, confirmModal_close);
+    }
+    function openUnblockModalHandler(){
+        $("#formUnblock").submit();
+    }
+
+
+
+    function openRemoveResellerModal(){
+        confirmModal_open("users_user_removeResellerTitle", "", "utils_remove", "utils_cancel", openRemoveResellerModalHandler, confirmModal_close);
+    }
+    function openRemoveResellerModalHandler(){
+        $("#formRemoveReseller").submit();
+    }
+
+    function openRemoveSupportModal(){
+        confirmModal_open("users_user_removeSupportTitle", "", "utils_remove", "utils_cancel", openRemoveSupportModalHandler, confirmModal_close);
+    }
+    function openRemoveSupportModalHandler(){
+        $("#formRemoveSupport").submit();
+    }
+
+
+    function openRemoveParentResellerModal(){
+        confirmModal_open("users_user_removeParentResellerTitle", "", "utils_remove", "utils_cancel", openRemoveParentResellerModalHandler, confirmModal_close);
+    }
+    function openRemoveParentResellerModalHandler(){
+        $("#formRemoveParentReseller").submit();
+    }
+
+    function openRemoveParentSupportModal(){
+        confirmModal_open("users_user_removeParentSupportTitle", "", "utils_remove", "utils_cancel", openRemoveParentSupportModalHandler, confirmModal_close);
+    }
+    function openRemoveParentSupportModalHandler(){
+        $("#formRemoveParentSupport").submit();
+    }
+
+</script>
+
+</body>
+<!-- END: Body-->
+
+</html>

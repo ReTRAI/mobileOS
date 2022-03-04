@@ -166,6 +166,21 @@
 							</schemaIncludes>
 						</configuration>
 					</execution>
+					<execution>
+						<id>device-generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaLanguage>WSDL</schemaLanguage>
+							<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+							<generatePackage>com.season.portal.client.generated.device</generatePackage>
+							<schemaDirectory>${project.basedir}/src/main/resources/wsdls</schemaDirectory>
+							<schemaIncludes>
+								<include>devices.wsdl</include>
+							</schemaIncludes>
+						</configuration>
+					</execution>
 				</executions>
 
 			</plugin>

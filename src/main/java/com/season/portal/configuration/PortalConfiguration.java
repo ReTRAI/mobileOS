@@ -19,6 +19,15 @@ public class PortalConfiguration {
     private String clientResellerURI;
     private String clientSupportURI;
     private String clientDashboardURI;
+    private String clientDeviceURI;
+
+    public String getClientDeviceURI() {
+        return clientDeviceURI;
+    }
+
+    public void setClientDeviceURI(String clientDeviceURI) {
+        this.clientDeviceURI = clientDeviceURI;
+    }
 
     public String getClientDashboardURI() {
         return clientDashboardURI;

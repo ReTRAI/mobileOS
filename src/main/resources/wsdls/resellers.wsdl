@@ -112,6 +112,15 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="startMovementDate" type="xs:string"/>
+                <xs:element name="endMovementDate" type="xs:string"/>
+                <xs:element name="minValue" type="xs:string"/>
+                <xs:element name="maxValue" type="xs:string"/>
+                <xs:element name="debitCredit" type="xs:string"/>
+                <xs:element name="field" type="xs:string"/>
+                <xs:element name="orderField" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -119,6 +128,27 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" name="resellerBalance" type="tns:resellerBalance"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- getCountResellerBalanceMovements-->
+    <xs:element name="getCountResellerBalanceMovementsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="startMovementDate" type="xs:string"/>
+                <xs:element name="endMovementDate" type="xs:string"/>
+                <xs:element name="minValue" type="xs:string"/>
+                <xs:element name="maxValue" type="xs:string"/>
+                <xs:element name="debitCredit" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getCountResellerBalanceMovementsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -272,9 +302,6 @@
             <xs:element name="resellerName" type="xs:string"/>
             <xs:element name="currentBalance" type="xs:float"/>
             <xs:element name="totalDevices" type="xs:long"/>
-            <xs:element name="activeDevices" type="xs:long"/>
-            <xs:element name="inactiveDevices" type="xs:long"/>
-            <xs:element name="freeDevices" type="xs:long"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -330,6 +357,10 @@
     <wsdl:part element="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getCountResellerBalanceMovementsRequest">
+    <wsdl:part element="tns:getCountResellerBalanceMovementsRequest" name="getCountResellerBalanceMovementsRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="setResellerAssociationResponse">
     <wsdl:part element="tns:setResellerAssociationResponse" name="setResellerAssociationResponse">
     </wsdl:part>
@@ -364,6 +395,10 @@
   </wsdl:message>
   <wsdl:message name="getResellerParentByChildIdResponse">
     <wsdl:part element="tns:getResellerParentByChildIdResponse" name="getResellerParentByChildIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountResellerBalanceMovementsResponse">
+    <wsdl:part element="tns:getCountResellerBalanceMovementsResponse" name="getCountResellerBalanceMovementsResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getResellerAssociationRequest">
@@ -453,6 +488,12 @@
       <wsdl:input message="tns:getResellerBalanceMovementsRequest" name="getResellerBalanceMovementsRequest">
     </wsdl:input>
       <wsdl:output message="tns:getResellerBalanceMovementsResponse" name="getResellerBalanceMovementsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountResellerBalanceMovements">
+      <wsdl:input message="tns:getCountResellerBalanceMovementsRequest" name="getCountResellerBalanceMovementsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getCountResellerBalanceMovementsResponse" name="getCountResellerBalanceMovementsResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="setResellerAssociation">
@@ -563,6 +604,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="getResellerBalanceMovementsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCountResellerBalanceMovements">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCountResellerBalanceMovementsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCountResellerBalanceMovementsResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

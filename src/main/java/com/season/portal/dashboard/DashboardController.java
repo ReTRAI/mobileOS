@@ -39,28 +39,22 @@ public class DashboardController extends ModelViewBaseController {
         ModelAndView mv = new ModelAndView("dashboard");
         mv.addObject("dashboard", null);
 
-        ClientUserDetails user = Utils.getPrincipalDetails(true);
-        if(user != null){
-            if(request.isUserInRole("ROLE_RESELLER")){
-                GetResellerByUserIdResponse resellerResponse = clientReseller.getResellerByUserId(user.getUserId());
-                if(resellerResponse != null) {
-                    Reseller r = resellerResponse.getReseller();
-                    boolean recursiveAdmin = false;
+        Reseller r = getPrincipalReseller(clientReseller);
+        if(r != null){
+            boolean recursiveAdmin = false;
 
-                    if(request.isUserInRole("ROLE_ADMIN")){
-                        HttpSession session = request.getSession(true);
-                        recursiveAdmin = AdminController.getAdminView(session);
-                    }
-                    GetDashboardByResellerIdResponse dashboardResponse = clientDashboard.getDashboardByResellerId(r.getResellerId(), recursiveAdmin);
+            if(request.isUserInRole("ROLE_ADMIN")){
+                HttpSession session = request.getSession(true);
+                recursiveAdmin = AdminController.getAdminView(session);
+            }
+            GetDashboardByResellerIdResponse dashboardResponse = clientDashboard.getDashboardByResellerId(r.getResellerId(), recursiveAdmin);
 
-                    if(dashboardResponse != null){
-                        mv.addObject("dashboard", true);
-                        mv.addObject("overview", dashboardResponse.getGlobal());
-                        mv.addObject("inactive", dashboardResponse.getInactive());
-                        mv.addObject("expiring", dashboardResponse.getExpiring());
-                        mv.addObject("activations", dashboardResponse.getActive());
-                    }
-                }
+            if(dashboardResponse != null){
+                mv.addObject("dashboard", true);
+                mv.addObject("overview", dashboardResponse.getGlobal());
+                mv.addObject("inactive", dashboardResponse.getInactive());
+                mv.addObject("expiring", dashboardResponse.getExpiring());
+                mv.addObject("activations", dashboardResponse.getActive());
             }
         }
 

@@ -37,6 +37,21 @@ public class ClientUserDetails implements UserDetails {
         return (status.equals(ClientUser.USER_STATUS.CHANGEPW.name()));
     }
 
+    public boolean hasRole(String role){
+        boolean has = false;
+        for(GrantedAuthority authority : authorities){
+            if(authority.getAuthority().equals(role)){
+                has = true;
+                break;
+            }
+        }
+        return has;
+    }
+
+    public ArrayList<GrantedAuthority> getAuthoritiesList() {
+        return authorities;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

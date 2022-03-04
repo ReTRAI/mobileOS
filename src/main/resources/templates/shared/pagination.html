@@ -8,13 +8,13 @@
     <div class="row justify-content-between">
         <div class="col-lg-6 col-12"  th:if="${sharedP_Pagination.getTotalElements() > 0}">
             <p class="page-link-text" >
-                <span class="toTranslate" data-langKey="utils_pagination_0">Showing </span>
-                <span th:text="${sharedP_Pagination.getOffset()+1}"></span>
-                <span class="toTranslate"  data-langKey="utils_pagination_1"> to </span>
-                <span th:text="${sharedP_Pagination.getOffset()+sharedP_elementsSize}"></span>
-                <span class="toTranslate"  data-langKey="utils_pagination_2"> of </span>
-                <span th:text="${sharedP_Pagination.getTotalElements()}"></span>
-                <span class="toTranslate"  data-langKey="utils_pagination_3"> entries</span>
+                <span class="toTranslate" data-langKey="utils_pagination_0">Showing </span
+                ><span th:text="${sharedP_Pagination.getOffset()+1}"></span
+                ><span class="toTranslate"  data-langKey="utils_pagination_1"> to </span
+                ><span th:text="${sharedP_Pagination.getOffset()+sharedP_elementsSize}"></span
+                ><span class="toTranslate"  data-langKey="utils_pagination_2"> of </span
+                ><span th:text="${sharedP_Pagination.getTotalElements()}"></span
+                ><span class="toTranslate"  data-langKey="utils_pagination_3"> entries</span>
             </p>
         </div>
         <th:block th:if="${sharedP_Pagination.getTotalPages() > 1}">

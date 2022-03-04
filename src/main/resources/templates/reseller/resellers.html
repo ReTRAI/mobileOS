@@ -13,7 +13,7 @@
 
     </style>
 
-    <title class="toTranslate" data-langKey="reseller_tab_title">Nice</title>
+    <title class="toTranslate" data-langKey="resellers_tab_title">Nice</title>
 </head>
 <!-- END: Head-->
 
@@ -44,20 +44,21 @@
 
             <!-- -->
             <section id="reseller">
-                <h2 class="toTranslate" data-langKey="reseller_title">Resellers</h2>
+                <h2 class="toTranslate" data-langKey="resellers_resellers_title">Resellers</h2>
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
                     </div>
                     <div class="card-body">
-                        <form id="filters" th:object="${stringPageModel}" class="form" method="get" th:action="@{/resellers}">
+                        <form id="filters" th:object="${resellerListPageModel}" class="form" method="get" th:action="@{/resellers}">
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-value" data-langKey="utils_form_nameId">Name or Id</label>
-                                        <input id="filter-value" type="text" class="form-control toTranslateInput" data-langKey="utils_form_nameId_placeholder"
-                                               placeholder="Enter reseller name or id" th:field="*{value}"
-                                               name="value">
+                                        <label class="form-label toTranslate" for="filter-resellerName" data-langKey="utils_form_nameId">Name or Id</label>
+                                        <input id="filter-resellerName" type="text" class="form-control toTranslateInput"
+                                               data-langKey="utils_form_nameId_placeholder"
+                                               placeholder="Enter reseller name or id"
+                                               th:field="*{resellerName}">
                                     </div>
                                 </div>
 
@@ -80,58 +81,40 @@
                         <table class="table table-striped dataTable ">
                             <thead>
                             <tr>
-                                <th class="toTranslate" data-langKey="utils_table_id">Id</th>
                                 <th class="sorting toTranslate" data-langKey="utils_table_name"
                                     th:with="sortName='name'"
-                                    th:classappend="${resellerPag.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${resellerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Name</th>
                                 <th class="sorting toTranslate text-center" data-langKey="utils_table_balance"
                                     th:with="sortName='balance'"
-                                    th:classappend="${resellerPag.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${resellerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Balance</th>
                                 <th class="sorting toTranslate text-center" data-langKey="utils_table_devices"
                                     th:with="sortName='devices'"
-                                    th:classappend="${resellerPag.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${resellerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Devices</th>
-                                <th class="sorting toTranslate text-center" data-langKey="utils_table_activated"
-                                    th:with="sortName='activated'"
-                                    th:classappend="${resellerPag.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${resellerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
-                                    >Activated</th>
-                                <th class="sorting toTranslate text-center" data-langKey="utils_table_notActivated"
-                                    th:with="sortName='notActivated'"
-                                    th:classappend="${resellerPag.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${resellerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
-                                    >Not Activated</th>
-                                <th class="sorting toTranslate text-center" data-langKey="utils_table_free"
-                                    th:with="sortName='free'"
-                                    th:classappend="${resellerPag.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${resellerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
-                                    >Free</th>
-                                <th class="sorting toTranslate text-center" data-langKey="utils_table_wiped"
-                                    th:with="sortName='wiped'"
-                                    th:classappend="${resellerPag.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${resellerPag.getSortUrl(baseUrl, queryUrl,sortName)}'|"
-                                    >Wiped</th>
                                 <th class="toTranslate text-center" data-langKey="utils_table_actions">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="reseller : ${resellers}">
-                                    <td th:text="${reseller.getGuid()}"></td>
-                                    <td th:text="${reseller.getName()}"></td>
-                                    <td class="text-end" th:text="${reseller.getBalance()+'$'}"></td>
-                                    <td class="text-end" th:text="${reseller.getDevices()}"></td>
-                                    <td class="text-end" th:text="${reseller.getActivated()}"></td>
-                                    <td class="text-end" th:text="${reseller.getNotActivated()}"></td>
-                                    <td class="text-end" th:text="${reseller.getFree()}"></td>
-                                    <td class="text-end" th:text="${reseller.getWiped()}"></td>
-                                    <td>
-                                        <div>
-
+                                <tr th:each="ele : ${elements}">
+                                    <td th:text="${ele.getResellerName()}"></td>
+                                    <td class="text-end" th:text="${ele.getCurrentBalance()+'$'}"></td>
+                                    <td class="text-end" th:text="${ele.getTotalDevices()}"></td>
+                                    <td class="actions">
+                                        <div class="d-flex align-items-center justify-content-around">
+                                            <button type="button" onclick="openReseller(this)"
+                                                    th:attr="data-guid=${ele.getResellerId()}"
+                                                    class="align-items-center d-flex justify-content-around toTranslateAttr"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
+                                            >
+                                                <i class="font-medium-2 text-body primary-colorH"
+                                                   data-feather="eye"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -142,7 +125,7 @@
                     <div class="card-footer">
 
                             <th:block
-                                    th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${resellerPag}, ${resellers.size()} )"/>
+                                    th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${Pagination}, ${elements.size()} )"/>
 
 
                     </div>
@@ -152,7 +135,10 @@
 
         </div>
     </div>
-
+    <form id="openReseller" class="d-none" method="POST"
+          th:object="${guidModel_viewReseller}" th:action="@{${portalURL} + 'reseller'}">
+        <input id="openReseller-value" type="hidden" th:field="*{value}"/>
+    </form>
 </div>
 </th:block>
 <!-- END: Content-->
@@ -166,9 +152,14 @@
     });
 
     function resetForm(formId){
-        //$("#"+formId).trigger("reset");
-        $("#filter-value").val("");
+        $("#filter-resellerName").val("");
         $("#"+formId).submit();
+    }
+
+    function openReseller(that){
+        var resellerId = $(that).attr("data-guid");
+        $("#openReseller-value").val(resellerId);
+        $("#openReseller").submit();
     }
 </script>
 

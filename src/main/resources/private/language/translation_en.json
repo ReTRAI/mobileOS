@@ -159,6 +159,9 @@
 	"api_ClientSupport_getAvailableSupportParent_":"An error occurred getting the available superior's support list.",
 	"api_ClientSupport_getAvailableSupportParent_ex":"An exception occurred getting the available superior's support list.",
 	
+	"api_reseller_noSessionReseller":"There are no resellers in memory.",
+	"api_reseller_noParentSessionReseller":"There are no resellers's history in memory.",
+	
 	"utils_feminine_new":"new",
 	"utils_feminine_news":"news",
 	"utils_filters":"Filters",
@@ -178,6 +181,9 @@
 	"utils_add":"Add",
 	"utils_roles":"Roles",
 	"utils_role":"Role",
+	"utils_devices":"Devices",
+	"utils_device":"Device",
+	"utils_totalDevices":"Total Devices",
 
 	"utils_form_nameId":"Name or Id",
 	"utils_form_nameId_placeholder":"Enter name or id",
@@ -204,6 +210,7 @@
 	"utils_form_oldPassword":"Old password",
 	"utils_form_newPassword":"New password",
 	"utils_form_checkPassword":"Check password",
+	"utils_form_balance":"Balance",
 	
 	"utils_table_id":"Id",
 	"utils_table_name":"Name",
@@ -234,10 +241,10 @@
 	"menu_navBar":"Navbar",
 	"menu_dashboard":"Dashboard",
 	"menu_reseller":"Reseller",
-	"menu_list":"List",
-	"menu_balance":"Bal<br/>ance",
-	"menu_log":"Log",
-	"menu_lookup":"Lookup",
+	"menu_reseller_list":"List",
+	"menu_reseller_balance":"Bal<br/>ance",
+	"menu_reseller_log":"Log",
+	"menu_reseller_lookup":"By User",
 	"menu_devices":"Devices",
 	"menu_wallet":"Wallet",
 	"menu_support":"Support",
@@ -285,9 +292,13 @@
 	"dashboard_activations_val1":"1 Week",
 	"dashboard_activations_val2":"1 Month",
 	"dashboard_activations_val3":"3 Months",
-
-	"reseller_title":"Resellers",
-	"reseller_tab_title":"Portal | Reseller",
+ 
+	"resellers_tab_title":"Portal | Resellers",
+	
+	"resellers_resellers_title":"Resellers",
+	
+	"resellers_reseller_title":"Reseller",
+	"resellers_reseller_invalidReseller":"Invalid Reseller",
 	
 	"devices_title":"Devices",
 	"devices_tab_title":"Portal | Devices",
