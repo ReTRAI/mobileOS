@@ -22,6 +22,10 @@
 	"api_email_alreadyUsed":"Email já em utilização.",
 	"api_nickname_alreadyUsed":"Nome já em utilização.",
 	
+	"api_ClientDashboard_getDashboardByResellerId_noCode":"Ocorreu um erro a obter os dados do dashboard.",
+	"api_ClientDashboard_getDashboardByResellerId_":"Ocorreu um erro a obter os dados do dashboard.",
+	"api_ClientDashboard_getDashboardByResellerId_ex":"Ocorreu uma excepção a obter os dados do dashboard.",
+	
 	"api_ClientUser_changePass_noCode":"Ocorreu um erro a atualizar palavra-chave.",
 	"api_ClientUser_changePass_":"Ocorreu um erro a atualizar palavra-chave.",
 	"api_ClientUser_changePass_ex":"Ocorreu uma excepção a atualizar palavra-chave.",

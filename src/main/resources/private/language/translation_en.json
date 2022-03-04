@@ -22,6 +22,10 @@
 	"api_email_alreadyUsed":"Email already in use.",
 	"api_nickname_alreadyUsed":"Nickname already in use.",
 	
+	"api_ClientDashboard_getDashboardByResellerId_noCode":"An error occurred getting the dashboard values.",
+	"api_ClientDashboard_getDashboardByResellerId_":"An error occurred getting the dashboard values.",
+	"api_ClientDashboard_getDashboardByResellerId_ex":"An exception occurred getting the dashboard values.",
+	
 	"api_ClientUser_changePass_noCode":"An error occurred updating password.",
 	"api_ClientUser_changePass_":"An error occurred updating password.",
 	"api_ClientUser_changePass_ex":"An exception occurred updating password.",

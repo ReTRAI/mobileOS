@@ -4,9 +4,6 @@ import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.client.generated.reseller.*;
 import com.season.portal.client.generated.support.*;
-import com.season.portal.client.generated.user.GetCountUserFilteredResponse;
-import com.season.portal.client.generated.user.GetUserFilteredResponse;
-import com.season.portal.client.generated.user.User;
 import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.client.support.ClientSupport;
 import com.season.portal.client.users.ClientUser;
@@ -38,13 +35,7 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.AL
 @Controller
 public class HierarchyController extends ModelViewBaseController {
     @Autowired
-    private UsersController usersController;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    ClientUser client;
+    UsersController usersController;
 
     @Autowired
     ClientReseller clientReseller;

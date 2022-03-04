@@ -46,7 +46,7 @@
         <div class="content-body">
 
             <!-- -->
-            <section id="dashboard">
+            <section id="dashboard" th:if="${dashboard != null}">
                 <h2 class="toTranslate" data-langKey="dashboard_title">Activations</h2>
                 <div class="card">
                     <div class="card-header d-flex justify-content-between pb-0">
@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val0', '-')}"></h4>
+                                            th:text="${overview.getActive()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_overview_val0">Active</p>
                                     </div>
@@ -78,8 +78,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val1', '-')}">
-                                            230k</h4>
+                                            th:text="${overview.getNotActive()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_overview_val1">Not Active</p>
                                     </div>
@@ -94,8 +93,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val2', '-')}">
-                                            230k</h4>
+                                            th:text="${overview.getFree()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_overview_val2">Free</p>
                                     </div>
@@ -110,7 +108,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(overview, 'val3', '-')}">
+                                            th:text="${overview.getPortalDevices()}">
                                             230k</h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_overview_val3">Free</p>
@@ -136,7 +134,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val0', '-')}"></h4>
+                                            th:text="${inactive.getWiped()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_inactive_val0">Wiped</p>
                                     </div>
@@ -151,8 +149,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val1', '-')}">
-                                            230k</h4>
+                                            th:text="${inactive.getBlocked()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_inactive_val1">Blocked</p>
                                     </div>
@@ -167,8 +164,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val2', '-')}">
-                                            230k</h4>
+                                            th:text="${inactive.getSuspended()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_inactive_val2">Suspended</p>
                                     </div>
@@ -183,8 +179,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(inactive, 'val3', '-')}">
-                                            230k</h4>
+                                            th:text="${inactive.getRemaining()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_inactive_val3">Remaining</p>
                                     </div>
@@ -209,9 +204,9 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val0', '-')}"></h4>
+                                            th:text="${expiring.getRenewed()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_expiring_val0">Active</p>
+                                           data-langKey="dashboard_expiring_val0">Renewed</p>
                                     </div>
                                 </div>
                             </div>
@@ -224,8 +219,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val1', '-')}">
-                                            230k</h4>
+                                            th:text="${expiring.getIn30Days()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_expiring_val1">In 30 Days</p>
                                     </div>
@@ -240,8 +234,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val2', '-')}">
-                                            230k</h4>
+                                            th:text="${expiring.getIn15Days()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_expiring_val2">In 15 Days</p>
                                     </div>
@@ -256,8 +249,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(expiring, 'val3', '-')}">
-                                            230k</h4>
+                                            th:text="${expiring.getIn7Days()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_expiring_val3">In 7 Days</p>
                                     </div>
@@ -282,7 +274,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val0', '-')}"></h4>
+                                            th:text="${activations.getDay()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_activations_val0">24 Hours</p>
                                     </div>
@@ -297,10 +289,9 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val1', '-')}">
-                                            230k</h4>
+                                            th:text="${activations.getWeek()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_activations_val1">3 Week</p>
+                                           data-langKey="dashboard_activations_val1">1 Week</p>
                                     </div>
                                 </div>
                             </div>
@@ -313,8 +304,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val2', '-')}">
-                                            230k</h4>
+                                            th:text="${activations.getMonth()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_activations_val2">1 Month</p>
                                     </div>
@@ -329,8 +319,7 @@
                                     </div>
                                     <div class="my-auto">
                                         <h4 class="fw-bolder mb-0"
-                                            th:text="${T(com.season.portal.utils.Utils).gsbk(activations, 'val3', '-')}">
-                                            230k</h4>
+                                            th:text="${activations.getQuarter()}"></h4>
                                         <p class="card-text font-small-3 mb-0 toTranslate"
                                            data-langKey="dashboard_activations_val3">3 Months</p>
                                     </div>
@@ -355,10 +344,7 @@
     $(window).on('load', function() {
         setupLanguage();
         showInMenu("menu_dashboard");
-
     });
-
-
 
 </script>
 

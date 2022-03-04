@@ -18,6 +18,15 @@ public class PortalConfiguration {
     private String clientUserURI;
     private String clientResellerURI;
     private String clientSupportURI;
+    private String clientDashboardURI;
+
+    public String getClientDashboardURI() {
+        return clientDashboardURI;
+    }
+
+    public void setClientDashboardURI(String clientDashboardURI) {
+        this.clientDashboardURI = clientDashboardURI;
+    }
 
     public String getClientSupportURI() {
         return clientSupportURI;

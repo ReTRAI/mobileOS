@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 public class ModelViewBaseController {
     @Autowired
-    private HttpServletRequest request;
+    protected HttpServletRequest request;
 
     @Autowired
     protected PortalConfiguration portalConfig;

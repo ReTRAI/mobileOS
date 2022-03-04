@@ -219,7 +219,6 @@ public class Utils {
         }
         return result;
     }
-
     public static ArrayList<UserRoleModel> supportToUserRole(ArrayList<Support> elements) {
         ArrayList<UserRoleModel> result = new ArrayList<>();
         if(elements != null){
