@@ -1,6 +1,6 @@
 package com.season.portal.utils.model;
 
-public class StringModel extends PageModel {
+public class StringModel{
     private String value;
 
     public String getValue() {
@@ -16,15 +16,6 @@ public class StringModel extends PageModel {
     }
 
     public StringModel(String value) {
-        this.value = value;
-    }
-
-    public StringModel(Integer numPerPage) {
-        super(0, numPerPage);
-    }
-
-    public StringModel(String value, Integer offset, Integer numPerPage) {
-        super(offset, numPerPage);
         this.value = value;
     }
 }

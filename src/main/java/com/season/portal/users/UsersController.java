@@ -99,7 +99,6 @@ public class UsersController extends ModelViewBaseController {
 
         Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
 
-
         mv.addObject("elements", elements);
         mv.addObject("Pagination", pagination);
         mv.addObject("usersListPageModel", model);

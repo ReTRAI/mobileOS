@@ -30,22 +30,9 @@ public class DeviceController extends ModelViewBaseController {
     }
     private ModelAndView devicesView(DevicePageModel model){
         ModelAndView mv = new ModelAndView("devices/devices");
-
-        ArrayList<Device> devices = new ArrayList<Device>();
-        int totalElements = 47;
-
-        Pagination devicesPag = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
-
-        int max = devicesPag.getOffset()+model.getNumPerPage();
-        max = (max > totalElements)?totalElements:max;
-
-
-        for(int i = devicesPag.getOffset()+1; i <= max; i++) {
-            devices.add(new Device( i+"", true, false, false, true, false, new Date()));
-        }
-
+/*
         mv.addObject("devices", devices);
-        mv.addObject("Pagination", devicesPag);
+        mv.addObject("Pagination", devicesPag);*/
         mv.addObject("devicePageModel", model);
         mv.addObject("guidModel", new GuidModel());
         return dispatchView(mv);
@@ -64,9 +51,11 @@ public class DeviceController extends ModelViewBaseController {
 
     private ModelAndView deviceView(GuidModel model){
         ModelAndView mv = new ModelAndView("devices/device");
+/*
 
         Device d = new Device(model.getValue(), true, false, false, true, false, new Date());
         mv.addObject("device", d);
+*/
 
         return dispatchView(mv);
     }

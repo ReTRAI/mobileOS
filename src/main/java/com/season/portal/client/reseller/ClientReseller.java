@@ -2,10 +2,6 @@ package com.season.portal.client.reseller;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.client.generated.reseller.*;
-import com.season.portal.client.generated.support.RemoveSupportResponse;
-import com.season.portal.client.generated.support.SetSupportResponse;
-import com.season.portal.client.generated.support.Support;
-import com.season.portal.client.generated.user.ActivateUserResponse;
 import com.season.portal.reseller.ResellerListPageModel;
 import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
@@ -219,7 +215,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
                 case "":
                     PortalApplication.addErrorKey("api_ClientReseller_getParent_noCode");
                     break;
-                case "ASSOCIATION_DONT_EXISTS":
+                case "ASSOCIATION_DONT_EXIST":
                     if(addMsg_dontExist)
                         PortalApplication.addErrorKey("api_ClientReseller_getParent_"+code);
                     break;
@@ -228,7 +224,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
                     break;
             }
 
-            if(code.equals("ASSOCIATION_DONT_EXISTS")){
+            if(code.equals("ASSOCIATION_DONT_EXIST")){
                 if(addMsg_dontExist)
                     PortalApplication.log(LOGGER, soapEx, code);
             }else{
@@ -411,5 +407,52 @@ public class ClientReseller extends WebServiceGatewaySupport{
 
         return response;
     }
+
+
+    public IsHierarchyValidResponse isHierarchyValid(String parentResellerId, String childResellerId){
+        IsHierarchyValidRequest request = new IsHierarchyValidRequest();
+        request.setResellerId(parentResellerId);
+        request.setChildResellerId(childResellerId);
+
+        IsHierarchyValidResponse response = null;
+        try {
+            response = (IsHierarchyValidResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            switch(code){
+                case "":
+                    PortalApplication.addErrorKey("api_ClientReseller_isHierarchyValid_noCode");
+                    break;
+                default:
+                    PortalApplication.addErrorKey("api_ClientReseller_isHierarchyValid_"+code);
+                    break;
+            }
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_isHierarchyValid_ex");
+        }
+
+        return response;
+    }
+
+    public boolean validateIsHierarchyValid(IsHierarchyValidResponse response, boolean addErrorMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+            }
+            else if(addErrorMsg){
+                PortalApplication.addErrorKey("api_ClientReseller_validateIsHierarchyValid_error");
+            }
+        }
+        return valid;
+    }
+
 }
 

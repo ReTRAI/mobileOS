@@ -348,6 +348,23 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- isHierarchyValid-->
+    <xs:element name="isHierarchyValidRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supportId" type="xs:string"/>
+                <xs:element name="childSupportId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="isHierarchyValidResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- Endpoint Support Object-->
     <xs:complexType name="support">
         <xs:sequence>
@@ -482,6 +499,10 @@
     <wsdl:part element="tns:updateTicketResponse" name="updateTicketResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="isHierarchyValidResponse">
+    <wsdl:part element="tns:isHierarchyValidResponse" name="isHierarchyValidResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getAvailableSupportParentResponse">
     <wsdl:part element="tns:getAvailableSupportParentResponse" name="getAvailableSupportParentResponse">
     </wsdl:part>
@@ -524,6 +545,10 @@
   </wsdl:message>
   <wsdl:message name="removeSupportAssociationResponse">
     <wsdl:part element="tns:removeSupportAssociationResponse" name="removeSupportAssociationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isHierarchyValidRequest">
+    <wsdl:part element="tns:isHierarchyValidRequest" name="isHierarchyValidRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="setTicketDetailResponse">
@@ -631,6 +656,12 @@
       <wsdl:input message="tns:setSupportAssociationRequest" name="setSupportAssociationRequest">
     </wsdl:input>
       <wsdl:output message="tns:setSupportAssociationResponse" name="setSupportAssociationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isHierarchyValid">
+      <wsdl:input message="tns:isHierarchyValidRequest" name="isHierarchyValidRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:isHierarchyValidResponse" name="isHierarchyValidResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getCountTicketDetailFiltered">
@@ -792,6 +823,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="setSupportAssociationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isHierarchyValid">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="isHierarchyValidRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="isHierarchyValidResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

@@ -15,4 +15,6 @@ public @interface IDateValidatorConstrain {
     String message() default "utils_form_date_invalid";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+
+    boolean required() default false;
 }

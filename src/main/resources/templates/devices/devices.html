@@ -158,11 +158,11 @@
                                                        data-langKey="utils_form_status">Status</label>
                                                 <select id="filter-state" class="form-select" th:field="*{state}">
                                                     <option value="" class="toTranslate" data-langKey="utils_all"></option>
-                                                    <option th:value="active" class="toTranslate" data-langKey="api_deviceState_active"></option>
-                                                    <option th:value="free" class="toTranslate" data-langKey="api_deviceState_free"></option>
-                                                    <option th:value="wiped" class="toTranslate" data-langKey="api_deviceState_wiped"></option>
-                                                    <option th:value="blocked" class="toTranslate" data-langKey="api_deviceState_blocked"></option>
-                                                    <option th:value="suspended" class="toTranslate" data-langKey="api_deviceState_suspended"></option>
+                                                    <option th:value="active" class="toTranslate" data-langKey="api_deviceStatus_active"></option>
+                                                    <option th:value="free" class="toTranslate" data-langKey="api_deviceStatus_free"></option>
+                                                    <option th:value="wiped" class="toTranslate" data-langKey="api_deviceStatus_wiped"></option>
+                                                    <option th:value="blocked" class="toTranslate" data-langKey="api_deviceStatus_blocked"></option>
+                                                    <option th:value="suspended" class="toTranslate" data-langKey="api_deviceStatus_suspended"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -191,11 +191,11 @@
                             <thead>
                                 <tr>
                                     <th class="toTranslate" data-langKey="utils_table_id">Id</th>
-                                    <th class="toTranslate text-center" data-langKey="api_deviceState_active">Active</th>
-                                    <th class="toTranslate text-center" data-langKey="api_deviceState_free">Free</th>
-                                    <th class="toTranslate text-center" data-langKey="api_deviceState_wiped">Wiped</th>
-                                    <th class="toTranslate text-center" data-langKey="api_deviceState_blocked">Blocked</th>
-                                    <th class="toTranslate text-center" data-langKey="api_deviceState_suspended">Suspended</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceStatus_active">Active</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceStatus_free">Free</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceStatus_wiped">Wiped</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceStatus_blocked">Blocked</th>
+                                    <th class="toTranslate text-center" data-langKey="api_deviceStatus_suspended">Suspended</th>
 
                                     <th class="sorting toTranslate text-center" data-langKey="utils_table_expireDate"
                                         th:with="sortName='expireDate'"

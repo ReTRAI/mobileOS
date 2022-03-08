@@ -10,6 +10,8 @@ import java.util.Collection;
 
 public class ClientUserDetails implements UserDetails {
     private String userId;
+    private String supportId;
+    private String resellerId;
     private String userName;
     private String userEmail;
     private ArrayList<GrantedAuthority> authorities;
@@ -93,5 +95,21 @@ public class ClientUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return Enabled;
+    }
+
+    public String getSupportId() {
+        return supportId;
+    }
+
+    public void setSupportId(String supportId) {
+        this.supportId = supportId;
+    }
+
+    public String getResellerId() {
+        return resellerId;
+    }
+
+    public void setResellerId(String resellerId) {
+        this.resellerId = resellerId;
     }
 }

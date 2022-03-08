@@ -213,7 +213,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
                 case "":
                     PortalApplication.addErrorKey("api_ClientSupport_getParent_noCode");
                     break;
-                case "ASSOCIATION_DONT_EXISTS":
+                case "ASSOCIATION_DONT_EXIST":
                     if(addMsg_dontExist){
                         PortalApplication.addErrorKey("api_ClientSupport_getParent_"+code);
                     }
@@ -223,7 +223,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
                     PortalApplication.addErrorKey("api_ClientSupport_getParent_"+code);
                     break;
             }
-            if(code.equals("ASSOCIATION_DONT_EXISTS")){
+            if(code.equals("ASSOCIATION_DONT_EXIST")){
                 if(addMsg_dontExist)
                     PortalApplication.log(LOGGER, soapEx, code);
             }else{
@@ -408,6 +408,50 @@ public class ClientSupport extends WebServiceGatewaySupport{
         return response;
     }
 
+    public IsHierarchyValidResponse isHierarchyValid(String parentSupportId, String childSupportId){
+        IsHierarchyValidRequest request = new IsHierarchyValidRequest();
+        request.setSupportId(parentSupportId);
+        request.setChildSupportId(childSupportId);
+
+        IsHierarchyValidResponse response = null;
+        try {
+            response = (IsHierarchyValidResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            switch(code){
+                case "":
+                    PortalApplication.addErrorKey("api_ClientSupport_isHierarchyValid_noCode");
+                    break;
+                default:
+                    PortalApplication.addErrorKey("api_ClientSupport_isHierarchyValid_"+code);
+                    break;
+            }
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_isHierarchyValid_ex");
+        }
+
+        return response;
+    }
+
+    public boolean validateIsHierarchyValid(IsHierarchyValidResponse response, boolean addErrorMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+            }
+            else if(addErrorMsg){
+                PortalApplication.addErrorKey("api_ClientSupport_validateIsHierarchyValid_error");
+            }
+        }
+        return valid;
+    }
 
 }
 

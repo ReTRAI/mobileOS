@@ -82,17 +82,17 @@
                             <thead>
                             <tr>
                                 <th class="sorting toTranslate" data-langKey="utils_table_name"
-                                    th:with="sortName='name'"
+                                    th:with="sortName='userName'"
                                     th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                     th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Name</th>
                                 <th class="sorting toTranslate text-center" data-langKey="utils_table_balance"
-                                    th:with="sortName='balance'"
+                                    th:with="sortName='currentBalance'"
                                     th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                     th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Balance</th>
                                 <th class="sorting toTranslate text-center" data-langKey="utils_table_devices"
-                                    th:with="sortName='devices'"
+                                    th:with="sortName='totalDevices'"
                                     th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                     th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Devices</th>
@@ -136,7 +136,7 @@
         </div>
     </div>
     <form id="openReseller" class="d-none" method="POST"
-          th:object="${guidModel_viewReseller}" th:action="@{${portalURL} + 'reseller'}">
+          th:object="${guidRequiredModel_viewReseller}" th:action="@{${portalURL} + 'openReseller'}">
         <input id="openReseller-value" type="hidden" th:field="*{value}"/>
     </form>
 </div>

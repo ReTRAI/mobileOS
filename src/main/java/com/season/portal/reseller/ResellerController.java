@@ -3,7 +3,11 @@ package com.season.portal.reseller;
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.auth.admin.AdminController;
+import com.season.portal.client.device.ClientDevice;
 import com.season.portal.client.generated.dashboard.GetDashboardByResellerIdResponse;
+import com.season.portal.client.generated.device.Device;
+import com.season.portal.client.generated.device.GetCountDevicesFilteredResponse;
+import com.season.portal.client.generated.device.GetDevicesFilteredResponse;
 import com.season.portal.client.generated.reseller.*;
 import com.season.portal.client.generated.support.GetCountSupportFilteredResponse;
 import com.season.portal.client.generated.support.GetSupportByUserIdResponse;
@@ -11,6 +15,8 @@ import com.season.portal.client.generated.support.GetSupportParentByChildIdRespo
 import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.*;
 import com.season.portal.client.reseller.ClientReseller;
+import com.season.portal.devices.DeviceListPageModel;
+import com.season.portal.devices.SimpleDeviceModel;
 import com.season.portal.support.SupportListPageModel;
 import com.season.portal.users.UserRoleModel;
 import com.season.portal.users.UsersListPageModel;
@@ -39,9 +45,12 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.*;
 public class ResellerController extends ModelViewBaseController {
     @Autowired
     ClientReseller clientReseller;
+    @Autowired
+    ClientDevice clientDevice;
+
 
     private String SESSION_RESELLER_CONTROLLER_LIST_MODEL = "SESSION_RESELLER_CONTROLLER_LIST_MODEL";
-    private String SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY = "SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY";
+    private String SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY = "SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY";
 
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
@@ -74,7 +83,6 @@ public class ResellerController extends ModelViewBaseController {
 
         Reseller r = getPrincipalReseller(clientReseller);
         if(r != null) {
-            boolean onlyChildren = true;
             String resellerId = r.getResellerId();
             if(request.isUserInRole("ROLE_ADMIN")){
                 HttpSession session = request.getSession(true);
@@ -84,7 +92,7 @@ public class ResellerController extends ModelViewBaseController {
             }
 
             model.setResellerId(resellerId);
-            model.setOnlyChildren(onlyChildren);
+            model.setOnlyChildren(true);
             GetCountResellerFilteredResponse responseCount = clientReseller.countResellerFiltered(model);
             if(responseCount != null){
                 totalElements = responseCount.getResult();
@@ -103,99 +111,135 @@ public class ResellerController extends ModelViewBaseController {
         mv.addObject("elements", elements);
         mv.addObject("Pagination", pagination);
         mv.addObject("resellerListPageModel", model);
-        mv.addObject("guidModel_viewReseller", new GuidRequiredModel());
+        //mv.addObject("deviceListPageModel_viewReseller", new DeviceListPageModel());
+        mv.addObject("guidRequiredModel_viewReseller", new GuidRequiredModel());
 
         return dispatchView(mv);
     }
 
 
-
-    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
-    @PostMapping("/reseller")
-    public ModelAndView reseller(@Valid GuidModel model, BindingResult result) {
+    @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
+    @PostMapping("/openReseller")
+    public ModelAndView openReseller(@Valid GuidRequiredModel model, BindingResult result) {
         if(!result.hasErrors()){
             HttpSession session = request.getSession(true);
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY, new ArrayList<Reseller>());
-            return resellerViewById(model.getValue());
+            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, new ArrayList<DeviceListPageModel>());
+            DeviceListPageModel m = new DeviceListPageModel();
+            m.setResellerId(model.getValue());
+            return resellerView(m);
 
         }
         return resellerView(null);
     }
 
-    public ModelAndView resellerViewById(String resellerId){
+    private DeviceListPageModel getRemoveLast_DeviceListPageModel(){
+        HttpSession session = request.getSession(true);
+        ArrayList<DeviceListPageModel> viewedModels = (ArrayList<DeviceListPageModel>)session.getAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY);
+        DeviceListPageModel last = null;
+        if (viewedModels == null){
+            viewedModels = new ArrayList<DeviceListPageModel>();
+            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
+            PortalApplication.addErrorKey("api_session_invalidModel");
+        }
+        else if(viewedModels.size()>0){
+            last = viewedModels.remove(viewedModels.size()-1);
+            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
+        }
+        else{
+            PortalApplication.addErrorKey("api_reseller_noSessionReseller");
+        }
+        return last;
+    }
 
-        GetResellerByIdResponse response = clientReseller.getResellerById(resellerId);
-        if(response != null){
-            return resellerView(response.getReseller());
+    @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
+    @GetMapping("/reseller")
+    public ModelAndView reseller(@Valid DeviceListPageModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            DeviceListPageModel prevModel = getRemoveLast_DeviceListPageModel();
+            model.setResellerId(prevModel.getResellerId());
+            return resellerView(model);
         }
         return resellerView(null);
     }
+
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @GetMapping("/resellers/resellerHistory")
     public ModelAndView resellerParentViewBySession(){
         HttpSession session = request.getSession(true);
-        ArrayList<Reseller> viewedResellers = (ArrayList<Reseller>)session.getAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY);
-        Reseller reseller = null;
-        int size = viewedResellers.size();
-        if (viewedResellers == null){
-            viewedResellers = new ArrayList<Reseller>();
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY, viewedResellers);
+        ArrayList<DeviceListPageModel> viewedModels = (ArrayList<DeviceListPageModel>)session.getAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY);
+        DeviceListPageModel model = null;
+        int size = viewedModels.size();
+        if (viewedModels == null){
+            viewedModels = new ArrayList<DeviceListPageModel>();
+            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
             PortalApplication.addErrorKey("api_session_invalidModel");
         }
         else if(size > 1){//The Parent
-            viewedResellers.remove(size-1);//The Last sawed
-            reseller = viewedResellers.remove(size-2);//The Parent
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY, viewedResellers);
+            viewedModels.remove(size-1);//The Last sawed
+            model = viewedModels.remove(size-2);//The Parent
+            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
         }
         else if(size == 1){//The Last sawed
-            reseller = viewedResellers.remove(size-1);
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY, viewedResellers);
+            model = viewedModels.remove(size-1);
+            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
             PortalApplication.addErrorKey("api_reseller_noParentSessionReseller");
         }
         else{
             PortalApplication.addErrorKey("api_reseller_noSessionReseller");
         }
 
-        return resellerView(reseller);
+        return resellerView(model);
     }
-
 
     public ModelAndView resellerViewBySession(){
-        HttpSession session = request.getSession(true);
-        ArrayList<Reseller> viewedResellers = (ArrayList<Reseller>)session.getAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY);
-        Reseller lastReseller = null;
-        if (viewedResellers == null){
-            viewedResellers = new ArrayList<Reseller>();
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY, viewedResellers);
-            PortalApplication.addErrorKey("api_session_invalidModel");
-        }
-        else if(viewedResellers.size()>0){
-            lastReseller = viewedResellers.remove(viewedResellers.size()-1);
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY, viewedResellers);
-        }
-        else{
-            PortalApplication.addErrorKey("api_reseller_noSessionReseller");
-        }
 
-        return resellerView(lastReseller);
+        return resellerView(getRemoveLast_DeviceListPageModel());
     }
 
-    private ModelAndView resellerView(Reseller reseller){
+    private ModelAndView resellerView(DeviceListPageModel model){
         ModelAndView mv = new ModelAndView("reseller/view");
-        mv.addObject("Reseller", reseller);
+        Reseller reseller = null;
 
-        HttpSession session = request.getSession(true);
-        ArrayList<Reseller> viewedResellers = (ArrayList<Reseller>)session.getAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY);
-        if(viewedResellers == null){
-            viewedResellers = new ArrayList<Reseller>();
+        GetResellerByIdResponse response = clientReseller.getResellerById(model.getResellerId());
+        if(response != null){
+            reseller = response.getReseller();
         }
-        mv.addObject("resellerHistory", (viewedResellers.size() > 0));
 
-
+        mv.addObject("Reseller", reseller);
         if(reseller != null){
-            viewedResellers.add(reseller);
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLERS_HISTORY, viewedResellers);
+            if(principalCanSee(clientReseller, reseller)){
+                HttpSession session = request.getSession(true);
+                ArrayList<DeviceListPageModel> viewedModels = (ArrayList<DeviceListPageModel>)session.getAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY);
+                if(viewedModels == null){
+                    viewedModels = new ArrayList<DeviceListPageModel>();
+                }
+                mv.addObject("resellerHistory", (viewedModels.size() > 0));
+                viewedModels.add(model);
+                session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
+
+                ArrayList<SimpleDeviceModel> elements = new ArrayList<SimpleDeviceModel>();
+                long totalElements = 0;
+
+                GetCountDevicesFilteredResponse responseCount = clientDevice.countDeviceFiltered(model);
+                if(responseCount != null){
+                    totalElements = responseCount.getResult();
+                    if(totalElements>0){
+                        GetDevicesFilteredResponse responseDevices = clientDevice.getDeviceFiltered(model);
+                        if(responseDevices != null){
+                            ArrayList<Device> devices = new ArrayList(responseDevices.getDevice());
+                            elements = Utils.resellerToSimpleDeviceModel(devices);
+                        }
+                    }
+                }
+
+                Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
+
+                mv.addObject("elements", elements);
+                mv.addObject("Pagination", pagination);
+                mv.addObject("deviceListPageModel", model);
+                mv.addObject("guidModel_openDevice", new GuidRequiredModel());
+            }
         }
 
         return dispatchView(mv);

@@ -2,9 +2,11 @@ package com.season.portal.utils;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
+import com.season.portal.client.generated.device.Device;
 import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.UserRole;
+import com.season.portal.devices.SimpleDeviceModel;
 import com.season.portal.users.UserRoleModel;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -224,6 +226,17 @@ public class Utils {
         if(elements != null){
             for(Support e:elements){
                 UserRoleModel u = new UserRoleModel(e);
+                result.add(u);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<SimpleDeviceModel> resellerToSimpleDeviceModel(ArrayList<Device> elements) {
+        ArrayList<SimpleDeviceModel> result = new ArrayList<SimpleDeviceModel>();
+        if(elements != null){
+            for(Device e:elements){
+                SimpleDeviceModel u = new SimpleDeviceModel(e);
                 result.add(u);
             }
         }

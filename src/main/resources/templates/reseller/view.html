@@ -7,12 +7,11 @@
 <!-- BEGIN: Head-->
 
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/tables/datatable/dataTables.bootstrap5.min.css}" />
     <th:block th:replace="shared/common :: common-style"/>
 
     <style>
-        .roleName:not(:last-child)::after{
-            content:", ";
-        }
+
     </style>
 
     <title class="toTranslate" data-langKey="resellers_tab_title">Portal</title>
@@ -33,6 +32,7 @@
 
 
 <!-- BEGIN: Content-->
+<th:block th:with="baseUrl=${portalURL + 'reseller'}, queryUrl=${#httpServletRequest.queryString}">
 <div class="app-content content ">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -71,7 +71,7 @@
                     </ul>
                 <th:block th:replace="shared/header :: headerTitle2"/>
 
-                <div class="card">
+                <div class="card" >
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 col-12 mb-1">
@@ -98,8 +98,62 @@
                     <div class="card-header d-flex justify-content-between pb-0 mb-1">
                         <h4 class="card-title toTranslate" data-langKey="utils_devices">Devices</h4>
                     </div>
-                    <div class="card-body" >
 
+                    <div class="table-responsive dataTables_wrapper">
+                        <table class="table table-striped dataTable ">
+                            <thead>
+                            <tr>
+                                <th class="sorting toTranslate" data-langKey="utils_table_status"
+                                    th:with="sortName='deviceStatus'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                >Status</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_creationDate"
+                                    th:with="sortName='creationDate'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                >Creation</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_activationDate"
+                                    th:with="sortName='activationDate'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                >Activation</th>
+                                <th class="sorting toTranslate text-center" data-langKey="utils_table_expireDate"
+                                    th:with="sortName='expirationDate'"
+                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                >Expiration</th>
+                                <th class="toTranslate text-center" data-langKey="utils_table_actions">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="ele : ${elements}">
+                                <td class="tac toTranslate" th:attr="data-langKey=${'api_deviceStatus_'+ele.getDeviceStatus()}"></td>
+                                <td class="text-center" th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getCreationDate())}"></td>
+                                <td class="text-center" th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getActivationDate())}"></td>
+                                <td class="text-center" th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getExpireDate())}"></td>
+                                <td class="actions">
+                                    <div class="d-flex align-items-center justify-content-around">
+                                        <button type="button" onclick="openDevice(this)"
+                                                th:attr="data-guid=${ele.getDeviceId()}"
+                                                class="align-items-center d-flex justify-content-around toTranslateAttr"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
+                                        >
+                                            <i class="font-medium-2 text-body primary-colorH"
+                                               data-feather="eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+
+                        <th:block
+                                th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${Pagination}, ${elements.size()} )"/>
                     </div>
                 </div>
 
@@ -107,9 +161,12 @@
 
         </div>
     </div>
-
+    <form id="openDevice" class="d-none" method="POST"
+          th:object="${guidModel_openDevice}" th:action="@{${portalURL} + 'device'}">
+        <input id="openDevice-value" type="hidden" th:field="*{value}"/>
+    </form>
 </div>
-
+</th:block>
 
 <th:block th:replace="shared/confirmModal :: confirmModal"/>
 <!-- END: Content-->
@@ -123,59 +180,21 @@
         showInMenu("menu_reseller_list");
         confirmModal_init();
     });
-
-    function openActivateModal(){
-        confirmModal_open("users_user_activateTitle", "", "users_user_activateUser", "utils_cancel", openActivateModalHandler, confirmModal_close);
-        $(".tooltip").remove();
-    }
-    function openActivateModalHandler(){
-        $("#formActivate").submit();
-    }
-
-    function openInactivateModal(){
-        confirmModal_open("users_user_inactivateTitle", "", "users_user_inactivateUser", "utils_cancel", openInactivateModalHandler, confirmModal_close);
-    }
-    function openInactivateModalHandler(){
-        $("#formInactivate").submit();
+    function resetForm(formId){
+        $("#filter-nickname").val("");
+        $("#filter-email").val("");
+        $("#filter-status").val("");
+        $("#filter-startDate").val("");
+        $("#filter-endDate").val("");
+        $("#"+formId).submit();
     }
 
-    function openUnblockModal(){
-        confirmModal_open("users_user_unblockTitle", "", "users_user_unblockUser", "utils_cancel", openUnblockModalHandler, confirmModal_close);
-    }
-    function openUnblockModalHandler(){
-        $("#formUnblock").submit();
-    }
-
-
-
-    function openRemoveResellerModal(){
-        confirmModal_open("users_user_removeResellerTitle", "", "utils_remove", "utils_cancel", openRemoveResellerModalHandler, confirmModal_close);
-    }
-    function openRemoveResellerModalHandler(){
-        $("#formRemoveReseller").submit();
+    function openUser(that){
+        var guid = $(that).attr("data-guid");
+        $("#openDevice-value").val(guid);
+        $("#openDevice").submit();
     }
 
-    function openRemoveSupportModal(){
-        confirmModal_open("users_user_removeSupportTitle", "", "utils_remove", "utils_cancel", openRemoveSupportModalHandler, confirmModal_close);
-    }
-    function openRemoveSupportModalHandler(){
-        $("#formRemoveSupport").submit();
-    }
-
-
-    function openRemoveParentResellerModal(){
-        confirmModal_open("users_user_removeParentResellerTitle", "", "utils_remove", "utils_cancel", openRemoveParentResellerModalHandler, confirmModal_close);
-    }
-    function openRemoveParentResellerModalHandler(){
-        $("#formRemoveParentReseller").submit();
-    }
-
-    function openRemoveParentSupportModal(){
-        confirmModal_open("users_user_removeParentSupportTitle", "", "utils_remove", "utils_cancel", openRemoveParentSupportModalHandler, confirmModal_close);
-    }
-    function openRemoveParentSupportModalHandler(){
-        $("#formRemoveParentSupport").submit();
-    }
 
 </script>
 

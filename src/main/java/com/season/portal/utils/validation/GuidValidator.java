@@ -31,7 +31,7 @@ public class GuidValidator implements ConstraintValidator<IGuidValidatorConstrai
             return false;
 
         //If not required no further validation
-        if(s.isEmpty())
+        if(s == null || s.isEmpty())
             return true;
         
         return isGuid(s, context);
