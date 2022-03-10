@@ -4,7 +4,6 @@
 <!-- BEGIN: Head-->
 
 <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/css/tables/datatable/dataTables.bootstrap5.min.css}" />
     <th:block th:replace="shared/common :: common-style"/>
 
 
@@ -31,7 +30,6 @@
 
 
 <!-- BEGIN: Content-->
-<th:block th:with="baseUrl=${#httpServletRequest.requestURI}, queryUrl=${#httpServletRequest.queryString}">
 <div class="app-content content ">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -43,21 +41,21 @@
         <div class="content-body">
             <!-- -->
             <section id="reseller">
-                <h2 class="toTranslate" data-langKey="resellers_resellers_title">Resellers</h2>
+                <h2 class="toTranslate" data-langKey="resellers_lookup_title">Find reseller by device</h2>
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
                     </div>
                     <div class="card-body">
-                        <form id="filters" th:object="${resellerListPageModel}" class="form" method="get" th:action="@{/resellers}">
+                        <form id="filters" th:object="${stringModel}" class="form" method="get" th:action="@{${portalURL} + 'reseller/lookup'}">
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-resellerName" data-langKey="utils_form_name">Name or Id</label>
-                                        <input id="filter-resellerName" type="text" class="form-control toTranslateInput"
+                                        <label class="form-label toTranslate" for="filter-value" data-langKey="utils_form_name">Name</label>
+                                        <input id="filter-value" type="text" class="form-control toTranslateInput"
                                                data-langKey="utils_form_name_placeholder"
-                                               placeholder="Enter reseller name or id"
-                                               th:field="*{resellerName}">
+                                               placeholder="Enter name"
+                                               th:field="*{value}">
                                     </div>
                                 </div>
 
@@ -76,44 +74,40 @@
                             </div>
                         </form>
                     </div>
-                    <div class="table-responsive dataTables_wrapper">
+                    <div class="table-responsive dataTables_wrapper" th:if="${Reseller != null}">
                         <table class="table table-striped dataTable ">
                             <thead>
                             <tr>
                                 <th class="sorting toTranslate" data-langKey="utils_table_name"
-                                    th:with="sortName='userName'"
-                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Name</th>
                                 <th class="sorting toTranslate text-end" data-langKey="utils_table_balance"
-                                    th:with="sortName='currentBalance'"
-                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Balance</th>
                                 <th class="sorting toTranslate text-end" data-langKey="utils_table_devices"
-                                    th:with="sortName='totalDevices'"
-                                    th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
-                                    th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Devices</th>
-                                <th class="toTranslate text-center" data-langKey="utils_table_actions">Actions</th>
+                                <th class="toTranslate text-center" data-langKey="utils_table_actions"
+                                    th:if="${principalIsParent}"
+                                    >Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="ele : ${elements}">
-                                    <td th:text="${ele.getResellerName()}"></td>
-                                    <td class="text-end" th:text="${ele.getCurrentBalance()+'$'}"></td>
-                                    <td class="text-end" th:text="${ele.getTotalDevices()}"></td>
-                                    <td class="actions">
+                                <tr>
+                                    <td th:text="${Reseller.getResellerName()}"></td>
+                                    <td class="text-end" th:text="${Reseller.getCurrentBalance()+'$'}"></td>
+                                    <td class="text-end" th:text="${Reseller.getTotalDevices()}"></td>
+                                    <td class="actions" th:if="${principalIsParent}">
                                         <div class="d-flex align-items-center justify-content-around">
-                                            <button type="button" onclick="openReseller(this)"
-                                                    th:attr="data-guid=${ele.getResellerId()}"
-                                                    class="align-items-center d-flex justify-content-around toTranslateAttr"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
-                                            >
-                                                <i class="font-medium-2 text-body primary-colorH"
-                                                   data-feather="eye"></i>
-                                            </button>
+                                            <form id="openReseller" class="" method="POST"
+                                                  th:object="${guidRequiredModel_viewReseller}" th:action="@{${portalURL} + 'openReseller'}">
+                                                <input id="openReseller-value" type="hidden" th:field="*{value}" th:value="${Reseller.getResellerId()}"/>
+                                                <button type="submit"
+                                                        class="align-items-center d-flex justify-content-around toTranslateAttr"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
+                                                >
+                                                    <i class="font-medium-2 text-body primary-colorH"
+                                                       data-feather="eye"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -121,25 +115,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer">
-
-                            <th:block
-                                    th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${Pagination}, ${elements.size()} )"/>
-
-
-                    </div>
                 </div>
 
             </section>
 
         </div>
     </div>
-    <form id="openReseller" class="d-none" method="POST"
-          th:object="${guidRequiredModel_viewReseller}" th:action="@{${portalURL} + 'openReseller'}">
-        <input id="openReseller-value" type="hidden" th:field="*{value}"/>
-    </form>
+
 </div>
-</th:block>
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
@@ -147,18 +130,12 @@
 <script>
     $(window).on('load', function() {
         setupLanguage();
-        showInMenu("menu_reseller_list");
+        showInMenu("menu_reseller_lookup");
     });
 
     function resetForm(formId){
-        $("#filter-resellerName").val("");
+        $("#filter-value").val("");
         $("#"+formId).submit();
-    }
-
-    function openReseller(that){
-        var resellerId = $(that).attr("data-guid");
-        $("#openReseller-value").val(resellerId);
-        $("#openReseller").submit();
     }
 </script>
 

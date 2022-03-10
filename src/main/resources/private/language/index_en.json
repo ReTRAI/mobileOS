@@ -9,7 +9,7 @@
 	"api_CustomAuthenticationProvider_authenticate_noRoles":"No role to login ",
 
 	"api_login_invalid_certificate": "Invalid certificate.",
-	"api_login_invalid_mismatch": "User mismatch.",
+	"api_login_invalid_mismatch": "User certificate mismatch.",
 	"api_logout_success": "Successfully logged out.",
 	"api_login_invalid_session": "An error occurred creating the session.",
 

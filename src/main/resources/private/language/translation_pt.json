@@ -120,6 +120,9 @@
 	"api_ClientReseller_isHierarchyValid_":"Ocorreu um erro a validar a hierarquia do revendedor.",
 	"api_ClientReseller_isHierarchyValid_ex":"Ocorreu uma excepção a validar a hierarquia do revendedor.",
 	"api_ClientReseller_validateIsHierarchyValid_error":"Hierarquia inválida.",
+	"api_ClientReseller_getResellerByUserDeviceName_noCode":"Ocorreu um erro a obter o revendedor pelo utilizador do dispositivo.",
+	"api_ClientReseller_getResellerByUserDeviceName_USERDEVICE_DONT_EXIST":"Nome do utilizador do dispositivo inválido.",
+	"api_ClientReseller_getResellerByUserDeviceName_ex":"Ocorreu uma excepção a obter o revendedor pelo utilizador do dispositivo.",
 	
 	"api_ClientSupport_setSupport_noCode":"Ocorreu um erro a adicionar o suporte.",
 	"api_ClientSupport_setSupport_":"Ocorreu um erro a adicionar o suporte.",
@@ -165,7 +168,7 @@
 	"api_ClientSupport_isHierarchyValid_noCode":"Ocorreu um erro a validar a hierarquia do suporte.",
 	"api_ClientSupport_isHierarchyValid_":"Ocorreu um erro a validar a hierarquia do suporte.",
 	"api_ClientSupport_isHierarchyValid_ex":"Ocorreu uma excepção a validar a hierarquia do suporte.",
-	"api_ClientSupport_validateIsHierarchyValid_error":"Não é superior deste suporte.",
+	"api_ClientSupport_validateIsHierarchyValid_error":"Hierarquia inválida.",
 	
 	"api_ClientDevice_countDeviceFiltered_noCode":"Ocorreu um erro a contar a lista de dispositivos.",
 	"api_ClientDevice_countDeviceFiltered_":"Ocorreu um erro a contar a lista de dispositivos.",
@@ -199,9 +202,13 @@
 	"utils_devices":"Dispositivos",
 	"utils_device":"Dispositivo",
 	"utils_totalDevices":"Total Dispositivos",
+	"utils_viewChilds":"Ver filhos",
+	"utils_back_parent":"Voltar ao superior",
 
 	"utils_form_nameId":"Nome ou Id",
 	"utils_form_nameId_placeholder":"Insira o nome ou id",
+	"utils_form_name":"Nome",
+	"utils_form_name_placeholder":"Insira o nome",
 	"utils_form_active":"Activo",
 	"utils_form_free":"Livre",
 	"utils_form_wiped":"Limpo",
@@ -260,7 +267,7 @@
 	"menu_reseller_list":"Lista",
 	"menu_reseller_balance":"Balanço",
 	"menu_reseller_log":"Log",
-	"menu_reseller_lookup":"Por Utilizador",
+	"menu_reseller_lookup":"Por dispositivo",
 	"menu_devices":"Equipamentos",
 	"menu_wallet":"Carteira",
 	"menu_support":"Suporte",
@@ -316,6 +323,11 @@
 	"resellers_reseller_title":"Revendedor",
 	"resellers_reseller_invalidReseller":"Revendedor inválido",
 		
+	"resellers_resellerChilds_title0":"Filhos de ",
+	"resellers_resellerChilds_title1":"",
+	
+	"resellers_lookup_title":"Procurar revendedor por dispositivo",
+	
 	"devices_title":"Dispositivos",
 	"devices_tab_title":"Portal | Dispositivos",
 	
@@ -360,8 +372,7 @@
 	"users_user_resellerChildCount_text0":"O revendedor tem ",
 	"users_user_resellerChildCount_text1":" filhos.",
 	"users_user_supportChildCount_text0":"O suporte tem ",
-	"users_user_supportChildCount_text1":" filhos.",
-	"users_user_childList":"Ver filhos",
+	"users_user_supportChildCount_text1":" filhos.",	
 
 	"users_user_title":"Utilizador",
 	

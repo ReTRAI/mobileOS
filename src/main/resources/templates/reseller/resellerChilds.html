@@ -40,16 +40,39 @@
             <th:block th:replace="shared/common :: common-status"/>
         </div>
 
-        <div class="content-body">
+        <section th:if="${Reseller == null}">
+            <th:block th:replace="shared/header :: headerTitle0"/>
+            <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="resellers_reseller_invalidReseller">Invalid Reseller</h2>
+            <th:block th:replace="shared/header :: headerTitle1Back2('userNavBar')"/>
+        </section>
+        <div class="content-body" th:if="${Reseller != null}">
             <!-- -->
             <section id="reseller">
-                <h2 class="toTranslate" data-langKey="resellers_resellers_title">Resellers</h2>
+                <th:block th:replace="shared/header :: headerTitle0"/>
+                <div>
+                    <h2 class="mx-0 mt-0  mb-1 " >
+                        <span class="toTranslate" data-langKey="resellers_resellerChilds_title0"></span
+                        ><span th:text="${Reseller.getResellerName()}"></span
+                        ><span class="toTranslate" data-langKey="resellers_resellerChilds_title1"></span>
+                    </h2>
+                </div>
+
+                <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item mb-1 ms-1">
+                        <a class="btn btn-primary toTranslate" data-langKey="utils_back"
+                           th:href="${portalURL + 'resellers/resellerHistory'}"
+                        >Back</a>
+                    </li>
+                </ul>
+                <th:block th:replace="shared/header :: headerTitle2"/>
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
                     </div>
                     <div class="card-body">
-                        <form id="filters" th:object="${resellerListPageModel}" class="form" method="get" th:action="@{/resellers}">
+                        <form id="filters" th:object="${resellerListPageModel}" class="form" method="post" th:action="@{/resellers/resellerChilds}">
+                            <input type="hidden" th:field="*{resellerId}"/>
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">
@@ -105,7 +128,7 @@
                                     <td class="text-end" th:text="${ele.getTotalDevices()}"></td>
                                     <td class="actions">
                                         <div class="d-flex align-items-center justify-content-around">
-                                            <button type="button" onclick="openReseller(this)"
+                                            <button type="button" onclick="openResellerChild(this)"
                                                     th:attr="data-guid=${ele.getResellerId()}"
                                                     class="align-items-center d-flex justify-content-around toTranslateAttr"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
@@ -134,9 +157,9 @@
 
         </div>
     </div>
-    <form id="openReseller" class="d-none" method="POST"
-          th:object="${guidRequiredModel_viewReseller}" th:action="@{${portalURL} + 'openReseller'}">
-        <input id="openReseller-value" type="hidden" th:field="*{value}"/>
+    <form id="openResellerChild" class="d-none" method="POST"
+          th:object="${guidRequiredModel_viewReseller}" th:action="@{${portalURL} + 'openResellerChild'}">
+        <input id="openResellerChild-value" type="hidden" th:field="*{value}"/>
     </form>
 </div>
 </th:block>
@@ -155,10 +178,10 @@
         $("#"+formId).submit();
     }
 
-    function openReseller(that){
+    function openResellerChild(that){
         var resellerId = $(that).attr("data-guid");
-        $("#openReseller-value").val(resellerId);
-        $("#openReseller").submit();
+        $("#openResellerChild-value").val(resellerId);
+        $("#openResellerChild").submit();
     }
 </script>
 

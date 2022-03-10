@@ -120,6 +120,9 @@
 	"api_ClientReseller_isHierarchyValid_":"An error occurred validating the reseller hierarchy.",
 	"api_ClientReseller_isHierarchyValid_ex":"An exception occurred validating the reseller hierarchy.",
 	"api_ClientReseller_validateIsHierarchyValid_error":"Invalid hierarchy.",
+	"api_ClientReseller_getResellerByUserDeviceName_noCode":"An error occurred getting the reseller by the device user.",
+	"api_ClientReseller_getResellerByUserDeviceName_USERDEVICE_DONT_EXIST":"Invalid username.",
+	"api_ClientReseller_getResellerByUserDeviceName_ex":"An exception occurred getting the reseller by the device user.",
 	
 	"api_ClientSupport_setSupport_noCode":"An error occurred adding the support.",
 	"api_ClientSupport_setSupport_":"An error occurred adding the support.",
@@ -165,6 +168,7 @@
 	"api_ClientSupport_isHierarchyValid_noCode":"An error occurred validating the support hierarchy.",
 	"api_ClientSupport_isHierarchyValid_":"An error occurred validating the reseller support.",
 	"api_ClientSupport_isHierarchyValid_ex":"An exception occurred validating the support hierarchy.",
+	"api_ClientSupport_validateIsHierarchyValid_error":"Invalid hierarchy.",
 	
 	"api_ClientDevice_countDeviceFiltered_noCode":"An error occurred counting the device list.",
 	"api_ClientDevice_countDeviceFiltered_":"An error occurred counting the device list.",
@@ -198,9 +202,13 @@
 	"utils_devices":"Devices",
 	"utils_device":"Device",
 	"utils_totalDevices":"Total Devices",
+	"utils_viewChilds":"View childs",
+	"utils_back_parent":"Back to parent",
 
 	"utils_form_nameId":"Name or Id",
 	"utils_form_nameId_placeholder":"Enter name or id",
+	"utils_form_name":"Name",
+	"utils_form_name_placeholder":"Enter name",
 	"utils_form_active":"Active",
 	"utils_form_free":"Free",
 	"utils_form_wiped":"Wiped",
@@ -257,9 +265,9 @@
 	"menu_dashboard":"Dashboard",
 	"menu_reseller":"Reseller",
 	"menu_reseller_list":"List",
-	"menu_reseller_balance":"Bal<br/>ance",
+	"menu_reseller_balance":"Balance",
 	"menu_reseller_log":"Log",
-	"menu_reseller_lookup":"By User",
+	"menu_reseller_lookup":"By Device",
 	"menu_devices":"Devices",
 	"menu_wallet":"Wallet",
 	"menu_support":"Support",
@@ -315,6 +323,11 @@
 	"resellers_reseller_title":"Reseller",
 	"resellers_reseller_invalidReseller":"Invalid Reseller",
 	
+	"resellers_resellerChilds_title0":"",
+	"resellers_resellerChilds_title1":"'s childs",
+	
+	"resellers_lookup_title":"Find reseller by device",
+	
 	"devices_title":"Devices",
 	"devices_tab_title":"Portal | Devices",
 	
@@ -360,7 +373,6 @@
 	"users_user_resellerChildCount_text1":" childrens.",
 	"users_user_supportChildCount_text0":"The support has ",
 	"users_user_supportChildCount_text1":" childrens.",
-	"users_user_childList":"View childs",
 	
 	"users_user_title":"User",
 	

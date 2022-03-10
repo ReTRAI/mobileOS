@@ -46,6 +46,8 @@ public class ModelViewBaseController {
                 GetResellerByUserIdResponse resellerResponse = clientReseller.getResellerByUserId(user.getUserId());
                 if (resellerResponse != null) {
                     r = resellerResponse.getReseller();
+                    if(r != null)
+                        user.setResellerId(r.getResellerId());
                 }
             }
         }
@@ -80,6 +82,8 @@ public class ModelViewBaseController {
                 GetSupportByUserIdResponse response = clientSupport.getSupportByUserId(user.getUserId());
                 if (response != null) {
                     s = response.getSupport();
+                    if(s != null)
+                        user.setSupportId(s.getSupportId());
                 }
             }
         }
@@ -101,6 +105,12 @@ public class ModelViewBaseController {
     }
 
     public boolean principalCanSee(ClientReseller clientReseller, Reseller resellerChild){
+        if(resellerChild == null)
+            return false;
+        return principalCanSee(clientReseller, resellerChild.getResellerId());
+    }
+
+    public boolean principalCanSee(ClientReseller clientReseller, String resellerChildId){
         boolean isParent = false;
         if(request.isUserInRole("ROLE_ADMIN")) {
             isParent = true;
@@ -108,7 +118,7 @@ public class ModelViewBaseController {
         else{
             String principalResellerId = getPrincipalResellerId(clientReseller);
             if(principalResellerId != null){
-                IsHierarchyValidResponse responseValid = clientReseller.isHierarchyValid(principalResellerId, resellerChild.getResellerId());
+                IsHierarchyValidResponse responseValid = clientReseller.isHierarchyValid(principalResellerId, resellerChildId);
                 if(clientReseller.validateIsHierarchyValid(responseValid, true)){
                     isParent = true;
                 }
@@ -118,6 +128,12 @@ public class ModelViewBaseController {
     }
 
     public boolean principalCanSee(ClientSupport clientSupport, Support supportChild){
+        if(supportChild == null)
+            return false;
+        return principalCanSee(clientSupport, supportChild.getSupportId());
+    }
+
+    public boolean principalCanSee(ClientSupport clientSupport, String supportChildId){
         boolean isParent = false;
         if(request.isUserInRole("ROLE_ADMIN")) {
             isParent = true;
@@ -125,7 +141,7 @@ public class ModelViewBaseController {
         else{
             String principalResellerId = getPrincipalSupportId(clientSupport);
             if(principalResellerId != null){
-                com.season.portal.client.generated.support.IsHierarchyValidResponse responseValid = clientSupport.isHierarchyValid(principalResellerId, supportChild.getSupportId());
+                com.season.portal.client.generated.support.IsHierarchyValidResponse responseValid = clientSupport.isHierarchyValid(principalResellerId, supportChildId);
                 if(clientSupport.validateIsHierarchyValid(responseValid, true)){
                     isParent = true;
                 }

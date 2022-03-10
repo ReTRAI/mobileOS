@@ -454,5 +454,31 @@ public class ClientReseller extends WebServiceGatewaySupport{
         return valid;
     }
 
+    public GetResellerByUserDeviceNameResponse getResellerByUserDeviceName(String deviceName) {
+        GetResellerByUserDeviceNameRequest request = new GetResellerByUserDeviceNameRequest();
+        request.setUserDeviceName(deviceName);
+
+        GetResellerByUserDeviceNameResponse response = null;
+        try {
+            response = (GetResellerByUserDeviceNameResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientReseller_getResellerByUserDeviceName_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientReseller_getResellerByUserDeviceName_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_getResellerByUserDeviceName_ex");
+        }
+
+        return response;
+    }
+
 }
 

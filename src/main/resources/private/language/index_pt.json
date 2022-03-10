@@ -9,7 +9,7 @@
 	"api_CustomAuthenticationProvider_authenticate_noRoles":"Não tem perfil associado para fazer login.",
 	
 	"api_login_invalid_certificate": "Certificado inválido.",
-	"api_login_invalid_mismatch": "Utilizador incompativel.",
+	"api_login_invalid_mismatch": "Certificado de utilizador incompativel.",
 	"api_logout_success": "Logout efetuado com sucesso.",
 	"api_login_invalid_session": "Ocorreu um erro a criar a sessão.",
 

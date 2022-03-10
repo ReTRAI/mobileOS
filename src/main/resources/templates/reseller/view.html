@@ -51,19 +51,32 @@
             <section id="user" th:if="${Reseller != null}">
                 <th:block th:replace="shared/header :: headerTitle0"/>
                 <div>
-                    <h2 class="mx-0 mt-0  mb-1 toTranslate" data-langKey="resellers_reseller_title">Reseller</h2>
+                    <h2 class="mx-0 mt-0  mb-1" data-langKey="resellers_reseller_title">
+                        <span class="toTranslate" data-langKey="resellers_reseller_title"></span
+                        > <span th:text="${Reseller.getResellerName()}"></span>
+                    </h2>
                 </div>
 
                 <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
                     <ul class="nav justify-content-end">
                         <li class="nav-item mb-1 ms-1"
-                            th:if="${resellerHistory}" >
-                            <a class="btn btn-primary toTranslate" data-langKey="utils_back"
-                               th:href="${portalURL + 'resellers/resellerHistory'}"
-                            >Back</a>
+                            th:if="${childCount>0}" >
+                            <form th:object="${guidModel_parentId}" method="POST"
+                                  th:action="@{${portalURL} + 'resellers/viewResellerChilds'}" >
+                                <input type="hidden" th:field="*{value}"/>
+                                <button type="submit" class="btn btn-primary toTranslate"
+                                        data-langKey="utils_viewChilds"
+                                >View Childs</button>
+                            </form>
                         </li>
                         <li class="nav-item mb-1 ms-1"
-                            th:if="${!resellerHistory}">
+                            th:if="${resellerHistory}" >
+                            <a class="btn btn-primary toTranslate" data-langKey="utils_back_parent"
+                               th:href="${portalURL + 'resellers/resellerParent'}"
+                            >Back to parent</a>
+                        </li>
+                        <li class="nav-item mb-1 ms-1"
+                            th:if="${!resellerHistory}" >
                             <a class="btn btn-primary toTranslate" data-langKey="utils_back"
                                th:href="${portalURL + 'resellers/listBack'}"
                             >Back</a>
@@ -90,7 +103,11 @@
                                        th:value="${Reseller.getTotalDevices()}" readonly="readonly"/>
                             </div>
                         </div>
-
+                        <p class="my-1">
+                                        <span class="toTranslate" data-langKey="users_user_resellerChildCount_text0"></span
+                                        ><span th:text="${childCount}"></span
+                        ><span class="toTranslate" data-langKey="users_user_resellerChildCount_text1"></span>
+                        </p>
                     </div>
                 </div>
 
