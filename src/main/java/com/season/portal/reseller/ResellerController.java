@@ -59,7 +59,7 @@ public class ResellerController extends ModelViewBaseController {
 
     private String SESSION_RESELLER_CONTROLLER_LIST_MODEL = "SESSION_RESELLER_CONTROLLER_LIST_MODEL";
     private String SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY = "SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY";
-
+    private String SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID = "SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID";
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @GetMapping("/resellers/listBack")
@@ -244,7 +244,7 @@ public class ResellerController extends ModelViewBaseController {
                 viewedModels.add(model);
                 session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
 
-                mv.addObject("balanceListPageModel_balance", new BalanceListPageModel(reseller.getResellerId()));
+                mv.addObject("guidModel_openBalance", new GuidRequiredModel(reseller.getResellerId()));
 
                 ArrayList<SimpleDeviceModel> elements = new ArrayList<SimpleDeviceModel>();
                 long totalElements = 0;
@@ -357,6 +357,70 @@ public class ResellerController extends ModelViewBaseController {
         return dispatchView(mv);
     }
 
+
+    @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
+    @PostMapping("/resellers/openBalance")
+    public ModelAndView openResellerBalance(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            HttpSession session = request.getSession(true);
+            session.setAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID, model.getValue());
+            return resellerBalance(new BalanceListPageModel(model.getValue()));
+        }
+        return resellerViewBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
+    @GetMapping("/resellers/balance")
+    public ModelAndView resellerBalance(@Valid BalanceListPageModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            HttpSession session = request.getSession(true);
+            String resellerId = (String)session.getAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID);
+            if(resellerId != null){
+                model.setResellerId(resellerId);
+                return resellerBalance(model);
+            }
+        }
+        return resellerViewBySession();
+    }
+
+    private ModelAndView resellerBalance(BalanceListPageModel model){
+        ModelAndView mv = new ModelAndView("reseller/balance");
+        ArrayList<ResellerBalance> elements = new ArrayList<ResellerBalance>();
+        long totalElements = 0;
+
+
+        if(principalCanSee(clientReseller, model.getResellerId())) {
+            GetResellerByIdResponse responseReseller = clientReseller.getResellerById(model.getResellerId());
+            if(responseReseller != null){
+                Reseller  r = responseReseller.getReseller();
+                if(r != null) {
+
+                    mv.addObject("resellerName", r.getResellerName());
+                    String resellerId = r.getResellerId();
+                    model.setResellerId(resellerId);
+
+                    GetCountResellerBalanceMovementsResponse responseCount = clientReseller.countResellerBalanceMovements(model);
+                    if (responseCount != null) {
+                        totalElements = responseCount.getResult();
+                        if (totalElements > 0) {
+                            GetResellerBalanceMovementsResponse response = clientReseller.getResellerBalanceMovements(model);
+                            if (response != null) {
+                                elements = new ArrayList(response.getResellerBalance());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
+
+        mv.addObject("elements", elements);
+        mv.addObject("Pagination", pagination);
+        mv.addObject("balanceListPageModel", model);
+
+        return dispatchView(mv);
+    }
 
 
 

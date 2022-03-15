@@ -10,7 +10,7 @@ public class BalanceListPageModel extends PageModel {
     public final static String MIN_MINVAL = "0";
     public final static String MAX_MINVAL = "0";
 
-    @IGuidValidatorConstrain(required = true)
+    @IGuidValidatorConstrain(required = false)
     private String resellerId;
 
     @IDateValidatorConstrain
