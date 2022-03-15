@@ -487,6 +487,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
         minVal = (minVal == null)?"":minVal;
         String maxVal=model.getMaxVal();
         maxVal = (maxVal == null)?"":maxVal;
+
         String startDate= Utils.strToStrDate(model.getStartDate());
         String endDate= Utils.strToStrDate(model.getEndDate());
 
@@ -531,5 +532,93 @@ public class ClientReseller extends WebServiceGatewaySupport{
 
         return response;
     }
+
+    public GetResellerBalanceMovementsResponse getResellerBalanceMovements(BalanceListPageModel model){
+        String minVal=model.getMinVal();
+        minVal = (minVal == null)?"":minVal;
+        String maxVal=model.getMaxVal();
+        maxVal = (maxVal == null)?"":maxVal;
+        String startDate= Utils.strToStrDate(model.getStartDate());
+        String endDate= Utils.strToStrDate(model.getEndDate());
+
+        return getResellerBalanceMovements(
+                model.getResellerId(),
+                startDate,
+                endDate,
+                minVal,
+                maxVal,
+                model.getValidDebitCredit(),
+                model.getValidOffset(),
+                model.getValidNumPerPage(),
+                model.getValidSort(),
+                model.getValidOrder()
+        );
+    }
+
+    public GetResellerBalanceMovementsResponse getResellerBalanceMovements(String resellerId, String startDate, String endDate,
+                                                           String minVal, String maxVal, String debitCredit,
+                                                                   int offset, int numberRecords, String field, String order){
+        GetResellerBalanceMovementsRequest request = new GetResellerBalanceMovementsRequest();
+        request.setResellerId(resellerId);
+        request.setStartMovementDate(startDate);
+        request.setEndMovementDate(endDate);
+        request.setMinValue(minVal);
+        request.setMaxValue(maxVal);
+        request.setDebitCredit(debitCredit);
+
+        request.setOffset(offset);
+        request.setNumberRecords(numberRecords);
+        request.setField(field);
+        request.setOrderField(order);
+
+        GetResellerBalanceMovementsResponse response = null;
+        try {
+            response = (GetResellerBalanceMovementsResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientReseller_getResellerBalanceMovements_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientReseller_getResellerBalanceMovements_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_getResellerBalanceMovements_ex");
+        }
+
+        return response;
+    }
+
+    public SetResellerBalanceMovementResponse setResellerBalanceMovement(String resellerId, String actionUserId) {
+        SetResellerBalanceMovementRequest request = new SetResellerBalanceMovementRequest();
+        request.setResellerId(resellerId);
+        request.setActionUserId(actionUserId);
+
+        SetResellerBalanceMovementResponse response = null;
+        try {
+            response = (SetResellerBalanceMovementResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientReseller_setResellerBalanceMovement_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientReseller_setResellerBalanceMovement_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_setResellerBalanceMovement_ex");
+        }
+
+        return response;
+    }
+
 }
 

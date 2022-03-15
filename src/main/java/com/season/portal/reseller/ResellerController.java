@@ -4,6 +4,7 @@ import com.season.portal.PortalApplication;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.auth.LoginModel;
 import com.season.portal.auth.admin.AdminController;
+import com.season.portal.balance.BalanceListPageModel;
 import com.season.portal.client.device.ClientDevice;
 import com.season.portal.client.generated.dashboard.GetDashboardByResellerIdResponse;
 import com.season.portal.client.generated.device.Device;
@@ -74,7 +75,7 @@ public class ResellerController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @GetMapping("/resellers")
-    public ModelAndView resellers(ResellerListPageModel model, BindingResult result) {
+    public ModelAndView resellers(@Valid ResellerListPageModel model, BindingResult result) {
         model.setNumPerPage(10);
         if(!result.hasErrors()){
             HttpSession session = request.getSession(true);
@@ -243,6 +244,8 @@ public class ResellerController extends ModelViewBaseController {
                 viewedModels.add(model);
                 session.setAttribute(SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY, viewedModels);
 
+                mv.addObject("balanceListPageModel_balance", new BalanceListPageModel(reseller.getResellerId()));
+
                 ArrayList<SimpleDeviceModel> elements = new ArrayList<SimpleDeviceModel>();
                 long totalElements = 0;
 
@@ -280,6 +283,7 @@ public class ResellerController extends ModelViewBaseController {
         return dispatchView(mv);
     }
 
+
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @PostMapping("/resellers/viewResellerChilds")
     public ModelAndView openResellerChilds(@Valid GuidRequiredModel model, BindingResult result) {
@@ -293,7 +297,7 @@ public class ResellerController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @PostMapping("/resellers/resellerChilds")
-    public ModelAndView resellerChilds(ResellerListPageModel model, BindingResult result) {
+    public ModelAndView resellerChilds(@Valid ResellerListPageModel model, BindingResult result) {
         if(!result.hasErrors()){
             /*
             HttpSession session = request.getSession(true);
@@ -352,6 +356,7 @@ public class ResellerController extends ModelViewBaseController {
 
         return dispatchView(mv);
     }
+
 
 
 

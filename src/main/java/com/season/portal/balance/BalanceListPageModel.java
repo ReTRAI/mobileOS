@@ -7,6 +7,9 @@ import com.season.portal.utils.validation.constrain.INumberValidatorConstrain;
 
 public class BalanceListPageModel extends PageModel {
 
+    public final static String MIN_MINVAL = "0";
+    public final static String MAX_MINVAL = "0";
+
     @IGuidValidatorConstrain(required = true)
     private String resellerId;
 
@@ -15,10 +18,14 @@ public class BalanceListPageModel extends PageModel {
     @IDateValidatorConstrain
     private String endDate;
 
-    @INumberValidatorConstrain
+    @INumberValidatorConstrain(minVal = MIN_MINVAL)
     private String minVal;
-    @INumberValidatorConstrain
+    @INumberValidatorConstrain(minVal = MAX_MINVAL)
     private String maxVal;
+
+    public BalanceListPageModel(String resellerId) {
+        this.resellerId = resellerId;
+    }
 
     private String debitCredit;
 
@@ -72,12 +79,16 @@ public class BalanceListPageModel extends PageModel {
 
     public String getValidDebitCredit() {
         String result = "";
-        switch(debitCredit){
-            case "d":
-            case "c":
-                result = debitCredit;
-                break;
+        if(debitCredit != null){
+            debitCredit = debitCredit.toUpperCase();
+            switch(debitCredit){
+                case "D":
+                case "C":
+                    result = debitCredit;
+                    break;
+            }
         }
+
         return result;
     }
 }

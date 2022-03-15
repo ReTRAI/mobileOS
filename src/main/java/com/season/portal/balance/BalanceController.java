@@ -37,40 +37,33 @@ public class BalanceController extends ModelViewBaseController {
 
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
-    @GetMapping("/balance")
-    public ModelAndView balance(ResellerListPageModel model, BindingResult result) {
-        model.setNumPerPage(10);
+    @GetMapping("/reseller/balance")
+    public ModelAndView balance(@Valid BalanceListPageModel model, BindingResult result) {
         if(!result.hasErrors()){
-            HttpSession session = request.getSession(true);
+
         }
 
         return balanceView(model);
     }
 
-    private ModelAndView balanceView(ResellerListPageModel model){
-        ModelAndView mv = new ModelAndView("balance/view");
-        ArrayList<Reseller> elements = new ArrayList<Reseller>();
+    private ModelAndView balanceView(BalanceListPageModel model){
+        ModelAndView mv = new ModelAndView("reseller/balance/view");
+        ArrayList<ResellerBalance> elements = new ArrayList<ResellerBalance>();
         long totalElements = 0;
 
         Reseller r = getPrincipalReseller(clientReseller);
         if(r != null) {
+            mv.addObject("resellerName", r.getResellerName());
             String resellerId = r.getResellerId();
-            if(request.isUserInRole("ROLE_ADMIN")){
-                HttpSession session = request.getSession(true);
-                if(AdminController.getAdminView(session)){
-                    resellerId = "";
-                }
-            }
-
             model.setResellerId(resellerId);
-            model.setOnlyChildren(true);
-            GetCountResellerFilteredResponse responseCount = clientReseller.countResellerFiltered(model);
+
+            GetCountResellerBalanceMovementsResponse responseCount = clientReseller.countResellerBalanceMovements(model);
             if(responseCount != null){
                 totalElements = responseCount.getResult();
                 if(totalElements>0){
-                    GetResellerFilteredResponse response = clientReseller.getResellerFiltered(model);
+                    GetResellerBalanceMovementsResponse response = clientReseller.getResellerBalanceMovements(model);
                     if(response != null){
-                        elements = new ArrayList(response.getReseller());
+                        elements = new ArrayList(response.getResellerBalance());
                     }
                 }
             }
@@ -79,11 +72,10 @@ public class BalanceController extends ModelViewBaseController {
         Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
 
 
+
         mv.addObject("elements", elements);
         mv.addObject("Pagination", pagination);
-        mv.addObject("resellerListPageModel", model);
-        //mv.addObject("deviceListPageModel_viewReseller", new DeviceListPageModel());
-        mv.addObject("guidRequiredModel_viewReseller", new GuidRequiredModel());
+        mv.addObject("balanceListPageModel", model);
 
         return dispatchView(mv);
     }

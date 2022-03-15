@@ -46,7 +46,7 @@ public class DateValidator implements ConstraintValidator<IDateValidatorConstrai
 
         if(result == null) {
             context.buildConstraintViolationWithTemplate(
-                    "utils_form_required").addConstraintViolation();
+                    "utils_form_date_invalid").addConstraintViolation();
             valid = false;
         }
 

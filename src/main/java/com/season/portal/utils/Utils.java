@@ -162,7 +162,7 @@ public class Utils {
         try {
             result = ft.parse(s);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return result;
     }
@@ -249,7 +249,7 @@ public class Utils {
         try{
             result = Float.parseFloat(number);
         }catch(Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return result;
     }

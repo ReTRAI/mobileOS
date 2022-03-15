@@ -155,4 +155,22 @@ class NumberValidatorTest {
         result = validator.validateHouses(number, context, whole, decimal);
         assertThat(result).isEqualTo(Boolean.valueOf(expected));
     }
+
+    @ParameterizedTest
+    @DisplayName("Should parse numbers")
+    @CsvSource({
+            "10, , ,true",
+            "10, 5, 15,true",
+            "10, 50, ,false",
+            "10, , 5,false"
+    })
+    void minMax(String number, String minVal, String maxVal, String expected) {
+        minVal = (minVal == null)?"":minVal;
+        maxVal = (maxVal == null)?"":maxVal;
+        float minNumVal = (minVal.isEmpty())?0:Float.parseFloat(minVal);
+        float maxNumVal = (maxVal.isEmpty())?0:Float.parseFloat(maxVal);
+
+        result = validator.validateMinMax(number, context, minVal, maxVal, minNumVal, maxNumVal);
+        assertThat(result).isEqualTo(Boolean.valueOf(expected));
+    }
 }

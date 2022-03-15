@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
-public class NumberValidator extends FileValidatorUtils implements ConstraintValidator<INumberValidatorConstrain, String> {
+public class NumberValidator implements ConstraintValidator<INumberValidatorConstrain, String> {
 
     private boolean required;
     private String minVal;
@@ -24,7 +24,7 @@ public class NumberValidator extends FileValidatorUtils implements ConstraintVal
     public void initialize(INumberValidatorConstrain constraintAnnotation) {
         required = constraintAnnotation.required();
         minVal = constraintAnnotation.minVal();
-        maxVal = constraintAnnotation.minVal();
+        maxVal = constraintAnnotation.maxVal();
         minNumVal = (minVal.isEmpty())?0:Float.parseFloat(minVal);
         maxNumVal = (maxVal.isEmpty())?0:Float.parseFloat(maxVal);
         intHouses = constraintAnnotation.intHouses();
@@ -39,12 +39,12 @@ public class NumberValidator extends FileValidatorUtils implements ConstraintVal
             return false;
 
         //If not required no further validation
-        if(s.isEmpty())
+        if(s == null || s.isEmpty())
             return true;
 
         return  isNum(s, context) &&
                 validateHouses(s, context, intHouses, decimalHouses) &&
-                validateMinMax(s, context);//ultima validação para garantir que é um nr
+                validateMinMax(s, context, minVal, maxVal, minNumVal, maxNumVal);//ultima validação para garantir que é um nr
     }
 
     public boolean validateHouses(String s, ConstraintValidatorContext context, int _intHouses, int _decimalHouses) {
@@ -92,7 +92,7 @@ public class NumberValidator extends FileValidatorUtils implements ConstraintVal
         return valid;
     }
 
-    public boolean validateMinMax(String s, ConstraintValidatorContext context){
+    public boolean validateMinMax(String s, ConstraintValidatorContext context, String minVal, String maxVal, float minNumVal, float maxNumVal){
         boolean result = true;
         float num =  Utils.parseFloat(s);
 

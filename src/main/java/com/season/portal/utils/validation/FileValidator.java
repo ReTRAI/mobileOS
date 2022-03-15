@@ -34,7 +34,7 @@ public class FileValidator extends FileValidatorUtils implements ConstraintValid
             return false;
 
         //If not required no further validation
-        if(f.isEmpty())
+        if(f == null || f.isEmpty())
             return true;
         
         return validateFileSize(f, context, maxSizeMB) &&
@@ -44,7 +44,7 @@ public class FileValidator extends FileValidatorUtils implements ConstraintValid
     public boolean validateEmpty(MultipartFile f, ConstraintValidatorContext context) {
         boolean valid = true;
         
-        if (required && f.isEmpty()){
+        if (required && (f == null || f.isEmpty())){
             context.buildConstraintViolationWithTemplate(
                     "utils_form_required").addConstraintViolation();
             valid = false;

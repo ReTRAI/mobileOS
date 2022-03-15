@@ -59,6 +59,15 @@
 
                 <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
                     <ul class="nav justify-content-end">
+                        <li class="nav-item mb-1 ms-1">
+                            <form th:object="${balanceListPageModel_balance}" method="POST"
+                                  th:action="@{${portalURL} + 'resellers/balance'}" >
+                                <input type="hidden" th:field="*{value}"/>
+                                <button type="submit" class="btn btn-primary toTranslate"
+                                        data-langKey="utils_viewBalance"
+                                >Balance</button>
+                            </form>
+                        </li>
                         <li class="nav-item mb-1 ms-1"
                             th:if="${childCount>0}" >
                             <form th:object="${guidModel_parentId}" method="POST"
