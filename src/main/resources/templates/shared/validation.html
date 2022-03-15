@@ -55,6 +55,49 @@
           data-langKey="utils_form_file_maxFiles1"></span>
 </th:block>
 
+<th:block th:fragment="numberMinMax(minNum, maxNum)">
+    <span class="toTranslate "
+          data-langKey="utils_form_number_minmaxNum0"></span>
+    <span
+            th:text="${minNum}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_number_minmaxNum1"></span>
+    <span
+            th:text="${maxNum}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_number_minmaxNum2"></span>
+</th:block>
+
+<th:block th:fragment="numberHouses(whole, decimal)">
+    <span class="toTranslate "
+          data-langKey="utils_form_number_houses0"></span>
+    <span
+            th:text="${whole}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_number_houses1"></span>
+    <span
+            th:text="${decimal}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_number_houses3"></span>
+</th:block>
+
+<th:block th:fragment="numberMin(min)">
+    <span class="toTranslate "
+          data-langKey="utils_form_number_minNum0"></span>
+    <span
+            th:text="${min}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_number_minNum1"></span>
+</th:block>
+
+<th:block th:fragment="numberMax(max)">
+    <span class="toTranslate "
+          data-langKey="utils_form_number_maxNum0"></span>
+    <span
+            th:text="${max}"></span>
+    <span class="toTranslate "
+          data-langKey="utils_form_number_maxNum1"></span>
+</th:block>
 </body>
 </html>
 

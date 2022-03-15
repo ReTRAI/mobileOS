@@ -1,6 +1,7 @@
 package com.season.portal.client.reseller;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.balance.BalanceListPageModel;
 import com.season.portal.client.generated.reseller.*;
 import com.season.portal.reseller.ResellerListPageModel;
 import com.season.portal.utils.Utils;
@@ -480,5 +481,55 @@ public class ClientReseller extends WebServiceGatewaySupport{
         return response;
     }
 
+
+    public GetCountResellerBalanceMovementsResponse countResellerBalanceMovements(BalanceListPageModel model){
+        String minVal=model.getMinVal();
+        minVal = (minVal == null)?"":minVal;
+        String maxVal=model.getMaxVal();
+        maxVal = (maxVal == null)?"":maxVal;
+        String startDate= Utils.strToStrDate(model.getStartDate());
+        String endDate= Utils.strToStrDate(model.getEndDate());
+
+        return countResellerBalanceMovements(
+                model.getResellerId(),
+                startDate,
+                endDate,
+                minVal,
+                maxVal,
+                model.getValidDebitCredit()
+        );
+    }
+
+    public GetCountResellerBalanceMovementsResponse countResellerBalanceMovements(String resellerId, String startDate, String endDate,
+                                                                                  String minVal, String maxVal, String debitCredit){
+        GetCountResellerBalanceMovementsRequest request = new GetCountResellerBalanceMovementsRequest();
+        request.setResellerId(resellerId);
+        request.setStartMovementDate(startDate);
+        request.setEndMovementDate(endDate);
+        request.setMinValue(minVal);
+        request.setMaxValue(maxVal);
+        request.setDebitCredit(debitCredit);
+
+        GetCountResellerBalanceMovementsResponse response = null;
+        try {
+            response = (GetCountResellerBalanceMovementsResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientReseller_countResellerBalanceMovements_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientReseller_countResellerBalanceMovements_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientReseller_countResellerBalanceMovements_ex");
+        }
+
+        return response;
+    }
 }
 

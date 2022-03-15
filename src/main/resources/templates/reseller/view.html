@@ -120,6 +120,8 @@
                         <table class="table table-striped dataTable ">
                             <thead>
                             <tr>
+                                <th class=" toTranslate" data-langKey="utils_table_imei"
+                                >IMEI</th>
                                 <th class="sorting toTranslate" data-langKey="utils_table_status"
                                     th:with="sortName='deviceStatus'"
                                     th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
@@ -145,7 +147,8 @@
                             </thead>
                             <tbody>
                             <tr th:each="ele : ${elements}">
-                                <td class="tac toTranslate" th:attr="data-langKey=${'api_deviceStatus_'+ele.getDeviceStatus()}"></td>
+                                <td class="toTranslate" th:text="${ele.getImei()}"></td>
+                                <td class="toTranslate" th:attr="data-langKey=${'api_deviceStatus_'+ele.getDeviceStatus()}"></td>
                                 <td class="text-center" th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getCreationDate())}"></td>
                                 <td class="text-center" th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getActivationDate())}"></td>
                                 <td class="text-center" th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getExpireDate())}"></td>

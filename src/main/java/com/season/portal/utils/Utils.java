@@ -162,7 +162,7 @@ public class Utils {
         try {
             result = ft.parse(s);
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return result;
     }
@@ -239,6 +239,17 @@ public class Utils {
                 SimpleDeviceModel u = new SimpleDeviceModel(e);
                 result.add(u);
             }
+        }
+        return result;
+    }
+
+    public static float parseFloat(String number){
+        float result = 0f;
+        number = number.replace(",", ".");
+        try{
+            result = Float.parseFloat(number);
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return result;
     }

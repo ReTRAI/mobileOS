@@ -252,6 +252,7 @@
 	"utils_table_nickname":"Nome",
 	"utils_table_email":"Email",
 	"utils_table_status":"Estado",
+	"utils_table_imei":"IMEI",
 	
 	"utils_pagination_noElements":"Não existem elementos a apresentar.",
 	"utils_pagination_0":"",

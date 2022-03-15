@@ -45,16 +45,6 @@ public class GuidValidator implements ConstraintValidator<IGuidValidatorConstrai
             context.buildConstraintViolationWithTemplate(
                     "utils_form_guid_invalid").addConstraintViolation();
         }
-        /*try{
-            UUID guid = UUID.fromString(s);
-            valid = true;
-        }
-        catch (Exception e){
-            PortalApplication.log(LOGGER, e);
-            context.buildConstraintViolationWithTemplate(
-                    "utils_form_guid_invalid").addConstraintViolation();
-        }*/
-
         return valid;
     }
 

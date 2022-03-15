@@ -10,13 +10,14 @@ public class SimpleDeviceModel {
     private String creationDate;
     private String activationDate;
     private String expireDate;
-
+    private String imei;
     public SimpleDeviceModel(Device device) {
         deviceId = device.getDeviceId();
         deviceStatus = device.getDeviceStatus();
         creationDate = device.getCreationDate();
         activationDate = device.getActivationDate();
         expireDate = device.getExpireDate();
+        imei = device.getImeiNumber();
     }
 
     public String getDeviceId() {
@@ -57,5 +58,13 @@ public class SimpleDeviceModel {
 
     public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 }
