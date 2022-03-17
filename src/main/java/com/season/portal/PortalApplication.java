@@ -76,14 +76,19 @@ public class PortalApplication{
 
 			//Logged
 			if(principal instanceof ClientUserDetails){
-
+				ClientUserDetails user = (ClientUserDetails)principal;
 				mv.addObject("userName", auth.getName());
 				mv.addObject("userRole", auth.getAuthorities().toString());
+
 				if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
 					mv.addObject("adminView",AdminController.getAdminView(session));
 				}
 
-				if(((ClientUserDetails)principal).needChangPass()){
+				if(user.haveBalance()){
+					mv.addObject("balanceView",user.getResellerBalance());
+				}
+
+				if(user.needChangPass()){
 					String viewName = mv.getViewName();
 					mv.addObject("needToChangePass",true);
 

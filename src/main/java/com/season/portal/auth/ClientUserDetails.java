@@ -14,6 +14,8 @@ public class ClientUserDetails implements UserDetails {
     private String resellerId;
     private String userName;
     private String userEmail;
+    private float resellerBalance;
+    private boolean hasBalance = false;
     private ArrayList<GrantedAuthority> authorities;
 
     private boolean AccountNonExpired = false;
@@ -111,5 +113,18 @@ public class ClientUserDetails implements UserDetails {
 
     public void setResellerId(String resellerId) {
         this.resellerId = resellerId;
+    }
+
+    public float getResellerBalance() {
+        return resellerBalance;
+    }
+
+    public void setResellerBalance(float resellerBalance) {
+        hasBalance = true;
+        this.resellerBalance = resellerBalance;
+    }
+
+    public boolean haveBalance() {
+        return hasBalance;
     }
 }

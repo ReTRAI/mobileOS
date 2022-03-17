@@ -1,0 +1,94 @@
+<html xmlns:th="https://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org ">
+<body>
+
+<th:block th:fragment="sendCreditsModal">
+    <div class="modal fade" id="sendCreditsModal" tabindex="-1" aria-labelledby="sendCreditsModal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-transparent">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="confirmModal_close()"></button>
+                </div>
+                <div class="modal-body px-sm-5 mx-50 pb-5">
+                    <h1 class="text-center mb-1">
+                        <span class="toTranslate" data-langKey="sendCreditsModal_title0"></span
+                        ><span id="sendCreditsModal_to"></span
+                        ><span class="toTranslate" data-langKey="sendCreditsModal_title1"></span
+                        >
+                    </h1>
+                    <form th:object="${balanceMovementModel_sendCredits}"
+                          class="form" method="POST"
+                          th:action="@{${portalURL} + 'resellers/sendCredits'}"
+                            onsubmit="return creditsModal_validate(this)" data-prefix="sendCreditsModal_"
+                        >
+                        <input type="hidden" th:field="*{resellerId}" id="sendCreditsModal_resellerId"/>
+                        <div class="mb-1">
+                            <label for="sendCreditsModal_movementValue" class="form-label toTranslate"
+                                   data-langKey="utils_form_credits">Credits</label>
+                            <input id="sendCreditsModal_movementValue" type="text" th:field="*{movementValue}"
+                                   class="form-control toTranslateInput"
+                                   data-langKey="utils_form_credits_placeholder"
+                                   placeholder="Enter credits value"
+                            />
+                            <p id="sendCreditsModal_movementValue_status" class="invalid-feedback"></p>
+                        </div>
+                        <div class="mb-1">
+                            <label for="sendCreditsModal_movementDetail" class="form-label toTranslate"
+                                   data-langKey="utils_form_detail">Detail</label>
+                            <textarea id="sendCreditsModal_movementDetail" th:field="*{movementDetail}"
+                                   class="form-control toTranslateInput"
+                                   data-langKey="utils_form_detail_placeholder"
+                                   placeholder="Enter credits value"
+                            ></textarea>
+                            <p id="sendCreditsModal_movementDetail_status" class="invalid-feedback"></p>
+                        </div>
+                    </form>
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary me-1 mt-1 toTranslate"
+                                data-langKey="utils_send">Send</button>
+                        <button type="button" class="btn btn-outline-secondary mt-1 toTranslate"
+                                data-bs-dismiss="modal" aria-label="Close"
+                                data-langKey="utils_cancel" onclick="confirmModal_close()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var SEND_CREDITS_MODAL = null;
+        var SEND_CREDITS_MODAL_MAX = 0;
+        function sendCreditsModal_init() {
+            SEND_CREDITS_MODAL = new bootstrap.Modal(document.getElementById('sendCreditsModal'));
+        }
+        function sendCreditsModal_open(resellerId, resellerName, maxValue){
+            $("#sendCreditsModal_resellerId").val(resellerId);
+            $("#sendCreditsModal_to").text(resellerName);
+            SEND_CREDITS_MODAL_MAX = maxValue;
+
+            SEND_CREDITS_MODAL.show();
+        }
+
+        function confirmModal_close(){
+            $("#sendCreditsModal_resellerId").val("");
+            $("#sendCreditsModal_to").text("");
+            SEND_CREDITS_MODAL_MAX = 0;
+
+            SEND_CREDITS_MODAL.hide();
+        }
+    </script>
+</th:block>
+
+<th:block th:fragment="validationCreditsModal">
+    <script>
+        function creditsModal_validate(that){
+            var valid = false;
+            var prefix = $(that).attr("data-prefix");
+
+            return valid;
+        }
+    </script>
+</th:block>
+</body>
+</html>
+

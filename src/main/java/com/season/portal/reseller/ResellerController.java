@@ -5,6 +5,7 @@ import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.auth.LoginModel;
 import com.season.portal.auth.admin.AdminController;
 import com.season.portal.balance.BalanceListPageModel;
+import com.season.portal.balance.BalanceMovementModel;
 import com.season.portal.client.device.ClientDevice;
 import com.season.portal.client.generated.dashboard.GetDashboardByResellerIdResponse;
 import com.season.portal.client.generated.device.Device;
@@ -364,7 +365,7 @@ public class ResellerController extends ModelViewBaseController {
         if(!result.hasErrors()){
             HttpSession session = request.getSession(true);
             session.setAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID, model.getValue());
-            return resellerBalance(new BalanceListPageModel(model.getValue()));
+            return resellerBalanceView(new BalanceListPageModel(model.getValue()));
         }
         return resellerViewBySession();
     }
@@ -377,13 +378,13 @@ public class ResellerController extends ModelViewBaseController {
             String resellerId = (String)session.getAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID);
             if(resellerId != null){
                 model.setResellerId(resellerId);
-                return resellerBalance(model);
+                return resellerBalanceView(model);
             }
         }
         return resellerViewBySession();
     }
 
-    private ModelAndView resellerBalance(BalanceListPageModel model){
+    private ModelAndView resellerBalanceView(BalanceListPageModel model){
         ModelAndView mv = new ModelAndView("reseller/balance");
         ArrayList<ResellerBalance> elements = new ArrayList<ResellerBalance>();
         long totalElements = 0;
@@ -394,8 +395,10 @@ public class ResellerController extends ModelViewBaseController {
             if(responseReseller != null){
                 Reseller  r = responseReseller.getReseller();
                 if(r != null) {
-
+                    mv.addObject("resellerId", r.getResellerId());
                     mv.addObject("resellerName", r.getResellerName());
+                    mv.addObject("resellerBalance", r.getCurrentBalance());
+
                     String resellerId = r.getResellerId();
                     model.setResellerId(resellerId);
 
@@ -408,6 +411,13 @@ public class ResellerController extends ModelViewBaseController {
                                 elements = new ArrayList(response.getResellerBalance());
                             }
                         }
+                    }
+
+                    mv.addObject("balanceMovementModel_sendCredits", new BalanceMovementModel(resellerId));
+
+                    if(request.isUserInRole("ROLE_ADMIN")){
+                        mv.addObject("balanceMovementModel_addCredits", new BalanceMovementModel(resellerId));
+                        mv.addObject("balanceMovementModel_removeCredits", new BalanceMovementModel(resellerId));
                     }
                 }
             }

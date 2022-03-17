@@ -3,7 +3,9 @@ package com.season.portal.auth;
 import com.season.portal.PortalApplication;
 
 import com.season.portal.auth.admin.AdminController;
+import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.user.ChangeUserPwResponse;
+import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.client.users.ClientUser;
 import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
@@ -42,6 +44,9 @@ public class AuthController extends ModelViewBaseController {
     @Autowired
     ClientUser client;
 
+    @Autowired
+    ClientReseller clientReseller;
+
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final int SESSION_MAX_INACTIVE_TIME_SEC = 300;
 
@@ -65,8 +70,20 @@ public class AuthController extends ModelViewBaseController {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
                     session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
-                    if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+
+                    var authorities = auth.getAuthorities();
+                    if(authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
                         AdminController.initAdminView(session);
+                    }
+
+                    if(authorities.contains(new SimpleGrantedAuthority("ROLE_RESELLER"))){
+                        getPrincipalReseller(clientReseller);//set automatically the resellerBalance
+                        /*
+                        ClientUserDetails user = (ClientUserDetails)auth.getPrincipal();
+                        Reseller r = getPrincipalReseller(clientReseller, user);//set automatically the resellerBalance
+                        if(r != null){
+                            user.setResellerBalance(r.getCurrentBalance());
+                        }*/
                     }
 
                     int expireIn = certificateExpireIn(certificates[0]);

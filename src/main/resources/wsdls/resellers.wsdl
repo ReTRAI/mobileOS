@@ -228,6 +228,8 @@
                 <xs:element name="resellerId" type="xs:string"/>
                 <xs:element name="debitCredit" type="xs:string"/>
                 <xs:element name="movementValue" type="xs:float"/>
+                <xs:element name="movementType" type="xs:string"/>
+                <xs:element name="movementDetail" type="xs:string"/>
                 <xs:element name="actionUserId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -331,13 +333,15 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!-- Endpoint RsellerBalance Object-->
+    <!-- Endpoint ResellerBalance Object-->
     <xs:complexType name="resellerBalance">
         <xs:sequence>
             <xs:element name="resellerBalanceId" type="xs:string"/>
             <xs:element name="debitCredit" type="xs:string"/>
             <xs:element name="movementValue" type="xs:float"/>
             <xs:element name="movementDate" type="xs:string"/>
+            <xs:element name="movementType" type="xs:string"/>
+            <xs:element name="movementDetail" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

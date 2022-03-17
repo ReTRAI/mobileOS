@@ -39,10 +39,10 @@ public class BalanceController extends ModelViewBaseController {
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @GetMapping("/reseller/balance")
     public ModelAndView balance(@Valid BalanceListPageModel model, BindingResult result) {
-        if(!result.hasErrors()){
+        /*if(!result.hasErrors()){
 
         }
-
+*/
         return balanceView(model);
     }
 
@@ -54,6 +54,8 @@ public class BalanceController extends ModelViewBaseController {
         Reseller r = getPrincipalReseller(clientReseller);
         if(r != null) {
             mv.addObject("resellerName", r.getResellerName());
+            mv.addObject("resellerBalance", r.getCurrentBalance());
+
             String resellerId = r.getResellerId();
             model.setResellerId(resellerId);
 

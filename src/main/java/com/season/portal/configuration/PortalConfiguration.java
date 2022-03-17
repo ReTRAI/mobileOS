@@ -20,6 +20,15 @@ public class PortalConfiguration {
     private String clientSupportURI;
     private String clientDashboardURI;
     private String clientDeviceURI;
+    private String clientNotificationURI;
+
+    public String getClientNotificationsURI() {
+        return clientNotificationURI;
+    }
+
+    public void setClientNotificationsURI(String clientNotificationsURI) {
+        this.clientNotificationURI = clientNotificationsURI;
+    }
 
     public String getClientDeviceURI() {
         return clientDeviceURI;

@@ -181,6 +181,21 @@
 							</schemaIncludes>
 						</configuration>
 					</execution>
+					<execution>
+						<id>notification-generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaLanguage>WSDL</schemaLanguage>
+							<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+							<generatePackage>com.season.portal.client.generated.notification</generatePackage>
+							<schemaDirectory>${project.basedir}/src/main/resources/wsdls</schemaDirectory>
+							<schemaIncludes>
+								<include>notifications.wsdl</include>
+							</schemaIncludes>
+						</configuration>
+					</execution>
 				</executions>
 
 			</plugin>

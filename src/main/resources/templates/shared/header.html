@@ -103,6 +103,12 @@
                                 </div>
                             </a>
                         </li>
+                        <li th:if="${balanceView != null}">
+                            <p class="mb-0">
+                                <span th:text="${balanceView}"></span>
+                                <span>C</span>
+                            </p>
+                        </li>
                     </ul>
 
                 </th:block>

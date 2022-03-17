@@ -12,6 +12,7 @@ public class SimpleDeviceModel {
     private String expireDate;
     private String imei;
     public SimpleDeviceModel(Device device) {
+
         deviceId = device.getDeviceId();
         deviceStatus = device.getDeviceStatus();
         creationDate = device.getCreationDate();

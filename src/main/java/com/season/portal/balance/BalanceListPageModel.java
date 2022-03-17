@@ -23,11 +23,12 @@ public class BalanceListPageModel extends PageModel {
     @INumberValidatorConstrain(minVal = MAX_MINVAL)
     private String maxVal;
 
+    private String debitCredit;
+
     public BalanceListPageModel(String resellerId) {
         this.resellerId = resellerId;
     }
 
-    private String debitCredit;
 
     public String getResellerId() {
         return resellerId;

@@ -44,14 +44,38 @@
             <!-- -->
             <section id="balances">
                 <th:block th:replace="shared/header :: headerTitle0"/>
+                <div>
                     <h2>
                         <span class="toTranslate" data-langKey="resellers_balance_title0"></span
                         ><span th:text="${resellerName}"></span
-                        ><span class="toTranslate" data-langKey="resellers_balance_title1"></span>
+                    ><span class="toTranslate" data-langKey="resellers_balance_title1"></span>
                     </h2>
+                    <h3>
+                        <span class="toTranslate" data-langKey="resellers_balance_credits0"></span
+                        ><span th:text="${resellerBalance}"></span
+                    >C<span class="toTranslate" data-langKey="resellers_balance_credits1"></span>
+                    </h3>
+                </div>
+
                 <th:block th:replace="shared/header :: headerTitle1('userNavBar')"/>
                 <ul class="nav justify-content-end">
-
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <li class="nav-item mb-1 ms-1">
+                            <button class="btn btn-primary toTranslate" data-langKey="utils_addCredits"
+                                    onclick="addCredits()"
+                            >Add Credits</button>
+                        </li>
+                        <li class="nav-item mb-1 ms-1">
+                            <button class="btn btn-danger toTranslate" data-langKey="utils_removeCredits"
+                                    onclick="removeCredits()"
+                            >Remove Credits</button>
+                        </li>
+                    </th:block>
+                    <li class="nav-item mb-1 ms-1">
+                        <button class="btn btn-primary toTranslate" data-langKey="utils_sendCredits"
+                           onclick="sendCredits()"
+                        >Send Credits</button>
+                    </li>
                     <li class="nav-item mb-1 ms-1">
                         <a class="btn btn-primary toTranslate" data-langKey="utils_back"
                            th:href="${portalURL + 'resellers/resellerHistory'}"
@@ -246,6 +270,9 @@
 
 </div>
 </th:block>
+
+<th:block th:replace="shared/creditsModal :: validationCreditsModal"/>
+<th:block th:replace="shared/creditsModal :: sendCreditsModal"/>
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
@@ -256,6 +283,8 @@
         setupLanguage();
         showInMenu("menu_reseller_list");
         $('.flatpickr-basic').flatpickr();
+
+        sendCreditsModal_init();
     });
 
     function resetForm(formId){
@@ -267,7 +296,17 @@
         $("#filter-endDate").val("");
         $("#"+formId).submit();
     }
+
+    function sendCredits(){
+        var resellerId = "[[${resellerId}]]";
+        var resellerName = "[[${resellerName}]]";
+        var maxValue = parseFloat("[[${balanceView}]]");
+        sendCreditsModal_open(resellerId, resellerName, maxValue);
+
+    }
 </script>
+
+
 
 </body>
 <!-- END: Body-->

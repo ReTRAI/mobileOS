@@ -46,8 +46,10 @@ public class ModelViewBaseController {
                 GetResellerByUserIdResponse resellerResponse = clientReseller.getResellerByUserId(user.getUserId());
                 if (resellerResponse != null) {
                     r = resellerResponse.getReseller();
-                    if(r != null)
+                    if(r != null){
                         user.setResellerId(r.getResellerId());
+                        user.setResellerBalance(r.getCurrentBalance());
+                    }
                 }
             }
         }
@@ -63,6 +65,7 @@ public class ModelViewBaseController {
             if(r != null){
                 resellerId = r.getResellerId();
                 user.setResellerId(resellerId);
+                user.setResellerBalance(r.getCurrentBalance());
             }
 
         }
