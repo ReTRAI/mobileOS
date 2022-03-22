@@ -33,6 +33,7 @@
 	"utils_form_password_sequence": "A palavra-passe não pode conter um ponto '.' imediatamente antes de um arroba '@'.",
 	"utils_form_langCode_invalid":"Código de idioma inválido",
 	"utils_form_date_invalid":"Data com formatação inválida",
+	"utils_form_minmaxChar": "O número de caracteres é menor ou maior do que o esperado.",
 	"utils_form_minmaxChar0": "O campo tem de ter entre ",
 	"utils_form_minmaxChar1": " e ",
 	"utils_form_minmaxChar2": " caracteres.",
@@ -58,6 +59,7 @@
 	"utils_form_number_houses0": "Insira um número válido com um máximo de ",
 	"utils_form_number_houses1": " casas inteiras e ",
 	"utils_form_number_houses2": " decimais.",
+	"utils_form_number_positive": "O valor tem de ser maior que 0.",
 	"utils_form_date_invalid": "Data inválida",
 	
 	"utils_form_nickname": "Nome",

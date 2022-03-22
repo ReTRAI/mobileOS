@@ -33,6 +33,7 @@
 	"utils_form_password_sequence": "Cannot contain a dot character '.' immediately preceding the '@' symbol",
 	"utils_form_langCode_invalid":"Invalid language code",
 	"utils_form_date_invalid":"Invalid date format",
+	"utils_form_minmaxChar": "The number of characters is higher or lower than expected.",
 	"utils_form_minmaxChar0": "The field must be between ",
 	"utils_form_minmaxChar1": " and ",
 	"utils_form_minmaxChar2": " characters.",
@@ -58,6 +59,7 @@
 	"utils_form_number_houses0": "Enter a valid number with a maximum of ",
 	"utils_form_number_houses1": " whole and ",
 	"utils_form_number_houses2": " decimal places.",
+	"utils_form_number_positive": "the value must be higher than 0.",
 	"utils_form_date_invalid": "Invalid date",
 	
 	"utils_form_nickname": "Nickname",

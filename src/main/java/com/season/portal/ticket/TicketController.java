@@ -1,4 +1,4 @@
-package com.season.portal.support;
+package com.season.portal.ticket;
 
 import com.season.portal.utils.ModelViewBaseController;
 import org.springframework.stereotype.Controller;
@@ -25,12 +25,11 @@ public class TicketController extends ModelViewBaseController {
         if(!result.hasErrors()){
 
         }
-
         return ticketNewView( model);
     }
 
     public ModelAndView ticketNewView(TicketModel model){
-        ModelAndView mv = new ModelAndView("support/ticket/new");
+        ModelAndView mv = new ModelAndView("ticket/new");
 
         mv.addObject("ticketModel", model);
 

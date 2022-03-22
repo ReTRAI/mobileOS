@@ -116,6 +116,39 @@
                 //console.error(e);
             }
         }
+
+        function addInputStatus(ele, statusEle, status){
+            if($(ele).hasClass('form-control-merge')){
+                ele = $(ele).parent();
+            }
+            $(ele).addClass("is-invalid");
+            $(statusEle).removeClass("toTranslate");
+            $(statusEle).html(status);
+            return false;
+        }
+
+        function addInputErrorStatusByKey(ele, statusEle, key){
+            if($(ele).hasClass('form-control-merge')){
+                ele = $(ele).parent();
+            }
+            $(ele).addClass("is-invalid");
+
+            $(statusEle).addClass("toTranslate");
+            $(statusEle).addClass("text-danger");
+            $(statusEle).attr("data-langKey", key);
+            return false;
+        }
+
+        function rmvInputStatus(ele, statusEle){
+            if($(ele).hasClass('form-control-merge')){
+                ele = $(ele).parent();
+            }
+            $(ele).removeClass("is-invalid");
+            $(statusEle).removeClass("text-danger");
+            $(statusEle).attr("data-langKey", "");
+            $(statusEle).html("");
+        }
+
         function addErrorByKey(key){
             addStatusByKey(key, "alert-danger");
         }
@@ -125,6 +158,7 @@
         function addStatusByKey(key, clss){
             $(".status").append(getStatusByKey(key, clss));
         }
+
         function getStatusByKey(key, clss){
             let status = '';
             status += '<div class="alert '+clss+' alert-dismissible fade show p-2" role="alert">';
@@ -133,6 +167,7 @@
             status += '</div>';
             return status;
         }
+
         function showInMenu(id){
             $("#"+id).parents(".has-sub").addClass("open");
             $("#"+id).addClass("active");

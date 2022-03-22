@@ -85,28 +85,35 @@
                                 >Devices</span>
                             </a>
                         </li>
-                        <li id="menu_wallet" class=" nav-item">
+                        <!--<li id="menu_wallet" class=" nav-item">
                             <a class="d-flex align-items-center"th:href="${portalURL + 'wallet'}">
                                 <div class="toLoadReplace"
                                      th:attr="data-toLoad=${portalURL + 'media/icons/wallet.svg'}"
                                      ></div>
                                 <span class="menu-title text-truncate toTranslate" data-langKey="menu_wallet">Wallet</span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class=" nav-item">
                             <a class="d-flex align-items-center" href="#">
                                 <div class="toLoadReplace"
                                      th:attr="data-toLoad=${portalURL + 'media/icons/support.svg'}"></div>
-                                <span class="menu-title text-truncate toTranslate" data-langKey="menu_support">Support</span>
+                                <!--<span class="menu-title text-truncate toTranslate" data-langKey="menu_support">Support</span>-->
+                                <span class="menu-title text-truncate toTranslate" data-langKey="menu_ticket">Tickets</span>
                             </a>
                             <ul class="menu-content">
-                                <li id="menu_support_new">
+                                <li id="menu_ticket_new">
                                     <a class="d-flex align-items-center"th:href="${portalURL + 'ticket/new'}">
                                         <i data-feather="circle"></i>
-                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_new">New</span>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_ticket_new">New</span>
                                     </a>
                                 </li>
-                                <li id="menu_support_open">
+                                <li id="menu_ticket_list">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'ticket/list'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_ticket_list">List</span>
+                                    </a>
+                                </li>
+                                <!--<li id="menu_support_open">
                                     <a class="d-flex align-items-center"th:href="${portalURL + 'support'}">
                                         <i data-feather="circle"></i>
                                         <span class="menu-item text-truncate toTranslate" data-langKey="menu_open">Open
@@ -143,6 +150,7 @@
                                         </span>
                                     </a>
                                 </li>
+                            -->
                             </ul>
                         </li>
                         <li class=" nav-item" id="menu_users">

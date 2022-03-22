@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mob.com/serverapi/dashboard/base" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mob.com/serverapi/dashboard/base" targetNamespace="http://www.mob.com/serverapi/dashboard/base">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mob.com/serverapi/dashboard/base">
+
+    <!-- GetDashboardByResellerId-->
+    <xs:element name="GetDashboardByResellerIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="recursive" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetDashboardByResellerIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="global" type="tns:Global"/>
+                <xs:element name="inactive" type="tns:Inactive"/>
+                <xs:element name="expiring" type="tns:Expiring"/>
+                <xs:element name="active" type="tns:Active"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Endpoint Dashboard Global Object-->
+    <xs:complexType name="Global">
+        <xs:sequence>
+            <xs:element name="active" type="xs:long"/>
+            <xs:element name="notActive" type="xs:long"/>
+            <xs:element name="free" type="xs:long"/>
+            <xs:element name="portalDevices" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Endpoint Dashboard Inactive Object-->
+    <xs:complexType name="Inactive">
+        <xs:sequence>
+            <xs:element name="wiped" type="xs:long"/>
+            <xs:element name="blocked" type="xs:long"/>
+            <xs:element name="suspended" type="xs:long"/>
+            <xs:element name="remaining" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Endpoint DashboardExpiring Object-->
+    <xs:complexType name="Expiring">
+        <xs:sequence>
+            <xs:element name="renewed" type="xs:long"/>
+            <xs:element name="in30Days" type="xs:long"/>
+            <xs:element name="in15Days" type="xs:long"/>
+            <xs:element name="in7Days" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Endpoint Dashboard Active Object-->
+    <xs:complexType name="Active">
+        <xs:sequence>
+            <xs:element name="day" type="xs:long"/>
+            <xs:element name="week" type="xs:long"/>
+            <xs:element name="month" type="xs:long"/>
+            <xs:element name="quarter" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDashboardByResellerIdResponse">
+    <wsdl:part element="tns:GetDashboardByResellerIdResponse" name="GetDashboardByResellerIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDashboardByResellerIdRequest">
+    <wsdl:part element="tns:GetDashboardByResellerIdRequest" name="GetDashboardByResellerIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DashboardPort">
+    <wsdl:operation name="GetDashboardByResellerId">
+      <wsdl:input message="tns:GetDashboardByResellerIdRequest" name="GetDashboardByResellerIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetDashboardByResellerIdResponse" name="GetDashboardByResellerIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DashboardPortSoap11" type="tns:DashboardPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetDashboardByResellerId">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetDashboardByResellerIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDashboardByResellerIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DashboardPortService">
+    <wsdl:port binding="tns:DashboardPortSoap11" name="DashboardPortSoap11">
+      <soap:address location="http://localhost:8080/serverapi/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

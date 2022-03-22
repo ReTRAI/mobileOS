@@ -64,10 +64,7 @@ public class ModelViewBaseController {
             Reseller r = getPrincipalReseller(clientReseller);
             if(r != null){
                 resellerId = r.getResellerId();
-                user.setResellerId(resellerId);
-                user.setResellerBalance(r.getCurrentBalance());
             }
-
         }
         return resellerId;
     }

@@ -1,9 +1,13 @@
 package com.season.portal.balance;
 
+import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.utils.model.PageModel;
 import com.season.portal.utils.validation.constrain.IDateValidatorConstrain;
 import com.season.portal.utils.validation.constrain.IGuidValidatorConstrain;
 import com.season.portal.utils.validation.constrain.INumberValidatorConstrain;
+
+import static com.season.portal.client.reseller.ClientReseller.MOVEMENT_CREDIT;
+import static com.season.portal.client.reseller.ClientReseller.MOVEMENT_DEBIT;
 
 public class BalanceListPageModel extends PageModel {
 
@@ -24,9 +28,17 @@ public class BalanceListPageModel extends PageModel {
     private String maxVal;
 
     private String debitCredit;
+    private String movementType;
+
+    public BalanceListPageModel() {
+        setOrder("desc");
+        setSort("movementDate");
+    }
 
     public BalanceListPageModel(String resellerId) {
         this.resellerId = resellerId;
+        setOrder("desc");
+        setSort("movementDate");
     }
 
 
@@ -78,15 +90,39 @@ public class BalanceListPageModel extends PageModel {
         this.debitCredit = debitCredit;
     }
 
+    public String getMovementType() {
+        return movementType;
+    }
+
+    public void setMovementType(String movementType) {
+        this.movementType = movementType;
+    }
+
     public String getValidDebitCredit() {
         String result = "";
         if(debitCredit != null){
             debitCredit = debitCredit.toUpperCase();
             switch(debitCredit){
-                case "D":
-                case "C":
+                case MOVEMENT_DEBIT:
+                case MOVEMENT_CREDIT:
                     result = debitCredit;
                     break;
+            }
+        }
+
+        return result;
+    }
+
+    public String getValidMovementType(){
+        String result = "";
+        String a = ClientReseller.MOVEMENT_TYPE.MANUAL_CREDIT.toString();
+        if(movementType != null){
+            movementType = movementType.toUpperCase();
+            for (ClientReseller.MOVEMENT_TYPE mt : ClientReseller.MOVEMENT_TYPE.values()) {
+                if(movementType.equals(mt.name())){
+                    result = movementType;
+                    break;
+                }
             }
         }
 

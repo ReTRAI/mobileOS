@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mob.com/serverapi/device/base" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mob.com/serverapi/device/base" targetNamespace="http://www.mob.com/serverapi/device/base">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mob.com/serverapi/device/base">
+
+    <!-- GetDeviceById-->
+    <xs:element name="GetDeviceByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetDeviceByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetDevicesFiltered-->
+    <xs:element name="GetDevicesFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="startCreationDate" type="xs:string"/>
+                <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="startActivationDate" type="xs:string"/>
+                <xs:element name="endActivationDate" type="xs:string"/>
+                <xs:element name="startExpirationDate" type="xs:string"/>
+                <xs:element name="endExpirationDate" type="xs:string"/>
+                <xs:element name="field" type="xs:string"/>
+                <xs:element name="orderField" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetDevicesFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetCountDevicesFiltered-->
+    <xs:element name="GetCountDevicesFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="startCreationDate" type="xs:string"/>
+                <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="startActivationDate" type="xs:string"/>
+                <xs:element name="endActivationDate" type="xs:string"/>
+                <xs:element name="startExpirationDate" type="xs:string"/>
+                <xs:element name="endExpirationDate" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCountDevicesFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SetDevice-->
+    <xs:element name="SetDeviceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="brand" type="xs:string"/>
+                <xs:element name="model" type="xs:string"/>
+                <xs:element name="serialNumber" type="xs:string"/>
+                <xs:element name="imeiNumber" type="xs:string"/>
+                <xs:element name="simNumber" type="xs:string"/>
+                <xs:element name="androidId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetDeviceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SetDeviceList-->
+    <xs:element name="SetDeviceListRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="device" type="tns:Device"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetDeviceListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- AssignDevice-->
+    <xs:element name="AssignDeviceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="resellerId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AssignDeviceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ActivateDevice-->
+    <xs:element name="ActivateDeviceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="ownerNickname" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ActivateDeviceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BlockDevice-->
+    <xs:element name="BlockDeviceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="BlockDeviceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- WipeDevice-->
+    <xs:element name="WipeDeviceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="WipeDeviceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SuspendDevice-->
+    <xs:element name="SuspendDeviceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SuspendDeviceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SetDeviceNotes-->
+    <xs:element name="SetDeviceNotesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="notes" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetDeviceNotesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="device" type="tns:Device"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SetDeviceBalanceMovement-->
+    <xs:element name="setDeviceBalanceMovementRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="debitCredit" type="xs:string"/>
+                <xs:element name="movementValue" type="xs:float"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetDeviceBalanceMovementResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetDeviceBalanceMovements-->
+    <xs:element name="GetDeviceBalanceMovementsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="startMovementDate" type="xs:string"/>
+                <xs:element name="endMovementDate" type="xs:string"/>
+                <xs:element name="minValue" type="xs:string"/>
+                <xs:element name="maxValue" type="xs:string"/>
+                <xs:element name="debitCredit" type="xs:string"/>
+                <xs:element name="field" type="xs:string"/>
+                <xs:element name="orderField" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetDeviceBalanceMovementsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="deviceBalance" type="tns:DeviceBalance"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetCountDeviceBalanceMovements-->
+    <xs:element name="GetCountDeviceBalanceMovementsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="startMovementDate" type="xs:string"/>
+                <xs:element name="endMovementDate" type="xs:string"/>
+                <xs:element name="minValue" type="xs:string"/>
+                <xs:element name="maxValue" type="xs:string"/>
+                <xs:element name="debitCredit" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCountDeviceBalanceMovementsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!-- Endpoint Device Object-->
+    <xs:complexType name="Device">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="deviceId" type="xs:string"/>
+            <xs:element minOccurs="0" name="resellerId" type="xs:string"/>
+            <xs:element minOccurs="0" name="deviceStatus" type="xs:string"/>
+            <xs:element name="brand" type="xs:string"/>
+            <xs:element name="model" type="xs:string"/>
+            <xs:element name="serialNumber" type="xs:string"/>
+            <xs:element name="imeiNumber" type="xs:string"/>
+            <xs:element name="simNumber" type="xs:string"/>
+            <xs:element name="androidId" type="xs:string"/>
+            <xs:element minOccurs="0" name="firstSimNumber" type="xs:string"/>
+            <xs:element minOccurs="0" name="creationDate" type="xs:string"/>
+            <xs:element minOccurs="0" name="lastConnection" type="xs:string"/>
+            <xs:element minOccurs="0" name="lastBackup" type="xs:string"/>
+            <xs:element minOccurs="0" name="activationDate" type="xs:string"/>
+            <xs:element minOccurs="0" name="expireDate" type="xs:string"/>
+            <xs:element minOccurs="0" name="currentBalance" type="xs:float"/>
+            <xs:element minOccurs="0" name="currentMinutes" type="xs:float"/>
+            <xs:element minOccurs="0" name="notes" type="xs:string"/>
+            <xs:element minOccurs="0" name="osVersion" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Endpoint DeviceBalance Object-->
+    <xs:complexType name="DeviceBalance">
+        <xs:sequence>
+            <xs:element name="deviceBalanceId" type="xs:string"/>
+            <xs:element name="debitCredit" type="xs:string"/>
+            <xs:element name="movementValue" type="xs:float"/>
+            <xs:element name="movementDate" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDeviceBalanceMovementsRequest">
+    <wsdl:part element="tns:GetDeviceBalanceMovementsRequest" name="GetDeviceBalanceMovementsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AssignDeviceRequest">
+    <wsdl:part element="tns:AssignDeviceRequest" name="AssignDeviceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDevicesFilteredRequest">
+    <wsdl:part element="tns:GetDevicesFilteredRequest" name="GetDevicesFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountDeviceBalanceMovementsRequest">
+    <wsdl:part element="tns:GetCountDeviceBalanceMovementsRequest" name="GetCountDeviceBalanceMovementsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BlockDeviceResponse">
+    <wsdl:part element="tns:BlockDeviceResponse" name="BlockDeviceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WipeDeviceResponse">
+    <wsdl:part element="tns:WipeDeviceResponse" name="WipeDeviceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceListRequest">
+    <wsdl:part element="tns:SetDeviceListRequest" name="SetDeviceListRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceResponse">
+    <wsdl:part element="tns:SetDeviceResponse" name="SetDeviceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceRequest">
+    <wsdl:part element="tns:SetDeviceRequest" name="SetDeviceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setDeviceBalanceMovementRequest">
+    <wsdl:part element="tns:setDeviceBalanceMovementRequest" name="setDeviceBalanceMovementRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceBalanceMovementResponse">
+    <wsdl:part element="tns:SetDeviceBalanceMovementResponse" name="SetDeviceBalanceMovementResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDeviceByIdResponse">
+    <wsdl:part element="tns:GetDeviceByIdResponse" name="GetDeviceByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountDevicesFilteredResponse">
+    <wsdl:part element="tns:GetCountDevicesFilteredResponse" name="GetCountDevicesFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WipeDeviceRequest">
+    <wsdl:part element="tns:WipeDeviceRequest" name="WipeDeviceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceListResponse">
+    <wsdl:part element="tns:SetDeviceListResponse" name="SetDeviceListResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDeviceBalanceMovementsResponse">
+    <wsdl:part element="tns:GetDeviceBalanceMovementsResponse" name="GetDeviceBalanceMovementsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SuspendDeviceResponse">
+    <wsdl:part element="tns:SuspendDeviceResponse" name="SuspendDeviceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDeviceByIdRequest">
+    <wsdl:part element="tns:GetDeviceByIdRequest" name="GetDeviceByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceNotesResponse">
+    <wsdl:part element="tns:SetDeviceNotesResponse" name="SetDeviceNotesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BlockDeviceRequest">
+    <wsdl:part element="tns:BlockDeviceRequest" name="BlockDeviceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDevicesFilteredResponse">
+    <wsdl:part element="tns:GetDevicesFilteredResponse" name="GetDevicesFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceNotesRequest">
+    <wsdl:part element="tns:SetDeviceNotesRequest" name="SetDeviceNotesRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ActivateDeviceRequest">
+    <wsdl:part element="tns:ActivateDeviceRequest" name="ActivateDeviceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ActivateDeviceResponse">
+    <wsdl:part element="tns:ActivateDeviceResponse" name="ActivateDeviceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SuspendDeviceRequest">
+    <wsdl:part element="tns:SuspendDeviceRequest" name="SuspendDeviceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AssignDeviceResponse">
+    <wsdl:part element="tns:AssignDeviceResponse" name="AssignDeviceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountDevicesFilteredRequest">
+    <wsdl:part element="tns:GetCountDevicesFilteredRequest" name="GetCountDevicesFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountDeviceBalanceMovementsResponse">
+    <wsdl:part element="tns:GetCountDeviceBalanceMovementsResponse" name="GetCountDeviceBalanceMovementsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DevicesPort">
+    <wsdl:operation name="GetDeviceBalanceMovements">
+      <wsdl:input message="tns:GetDeviceBalanceMovementsRequest" name="GetDeviceBalanceMovementsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetDeviceBalanceMovementsResponse" name="GetDeviceBalanceMovementsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignDevice">
+      <wsdl:input message="tns:AssignDeviceRequest" name="AssignDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:AssignDeviceResponse" name="AssignDeviceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesFiltered">
+      <wsdl:input message="tns:GetDevicesFilteredRequest" name="GetDevicesFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetDevicesFilteredResponse" name="GetDevicesFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountDeviceBalanceMovements">
+      <wsdl:input message="tns:GetCountDeviceBalanceMovementsRequest" name="GetCountDeviceBalanceMovementsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetCountDeviceBalanceMovementsResponse" name="GetCountDeviceBalanceMovementsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BlockDevice">
+      <wsdl:input message="tns:BlockDeviceRequest" name="BlockDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:BlockDeviceResponse" name="BlockDeviceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WipeDevice">
+      <wsdl:input message="tns:WipeDeviceRequest" name="WipeDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:WipeDeviceResponse" name="WipeDeviceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceList">
+      <wsdl:input message="tns:SetDeviceListRequest" name="SetDeviceListRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SetDeviceListResponse" name="SetDeviceListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDevice">
+      <wsdl:input message="tns:SetDeviceRequest" name="SetDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SetDeviceResponse" name="SetDeviceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDeviceBalanceMovement">
+      <wsdl:input message="tns:setDeviceBalanceMovementRequest" name="setDeviceBalanceMovementRequest">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceBalanceMovement">
+      <wsdl:output message="tns:SetDeviceBalanceMovementResponse" name="SetDeviceBalanceMovementResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceById">
+      <wsdl:input message="tns:GetDeviceByIdRequest" name="GetDeviceByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetDeviceByIdResponse" name="GetDeviceByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountDevicesFiltered">
+      <wsdl:input message="tns:GetCountDevicesFilteredRequest" name="GetCountDevicesFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetCountDevicesFilteredResponse" name="GetCountDevicesFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspendDevice">
+      <wsdl:input message="tns:SuspendDeviceRequest" name="SuspendDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SuspendDeviceResponse" name="SuspendDeviceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceNotes">
+      <wsdl:input message="tns:SetDeviceNotesRequest" name="SetDeviceNotesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SetDeviceNotesResponse" name="SetDeviceNotesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateDevice">
+      <wsdl:input message="tns:ActivateDeviceRequest" name="ActivateDeviceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ActivateDeviceResponse" name="ActivateDeviceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DevicesPortSoap11" type="tns:DevicesPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetDeviceBalanceMovements">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetDeviceBalanceMovementsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDeviceBalanceMovementsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignDevice">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="AssignDeviceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AssignDeviceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevicesFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetDevicesFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDevicesFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountDeviceBalanceMovements">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetCountDeviceBalanceMovementsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetCountDeviceBalanceMovementsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BlockDevice">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="BlockDeviceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="BlockDeviceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WipeDevice">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="WipeDeviceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="WipeDeviceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceList">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceListRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDevice">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDeviceBalanceMovement">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="setDeviceBalanceMovementRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceBalanceMovement">
+      <soap:operation soapAction=""/>
+      <wsdl:output name="SetDeviceBalanceMovementResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetDeviceByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDeviceByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountDevicesFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetCountDevicesFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetCountDevicesFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspendDevice">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SuspendDeviceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SuspendDeviceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceNotes">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceNotesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceNotesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateDevice">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ActivateDeviceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ActivateDeviceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DevicesPortService">
+    <wsdl:port binding="tns:DevicesPortSoap11" name="DevicesPortSoap11">
+      <soap:address location="http://localhost:8080/serverapi/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

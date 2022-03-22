@@ -2,6 +2,7 @@ package com.season.portal.client.reseller;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.balance.BalanceListPageModel;
+import com.season.portal.balance.BalanceMovementModel;
 import com.season.portal.client.generated.reseller.*;
 import com.season.portal.reseller.ResellerListPageModel;
 import com.season.portal.utils.Utils;
@@ -12,6 +13,15 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 
 public class ClientReseller extends WebServiceGatewaySupport{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+    public enum MOVEMENT_TYPE {
+        MANUAL_CREDIT,
+        ACTIVATE_DEVICE,
+        MANUAL_DEBIT,
+        TRANSFER
+    }
+    public final static String MOVEMENT_DEBIT = "D";
+    public static final String MOVEMENT_CREDIT = "C";
 
     public boolean validateSetReseller(SetResellerResponse response, boolean addMsg) {
         boolean valid = false;
@@ -497,12 +507,13 @@ public class ClientReseller extends WebServiceGatewaySupport{
                 endDate,
                 minVal,
                 maxVal,
-                model.getValidDebitCredit()
+                model.getValidDebitCredit(),
+                model.getValidMovementType()
         );
     }
 
     public GetCountResellerBalanceMovementsResponse countResellerBalanceMovements(String resellerId, String startDate, String endDate,
-                                                                                  String minVal, String maxVal, String debitCredit){
+                                                                                  String minVal, String maxVal, String debitCredit, String movementType){
         GetCountResellerBalanceMovementsRequest request = new GetCountResellerBalanceMovementsRequest();
         request.setResellerId(resellerId);
         request.setStartMovementDate(startDate);
@@ -510,6 +521,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
         request.setMinValue(minVal);
         request.setMaxValue(maxVal);
         request.setDebitCredit(debitCredit);
+        request.setMovementType(movementType);
 
         GetCountResellerBalanceMovementsResponse response = null;
         try {
@@ -548,6 +560,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
                 minVal,
                 maxVal,
                 model.getValidDebitCredit(),
+                model.getValidMovementType(),
                 model.getValidOffset(),
                 model.getValidNumPerPage(),
                 model.getValidSort(),
@@ -556,7 +569,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
     }
 
     public GetResellerBalanceMovementsResponse getResellerBalanceMovements(String resellerId, String startDate, String endDate,
-                                                           String minVal, String maxVal, String debitCredit,
+                                                           String minVal, String maxVal, String debitCredit, String movementType,
                                                                    int offset, int numberRecords, String field, String order){
         GetResellerBalanceMovementsRequest request = new GetResellerBalanceMovementsRequest();
         request.setResellerId(resellerId);
@@ -565,6 +578,7 @@ public class ClientReseller extends WebServiceGatewaySupport{
         request.setMinValue(minVal);
         request.setMaxValue(maxVal);
         request.setDebitCredit(debitCredit);
+        request.setMovementType(movementType);
 
         request.setOffset(offset);
         request.setNumberRecords(numberRecords);
@@ -593,14 +607,32 @@ public class ClientReseller extends WebServiceGatewaySupport{
         return response;
     }
 
-    public SetResellerBalanceMovementResponse setResellerBalanceMovement(String resellerId, String actionUserId) {
+    public SetResellerBalanceMovementResponse setResellerBalanceMovement(BalanceMovementModel model, String actionUserId){
+        String valueStr=model.getMovementValue();
+        float value = Utils.parseFloat(valueStr);
+        return setResellerBalanceMovement(
+                model.getResellerId(),
+                value,
+                model.getValidDebitCredit(),
+                model.getMovementType(),
+                model.getMovementDetail(),
+                actionUserId
+        );
+    }
+    public SetResellerBalanceMovementResponse setResellerBalanceMovement(String resellerId, float movementValue, String debitCredit,
+                                                                         String movementType, String movementDetail, String actionUserId) {
         SetResellerBalanceMovementRequest request = new SetResellerBalanceMovementRequest();
         request.setResellerId(resellerId);
         request.setActionUserId(actionUserId);
+        request.setMovementValue(movementValue);
+        request.setDebitCredit(debitCredit);
+        request.setMovementType(movementType);
+        request.setMovementDetail(movementDetail);
 
         SetResellerBalanceMovementResponse response = null;
         try {
             response = (SetResellerBalanceMovementResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapDetail(soapEx, "code") ;
@@ -618,6 +650,20 @@ public class ClientReseller extends WebServiceGatewaySupport{
         }
 
         return response;
+    }
+
+    public boolean validateSetResellerBalanceMovement(SetResellerBalanceMovementResponse response, boolean addErrorMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+            }
+            else if(addErrorMsg){
+                PortalApplication.addErrorKey("api_ClientReseller_validateSetResellerBalanceMovement_error");
+            }
+        }
+        return valid;
     }
 
 }

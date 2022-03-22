@@ -1,4 +1,4 @@
-package com.season.portal.support;
+package com.season.portal.ticket;
 
 import com.season.portal.utils.validation.constrain.IFileValidatorConstrain;
 import com.season.portal.utils.validation.constrain.IFilesValidatorConstrain;

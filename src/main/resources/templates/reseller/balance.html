@@ -30,7 +30,7 @@
 
 
 <!-- BEGIN: Content-->
-<th:block th:with="baseUrl=${#httpServletRequest.requestURI}, queryUrl=${#httpServletRequest.queryString}">
+<th:block th:with="baseUrl=${portalURL + 'resellers/balance'}, queryUrl=${#httpServletRequest.queryString}">
 <div class="app-content content ">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -67,7 +67,7 @@
                         </li>
                         <li class="nav-item mb-1 ms-1">
                             <button class="btn btn-danger toTranslate" data-langKey="utils_removeCredits"
-                                    onclick="removeCredits()"
+                                    onclick="rmvCredits()"
                             >Remove Credits</button>
                         </li>
                     </th:block>
@@ -96,12 +96,62 @@
                                 <div class="col-md-4 col-12">
                                     <div class="mb-1">
                                         <label class="form-label toTranslate" for="filter-debitCredit"
-                                               data-langKey="utils_form_debitCredit">Status</label>
+                                               data-langKey="utils_form_debitCredit">Debit/Credit</label>
                                         <select id="filter-debitCredit" class="form-select" th:field="*{debitCredit}" th:errorclass="is-invalid">
                                             <option value="" class="toTranslate" data-langKey="utils_all">All</option>
                                             <option th:value="D" class="toTranslate" data-langKey="api_debitCredit_D">Debit</option>
                                             <option th:value="C" class="toTranslate" data-langKey="api_debitCredit_C">Credit</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-movementType"
+                                               data-langKey="utils_form_movementType">Movement Type</label>
+                                        <select id="filter-movementType" class="form-select" th:field="*{movementType}" th:errorclass="is-invalid">
+                                            <option value="" class="toTranslate" data-langKey="utils_all">All</option>
+                                            <option th:each="movementType : ${T(com.season.portal.client.reseller.ClientReseller.MOVEMENT_TYPE).values()}"
+                                                    th:value="${movementType.name()}" class="toTranslate"
+                                                    th:attr="data-langKey=${'api_movementType_'+movementType}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mb-0 toTranslate" data-langKey="utils_form_expireBetween">Expira entre:</p>
+
+                            <div class="row">
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-startDate"
+                                               data-langKey="utils_form_startDate">Start Date</label>
+                                        <div class="input-group input-group-merge"
+                                             th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}">
+                                            <input type="text" id="filter-startDate"
+                                                   th:field="*{startDate}"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                            <span class="input-group-text cursor-pointer"
+                                                  onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
+                                        </div>
+                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startDate')}"
+                                           th:attr="data-langKey=${err}"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label toTranslate" for="filter-endDate"
+                                               data-langKey="utils_form_endDate">End Date</label>
+                                        <div class="input-group input-group-merge"
+                                             th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}">
+                                            <input type="text" id="filter-endDate"
+                                                   th:field="*{endDate}"
+                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                            <span class="input-group-text cursor-pointer"
+                                                  onclick="$('#filter-endDate').val('')"><i data-feather="x"></i></span>
+                                        </div>
+                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endDate')}"
+                                           th:attr="data-langKey=${err}"></p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
@@ -142,47 +192,7 @@
                                         </th:block>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <p class="mb-0 toTranslate" data-langKey="utils_form_expireBetween">Expira entre:</p>
-                                    <div class="row">
-                                        <div class="col-md-4 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label toTranslate" for="filter-startDate"
-                                                       data-langKey="utils_form_startDate">Start Date</label>
-                                                <div class="input-group input-group-merge"
-                                                     th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}">
-                                                    <input type="text" id="filter-startDate"
-                                                           th:field="*{startDate}"
-                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
-                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
-                                                    <span class="input-group-text cursor-pointer"
-                                                          onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
-                                                </div>
-                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startDate')}"
-                                                   th:attr="data-langKey=${err}"></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label toTranslate" for="filter-endDate"
-                                                       data-langKey="utils_form_endDate">End Date</label>
-                                                <div class="input-group input-group-merge"
-                                                     th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}">
-                                                    <input type="text" id="filter-endDate"
-                                                           th:field="*{endDate}"
-                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
-                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
-                                                    <span class="input-group-text cursor-pointer"
-                                                          onclick="$('#filter-endDate').val('')"><i data-feather="x"></i></span>
-                                                </div>
-                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endDate')}"
-                                                   th:attr="data-langKey=${err}"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                             </div>
 
@@ -206,12 +216,19 @@
                         <table class="table table-striped dataTable ">
                             <thead>
                                 <tr>
+                                    <th class="toTranslate" data-langKey="utils_table_detail"
+                                    >Detail</th>
+                                    <th class="sorting toTranslate" data-langKey="utils_table_type"
+                                        th:with="sortName='movementType'"
+                                        th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                        th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Type</th>
                                     <th class="sorting toTranslate" data-langKey="utils_table_debitCredit"
                                         th:with="sortName='debitCredit'"
                                         th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                         th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
-                                    >Type</th>
-                                    <th class="sorting toTranslate text-center" data-langKey="utils_table_movementDate"
+                                    >Movement</th>
+                                    <th class="sorting toTranslate text-center" data-langKey="utils_table_date"
                                         th:with="sortName='movementDate'"
                                         th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                         th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
@@ -227,6 +244,8 @@
                             </thead>
                             <tbody>
                                 <tr th:each="ele : ${elements}">
+                                    <td class="toTranslate" th:text="${ele.getMovementDetail()}"></td>
+                                    <td class="toTranslate" th:attr="data-langKey=${'api_movementType_'+ele.getMovementType()}"></td>
                                     <td class="toTranslate" th:attr="data-langKey=${'api_debitCredit_'+ele.getDebitCredit()}"></td>
                                     <td class="text-center"
                                         th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getMovementDate())}">
@@ -273,11 +292,16 @@
 
 <th:block th:replace="shared/creditsModal :: validationCreditsModal"/>
 <th:block th:replace="shared/creditsModal :: sendCreditsModal"/>
+
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
 <th:block th:replace="shared/common :: common-translate"/>
 <script th:src="@{/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
+<script th:src="@{/js/calc.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
+
+
 <script>
     $(window).on('load', function() {
         setupLanguage();
@@ -302,11 +326,33 @@
         var resellerName = "[[${resellerName}]]";
         var maxValue = parseFloat("[[${balanceView}]]");
         sendCreditsModal_open(resellerId, resellerName, maxValue);
-
     }
 </script>
 
+<th:block  sec:authorize="hasRole('ROLE_ADMIN')">
+    <th:block th:replace="shared/creditsModal :: addCreditsModal"/>
+    <th:block th:replace="shared/creditsModal :: rmvCreditsModal"/>
+    <script>
+        $(window).on('load', function() {
+            addCreditsModal_init();
+            rmvCreditsModal_init();
+        });
 
+
+        function addCredits(){
+            var resellerId = "[[${resellerId}]]";
+            var resellerName = "[[${resellerName}]]";
+            addCreditsModal_open(resellerId, resellerName);
+        }
+
+        function rmvCredits(){
+            var resellerId = "[[${resellerId}]]";
+            var resellerName = "[[${resellerName}]]";
+            var maxValue = parseFloat("[[${resellerBalance}]]");
+            rmvCreditsModal_open(resellerId, resellerName, maxValue);
+        }
+    </script>
+</th:block>
 
 </body>
 <!-- END: Body-->

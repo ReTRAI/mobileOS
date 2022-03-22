@@ -48,6 +48,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 
+import static com.season.portal.client.reseller.ClientReseller.MOVEMENT_CREDIT;
+import static com.season.portal.client.reseller.ClientReseller.MOVEMENT_DEBIT;
 import static com.season.portal.configuration.AnnotationSecurityConfiguration.*;
 
 @Controller
@@ -60,7 +62,7 @@ public class ResellerController extends ModelViewBaseController {
 
     private String SESSION_RESELLER_CONTROLLER_LIST_MODEL = "SESSION_RESELLER_CONTROLLER_LIST_MODEL";
     private String SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY = "SESSION_RESELLER_CONTROLLER_RESELLER_MODEL_HISTORY";
-    private String SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID = "SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID";
+    private String SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER = "SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER";
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @GetMapping("/resellers/listBack")
@@ -363,9 +365,10 @@ public class ResellerController extends ModelViewBaseController {
     @PostMapping("/resellers/openBalance")
     public ModelAndView openResellerBalance(@Valid GuidRequiredModel model, BindingResult result) {
         if(!result.hasErrors()){
-            HttpSession session = request.getSession(true);
-            session.setAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID, model.getValue());
-            return resellerBalanceView(new BalanceListPageModel(model.getValue()));
+            BalanceListPageModel balanceModel = new BalanceListPageModel(model.getValue());
+            balanceModel.setOrder("desc");
+            balanceModel.setSort("movementDate");
+            return resellerBalanceView(balanceModel);
         }
         return resellerViewBySession();
     }
@@ -375,9 +378,9 @@ public class ResellerController extends ModelViewBaseController {
     public ModelAndView resellerBalance(@Valid BalanceListPageModel model, BindingResult result) {
         if(!result.hasErrors()){
             HttpSession session = request.getSession(true);
-            String resellerId = (String)session.getAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER_ID);
-            if(resellerId != null){
-                model.setResellerId(resellerId);
+            BalanceListPageModel oldModel = (BalanceListPageModel)session.getAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER);
+            if(oldModel != null){
+                model.setResellerId(oldModel.getResellerId());
                 return resellerBalanceView(model);
             }
         }
@@ -390,11 +393,15 @@ public class ResellerController extends ModelViewBaseController {
         long totalElements = 0;
 
 
+
         if(principalCanSee(clientReseller, model.getResellerId())) {
             GetResellerByIdResponse responseReseller = clientReseller.getResellerById(model.getResellerId());
             if(responseReseller != null){
                 Reseller  r = responseReseller.getReseller();
                 if(r != null) {
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER, model);
+
                     mv.addObject("resellerId", r.getResellerId());
                     mv.addObject("resellerName", r.getResellerName());
                     mv.addObject("resellerBalance", r.getCurrentBalance());
@@ -417,7 +424,7 @@ public class ResellerController extends ModelViewBaseController {
 
                     if(request.isUserInRole("ROLE_ADMIN")){
                         mv.addObject("balanceMovementModel_addCredits", new BalanceMovementModel(resellerId));
-                        mv.addObject("balanceMovementModel_removeCredits", new BalanceMovementModel(resellerId));
+                        mv.addObject("balanceMovementModel_rmvCredits", new BalanceMovementModel(resellerId));
                     }
                 }
             }
@@ -468,5 +475,98 @@ public class ResellerController extends ModelViewBaseController {
         return dispatchView(mv);
     }
 
+    @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
+    @PostMapping(value={"/resellers/sendCredits"})
+    public ModelAndView sendCredits(@Valid BalanceMovementModel model, BindingResult result){
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            String principalResellerId = getPrincipalResellerId(clientReseller);
+            String toResellerId = model.getResellerId();
 
+            if(user != null && principalResellerId != null){
+                model.setMovementType(ClientReseller.MOVEMENT_TYPE.TRANSFER.toString());
+
+                model.setDebitCredit(MOVEMENT_DEBIT);
+                model.setResellerId(principalResellerId);
+                SetResellerBalanceMovementResponse response = clientReseller.setResellerBalanceMovement(model, user.getUserId() );
+
+                if(clientReseller.validateSetResellerBalanceMovement(response, true)){
+
+                    model.setDebitCredit(MOVEMENT_CREDIT);
+                    model.setResellerId(toResellerId);
+                    response = clientReseller.setResellerBalanceMovement(model, user.getUserId() );
+
+                    if(clientReseller.validateSetResellerBalanceMovement(response, true)){
+                        getPrincipalReseller(clientReseller);//updateBalance
+                        PortalApplication.addSuccessKey("api_ClientReseller_validateSetResellerBalanceMovement_success");
+                    }
+                }
+            }
+        }
+        else{
+            PortalApplication.addErrorKey(result);
+        }
+
+        HttpSession session = request.getSession(true);
+        BalanceListPageModel balanceModel = (BalanceListPageModel)session.getAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER);
+        return resellerBalanceView(balanceModel);
+    }
+
+    @PreAuthorize(ALLOW_ROLES_ADMIN)
+    @PostMapping(value={"/resellers/addCredits"})
+    public ModelAndView addCredits(@Valid BalanceMovementModel model, BindingResult result){
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+
+            if(user != null){
+                model.setMovementType(ClientReseller.MOVEMENT_TYPE.MANUAL_CREDIT.toString());
+                model.setDebitCredit(MOVEMENT_CREDIT);
+                SetResellerBalanceMovementResponse response = clientReseller.setResellerBalanceMovement(model, user.getUserId() );
+
+                if(clientReseller.validateSetResellerBalanceMovement(response, true)){
+                    String principalResellerId = getPrincipalResellerId(clientReseller);
+                    if(principalResellerId != null && principalResellerId.equals(model.getResellerId())){
+                        getPrincipalReseller(clientReseller);//updateBalance
+                    }
+                    PortalApplication.addSuccessKey("api_ClientReseller_validateSetResellerBalanceMovement_success");
+                }
+            }
+        }
+        else{
+            PortalApplication.addErrorKey(result);
+        }
+
+        HttpSession session = request.getSession(true);
+        BalanceListPageModel balanceModel = (BalanceListPageModel)session.getAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER);
+        return resellerBalanceView(balanceModel);
+    }
+
+    @PreAuthorize(ALLOW_ROLES_ADMIN)
+    @PostMapping(value={"/resellers/removeCredits"})
+    public ModelAndView removeCredits(@Valid BalanceMovementModel model, BindingResult result){
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+
+            if(user != null){
+                model.setMovementType(ClientReseller.MOVEMENT_TYPE.MANUAL_DEBIT.toString());
+                model.setDebitCredit(MOVEMENT_DEBIT);
+                SetResellerBalanceMovementResponse response = clientReseller.setResellerBalanceMovement(model, user.getUserId() );
+
+                if(clientReseller.validateSetResellerBalanceMovement(response, true)){
+                    String principalResellerId = getPrincipalResellerId(clientReseller);
+                    if(principalResellerId != null && principalResellerId.equals(model.getResellerId())){
+                        getPrincipalReseller(clientReseller);//updateBalance
+                    }
+                    PortalApplication.addSuccessKey("api_ClientReseller_validateSetResellerBalanceMovement_success");
+                }
+            }
+        }
+        else{
+            PortalApplication.addErrorKey(result);
+        }
+
+        HttpSession session = request.getSession(true);
+        BalanceListPageModel balanceModel = (BalanceListPageModel)session.getAttribute(SESSION_RESELLER_CONTROLLER_BALANCE_RESELLER);
+        return resellerBalanceView(balanceModel);
+    }
 }

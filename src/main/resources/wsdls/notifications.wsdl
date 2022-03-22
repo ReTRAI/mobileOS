@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.mob.com/serverapi/notification/base" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mob.com/serverapi/notification/base" targetNamespace="http://www.mob.com/serverapi/notification/base">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mob.com/serverapi/notification/base">
+
+
+    <!-- SetDeviceNotification-->
+    <xs:element name="SetDeviceNotificationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="detail" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetDeviceNotificationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceNotification" type="tns:DeviceNotification"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SetUserNotification-->
+    <xs:element name="SetUserNotificationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+                <xs:element name="detail" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetUserNotificationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userNotification" type="tns:UserNotification"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SetDeviceNotificationChecked-->
+    <xs:element name="SetDeviceNotificationCheckedRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceNotificationId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetDeviceNotificationCheckedResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceNotification" type="tns:DeviceNotification"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- SetUserNotificationChecked-->
+    <xs:element name="SetUserNotificationCheckedRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userNotificationId" type="xs:string"/>
+                <xs:element name="actionUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SetUserNotificationCheckedResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userNotification" type="tns:UserNotification"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetDeviceNotificationFiltered-->
+    <xs:element name="GetDeviceNotificationFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="startCreationDate" type="xs:string"/>
+                <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="checked" type="xs:string"/>
+                <xs:element name="startCheckedDate" type="xs:string"/>
+                <xs:element name="endCheckedDate" type="xs:string"/>
+                <xs:element name="field" type="xs:string"/>
+                <xs:element name="orderField" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetDeviceNotificationFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="deviceNotification" type="tns:DeviceNotification"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetCountDeviceNotificationFiltered-->
+    <xs:element name="GetCountDeviceNotificationFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deviceId" type="xs:string"/>
+                <xs:element name="startCreationDate" type="xs:string"/>
+                <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="checked" type="xs:string"/>
+                <xs:element name="startCheckedDate" type="xs:string"/>
+                <xs:element name="endCheckedDate" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCountDeviceNotificationFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetUserNotificationFiltered-->
+    <xs:element name="GetUserNotificationFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+                <xs:element name="startCreationDate" type="xs:string"/>
+                <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="checked" type="xs:string"/>
+                <xs:element name="startCheckedDate" type="xs:string"/>
+                <xs:element name="endCheckedDate" type="xs:string"/>
+                <xs:element name="field" type="xs:string"/>
+                <xs:element name="orderField" type="xs:string"/>
+                <xs:element name="offset" type="xs:int"/>
+                <xs:element name="numberRecords" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetUserNotificationFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="userNotification" type="tns:UserNotification"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- GetCountUserNotificationFiltered-->
+    <xs:element name="GetCountUserNotificationFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:string"/>
+                <xs:element name="startCreationDate" type="xs:string"/>
+                <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="checked" type="xs:string"/>
+                <xs:element name="startCheckedDate" type="xs:string"/>
+                <xs:element name="endCheckedDate" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCountUserNotificationFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Endpoint DeviceNotification Object-->
+    <xs:complexType name="DeviceNotification">
+        <xs:sequence>
+            <xs:element name="deviceNotificationId" type="xs:string"/>
+            <xs:element name="deviceId" type="xs:string"/>
+            <xs:element name="creationDate" type="xs:string"/>
+            <xs:element name="detail" type="xs:string"/>
+            <xs:element name="checked" type="xs:boolean"/>
+            <xs:element name="checkedDate" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Endpoint UserNotification Object-->
+    <xs:complexType name="UserNotification">
+        <xs:sequence>
+            <xs:element name="userNotificationId" type="xs:string"/>
+            <xs:element name="userId" type="xs:string"/>
+            <xs:element name="creationDate" type="xs:string"/>
+            <xs:element name="detail" type="xs:string"/>
+            <xs:element name="checked" type="xs:boolean"/>
+            <xs:element name="checkedDate" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="SetDeviceNotificationResponse">
+    <wsdl:part element="tns:SetDeviceNotificationResponse" name="SetDeviceNotificationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountDeviceNotificationFilteredResponse">
+    <wsdl:part element="tns:GetCountDeviceNotificationFilteredResponse" name="GetCountDeviceNotificationFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetUserNotificationFilteredRequest">
+    <wsdl:part element="tns:GetUserNotificationFilteredRequest" name="GetUserNotificationFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetUserNotificationCheckedResponse">
+    <wsdl:part element="tns:SetUserNotificationCheckedResponse" name="SetUserNotificationCheckedResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountDeviceNotificationFilteredRequest">
+    <wsdl:part element="tns:GetCountDeviceNotificationFilteredRequest" name="GetCountDeviceNotificationFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDeviceNotificationFilteredRequest">
+    <wsdl:part element="tns:GetDeviceNotificationFilteredRequest" name="GetDeviceNotificationFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountUserNotificationFilteredResponse">
+    <wsdl:part element="tns:GetCountUserNotificationFilteredResponse" name="GetCountUserNotificationFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetUserNotificationResponse">
+    <wsdl:part element="tns:SetUserNotificationResponse" name="SetUserNotificationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceNotificationCheckedResponse">
+    <wsdl:part element="tns:SetDeviceNotificationCheckedResponse" name="SetDeviceNotificationCheckedResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetUserNotificationCheckedRequest">
+    <wsdl:part element="tns:SetUserNotificationCheckedRequest" name="SetUserNotificationCheckedRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetUserNotificationFilteredResponse">
+    <wsdl:part element="tns:GetUserNotificationFilteredResponse" name="GetUserNotificationFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetUserNotificationRequest">
+    <wsdl:part element="tns:SetUserNotificationRequest" name="SetUserNotificationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDeviceNotificationFilteredResponse">
+    <wsdl:part element="tns:GetDeviceNotificationFilteredResponse" name="GetDeviceNotificationFilteredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceNotificationRequest">
+    <wsdl:part element="tns:SetDeviceNotificationRequest" name="SetDeviceNotificationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCountUserNotificationFilteredRequest">
+    <wsdl:part element="tns:GetCountUserNotificationFilteredRequest" name="GetCountUserNotificationFilteredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SetDeviceNotificationCheckedRequest">
+    <wsdl:part element="tns:SetDeviceNotificationCheckedRequest" name="SetDeviceNotificationCheckedRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="NotificationsPort">
+    <wsdl:operation name="SetDeviceNotification">
+      <wsdl:input message="tns:SetDeviceNotificationRequest" name="SetDeviceNotificationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SetDeviceNotificationResponse" name="SetDeviceNotificationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountDeviceNotificationFiltered">
+      <wsdl:input message="tns:GetCountDeviceNotificationFilteredRequest" name="GetCountDeviceNotificationFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetCountDeviceNotificationFilteredResponse" name="GetCountDeviceNotificationFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNotificationFiltered">
+      <wsdl:input message="tns:GetUserNotificationFilteredRequest" name="GetUserNotificationFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetUserNotificationFilteredResponse" name="GetUserNotificationFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserNotificationChecked">
+      <wsdl:input message="tns:SetUserNotificationCheckedRequest" name="SetUserNotificationCheckedRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SetUserNotificationCheckedResponse" name="SetUserNotificationCheckedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceNotificationFiltered">
+      <wsdl:input message="tns:GetDeviceNotificationFilteredRequest" name="GetDeviceNotificationFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetDeviceNotificationFilteredResponse" name="GetDeviceNotificationFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountUserNotificationFiltered">
+      <wsdl:input message="tns:GetCountUserNotificationFilteredRequest" name="GetCountUserNotificationFilteredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetCountUserNotificationFilteredResponse" name="GetCountUserNotificationFilteredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserNotification">
+      <wsdl:input message="tns:SetUserNotificationRequest" name="SetUserNotificationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SetUserNotificationResponse" name="SetUserNotificationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceNotificationChecked">
+      <wsdl:input message="tns:SetDeviceNotificationCheckedRequest" name="SetDeviceNotificationCheckedRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:SetDeviceNotificationCheckedResponse" name="SetDeviceNotificationCheckedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotificationsPortSoap11" type="tns:NotificationsPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="SetDeviceNotification">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceNotificationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceNotificationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountDeviceNotificationFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetCountDeviceNotificationFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetCountDeviceNotificationFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNotificationFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetUserNotificationFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetUserNotificationFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserNotificationChecked">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetUserNotificationCheckedRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetUserNotificationCheckedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceNotificationFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetDeviceNotificationFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDeviceNotificationFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountUserNotificationFiltered">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetCountUserNotificationFilteredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetCountUserNotificationFilteredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserNotification">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetUserNotificationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetUserNotificationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeviceNotificationChecked">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceNotificationCheckedRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceNotificationCheckedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NotificationsPortService">
+    <wsdl:port binding="tns:NotificationsPortSoap11" name="NotificationsPortSoap11">
+      <soap:address location="http://localhost:8080/serverapi/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

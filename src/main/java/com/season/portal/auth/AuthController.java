@@ -122,8 +122,8 @@ public class AuthController extends ModelViewBaseController {
 
         if(!result.hasErrors()){
             if(validateLogin(request, model.getEmail(), model.getPassword())){
-                //return new ModelAndView("redirect:/dashboard");
-                return new ModelAndView("redirect:/resellers");
+                return new ModelAndView("redirect:/dashboard");
+                //return new ModelAndView("redirect:/resellers");
             }
         }
 

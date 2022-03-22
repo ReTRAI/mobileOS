@@ -9,7 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class BalanceMovementModel extends PageModel {
+import static com.season.portal.client.reseller.ClientReseller.MOVEMENT_CREDIT;
+import static com.season.portal.client.reseller.ClientReseller.MOVEMENT_DEBIT;
+
+public class BalanceMovementModel {
 
     public final static String VALUE_MINVAL = "0";
     public final static int DETAIL_MIN = 3;
@@ -21,9 +24,8 @@ public class BalanceMovementModel extends PageModel {
     @INumberValidatorConstrain(minVal = VALUE_MINVAL, required = true)
     private String movementValue;
 
-    @NotNull
-    @NotBlank
-    @Size(min = DETAIL_MIN, max = DETAIL_MAX)
+    @NotNull(message = "utils_form_required")
+    @Size(min = DETAIL_MIN, max = DETAIL_MAX, message = "utils_form_minmaxChar")
     private String movementDetail;
 
     private String movementType;
@@ -78,8 +80,8 @@ public class BalanceMovementModel extends PageModel {
         if(debitCredit != null){
             debitCredit = debitCredit.toUpperCase();
             switch(debitCredit){
-                case "D":
-                case "C":
+                case MOVEMENT_DEBIT:
+                case MOVEMENT_CREDIT:
                     result = debitCredit;
                     break;
             }

@@ -1,6 +1,7 @@
 package com.season.portal.devices;
 
 import com.season.portal.PortalApplication;
+import com.season.portal.auth.admin.AdminController;
 import com.season.portal.client.device.ClientDevice;
 import com.season.portal.client.generated.device.Device;
 import com.season.portal.client.generated.device.GetCountDevicesFilteredResponse;
@@ -64,6 +65,15 @@ public class DeviceController extends ModelViewBaseController {
 
     private ModelAndView devicesView(DeviceListPageModel model){
         ModelAndView mv = new ModelAndView("devices/devices");
+
+        String resellerId = getPrincipalResellerId(clientReseller);
+        if(request.isUserInRole("ROLE_ADMIN")){
+            HttpSession session = request.getSession(true);
+            if(AdminController.getAdminView(session)){
+                resellerId = "";
+            }
+        }
+        model.setResellerId(resellerId);
 
         ArrayList<SimpleDeviceModel> elements = new ArrayList<SimpleDeviceModel>();
         long totalElements = 0;

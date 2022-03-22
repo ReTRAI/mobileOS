@@ -13,7 +13,7 @@
 
     </style>
 
-    <title class="toTranslate" data-langKey="resellers_tab_title">Nice</title>
+    <title class="toTranslate" data-langKey="resellers_tab_title">Portal</title>
 </head>
 <!-- END: Head-->
 
@@ -101,7 +101,7 @@
                             <tbody>
                                 <tr th:each="ele : ${elements}">
                                     <td th:text="${ele.getResellerName()}"></td>
-                                    <td class="text-end" th:text="${ele.getCurrentBalance()+'$'}"></td>
+                                    <td class="text-end" th:text="${ele.getCurrentBalance()+'C'}"></td>
                                     <td class="text-end" th:text="${ele.getTotalDevices()}"></td>
                                     <td class="actions">
                                         <div class="d-flex align-items-center justify-content-around">

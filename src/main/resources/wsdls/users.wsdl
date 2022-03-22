@@ -3,40 +3,40 @@
   <wsdl:types>
     <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mob.com/serverapi/users/base">
 
-    <!-- getUserById-->
-    <xs:element name="getUserByIdRequest">
+    <!-- GetUserById-->
+    <xs:element name="GetUserByIdRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="getUserByIdResponse">
+    <xs:element name="GetUserByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:user"/>
+                <xs:element name="user" type="tns:User"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- getUserRolesByUserId-->
-    <xs:element name="getUserRolesByUserIdRequest">
+    <!-- GetUserRolesByUserId-->
+    <xs:element name="GetUserRolesByUserIdRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="getUserRolesByUserIdResponse">
+    <xs:element name="GetUserRolesByUserIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="userRole" type="tns:userRole"/>
+                <xs:element maxOccurs="unbounded" name="userRole" type="tns:UserRole"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- getUserFiltered-->
-    <xs:element name="getUserFilteredRequest">
+    <!-- GetUserFiltered-->
+    <xs:element name="GetUserFilteredRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -52,16 +52,16 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="getUserFilteredResponse">
+    <xs:element name="GetUserFilteredResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="user" type="tns:user"/>
+                <xs:element maxOccurs="unbounded" name="user" type="tns:User"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- getCountUserFiltered-->
-    <xs:element name="getCountUserFilteredRequest">
+    <!-- GetCountUserFiltered-->
+    <xs:element name="GetCountUserFilteredRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -73,7 +73,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="getCountUserFilteredResponse">
+    <xs:element name="GetCountUserFilteredResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:long"/>
@@ -81,8 +81,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- userLogin-->
-    <xs:element name="userLoginRequest">
+    <!-- UserLogin-->
+    <xs:element name="UserLoginRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userEmail" type="xs:string"/>
@@ -90,16 +90,16 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="userLoginResponse">
+    <xs:element name="UserLoginResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:user"/>
+                <xs:element name="user" type="tns:User"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- setUser-->
-    <xs:element name="setUserRequest">
+    <!-- SetUser-->
+    <xs:element name="SetUserRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userName" type="xs:string"/>
@@ -109,16 +109,16 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="setUserResponse">
+    <xs:element name="SetUserResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:user"/>
+                <xs:element name="user" type="tns:User"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <!-- unblockUser-->
-    <xs:element name="unblockUserRequest">
+    <!-- UnblockUser-->
+    <xs:element name="UnblockUserRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -127,7 +127,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="unblockUserResponse">
+    <xs:element name="UnblockUserResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -135,8 +135,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- changeUserPw-->
-    <xs:element name="changeUserPwRequest">
+    <!-- ChangeUserPw-->
+    <xs:element name="ChangeUserPwRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -146,7 +146,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="changeUserPwResponse">
+    <xs:element name="ChangeUserPwResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -154,8 +154,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- inactivateUser-->
-    <xs:element name="inactivateUserRequest">
+    <!-- InactivateUser-->
+    <xs:element name="InactivateUserRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -164,7 +164,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="inactivateUserResponse">
+    <xs:element name="InactivateUserResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -172,8 +172,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- activateUser-->
-    <xs:element name="activateUserRequest">
+    <!-- ActivateUser-->
+    <xs:element name="ActivateUserRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -182,7 +182,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="activateUserResponse">
+    <xs:element name="ActivateUserResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -190,8 +190,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- changeLangPreference-->
-    <xs:element name="changeLangPreferenceRequest">
+    <!-- ChangeLangPreference-->
+    <xs:element name="ChangeLangPreferenceRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -201,7 +201,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="changeLangPreferenceResponse">
+    <xs:element name="ChangeLangPreferenceResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -209,8 +209,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- changeThemePreference-->
-    <xs:element name="changeThemePreferenceRequest">
+    <!-- ChangeThemePreference-->
+    <xs:element name="ChangeThemePreferenceRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -219,7 +219,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="changeThemePreferenceResponse">
+    <xs:element name="ChangeThemePreferenceResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -227,15 +227,15 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- existUserName-->
-    <xs:element name="existUserNameRequest">
+    <!-- ExistUserName-->
+    <xs:element name="ExistUserNameRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userName" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="existUserNameResponse">
+    <xs:element name="ExistUserNameResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -243,15 +243,15 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- existUserEmail-->
-    <xs:element name="existUserEmailRequest">
+    <!-- ExistUserEmail-->
+    <xs:element name="ExistUserEmailRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userEmail" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="existUserEmailResponse">
+    <xs:element name="ExistUserEmailResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -259,8 +259,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- setUserAdmin-->
-    <xs:element name="setUserAdminRequest">
+    <!-- SetUserAdmin-->
+    <xs:element name="SetUserAdminRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -268,7 +268,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="setUserAdminResponse">
+    <xs:element name="SetUserAdminResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -276,8 +276,8 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- removeUserAdmin-->
-    <xs:element name="removeUserAdminRequest">
+    <!-- RemoveUserAdmin-->
+    <xs:element name="RemoveUserAdminRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
@@ -285,7 +285,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="removeUserAdminResponse">
+    <xs:element name="RemoveUserAdminResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="result" type="xs:boolean"/>
@@ -294,7 +294,7 @@
     </xs:element>
 
     <!-- Endpoint User Object-->
-    <xs:complexType name="user">
+    <xs:complexType name="User">
         <xs:sequence>
             <xs:element name="userId" type="xs:string"/>
             <xs:element name="userName" type="xs:string"/>
@@ -307,7 +307,7 @@
     </xs:complexType>
 
     <!-- Endpoint UserRole Object-->
-    <xs:complexType name="userRole">
+    <xs:complexType name="UserRole">
         <xs:sequence>
             <xs:element name="userRoleId" type="xs:string"/>
             <xs:element name="userRoleName" type="xs:string"/>
@@ -315,375 +315,375 @@
     </xs:complexType>
 </xs:schema>
   </wsdl:types>
-  <wsdl:message name="getCountUserFilteredRequest">
-    <wsdl:part element="tns:getCountUserFilteredRequest" name="getCountUserFilteredRequest">
+  <wsdl:message name="ChangeUserPwRequest">
+    <wsdl:part element="tns:ChangeUserPwRequest" name="ChangeUserPwRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getUserByIdResponse">
-    <wsdl:part element="tns:getUserByIdResponse" name="getUserByIdResponse">
+  <wsdl:message name="RemoveUserAdminRequest">
+    <wsdl:part element="tns:RemoveUserAdminRequest" name="RemoveUserAdminRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="existUserNameRequest">
-    <wsdl:part element="tns:existUserNameRequest" name="existUserNameRequest">
+  <wsdl:message name="RemoveUserAdminResponse">
+    <wsdl:part element="tns:RemoveUserAdminResponse" name="RemoveUserAdminResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="setUserResponse">
-    <wsdl:part element="tns:setUserResponse" name="setUserResponse">
+  <wsdl:message name="ChangeLangPreferenceRequest">
+    <wsdl:part element="tns:ChangeLangPreferenceRequest" name="ChangeLangPreferenceRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="changeLangPreferenceRequest">
-    <wsdl:part element="tns:changeLangPreferenceRequest" name="changeLangPreferenceRequest">
+  <wsdl:message name="UnblockUserRequest">
+    <wsdl:part element="tns:UnblockUserRequest" name="UnblockUserRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getUserFilteredRequest">
-    <wsdl:part element="tns:getUserFilteredRequest" name="getUserFilteredRequest">
+  <wsdl:message name="UserLoginResponse">
+    <wsdl:part element="tns:UserLoginResponse" name="UserLoginResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="setUserRequest">
-    <wsdl:part element="tns:setUserRequest" name="setUserRequest">
+  <wsdl:message name="UserLoginRequest">
+    <wsdl:part element="tns:UserLoginRequest" name="UserLoginRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="setUserAdminResponse">
-    <wsdl:part element="tns:setUserAdminResponse" name="setUserAdminResponse">
+  <wsdl:message name="ChangeThemePreferenceRequest">
+    <wsdl:part element="tns:ChangeThemePreferenceRequest" name="ChangeThemePreferenceRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="existUserEmailRequest">
-    <wsdl:part element="tns:existUserEmailRequest" name="existUserEmailRequest">
+  <wsdl:message name="GetUserFilteredRequest">
+    <wsdl:part element="tns:GetUserFilteredRequest" name="GetUserFilteredRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="removeUserAdminRequest">
-    <wsdl:part element="tns:removeUserAdminRequest" name="removeUserAdminRequest">
+  <wsdl:message name="ActivateUserResponse">
+    <wsdl:part element="tns:ActivateUserResponse" name="ActivateUserResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="setUserAdminRequest">
-    <wsdl:part element="tns:setUserAdminRequest" name="setUserAdminRequest">
+  <wsdl:message name="GetCountUserFilteredResponse">
+    <wsdl:part element="tns:GetCountUserFilteredResponse" name="GetCountUserFilteredResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="changeThemePreferenceRequest">
-    <wsdl:part element="tns:changeThemePreferenceRequest" name="changeThemePreferenceRequest">
+  <wsdl:message name="ChangeUserPwResponse">
+    <wsdl:part element="tns:ChangeUserPwResponse" name="ChangeUserPwResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getCountUserFilteredResponse">
-    <wsdl:part element="tns:getCountUserFilteredResponse" name="getCountUserFilteredResponse">
+  <wsdl:message name="ChangeThemePreferenceResponse">
+    <wsdl:part element="tns:ChangeThemePreferenceResponse" name="ChangeThemePreferenceResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="existUserEmailResponse">
-    <wsdl:part element="tns:existUserEmailResponse" name="existUserEmailResponse">
+  <wsdl:message name="GetCountUserFilteredRequest">
+    <wsdl:part element="tns:GetCountUserFilteredRequest" name="GetCountUserFilteredRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getUserFilteredResponse">
-    <wsdl:part element="tns:getUserFilteredResponse" name="getUserFilteredResponse">
+  <wsdl:message name="ActivateUserRequest">
+    <wsdl:part element="tns:ActivateUserRequest" name="ActivateUserRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getUserByIdRequest">
-    <wsdl:part element="tns:getUserByIdRequest" name="getUserByIdRequest">
+  <wsdl:message name="ExistUserNameRequest">
+    <wsdl:part element="tns:ExistUserNameRequest" name="ExistUserNameRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="inactivateUserRequest">
-    <wsdl:part element="tns:inactivateUserRequest" name="inactivateUserRequest">
+  <wsdl:message name="InactivateUserRequest">
+    <wsdl:part element="tns:InactivateUserRequest" name="InactivateUserRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="unblockUserResponse">
-    <wsdl:part element="tns:unblockUserResponse" name="unblockUserResponse">
+  <wsdl:message name="InactivateUserResponse">
+    <wsdl:part element="tns:InactivateUserResponse" name="InactivateUserResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="removeUserAdminResponse">
-    <wsdl:part element="tns:removeUserAdminResponse" name="removeUserAdminResponse">
+  <wsdl:message name="SetUserAdminRequest">
+    <wsdl:part element="tns:SetUserAdminRequest" name="SetUserAdminRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="changeUserPwRequest">
-    <wsdl:part element="tns:changeUserPwRequest" name="changeUserPwRequest">
+  <wsdl:message name="GetUserRolesByUserIdRequest">
+    <wsdl:part element="tns:GetUserRolesByUserIdRequest" name="GetUserRolesByUserIdRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getUserRolesByUserIdRequest">
-    <wsdl:part element="tns:getUserRolesByUserIdRequest" name="getUserRolesByUserIdRequest">
+  <wsdl:message name="SetUserAdminResponse">
+    <wsdl:part element="tns:SetUserAdminResponse" name="SetUserAdminResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="changeLangPreferenceResponse">
-    <wsdl:part element="tns:changeLangPreferenceResponse" name="changeLangPreferenceResponse">
+  <wsdl:message name="GetUserFilteredResponse">
+    <wsdl:part element="tns:GetUserFilteredResponse" name="GetUserFilteredResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getUserRolesByUserIdResponse">
-    <wsdl:part element="tns:getUserRolesByUserIdResponse" name="getUserRolesByUserIdResponse">
+  <wsdl:message name="ChangeLangPreferenceResponse">
+    <wsdl:part element="tns:ChangeLangPreferenceResponse" name="ChangeLangPreferenceResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="changeUserPwResponse">
-    <wsdl:part element="tns:changeUserPwResponse" name="changeUserPwResponse">
+  <wsdl:message name="ExistUserEmailResponse">
+    <wsdl:part element="tns:ExistUserEmailResponse" name="ExistUserEmailResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="activateUserResponse">
-    <wsdl:part element="tns:activateUserResponse" name="activateUserResponse">
+  <wsdl:message name="GetUserByIdRequest">
+    <wsdl:part element="tns:GetUserByIdRequest" name="GetUserByIdRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="userLoginRequest">
-    <wsdl:part element="tns:userLoginRequest" name="userLoginRequest">
+  <wsdl:message name="ExistUserEmailRequest">
+    <wsdl:part element="tns:ExistUserEmailRequest" name="ExistUserEmailRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="activateUserRequest">
-    <wsdl:part element="tns:activateUserRequest" name="activateUserRequest">
+  <wsdl:message name="GetUserRolesByUserIdResponse">
+    <wsdl:part element="tns:GetUserRolesByUserIdResponse" name="GetUserRolesByUserIdResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="unblockUserRequest">
-    <wsdl:part element="tns:unblockUserRequest" name="unblockUserRequest">
+  <wsdl:message name="GetUserByIdResponse">
+    <wsdl:part element="tns:GetUserByIdResponse" name="GetUserByIdResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="changeThemePreferenceResponse">
-    <wsdl:part element="tns:changeThemePreferenceResponse" name="changeThemePreferenceResponse">
+  <wsdl:message name="SetUserRequest">
+    <wsdl:part element="tns:SetUserRequest" name="SetUserRequest">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="existUserNameResponse">
-    <wsdl:part element="tns:existUserNameResponse" name="existUserNameResponse">
+  <wsdl:message name="SetUserResponse">
+    <wsdl:part element="tns:SetUserResponse" name="SetUserResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="userLoginResponse">
-    <wsdl:part element="tns:userLoginResponse" name="userLoginResponse">
+  <wsdl:message name="ExistUserNameResponse">
+    <wsdl:part element="tns:ExistUserNameResponse" name="ExistUserNameResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="inactivateUserResponse">
-    <wsdl:part element="tns:inactivateUserResponse" name="inactivateUserResponse">
+  <wsdl:message name="UnblockUserResponse">
+    <wsdl:part element="tns:UnblockUserResponse" name="UnblockUserResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="UsersPort">
-    <wsdl:operation name="getCountUserFiltered">
-      <wsdl:input message="tns:getCountUserFilteredRequest" name="getCountUserFilteredRequest">
+    <wsdl:operation name="ChangeUserPw">
+      <wsdl:input message="tns:ChangeUserPwRequest" name="ChangeUserPwRequest">
     </wsdl:input>
-      <wsdl:output message="tns:getCountUserFilteredResponse" name="getCountUserFilteredResponse">
+      <wsdl:output message="tns:ChangeUserPwResponse" name="ChangeUserPwResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getUserById">
-      <wsdl:input message="tns:getUserByIdRequest" name="getUserByIdRequest">
+    <wsdl:operation name="RemoveUserAdmin">
+      <wsdl:input message="tns:RemoveUserAdminRequest" name="RemoveUserAdminRequest">
     </wsdl:input>
-      <wsdl:output message="tns:getUserByIdResponse" name="getUserByIdResponse">
+      <wsdl:output message="tns:RemoveUserAdminResponse" name="RemoveUserAdminResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="existUserName">
-      <wsdl:input message="tns:existUserNameRequest" name="existUserNameRequest">
+    <wsdl:operation name="ChangeLangPreference">
+      <wsdl:input message="tns:ChangeLangPreferenceRequest" name="ChangeLangPreferenceRequest">
     </wsdl:input>
-      <wsdl:output message="tns:existUserNameResponse" name="existUserNameResponse">
+      <wsdl:output message="tns:ChangeLangPreferenceResponse" name="ChangeLangPreferenceResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="setUser">
-      <wsdl:input message="tns:setUserRequest" name="setUserRequest">
+    <wsdl:operation name="UnblockUser">
+      <wsdl:input message="tns:UnblockUserRequest" name="UnblockUserRequest">
     </wsdl:input>
-      <wsdl:output message="tns:setUserResponse" name="setUserResponse">
+      <wsdl:output message="tns:UnblockUserResponse" name="UnblockUserResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="changeLangPreference">
-      <wsdl:input message="tns:changeLangPreferenceRequest" name="changeLangPreferenceRequest">
+    <wsdl:operation name="UserLogin">
+      <wsdl:input message="tns:UserLoginRequest" name="UserLoginRequest">
     </wsdl:input>
-      <wsdl:output message="tns:changeLangPreferenceResponse" name="changeLangPreferenceResponse">
+      <wsdl:output message="tns:UserLoginResponse" name="UserLoginResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getUserFiltered">
-      <wsdl:input message="tns:getUserFilteredRequest" name="getUserFilteredRequest">
+    <wsdl:operation name="ChangeThemePreference">
+      <wsdl:input message="tns:ChangeThemePreferenceRequest" name="ChangeThemePreferenceRequest">
     </wsdl:input>
-      <wsdl:output message="tns:getUserFilteredResponse" name="getUserFilteredResponse">
+      <wsdl:output message="tns:ChangeThemePreferenceResponse" name="ChangeThemePreferenceResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="setUserAdmin">
-      <wsdl:input message="tns:setUserAdminRequest" name="setUserAdminRequest">
+    <wsdl:operation name="GetUserFiltered">
+      <wsdl:input message="tns:GetUserFilteredRequest" name="GetUserFilteredRequest">
     </wsdl:input>
-      <wsdl:output message="tns:setUserAdminResponse" name="setUserAdminResponse">
+      <wsdl:output message="tns:GetUserFilteredResponse" name="GetUserFilteredResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="existUserEmail">
-      <wsdl:input message="tns:existUserEmailRequest" name="existUserEmailRequest">
+    <wsdl:operation name="ActivateUser">
+      <wsdl:input message="tns:ActivateUserRequest" name="ActivateUserRequest">
     </wsdl:input>
-      <wsdl:output message="tns:existUserEmailResponse" name="existUserEmailResponse">
+      <wsdl:output message="tns:ActivateUserResponse" name="ActivateUserResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="removeUserAdmin">
-      <wsdl:input message="tns:removeUserAdminRequest" name="removeUserAdminRequest">
+    <wsdl:operation name="GetCountUserFiltered">
+      <wsdl:input message="tns:GetCountUserFilteredRequest" name="GetCountUserFilteredRequest">
     </wsdl:input>
-      <wsdl:output message="tns:removeUserAdminResponse" name="removeUserAdminResponse">
+      <wsdl:output message="tns:GetCountUserFilteredResponse" name="GetCountUserFilteredResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="changeThemePreference">
-      <wsdl:input message="tns:changeThemePreferenceRequest" name="changeThemePreferenceRequest">
+    <wsdl:operation name="ExistUserName">
+      <wsdl:input message="tns:ExistUserNameRequest" name="ExistUserNameRequest">
     </wsdl:input>
-      <wsdl:output message="tns:changeThemePreferenceResponse" name="changeThemePreferenceResponse">
+      <wsdl:output message="tns:ExistUserNameResponse" name="ExistUserNameResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="inactivateUser">
-      <wsdl:input message="tns:inactivateUserRequest" name="inactivateUserRequest">
+    <wsdl:operation name="InactivateUser">
+      <wsdl:input message="tns:InactivateUserRequest" name="InactivateUserRequest">
     </wsdl:input>
-      <wsdl:output message="tns:inactivateUserResponse" name="inactivateUserResponse">
+      <wsdl:output message="tns:InactivateUserResponse" name="InactivateUserResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="unblockUser">
-      <wsdl:input message="tns:unblockUserRequest" name="unblockUserRequest">
+    <wsdl:operation name="SetUserAdmin">
+      <wsdl:input message="tns:SetUserAdminRequest" name="SetUserAdminRequest">
     </wsdl:input>
-      <wsdl:output message="tns:unblockUserResponse" name="unblockUserResponse">
+      <wsdl:output message="tns:SetUserAdminResponse" name="SetUserAdminResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="changeUserPw">
-      <wsdl:input message="tns:changeUserPwRequest" name="changeUserPwRequest">
+    <wsdl:operation name="GetUserRolesByUserId">
+      <wsdl:input message="tns:GetUserRolesByUserIdRequest" name="GetUserRolesByUserIdRequest">
     </wsdl:input>
-      <wsdl:output message="tns:changeUserPwResponse" name="changeUserPwResponse">
+      <wsdl:output message="tns:GetUserRolesByUserIdResponse" name="GetUserRolesByUserIdResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getUserRolesByUserId">
-      <wsdl:input message="tns:getUserRolesByUserIdRequest" name="getUserRolesByUserIdRequest">
+    <wsdl:operation name="ExistUserEmail">
+      <wsdl:input message="tns:ExistUserEmailRequest" name="ExistUserEmailRequest">
     </wsdl:input>
-      <wsdl:output message="tns:getUserRolesByUserIdResponse" name="getUserRolesByUserIdResponse">
+      <wsdl:output message="tns:ExistUserEmailResponse" name="ExistUserEmailResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="activateUser">
-      <wsdl:input message="tns:activateUserRequest" name="activateUserRequest">
+    <wsdl:operation name="GetUserById">
+      <wsdl:input message="tns:GetUserByIdRequest" name="GetUserByIdRequest">
     </wsdl:input>
-      <wsdl:output message="tns:activateUserResponse" name="activateUserResponse">
+      <wsdl:output message="tns:GetUserByIdResponse" name="GetUserByIdResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="userLogin">
-      <wsdl:input message="tns:userLoginRequest" name="userLoginRequest">
+    <wsdl:operation name="SetUser">
+      <wsdl:input message="tns:SetUserRequest" name="SetUserRequest">
     </wsdl:input>
-      <wsdl:output message="tns:userLoginResponse" name="userLoginResponse">
+      <wsdl:output message="tns:SetUserResponse" name="SetUserResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="UsersPortSoap11" type="tns:UsersPort">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getCountUserFiltered">
+    <wsdl:operation name="ChangeUserPw">
       <soap:operation soapAction=""/>
-      <wsdl:input name="getCountUserFilteredRequest">
+      <wsdl:input name="ChangeUserPwRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getCountUserFilteredResponse">
+      <wsdl:output name="ChangeUserPwResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getUserById">
+    <wsdl:operation name="RemoveUserAdmin">
       <soap:operation soapAction=""/>
-      <wsdl:input name="getUserByIdRequest">
+      <wsdl:input name="RemoveUserAdminRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getUserByIdResponse">
+      <wsdl:output name="RemoveUserAdminResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="existUserName">
+    <wsdl:operation name="ChangeLangPreference">
       <soap:operation soapAction=""/>
-      <wsdl:input name="existUserNameRequest">
+      <wsdl:input name="ChangeLangPreferenceRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="existUserNameResponse">
+      <wsdl:output name="ChangeLangPreferenceResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="setUser">
+    <wsdl:operation name="UnblockUser">
       <soap:operation soapAction=""/>
-      <wsdl:input name="setUserRequest">
+      <wsdl:input name="UnblockUserRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="setUserResponse">
+      <wsdl:output name="UnblockUserResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="changeLangPreference">
+    <wsdl:operation name="UserLogin">
       <soap:operation soapAction=""/>
-      <wsdl:input name="changeLangPreferenceRequest">
+      <wsdl:input name="UserLoginRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="changeLangPreferenceResponse">
+      <wsdl:output name="UserLoginResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getUserFiltered">
+    <wsdl:operation name="ChangeThemePreference">
       <soap:operation soapAction=""/>
-      <wsdl:input name="getUserFilteredRequest">
+      <wsdl:input name="ChangeThemePreferenceRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getUserFilteredResponse">
+      <wsdl:output name="ChangeThemePreferenceResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="setUserAdmin">
+    <wsdl:operation name="GetUserFiltered">
       <soap:operation soapAction=""/>
-      <wsdl:input name="setUserAdminRequest">
+      <wsdl:input name="GetUserFilteredRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="setUserAdminResponse">
+      <wsdl:output name="GetUserFilteredResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="existUserEmail">
+    <wsdl:operation name="ActivateUser">
       <soap:operation soapAction=""/>
-      <wsdl:input name="existUserEmailRequest">
+      <wsdl:input name="ActivateUserRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="existUserEmailResponse">
+      <wsdl:output name="ActivateUserResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="removeUserAdmin">
+    <wsdl:operation name="GetCountUserFiltered">
       <soap:operation soapAction=""/>
-      <wsdl:input name="removeUserAdminRequest">
+      <wsdl:input name="GetCountUserFilteredRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="removeUserAdminResponse">
+      <wsdl:output name="GetCountUserFilteredResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="changeThemePreference">
+    <wsdl:operation name="ExistUserName">
       <soap:operation soapAction=""/>
-      <wsdl:input name="changeThemePreferenceRequest">
+      <wsdl:input name="ExistUserNameRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="changeThemePreferenceResponse">
+      <wsdl:output name="ExistUserNameResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="inactivateUser">
+    <wsdl:operation name="InactivateUser">
       <soap:operation soapAction=""/>
-      <wsdl:input name="inactivateUserRequest">
+      <wsdl:input name="InactivateUserRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="inactivateUserResponse">
+      <wsdl:output name="InactivateUserResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="unblockUser">
+    <wsdl:operation name="SetUserAdmin">
       <soap:operation soapAction=""/>
-      <wsdl:input name="unblockUserRequest">
+      <wsdl:input name="SetUserAdminRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="unblockUserResponse">
+      <wsdl:output name="SetUserAdminResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="changeUserPw">
+    <wsdl:operation name="GetUserRolesByUserId">
       <soap:operation soapAction=""/>
-      <wsdl:input name="changeUserPwRequest">
+      <wsdl:input name="GetUserRolesByUserIdRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="changeUserPwResponse">
+      <wsdl:output name="GetUserRolesByUserIdResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="getUserRolesByUserId">
+    <wsdl:operation name="ExistUserEmail">
       <soap:operation soapAction=""/>
-      <wsdl:input name="getUserRolesByUserIdRequest">
+      <wsdl:input name="ExistUserEmailRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getUserRolesByUserIdResponse">
+      <wsdl:output name="ExistUserEmailResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="activateUser">
+    <wsdl:operation name="GetUserById">
       <soap:operation soapAction=""/>
-      <wsdl:input name="activateUserRequest">
+      <wsdl:input name="GetUserByIdRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="activateUserResponse">
+      <wsdl:output name="GetUserByIdResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="userLogin">
+    <wsdl:operation name="SetUser">
       <soap:operation soapAction=""/>
-      <wsdl:input name="userLoginRequest">
+      <wsdl:input name="SetUserRequest">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="userLoginResponse">
+      <wsdl:output name="SetUserResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

@@ -38,6 +38,12 @@ public class BalanceController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
     @GetMapping("/reseller/balance")
+    public ModelAndView balance() {
+        return balanceView(new BalanceListPageModel());
+    }
+
+    @PreAuthorize(ALLOW_ROLES_RES_ADMIN)
+    @GetMapping("/reseller/balance/filter")
     public ModelAndView balance(@Valid BalanceListPageModel model, BindingResult result) {
         /*if(!result.hasErrors()){
 
