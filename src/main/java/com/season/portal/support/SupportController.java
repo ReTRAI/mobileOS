@@ -13,7 +13,7 @@ import javax.validation.Valid;
 @Controller
 public class SupportController extends ModelViewBaseController {
 
-    @GetMapping("/support/new")
+    /*@GetMapping("/support/new")
     public ModelAndView supportNew() {
 
         return supportNewView(new SupportModel());
@@ -35,6 +35,6 @@ public class SupportController extends ModelViewBaseController {
         mv.addObject("supportModel", model);
 
         return dispatchView(mv);
-    }
+    }*/
 
 }

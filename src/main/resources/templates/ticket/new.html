@@ -46,7 +46,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form id="newTicketForm" class="form" method="POST" enctype="multipart/form-data"
-                              th:object="${ticketModel}" th:action="@{${portalURL} + 'ticket/new'}" >
+                              th:object="${newTicketModel}" th:action="@{${portalURL} + 'ticket/new'}" >
 
                             <div class="row">
                                 <div class="col-md-6 col-12">
@@ -59,8 +59,8 @@
                                         <th:block th:each="err : ${#fields.errors('title')}">
                                             <th:block th:switch="${err}">
                                                 <p th:case="utils_form_minmaxChar" class="invalid-feedback"
-                                                   th:with="minChar=${T(com.season.portal.ticket.TicketModel).titleMinChar},
-                                                            maxChar=${T(com.season.portal.ticket.TicketModel).titleMaxChar}">
+                                                   th:with="minChar=${T(com.season.portal.ticket.NewTicketModel).titleMinChar},
+                                                            maxChar=${T(com.season.portal.ticket.NewTicketModel).titleMaxChar}">
                                                     <th:block th:replace="shared/validation :: minMaxChar(${minChar}, ${maxChar})"/>
                                                 </p>
                                                 <p th:case="*" class="invalid-feedback toTranslate"
@@ -70,30 +70,36 @@
 
                                     </div>
                                     <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-files" data-langKey="utils_form_files">Files</label>
+                                        <label class="form-label toTranslate" for="filter-files" data-langKey="utils_form_file">File</label>
                                         <p id="ticketNew_form_file_detail">
-                                            <small class="toTranslate" data-langKey="ticketNew_form_file_detail0"></small
-                                            ><span th:text="${T(com.season.portal.ticket.TicketModel).filesMaxFiles}"></span
+                                            <!--<small class="toTranslate" data-langKey="ticketNew_form_file_detail0"></small
+                                            ><span th:text="${T(com.season.portal.ticket.NewTicketModel).filesMaxFiles}"></span
                                             ><small class="toTranslate" data-langKey="ticketNew_form_file_detail1"></small
-                                            ><span th:text="${T(com.season.portal.ticket.TicketModel).filesMaxFileSizeMB}"></span
-                                            ><small class="toTranslate" data-langKey="ticketNew_form_file_detail2"></small>
+                                            ><span th:text="${T(com.season.portal.ticket.NewTicketModel).filesMaxFileSizeMB}"></span
+                                            ><small class="toTranslate" data-langKey="ticketNew_form_file_detail2"></small>-->
+                                            <small class="toTranslate" data-langKey="ticketNew_form_file_detail0"></small
+                                            ><span th:text="${T(com.season.portal.ticket.NewTicketModel).filesMaxFileSizeMB}"></span
+                                            ><small class="toTranslate" data-langKey="ticketNew_form_file_detail1"></small>
                                         </p>
-                                            <th:block th:with="accepted=${T(com.season.portal.utils.validation.FileValidatorUtils).getAcceptTypes({'image'}, {})}">
-                                                <input id="filter-files" type="file" class="form-control toTranslateInput" multiple="multiple"
-                                                       data-langKey="utils_form_files_placeholder" onchange="checkFiles(this)"
+                                            <th:block th:with="accepted=${T(com.season.portal.utils.Utils).getAcceptTypes(
+                                                            T(com.season.portal.ticket.NewTicketModel).fileTypeGroups,
+                                                            T(com.season.portal.ticket.NewTicketModel).fileTypes)}">
+                                                <!--multiple="multiple" onchange="checkFiles(this)"-->
+                                                <input id="filter-files" type="file" class="form-control toTranslateInput" 
+                                                       data-langKey="utils_form_files_placeholder"
                                                        th:attr="accept=${accepted}"
                                                        th:errorclass="is-invalid"
-                                                       th:field="*{files}"/>
+                                                       th:field="*{file}"/>
                                             </th:block>
 
-                                        <th:block th:each="err : ${#fields.errors('files')}">
+                                        <th:block th:each="err : ${#fields.errors('file')}">
                                             <th:block th:switch="${err}">
                                                 <p th:case="utils_form_file_maxFiles" class="invalid-feedback"
-                                                   th:with="maxFiles=${T(com.season.portal.ticket.TicketModel).filesMaxFiles}">
+                                                   th:with="maxFiles=${T(com.season.portal.ticket.NewTicketModel).filesMaxFiles}">
                                                     <th:block th:replace="shared/validation :: maxFiles(${maxFiles})"/>
                                                 </p>
                                                 <p th:case="utils_form_file_sizeExceeded" class="invalid-feedback"
-                                                   th:with="fileSize=${T(com.season.portal.ticket.TicketModel).filesMaxFileSizeMB}">
+                                                   th:with="fileSize=${T(com.season.portal.ticket.NewTicketModel).filesMaxFileSizeMB}">
                                                     <th:block th:replace="shared/validation :: fileSize(${fileSize})"/>
                                                 </p>
                                                 <p th:case="*" class="invalid-feedback toTranslate"
@@ -113,8 +119,8 @@
                                         <th:block th:each="err : ${#fields.errors('detail')}">
                                             <th:block th:switch="${err}">
                                                 <p th:case="utils_form_minmaxChar" class="invalid-feedback"
-                                                   th:with="minChar=${T(com.season.portal.ticket.TicketModel).detailMinChar},
-                                                            maxChar=${T(com.season.portal.ticket.TicketModel).detailMaxChar}">
+                                                   th:with="minChar=${T(com.season.portal.ticket.NewTicketModel).detailMinChar},
+                                                            maxChar=${T(com.season.portal.ticket.NewTicketModel).detailMaxChar}">
                                                     <th:block th:replace="shared/validation :: minMaxChar(${minChar}, ${maxChar})"/>
                                                 </p>
                                                 <p th:case="*" class="invalid-feedback toTranslate"
@@ -158,7 +164,7 @@
     function checkFiles(that){
         const files = that.files;
         var valid = true;
-        if (files.length > [[${T(com.season.portal.ticket.TicketModel).filesMaxFiles}]]) {
+        if (files.length > [[${T(com.season.portal.ticket.NewTicketModel).filesMaxFiles}]]) {
             $(that).addClass("is-invalid");
             $("#ticketNew_form_file_detail").addClass("text-danger");
             valid = false;

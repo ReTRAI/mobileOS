@@ -23,4 +23,5 @@ public class AnnotationSecurityConfiguration extends GlobalMethodSecurityConfigu
     public static final String ALLOW_ROLES_SUP_ADMIN = "hasRole('ROLE_SUPPORT') or hasRole('ROLE_ADMIN')";
     public static final String ALLOW_ROLES_RES_ADMIN = "hasRole('ROLE_RESELLER') or hasRole('ROLE_ADMIN')";
     public static final String ALLOW_ROLES_ADMIN = "hasRole('ROLE_ADMIN')";
+    public static final String ALLOW_ROLES_SUP = "hasRole('ROLE_SUPPORT')";
 }

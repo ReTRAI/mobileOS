@@ -146,6 +146,10 @@ public class PortalApplication{
 		log(LOGGER, ex.getMessage());
 	}
 
+	public static void log(Logger LOGGER, Exception ex, String msg){
+		log(LOGGER, ex.getMessage()+"\n"+msg);
+	}
+
 	public static void log(Logger LOGGER, SoapFaultClientException soapEx, String code){
 		String description =  Utils.getSoapDetail(soapEx, "description");
 		log(LOGGER, "SOAP ERROR \n code - " + code + "\n" +description);

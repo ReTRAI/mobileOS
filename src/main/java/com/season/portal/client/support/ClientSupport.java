@@ -4,6 +4,8 @@ import com.season.portal.PortalApplication;
 
 import com.season.portal.client.generated.support.*;
 import com.season.portal.support.SupportListPageModel;
+import com.season.portal.ticket.TicketDetailListPageModel;
+import com.season.portal.ticket.TicketListPageModel;
 import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,14 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 
 public class ClientSupport extends WebServiceGatewaySupport{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+    public enum TICKET_STATUS {
+        OPEN,
+        CANCELED,
+        PENDING,
+        ONPROGRESS,
+        COMPLETED
+    }
 
     public boolean validateSetSupport(SetSupportResponse response, boolean addMsg) {
         boolean valid = false;
@@ -451,6 +461,246 @@ public class ClientSupport extends WebServiceGatewaySupport{
             }
         }
         return valid;
+    }
+
+    public GetCountTicketFilteredResponse countTicketFiltered(TicketListPageModel model){
+        String ticketId = model.getTicketId();
+        String ticketStatus = model.getTicketStatus();
+        String assignedUserId = model.getAssignedUserId();
+        String openUserId = model.getOpenUserId();
+
+        String startCreationDate = Utils.strToStrDate(model.getStartCreationDate());
+        String endCreationDate = Utils.strToStrDate(model.getEndCreationDate());
+
+        ticketId = (ticketId == null)?"":ticketId;
+        assignedUserId = (assignedUserId == null)?"":assignedUserId;
+        openUserId = (openUserId == null)?"":openUserId;
+        ticketStatus = (ticketStatus == null)?"":ticketStatus;
+
+        return countTicketFiltered(
+                ticketId,
+                ticketStatus,
+                startCreationDate,
+                endCreationDate,
+                assignedUserId,
+                openUserId
+        );
+    }
+    public GetCountTicketFilteredResponse countTicketFiltered(String ticketId, String ticketStatus,String startCreationDate, String endCreationDate,
+                                                              String assignedUserId, String openUserId){
+        GetCountTicketFilteredRequest request = new GetCountTicketFilteredRequest();
+        request.setTicketId(ticketId);
+        request.setTicketStatus(ticketStatus);
+        request.setStartCreationDate(startCreationDate);
+        request.setEndCreationDate(endCreationDate);
+        request.setAssignedUserId(assignedUserId);
+        request.setOpenUserId(openUserId);
+
+        GetCountTicketFilteredResponse response = null;
+        try {
+            response = (GetCountTicketFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_countTicketFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_countTicketFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_countTicketFiltered_ex");
+        }
+
+        return response;
+    }
+
+    public GetTicketFilteredResponse getTicketFiltered(TicketListPageModel model){
+        String ticketId = model.getTicketId();
+        String assignedUserId = model.getAssignedUserId();
+        String openUserId = model.getOpenUserId();
+        String ticketStatus = model.getTicketStatus();
+
+        String startCreationDate = Utils.strToStrDate(model.getStartCreationDate());
+        String endCreationDate = Utils.strToStrDate(model.getEndCreationDate());
+
+        ticketId = (ticketId == null)?"":ticketId;
+        assignedUserId = (assignedUserId == null)?"":assignedUserId;
+        openUserId = (openUserId == null)?"":openUserId;
+        ticketStatus = (ticketStatus == null)?"":ticketStatus;
+
+        return getTicketFiltered(
+                ticketId,
+                ticketStatus,
+                startCreationDate,
+                endCreationDate,
+                assignedUserId,
+                openUserId,
+                model.getValidOffset(),
+                model.getValidNumPerPage(),
+                model.getValidSort(),
+                model.getValidOrder()
+        );
+    }
+    public GetTicketFilteredResponse getTicketFiltered(String ticketId, String ticketStatus,String startCreationDate, String endCreationDate,
+                                                       String assignedUserId, String openUserId,
+                                                         int offset, int numberRecords, String field, String order){
+        GetTicketFilteredRequest request = new GetTicketFilteredRequest();
+        request.setTicketId(ticketId);
+        request.setTicketStatus(ticketStatus);
+        request.setStartCreationDate(startCreationDate);
+        request.setEndCreationDate(endCreationDate);
+        request.setAssignedUserId(assignedUserId);
+        request.setOpenUserId(openUserId);
+
+        request.setOffset(offset);
+        request.setNumberRecords(numberRecords);
+        request.setField(field);
+        request.setOrderField(order);
+
+        GetTicketFilteredResponse response = null;
+        try {
+            response = (GetTicketFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_getTicketFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_getTicketFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_getTicketFiltered_ex");
+        }
+
+        return response;
+    }
+
+    public SetTicketResponse setTicket(String title, String msg, String attachPath, String actionUserId) {
+        SetTicketRequest request = new SetTicketRequest();
+        request.setMessage(msg);
+        request.setAttachPath(attachPath);
+        request.setTitle(title);
+        request.setCreationUserId(actionUserId);
+
+        SetTicketResponse response = null;
+        try {
+            response = (SetTicketResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_setTicket_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_setTicket_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_setTicket_ex");
+        }
+
+        return response;
+    }
+
+    public GetCountTicketDetailFilteredResponse countTicketDetailFiltered(TicketDetailListPageModel model){
+        GetCountTicketDetailFilteredRequest request = new GetCountTicketDetailFilteredRequest();
+        request.setTicketId(model.getTicketId());
+        request.setStartDetailDate(model.getValidStartCreationDate());
+        request.setEndDetailDate(model.getValidEndCreationDate());
+        request.setResponseUserId(model.getValidResponseUserId());
+
+        GetCountTicketDetailFilteredResponse response = null;
+        try {
+            response = (GetCountTicketDetailFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_countTicketDetailFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_countTicketDetailFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_countTicketDetailFiltered_ex");
+        }
+
+        return response;
+    }
+
+    public GetTicketDetailFilteredResponse getTicketDetailFiltered(TicketDetailListPageModel model){
+        GetTicketDetailFilteredRequest request = new GetTicketDetailFilteredRequest();
+        request.setTicketId(model.getTicketId());
+        request.setStartDetailDate(model.getValidStartCreationDate());
+        request.setEndDetailDate(model.getValidEndCreationDate());
+
+        request.setOffset(model.getValidOffset());
+        request.setNumberRecords(model.getValidNumPerPage());
+        request.setField(model.getValidSort());
+        request.setOrderField(model.getValidOrder());
+
+        GetTicketDetailFilteredResponse response = null;
+        try {
+            response = (GetTicketDetailFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_getTicketDetailFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_getTicketDetailFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_getTicketDetailFiltered_ex");
+        }
+
+        return response;
+    }
+
+    public SetTicketDetailResponse setTicketDetail(String ticketId, String msg, String attachPath, String actionUserId) {
+        SetTicketDetailRequest request = new SetTicketDetailRequest();
+        request.setTicketId(ticketId);
+        request.setMessage(msg);
+        request.setAttachPath(attachPath);
+        request.setActionUserId(actionUserId);
+
+        SetTicketDetailResponse response = null;
+        try {
+            response = (SetTicketDetailResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_setTicketDetail_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_setTicketDetail_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_setTicketDetail_ex");
+        }
+
+        return response;
     }
 
 }

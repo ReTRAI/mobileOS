@@ -8,11 +8,13 @@ import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.UserRole;
 import com.season.portal.devices.SimpleDeviceModel;
 import com.season.portal.users.UserRoleModel;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ws.soap.SoapFault;
 import org.springframework.ws.soap.SoapFaultDetail;
 import org.springframework.ws.soap.SoapFaultDetailElement;
@@ -21,11 +23,15 @@ import org.w3c.dom.Node;
 
 import javax.security.auth.x500.X500Principal;
 import javax.xml.transform.dom.DOMSource;
+import java.io.File;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.season.portal.utils.validation.FileValidatorUtils.groupsToFileTypes;
+
 public class Utils {
+    private static final Logger LOGGER = LoggerFactory.getLogger("Utils");
 
     public static ClientUserDetails getPrincipalDetails(boolean addMsg){
         ClientUserDetails user = null;
@@ -55,7 +61,7 @@ public class Utils {
             Node detailChildNode_code = detailNode.getFirstChild();
             code = detailChildNode_code.getTextContent();
         }catch (Exception e){
-            PortalApplication.log(LoggerFactory.getLogger(new Utils().getClass()), e);
+            PortalApplication.log(LOGGER, e);
         }
 
         return code;
@@ -82,7 +88,7 @@ public class Utils {
             }
 
         }catch (Exception e){
-            PortalApplication.log(LoggerFactory.getLogger(new Utils().getClass()), e);
+            PortalApplication.log(LOGGER, e);
         }
 
         return message;
@@ -162,7 +168,7 @@ public class Utils {
         try {
             result = ft.parse(s);
         } catch (Exception e) {
-            //e.printStackTrace();
+            PortalApplication.log(LOGGER, e, "String: "+s);
         }
         return result;
     }
@@ -249,7 +255,109 @@ public class Utils {
         try{
             result = Float.parseFloat(number);
         }catch(Exception e){
-            //e.printStackTrace();
+            PortalApplication.log(LOGGER, e, "String: "+number);
+        }
+        return result;
+    }
+
+    public static String generateRandomName(int charNum){
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
+                +"lmnopqrstuvwxyz";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(charNum);
+        for (int i = 0; i < charNum; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
+    }
+
+    public static String saveFileIfExist(MultipartFile file, boolean addErrorMsg){
+        String savedfileName = null;
+        if(file != null && !file.isEmpty()){
+            String extension = getMediaTypeExt(file, addErrorMsg);
+            if(extension != null){
+                String fileName = generateRandomName(24)+"."+extension;
+                File filePath = new File("src/main/resources/media/tickets/");
+                if (!filePath.exists()) {
+                    filePath.mkdirs();
+                }
+
+                File dest = new File(filePath.getAbsolutePath(), fileName);
+                while(dest.exists()){
+                    fileName = generateRandomName(24)+"."+extension;
+                    dest = new File(filePath.getAbsolutePath(), fileName);
+                }
+
+                try{
+                    file.transferTo(dest);
+                    savedfileName = fileName;
+                }catch(Exception e){
+                    PortalApplication.log(LOGGER, e);
+                    if(addErrorMsg)
+                        PortalApplication.addErrorKey("api_utils_saveFileIfExist_error");
+                }
+            }
+        }
+        else{
+            savedfileName = "";
+        }
+        return savedfileName;
+    }
+
+    public static String getMediaTypeExt(MultipartFile file, boolean addErrorMsg){
+        //String fileName = file.getOriginalFilename();
+        //fileName.substring(fileName.lastIndexOf(".") + 1);
+        return getMediaTypeExt(file.getContentType(), addErrorMsg);
+    }
+
+    public static String getMediaTypeExt(String type, boolean addErrorMsg){
+        type = type.toLowerCase();
+        String result = null;
+        switch(type){
+            case "image/jpeg":
+            case "image/jpg":
+                result = "jpg";
+                break;
+            case "image/png":
+                result = "png";
+                break;
+            case "application/zip":
+                result = "zip";
+                break;
+            case "application/pdf":
+                result = "pdf";
+                break;
+            case "application/x-rar-compressed":
+                result = "rar";
+                break;
+            default:
+                if(addErrorMsg)
+                    PortalApplication.addErrorKey("api_utils_getMediaTypeExt_invalidMediaType");
+                break;
+        }
+        return result;
+    }
+
+    public static String getAcceptTypes(String[] groups, String[] fileTypes){
+        String result = "";
+        fileTypes = groupsToFileTypes(groups, fileTypes);
+        for (int i = 0; i < fileTypes.length; i++){
+            String ft = fileTypes[i];
+            if(i!=0)
+                result+= ", ";
+            switch(ft){
+                case "jpeg":
+                case "jpg":
+                case "png":
+                    result+="image/"+ft;
+                    break;
+                case "zip":
+                case "pdf":
+                    result+="application/"+ft;
+                    break;
+                case "rar":
+                    result+="application/x-rar-compressed";
+                    break;
+            }
         }
         return result;
     }

@@ -66,11 +66,21 @@ public class AdminController extends ModelViewBaseController {
 
 
     public static void initAdminView(HttpSession session){
-        session.setAttribute(SESSION_ADMIN_VIEW, false);
+        if(session == null)
+            session.setAttribute(SESSION_ADMIN_VIEW, false);
     }
 
     public static boolean getAdminView(HttpSession session){
-        return (boolean)session.getAttribute(SESSION_ADMIN_VIEW);
+        boolean adminView = false;
+        if(session != null){
+            try{
+                adminView = (boolean)session.getAttribute(SESSION_ADMIN_VIEW);
+            }catch(Exception e){
+
+            }
+        }
+        return adminView;
+
     }
 
 }

@@ -107,10 +107,22 @@
                                         <span class="menu-item text-truncate toTranslate" data-langKey="menu_ticket_new">New</span>
                                     </a>
                                 </li>
-                                <li id="menu_ticket_list">
-                                    <a class="d-flex align-items-center" th:href="${portalURL + 'ticket/list'}">
+                                <li id="menu_ticket_all">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'ticket/all'}">
                                         <i data-feather="circle"></i>
-                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_ticket_list">List</span>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_ticket_all">All</span>
+                                    </a>
+                                </li>
+                                <li id="menu_ticket_assigned">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'ticket/assigned'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_ticket_assigned">Assigned</span>
+                                    </a>
+                                </li>
+                                <li id="menu_ticket_own">
+                                    <a class="d-flex align-items-center" th:href="${portalURL + 'ticket/own'}">
+                                        <i data-feather="circle"></i>
+                                        <span class="menu-item text-truncate toTranslate" data-langKey="menu_ticket_own">My Tickets</span>
                                     </a>
                                 </li>
                                 <!--<li id="menu_support_open">

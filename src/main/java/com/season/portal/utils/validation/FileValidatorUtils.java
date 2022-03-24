@@ -25,6 +25,10 @@ public class FileValidatorUtils {
                         typeList.add("png");
                         typeList.add("jpeg");
                         break;
+                    case "zip":
+                        typeList.add("zip");
+                        typeList.add("rar");
+                        break;
                 }
             }
             fileTypes = typeList.toArray(fileTypes);
@@ -62,6 +66,16 @@ public class FileValidatorUtils {
                         if(type.equals("image/"+ft))
                             valid = true;
                         break;
+                    case "zip":
+                    case "pdf":
+                        if(type.equals("application/"+ft))
+                            valid = true;
+                        break;
+                    case "rar":
+                        if(type.equals("application/x-rar-compressed"))
+                            valid = true;
+                        break;
+
                 }
             }
         }
@@ -75,22 +89,5 @@ public class FileValidatorUtils {
         return valid;
     }
 
-    public static String getAcceptTypes(String[] groups, String[] fileTypes){
-        String result = "";
-        fileTypes = groupsToFileTypes(groups, fileTypes);
-        for (int i = 0; i < fileTypes.length; i++){
-            String ft = fileTypes[i];
-            if(i!=0)
-                result+= ", ";
-            switch(ft){
-                case "jpeg":
-                case "jpg":
-                case "png":
-                    result+="image/"+ft;
-                    break;
-            }
-        }
 
-        return result;
-    }
 }

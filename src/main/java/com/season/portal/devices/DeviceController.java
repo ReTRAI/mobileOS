@@ -16,6 +16,7 @@ import com.season.portal.reseller.ResellerListPageModel;
 import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
 import com.season.portal.utils.model.GuidModel;
+import com.season.portal.utils.model.GuidRequiredModel;
 import com.season.portal.utils.pagination.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -95,7 +96,7 @@ public class DeviceController extends ModelViewBaseController {
         mv.addObject("elements", elements);
         mv.addObject("Pagination", pagination);
         mv.addObject("deviceListPageModel", model);
-        mv.addObject("guidModel_openDevice", new GuidModel());
+        mv.addObject("guidModel_openDevice", new GuidRequiredModel());
         return dispatchView(mv);
     }
 

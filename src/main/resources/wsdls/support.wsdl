@@ -65,6 +65,8 @@
                 <xs:element name="ticketStatus" type="xs:string"/>
                 <xs:element name="startCreationDate" type="xs:string"/>
                 <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="openUserId" type="xs:string"/>
+                <xs:element name="assignedUserId" type="xs:string"/>
                 <xs:element name="field" type="xs:string"/>
                 <xs:element name="orderField" type="xs:string"/>
                 <xs:element name="offset" type="xs:int"/>
@@ -80,6 +82,27 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- GetCountTicketFiltered-->
+    <xs:element name="GetCountTicketFilteredRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:string"/>
+                <xs:element name="ticketStatus" type="xs:string"/>
+                <xs:element name="startCreationDate" type="xs:string"/>
+                <xs:element name="endCreationDate" type="xs:string"/>
+                <xs:element name="openUserId" type="xs:string"/>
+                <xs:element name="assignedUserId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCountTicketFilteredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!-- GetTicketDetailFiltered-->
     <xs:element name="GetTicketDetailFilteredRequest">
         <xs:complexType>
@@ -87,6 +110,7 @@
                 <xs:element name="ticketId" type="xs:string"/>
                 <xs:element name="startDetailDate" type="xs:string"/>
                 <xs:element name="endDetailDate" type="xs:string"/>
+                <xs:element name="responseUserId" type="xs:string"/>
                 <xs:element name="field" type="xs:string"/>
                 <xs:element name="orderField" type="xs:string"/>
                 <xs:element name="offset" type="xs:int"/>
@@ -109,6 +133,7 @@
                 <xs:element name="ticketId" type="xs:string"/>
                 <xs:element name="startDetailDate" type="xs:string"/>
                 <xs:element name="endDetailDate" type="xs:string"/>
+                <xs:element name="responseUserId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -138,24 +163,7 @@
         </xs:complexType>
     </xs:element>
 
-    <!-- GetCountTicketFiltered-->
-    <xs:element name="GetCountTicketFilteredRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="ticketId" type="xs:string"/>
-                <xs:element name="ticketStatus" type="xs:string"/>
-                <xs:element name="startCreationDate" type="xs:string"/>
-                <xs:element name="endCreationDate" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="GetCountTicketFilteredResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="result" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+
 
     <!-- GetSupportAssociation-->
     <xs:element name="GetSupportAssociationRequest">
@@ -263,7 +271,9 @@
     <xs:element name="SetTicketRequest">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
                 <xs:element name="message" type="xs:string"/>
+                <xs:element name="attachPath" type="xs:string"/>
                 <xs:element name="creationUserId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -282,6 +292,7 @@
             <xs:sequence>
                 <xs:element name="ticketId" type="xs:string"/>
                 <xs:element name="message" type="xs:string"/>
+                <xs:element name="attachPath" type="xs:string"/>
                 <xs:element name="actionUserId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -387,10 +398,12 @@
     <xs:complexType name="Ticket">
         <xs:sequence>
             <xs:element name="ticketId" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
             <xs:element name="status" type="xs:string"/>
             <xs:element name="creationDate" type="xs:string"/>
             <xs:element name="creationUserId" type="xs:string"/>
             <xs:element name="assignedUserId" type="xs:string"/>
+            <xs:element name="attachPath" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -403,6 +416,7 @@
             <xs:element name="originalMessage" type="xs:boolean"/>
             <xs:element name="detailDate" type="xs:string"/>
             <xs:element name="detailUserId" type="xs:string"/>
+            <xs:element name="attachPath" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
