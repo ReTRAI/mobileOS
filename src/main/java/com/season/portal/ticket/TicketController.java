@@ -247,22 +247,18 @@ public class TicketController extends ModelViewBaseController {
     @PreAuthorize(ALLOW_ROLES_ALL)
     @GetMapping("/ticket")
     public ModelAndView openTicket(@Valid TicketDetailListPageModel model, BindingResult result) {
-        /*
-        HttpSession session = request.getSession(true);
-        TicketDetailListPageModel oldModel = (TicketDetailListPageModel) session.getAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL);
-        if (oldModel != null) {
-            model.setTicketId(oldModel.getTicketId());
-            if (!result.hasErrors()) {
-                return ticketView(model);
-            }
-            return ticketView(model);
-        }
-
-        return ticketAllList(new TicketListPageModel());
-        */
         return ticketView(model);
     }
 
+    private ModelAndView openTicketBySession(){
+        HttpSession session = request.getSession(true);
+        TicketDetailListPageModel model = (TicketDetailListPageModel)session.getAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL);
+        if(model == null){
+            model = new TicketDetailListPageModel();
+            PortalApplication.addErrorKey("api_session_invalidModel");
+        }
+        return ticketView(model);
+    }
 
 
     private ModelAndView ticketView(TicketDetailListPageModel model){
@@ -271,6 +267,8 @@ public class TicketController extends ModelViewBaseController {
         long totalElements = 0;
         Ticket ticket = null;
         boolean canCancel = false;
+        boolean canUpdateStatus = false;
+        boolean canAddResponse = false;
 
         GetTicketFilteredResponse ticketResponse = clientSupport.getTicketFiltered(new TicketListPageModel(model.getTicketId()));
         if(ticketResponse != null ){
@@ -279,7 +277,6 @@ public class TicketController extends ModelViewBaseController {
                 ticket = tickets.get(0);
             }
         }
-
         if(ticket != null){
             boolean canView = false;
             ClientUserDetails user = Utils.getPrincipalDetails(true);
@@ -292,16 +289,27 @@ public class TicketController extends ModelViewBaseController {
 
                         mv.addObject("guidModel_canCancel", new GuidRequiredModel(ticket.getTicketId()));
                         canCancel = true;
+                        canAddResponse = true;
                     }
                 }
-                else if(user.hasRole("ROLE_SUPPORT") || user.hasRole("ROLE_ADMIN")){
+                if(user.hasRole("ROLE_SUPPORT") || user.hasRole("ROLE_ADMIN")){
                     canView = true;
+                    if(ticket.getStatus() != ClientSupport.TICKET_STATUS.CANCELED.toString())
+                    {
+                        mv.addObject("guidModel_canCancel", new GuidRequiredModel(ticket.getTicketId()));
+                        canUpdateStatus = true;
+
+                        if(ticket.getStatus() != ClientSupport.TICKET_STATUS.COMPLETED.toString()){
+                            canAddResponse = true;
+                        }
+                    }
                 }
             }
 
             if(canView){
                 HttpSession session = request.getSession(true);
                 session.setAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL, model);
+
 
                 mv.addObject("userId", user.getUserId());
 
@@ -330,6 +338,8 @@ public class TicketController extends ModelViewBaseController {
         Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
 
 
+        mv.addObject("canAddResponse", canAddResponse);
+        mv.addObject("canUpdateStatus", canUpdateStatus);
         mv.addObject("canCancel", canCancel);
         mv.addObject("Ticket", ticket);
         mv.addObject("elements", elements);
@@ -339,4 +349,41 @@ public class TicketController extends ModelViewBaseController {
         return dispatchView(mv);
     }
 
+    @PreAuthorize(ALLOW_ROLES_ALL)
+    @PostMapping("/ticket/cancelTicket")
+    public ModelAndView cancelTicket(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                UpdateTicketModel updateModel = new UpdateTicketModel(model.getValue());
+                updateModel.setStatus(ClientSupport.TICKET_STATUS.CANCELED.name());
+                UpdateTicketResponse response = clientSupport.updateTicket(updateModel, user.getUserId());
+                clientSupport.validateUpdateTicket(response, true, true);
+            }
+        }
+        else{
+            PortalApplication.addErrorKey(result);
+        }
+
+        return openTicketBySession();
+    }
+
+    @PreAuthorize(ALLOW_ROLES_ALL)
+    @PostMapping("/ticket/updateTicketStatus")
+    public ModelAndView updateTicketStatus(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if (user != null) {
+                UpdateTicketModel updateModel = new UpdateTicketModel(model.getValue());
+                updateModel.setStatus(ClientSupport.TICKET_STATUS.CANCELED.name());
+                UpdateTicketResponse response = clientSupport.updateTicket(updateModel, user.getUserId());
+                clientSupport.validateUpdateTicket(response, true, true);
+            }
+        }
+        else{
+            PortalApplication.addErrorKey(result);
+        }
+
+        return openTicketBySession();
+    }
 }

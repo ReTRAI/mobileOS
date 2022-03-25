@@ -61,6 +61,7 @@
 	"utils_form_number_houses2": " decimal places.",
 	"utils_form_number_positive": "the value must be higher than 0.",
 	"utils_form_date_invalid": "Invalid date",
+	"utils_form_enum_invalidValue":"Invalid value",
 	
 	"utils_form_nickname": "Nickname",
 	"utils_form_nicknamePlaceholder": "Enter nickname",

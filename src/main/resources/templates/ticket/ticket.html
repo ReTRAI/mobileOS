@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="loading dark-layout" lang="en" data-layout="dark-layout" xmlns:th="https://www.thymeleaf.org"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <!-- BEGIN: Head-->
 
 <head>
@@ -10,6 +11,14 @@
     <th:block th:replace="shared/common :: common-style"/>
 
     <style>
+        .myTickets{
+            padding-left:80px;
+            text-align:right;
+        }
+        .notMyTickets{
+            padding-right:80px;
+            text-align:left;
+        }
     </style>
 
     <title class="toTranslate" data-langKey="tickets_ticket_tab_title">Portal</title>
@@ -50,25 +59,35 @@
             <section id="ticket" th:if="${Ticket != null}">
                 <th:block th:replace="shared/header :: headerTitle0"/>
                 <div>
-                    <h2 class="mx-0 mt-0 toTranslate mb-1" data-langKey="resellers_reseller_title">Ticket</h2>
-                    <h3 th:text="${ticket.getTitle()}"></h3>
+                    <h2 class="mx-0 mt-0 toTranslate mb-1" data-langKey="tickets_ticket_title">Ticket</h2>
+                    <h3 th:text="${Ticket.getTitle()}"></h3>
                 </div>
 
                 <th:block th:replace="shared/header :: headerTitle1('ticketNavBar')"/>
                 <ul class="nav justify-content-end">
+                    <li class="nav-item mb-1 ms-1" th:if="${canUpdateStatus}">
+                        <button type="submit" class="btn btn-danger toTranslate"
+                                data-langKey="tickets_ticket_updateStatus"
+                        >Update Status</button>
+                    </li>
+                    <li class="nav-item mb-1 ms-1">
+                        <button type="submit" class="btn btn-danger toTranslate"
+                                data-langKey="tickets_ticket_addResponse"  th:if="${canAddResponse}"
+                        >Reply</button>
+                    </li>
                     <li class="nav-item mb-1 ms-1" th:if="${canCancel}">
-                        <form th:object="${guidModel_canCancel}" method="POST"
+                        <button type="submit" class="btn btn-danger toTranslate"
+                                data-langKey="tickets_ticket_cancel"
+                                onClick="openCancelTicketModal()"
+                        >Cancel Ticket</button>
+                        <form id="formCancelTicket" th:object="${guidModel_canCancel}" method="POST"
                               th:action="@{${portalURL} + 'ticket/cancelTicket'}" >
                             <input type="hidden" th:field="*{value}"/>
-                            <button type="submit" class="btn btn-primary toTranslate"
-                                    data-langKey="utils_cancel"
-                            >Cancel</button>
                         </form>
                     </li>
-                    <li class="nav-item mb-1 ms-1"
-                        th:if="${!resellerHistory}" >
+                    <li class="nav-item mb-1 ms-1">
                         <a class="btn btn-primary toTranslate" data-langKey="utils_back"
-                           th:href="${portalURL + 'tickets/listBack'}"
+                           th:href="${portalURL + 'ticket/listBack'}"
                         >Back</a>
                     </li>
                 </ul>
@@ -139,7 +158,7 @@
                         <table class="table table-striped dataTable ">
                             <thead>
                                 <tr>
-                                    <th class="sorting toTranslate text-center" data-langKey="utils_table_date"
+                                    <th class="sorting toTranslate" data-langKey="utils_table_date"
                                         th:with="sortName='creationDate'"
                                         th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                         th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
@@ -153,23 +172,25 @@
                             </thead>
                             <tbody>
                                 <tr th:each="ele : ${elements}">
-                                    <td class="text-center"
+                                    <td
                                         th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getDetailDate())}">
                                     </td>
-                                    <td class="toTranslate" th:text="${ele.getDetail().substring(0,100)}"
-                                        th:classappend="${ticket.getDetailUserId().equals(userId) ? 'ps-1' : 'pe-1'}"></td>
+                                    <td class="toTranslate"
+                                        th:text="${T(com.season.portal.utils.Utils).makeResume(ele.getDetail(), 150)}"
+                                        th:classappend="${ele.getDetailUserId().equals(userId) ? 'myTickets' : 'notMyTickets'}"></td>
                                     <td class="actions">
                                         <div class="d-flex align-items-center justify-content-around">
                                             <button type="button" onclick="openDetail(this)"
-                                               th:attr="data-guid=${ele.getTicketId()}"
+                                               th:attr="data-guid=${ele.getTicketId()}, data-attachPath=${ele.getAttachPath()}"
                                                class="align-items-center d-flex justify-content-around toTranslateAttr"
                                                data-bs-toggle="tooltip" data-bs-placement="top"
                                                data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
                                             >
                                                 <i class="font-medium-2 text-body primary-colorH"
                                                    data-feather="eye"></i>
+                                                <span class="detail d-none" th:text="${ele.getDetail()}"></span>
                                             </button>
-                                            <span class="detail d-none" th:text="ele.getDetail()"></span>
+
                                         </div>
                                     </td>
                                 </tr>
@@ -181,8 +202,6 @@
 
                             <th:block
                                     th:replace="shared/pagination :: pagination( ${baseUrl}, ${queryUrl}, ${Pagination}, ${elements.size()} )"/>
-
-
                     </div>
                 </div>
 
@@ -192,6 +211,8 @@
     </div>
 </div>
 </th:block>
+
+<th:block th:replace="shared/confirmModal :: confirmModal"/>
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
@@ -202,6 +223,7 @@
         setupLanguage();
         showInMenu("menu_ticket_all");
         $('.flatpickr-basic').flatpickr();
+        confirmModal_init();
     });
 
     function resetForm(formId){
@@ -210,6 +232,19 @@
         $("#"+formId).submit();
     }
 
+    function openCancelTicketModal(){
+        confirmModal_open("tickets_ticket_cancel", "tickets_ticket_cancel_detail", "utils_submit", "utils_cancel", openCancelTicketModalHandler, confirmModal_close);
+    }
+    function openCancelTicketModalHandler(){
+        $("#formCancelTicket").submit();
+    }
+
+    function openDetail(that){
+        var path = $(that).attr("attachPath");
+        if(path != null && path != undefined && path != ""){
+            var exe = path.split('.').pop();
+        }
+    }
 </script>
 
 </body>

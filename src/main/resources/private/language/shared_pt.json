@@ -61,6 +61,7 @@
 	"utils_form_number_houses2": " decimais.",
 	"utils_form_number_positive": "O valor tem de ser maior que 0.",
 	"utils_form_date_invalid": "Data inválida",
+	"utils_form_enum_invalidValue":"Valor inválido",
 	
 	"utils_form_nickname": "Nome",
 	"utils_form_nicknamePlaceholder": "Inserir nome",

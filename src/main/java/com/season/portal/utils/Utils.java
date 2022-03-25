@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.season.portal.utils.validation.FileValidatorUtils.groupsToFileTypes;
+import static com.season.portal.utils.validation.GuidValidator.UUID_REGEX_PATTERN;
 
 public class Utils {
     private static final Logger LOGGER = LoggerFactory.getLogger("Utils");
@@ -165,10 +166,12 @@ public class Utils {
     }
     public static Date strToDate(String s, SimpleDateFormat ft){
         Date result = null;
-        try {
-            result = ft.parse(s);
-        } catch (Exception e) {
-            PortalApplication.log(LOGGER, e, "String: "+s);
+        if(s != null){
+            try {
+                result = ft.parse(s);
+            } catch (Exception e) {
+                PortalApplication.log(LOGGER, e, "String: "+s);
+            }
         }
         return result;
     }
@@ -251,11 +254,13 @@ public class Utils {
 
     public static float parseFloat(String number){
         float result = 0f;
-        number = number.replace(",", ".");
-        try{
-            result = Float.parseFloat(number);
-        }catch(Exception e){
-            PortalApplication.log(LOGGER, e, "String: "+number);
+        if(number != null){
+            number = number.replace(",", ".");
+            try{
+                result = Float.parseFloat(number);
+            }catch(Exception e){
+                PortalApplication.log(LOGGER, e, "String: "+number);
+            }
         }
         return result;
     }
@@ -361,4 +366,30 @@ public class Utils {
         }
         return result;
     }
+
+    public static String makeResume(String str, int maxChar){
+        String result = "";
+        if(str != null){
+            if(str.length()>maxChar){
+                result = str.substring(0, maxChar);
+                result = result.substring(0, result.lastIndexOf(" "));
+                result += "(...)";
+            }
+            else{
+                result = str;
+            }
+        }
+        return result;
+    }
+
+    public static boolean isGuid(String guid){
+        boolean result = false;
+        if(guid != null){
+            if(UUID_REGEX_PATTERN.matcher(guid).matches()){
+                result = true;
+            }
+        }
+        return result;
+    }
+
 }

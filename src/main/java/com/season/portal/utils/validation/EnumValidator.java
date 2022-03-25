@@ -1,27 +1,25 @@
 package com.season.portal.utils.validation;
 
-import com.season.portal.PortalApplication;
 import com.season.portal.utils.Utils;
-import com.season.portal.utils.validation.constrain.IFileValidatorConstrain;
+import com.season.portal.utils.validation.constrain.IEnumValidatorConstrain;
 import com.season.portal.utils.validation.constrain.IGuidValidatorConstrain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.UUID;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
-public class GuidValidator implements ConstraintValidator<IGuidValidatorConstrain, String> {
+public class EnumValidator implements ConstraintValidator<IEnumValidatorConstrain, String> {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private boolean required;
-    public final static Pattern UUID_REGEX_PATTERN =
-            Pattern.compile("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$");
+    private String[] validValues;
 
     @Override
-    public void initialize(IGuidValidatorConstrain constraintAnnotation) {
+    public void initialize(IEnumValidatorConstrain constraintAnnotation) {
         required = constraintAnnotation.required();
+        validValues = constraintAnnotation.validValues();
     }
 
     @Override
@@ -35,16 +33,16 @@ public class GuidValidator implements ConstraintValidator<IGuidValidatorConstrai
         if(s == null || s.isEmpty())
             return true;
         
-        return isGuid(s, context);
+        return isValidValue(s, context);
     }
 
-    private boolean isGuid(String s, ConstraintValidatorContext context) {
+    private boolean isValidValue(String s, ConstraintValidatorContext context) {
         boolean valid = true;
 
-        if(!Utils.isGuid(s)){
+        if(!Arrays.asList(validValues).contains(s)){
             valid = false;
             context.buildConstraintViolationWithTemplate(
-                    "utils_form_guid_invalid").addConstraintViolation();
+                    "utils_form_enum_invalidValue").addConstraintViolation();
         }
         return valid;
     }

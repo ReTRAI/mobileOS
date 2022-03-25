@@ -219,6 +219,11 @@
 	"api_ClientSupport_setTicketDetail_ex":"Ocorreu uma excepção a adicionar a resposta ao ticket.",
 	"api_ClientSupport_setTicketDetail_success":"Resposta ao ticket adicionada com sucesso.",
 	"api_ClientSupport_setTicketDetail_error":"Ocorreu um erro a adicionar a resposta ao ticket.",
+	"api_ClientSupport_updateTicket_noCode":"Ocorreu um erro a actualizar o ticket.",
+	"api_ClientSupport_updateTicket_":"Ocorreu um erro a actualizar o ticket.",
+	"api_ClientSupport_updateTicket_ex":"Ocorreu uma excepção a actualizar o ticket.",
+	"api_ClientSupport_validateUpdateTicket_success":"Ticket actualizado com sucesso.",
+	"api_ClientSupport_validateUpdateTicket_error":"Ocorreu um erro a actualizar o ticket.",
 	
 	"api_ClientDevice_countDeviceFiltered_noCode":"Ocorreu um erro a contar a lista de dispositivos.",
 	"api_ClientDevice_countDeviceFiltered_":"Ocorreu um erro a contar a lista de dispositivos.",
@@ -436,6 +441,11 @@
 	"tickets_ticket_tab_title":"Portal | Ticket",
 	"tickets_ticket_invalid":"Ticket inválido",
 	"tickets_ticket_title":"Ticket",
+	"tickets_ticket_addResponse":"Responder",
+	"tickets_ticket_cancel":"Cancelar Ticket",
+	"tickets_ticket_updateStatus":"Atualizar estado",
+	"tickets_ticket_cancel_detail":"Ao cancelar o ticket o mesmo será dado como resolvido e impossibilitará novas respostas.",
+	
 	
 	"profile_changePassword_title":"Atualizar palavra-chave",
 	"profile_changePassword_tab_title":"Portal | Palavra-chave",

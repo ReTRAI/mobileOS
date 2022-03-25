@@ -219,6 +219,11 @@
 	"api_ClientSupport_setTicketDetail_ex":"An exception occurred adding the ticket response.",
 	"api_ClientSupport_setTicketDetail_success":"Ticket response added successfully.",
 	"api_ClientSupport_setTicketDetail_error":"An error occurred adding the ticket response.",
+	"api_ClientSupport_updateTicket_noCode":"An error occurred updating the ticket.",
+	"api_ClientSupport_updateTicket_":"An error occurred updating the ticket.",
+	"api_ClientSupport_updateTicket_ex":"An exception occurred updating the ticket.",
+	"api_ClientSupport_validateUpdateTicket_success":"Ticket updated successfully.",
+	"api_ClientSupport_validateUpdateTicket_error":"An error occurred updating the ticket.",
 	
 	"api_ClientDevice_countDeviceFiltered_noCode":"An error occurred counting the device list.",
 	"api_ClientDevice_countDeviceFiltered_":"An error occurred counting the device list.",
@@ -436,6 +441,10 @@
 	"tickets_ticket_tab_title":"Portal | Ticket",
 	"tickets_ticket_invalid":"Invalid Ticket",
 	"tickets_ticket_title":"Ticket",
+	"tickets_ticket_addResponse":"Reply",
+	"tickets_ticket_cancel":"Cancel Ticket",
+	"tickets_ticket_updateStatus":"Update Status",
+	"tickets_ticket_cancel_detail":"At canceling the ticket, it will be considered resolved and will prevent new responses.",
 	
 	"profile_changePassword_title":"Update password",
 	"profile_changePassword_tab_title":"Portal | Password",

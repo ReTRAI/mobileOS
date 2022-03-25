@@ -6,6 +6,7 @@ import com.season.portal.client.generated.support.*;
 import com.season.portal.support.SupportListPageModel;
 import com.season.portal.ticket.TicketDetailListPageModel;
 import com.season.portal.ticket.TicketListPageModel;
+import com.season.portal.ticket.UpdateTicketModel;
 import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -646,6 +647,7 @@ public class ClientSupport extends WebServiceGatewaySupport{
         request.setTicketId(model.getTicketId());
         request.setStartDetailDate(model.getValidStartCreationDate());
         request.setEndDetailDate(model.getValidEndCreationDate());
+        request.setResponseUserId(model.getValidResponseUserId());
 
         request.setOffset(model.getValidOffset());
         request.setNumberRecords(model.getValidNumPerPage());
@@ -701,6 +703,51 @@ public class ClientSupport extends WebServiceGatewaySupport{
         }
 
         return response;
+    }
+
+    public UpdateTicketResponse updateTicket(UpdateTicketModel model, String actionUserId){
+        UpdateTicketRequest request = new UpdateTicketRequest();
+        request.setTicketId(model.getTicketId());
+        request.setStatus(model.getValidStatus());
+        request.setAssignedUserId(model.getValidAssignedUserId());
+        request.setActionUserId(actionUserId);
+
+        UpdateTicketResponse response = null;
+        try {
+            response = (UpdateTicketResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientSupport_updateTicket_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientSupport_updateTicket_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientSupport_updateTicket_ex");
+        }
+
+        return response;
+    }
+
+    public boolean validateUpdateTicket(UpdateTicketResponse response, boolean addSuccessMsg, boolean addErrorMsg) {
+        boolean valid = false;
+
+        if(response != null){
+            if(response.isResult()){
+                valid = true;
+                if(addSuccessMsg)
+                    PortalApplication.addSuccessKey("api_ClientSupport_validateUpdateTicket_success");
+            }
+            else if(addErrorMsg){
+                PortalApplication.addErrorKey("api_ClientSupport_validateUpdateTicket_error");
+            }
+        }
+        return valid;
     }
 
 }
