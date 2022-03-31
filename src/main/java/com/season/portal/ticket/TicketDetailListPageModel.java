@@ -51,10 +51,10 @@ public class TicketDetailListPageModel extends PageModel {
     }
 
     public String getValidStartCreationDate() {
-        return Utils.strToStrDate(startCreationDate);
+        return Utils.strToStrDateTime(startCreationDate);
     }
     public String getValidEndCreationDate() {
-        return Utils.strToStrDate(endCreationDate);
+        return Utils.strToStrDateTime(endCreationDate);
     }
 
     public String getValidResponseUserId() {

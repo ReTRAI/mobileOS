@@ -6,14 +6,23 @@ import com.season.portal.utils.validation.constrain.IEnumValidatorConstrain;
 import com.season.portal.utils.validation.constrain.IGuidValidatorConstrain;
 
 public class UpdateTicketStatusModel {
+    public final static String[] TICKET_STATUS_ALLOWED = {"COMPLETED", "PENDING", "ONPROGRESS", "OPEN"};
+
     @IGuidValidatorConstrain(required = true)
     private String ticketId;
 
-    @IEnumValidatorConstrain(required = true, validValues = {"COMPLETED", "PENDING", "ONPROGRESS"})
+    @IEnumValidatorConstrain(required = true, enumValues = {"COMPLETED", "PENDING", "ONPROGRESS", "OPEN"})
     private String status;
+
+    public UpdateTicketStatusModel(){}
 
     public UpdateTicketStatusModel(String ticketId) {
         this.ticketId = ticketId;
+    }
+
+    public UpdateTicketStatusModel(String ticketId, String status) {
+        this.ticketId = ticketId;
+        this.status = status;
     }
 
     public String getTicketId() {

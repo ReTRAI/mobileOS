@@ -8,14 +8,24 @@ import com.season.portal.client.generated.reseller.GetCountResellerFilteredRespo
 import com.season.portal.client.generated.reseller.GetResellerFilteredResponse;
 import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.support.*;
+import com.season.portal.client.generated.user.GetUserByIdResponse;
 import com.season.portal.client.support.ClientSupport;
+import com.season.portal.client.users.ClientUser;
 import com.season.portal.devices.DeviceListPageModel;
 import com.season.portal.reseller.ResellerListPageModel;
+import com.season.portal.support.SupportListPageModel;
+import com.season.portal.users.UserRoleModel;
 import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
 import com.season.portal.utils.model.GuidRequiredModel;
+import com.season.portal.utils.model.StringModel;
 import com.season.portal.utils.pagination.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,6 +37,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static com.season.portal.configuration.AnnotationSecurityConfiguration.*;
@@ -35,6 +50,8 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.*;
 public class TicketController extends ModelViewBaseController {
     @Autowired
     ClientSupport clientSupport;
+    @Autowired
+    ClientUser clientUser;
 
     private String SESSION_TICKET_CONTROLLER_LIST_MODEL = "SESSION_TICKET_CONTROLLER_LIST_MODEL";
     private String SESSION_TICKET_CONTROLLER_DETAIL_MODEL = "SESSION_TICKET_CONTROLLER_DETAIL_MODEL";
@@ -48,7 +65,7 @@ public class TicketController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_ALL)
     @PostMapping(value={"/ticket/new"})
-    public ModelAndView ticketNew(@Valid NewTicketModel model, BindingResult result, HttpServletRequest request){
+    public ModelAndView ticketNew(@Valid NewTicketModel model, BindingResult result){
 
         if(!result.hasErrors()){
             String path = Utils.saveFileIfExist(model.getFile(), true);
@@ -79,7 +96,7 @@ public class TicketController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_ALL)
     @GetMapping("/ticket/listBack")
-    public ModelAndView resellersBySession(){
+    public ModelAndView listBack(){
         HttpSession session = request.getSession(true);
         TicketListPageModel model = (TicketListPageModel)session.getAttribute(SESSION_TICKET_CONTROLLER_LIST_MODEL);
         if(model == null){
@@ -232,6 +249,11 @@ public class TicketController extends ModelViewBaseController {
     }
 
 
+    @PreAuthorize(ALLOW_ROLES_ALL)
+    @GetMapping("/ticket/back")
+    public ModelAndView ticketBack(){
+        return openTicketBySession();
+    }
 
     @PreAuthorize(ALLOW_ROLES_ALL)
     @PostMapping("/openTicket")
@@ -239,6 +261,8 @@ public class TicketController extends ModelViewBaseController {
         if(!result.hasErrors()){
             TicketDetailListPageModel m = new TicketDetailListPageModel();
             m.setTicketId(model.getValue());
+            m.setSort("detailDate");
+            m.setOrder("desc");
             return ticketView(m);
         }
         return ticketAllList(new TicketListPageModel());
@@ -247,6 +271,14 @@ public class TicketController extends ModelViewBaseController {
     @PreAuthorize(ALLOW_ROLES_ALL)
     @GetMapping("/ticket")
     public ModelAndView openTicket(@Valid TicketDetailListPageModel model, BindingResult result) {
+        HttpSession session = request.getSession(true);
+        TicketDetailListPageModel oldModel = (TicketDetailListPageModel)session.getAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL);
+        if(oldModel != null){
+            model.setTicketId(oldModel.getTicketId());
+        }
+        else{
+            PortalApplication.addErrorKey("api_session_invalidModel");
+        }
         return ticketView(model);
     }
 
@@ -268,7 +300,8 @@ public class TicketController extends ModelViewBaseController {
         Ticket ticket = null;
         boolean canCancel = false;
         boolean canUpdateStatus = false;
-        boolean canAddResponse = false;
+        boolean canReply = false;
+        boolean canAssign = false;
 
         GetTicketFilteredResponse ticketResponse = clientSupport.getTicketFiltered(new TicketListPageModel(model.getTicketId()));
         if(ticketResponse != null ){
@@ -277,30 +310,30 @@ public class TicketController extends ModelViewBaseController {
                 ticket = tickets.get(0);
             }
         }
+
         if(ticket != null){
             boolean canView = false;
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if(user != null) {
                 if(ticket.getCreationUserId().equals(user.getUserId())){
                     canView = true;
-                    if(ticket.getStatus() != ClientSupport.TICKET_STATUS.CANCELED.toString() &&
-                        ticket.getStatus() != ClientSupport.TICKET_STATUS.COMPLETED.toString())
-                    {
 
-                        mv.addObject("guidModel_canCancel", new GuidRequiredModel(ticket.getTicketId()));
+                    if(     !ticket.getStatus().equals( ClientSupport.TICKET_STATUS.CANCELED.toString()) &&
+                            !ticket.getStatus().equals( ClientSupport.TICKET_STATUS.COMPLETED.toString()))
+                    {
                         canCancel = true;
-                        canAddResponse = true;
+                        canReply = true;
                     }
                 }
                 if(user.hasRole("ROLE_SUPPORT") || user.hasRole("ROLE_ADMIN")){
                     canView = true;
-                    if(ticket.getStatus() != ClientSupport.TICKET_STATUS.CANCELED.toString())
+                    if(!ticket.getStatus().equals(ClientSupport.TICKET_STATUS.CANCELED.toString()))
                     {
-                        mv.addObject("guidModel_canCancel", new GuidRequiredModel(ticket.getTicketId()));
                         canUpdateStatus = true;
 
-                        if(ticket.getStatus() != ClientSupport.TICKET_STATUS.COMPLETED.toString()){
-                            canAddResponse = true;
+                        if(!ticket.getStatus().equals(ClientSupport.TICKET_STATUS.COMPLETED.toString())){
+                            canReply = true;
+                            canAssign = true;
                         }
                     }
                 }
@@ -309,7 +342,6 @@ public class TicketController extends ModelViewBaseController {
             if(canView){
                 HttpSession session = request.getSession(true);
                 session.setAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL, model);
-
 
                 mv.addObject("userId", user.getUserId());
 
@@ -320,13 +352,14 @@ public class TicketController extends ModelViewBaseController {
                         GetTicketDetailFilteredResponse response = clientSupport.getTicketDetailFiltered(model);
                         if(response != null){
                             elements = new ArrayList(response.getTicketDetail());
-                            elements.get(0).getDetail();
-                            elements.get(0).getTicketId();
-                            elements.get(0).getTicketDetailId();
-                            elements.get(0).getAttachPath();
-                            elements.get(0).getDetailUserId();
-
                         }
+                    }
+                }
+
+                if(ticket.getAssignedUserId() != null){
+                    GetSupportByUserIdResponse responseAssigned = clientSupport.getSupportByUserId(ticket.getAssignedUserId());
+                    if(responseAssigned != null){
+                        mv.addObject("UserRoleAssigned", new UserRoleModel(responseAssigned.getSupport()));
                     }
                 }
             }
@@ -337,8 +370,15 @@ public class TicketController extends ModelViewBaseController {
 
         Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
 
+        if(canCancel)
+            mv.addObject("guidModel_canCancel", new GuidRequiredModel(ticket.getTicketId()));
+        if(canUpdateStatus)
+            mv.addObject("updateTicketStatusModel", new UpdateTicketStatusModel(ticket.getTicketId(), ticket.getStatus()));
+        if(canReply)
+            mv.addObject("newTicketDetailModel", new NewTicketDetailModel(ticket.getTicketId()));
 
-        mv.addObject("canAddResponse", canAddResponse);
+        mv.addObject("canAssign", canAssign);
+        mv.addObject("canReply", canReply);
         mv.addObject("canUpdateStatus", canUpdateStatus);
         mv.addObject("canCancel", canCancel);
         mv.addObject("Ticket", ticket);
@@ -368,14 +408,15 @@ public class TicketController extends ModelViewBaseController {
         return openTicketBySession();
     }
 
-    @PreAuthorize(ALLOW_ROLES_ALL)
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @PostMapping("/ticket/updateTicketStatus")
-    public ModelAndView updateTicketStatus(@Valid GuidRequiredModel model, BindingResult result) {
+    public ModelAndView updateTicketStatus(@Valid UpdateTicketStatusModel model, BindingResult result) {
         if(!result.hasErrors()){
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if (user != null) {
-                UpdateTicketModel updateModel = new UpdateTicketModel(model.getValue());
-                updateModel.setStatus(ClientSupport.TICKET_STATUS.CANCELED.name());
+                UpdateTicketModel updateModel = new UpdateTicketModel(model.getTicketId());
+                updateModel.setStatus(model.getStatus());
+
                 UpdateTicketResponse response = clientSupport.updateTicket(updateModel, user.getUserId());
                 clientSupport.validateUpdateTicket(response, true, true);
             }
@@ -386,4 +427,204 @@ public class TicketController extends ModelViewBaseController {
 
         return openTicketBySession();
     }
+
+    @PreAuthorize(ALLOW_ROLES_ALL)
+    @PostMapping(value={"/ticket/reply"})
+    public ModelAndView reply(@Valid NewTicketDetailModel model, BindingResult result){
+        HttpSession session = request.getSession(true);
+        TicketDetailListPageModel Ticketmodel = (TicketDetailListPageModel)session.getAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL);
+        if(Ticketmodel != null){
+            if(!result.hasErrors()){
+                String path = Utils.saveFileIfExist(model.getFile(), true);
+                if(path != null){
+                    ClientUserDetails user = Utils.getPrincipalDetails(true);
+                    if (user != null) {
+                        model.setTicketId(Ticketmodel.getTicketId());
+                        SetTicketDetailResponse response = clientSupport.setTicketDetail(model.getTicketId(), model.getDetail(), path, user.getUserId());
+                        if (response != null) {
+                            PortalApplication.addSuccessKey("api_ClientSupport_setTicketDetail_success");
+                        }
+                        else
+                            PortalApplication.addErrorKey("api_ClientSupport_setTicketDetail_error");
+                    }
+                }
+            }
+            else{
+                PortalApplication.addErrorKey(result);
+            }
+        }
+        else{
+            Ticketmodel = new TicketDetailListPageModel();
+            PortalApplication.addErrorKey("api_session_invalidModel");
+        }
+
+        return ticketView(Ticketmodel);
+    }
+
+    @PreAuthorize(ALLOW_ROLES_ALL)
+    @GetMapping(value={"/ticket/getAttach"})
+    public ResponseEntity<Resource> download(StringModel model) throws IOException {
+
+        boolean canView = false;
+        HttpSession session = request.getSession(true);
+
+        Ticket ticket = getTicketByDetailSession(session);
+
+        if(ticket != null){
+
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if(user != null) {
+                if(ticket.getCreationUserId().equals(user.getUserId())){
+                    canView = true;
+                }
+                if(user.hasRole("ROLE_SUPPORT") || user.hasRole("ROLE_ADMIN")){
+                    canView = true;
+                }
+            }
+        }
+
+
+
+        File file = new File("");
+        ByteArrayResource resource = new ByteArrayResource(new byte[]{});
+        if(canView){
+            File filePath = new File("src/main/resources/media/tickets/"+model.getValue());
+
+            if (filePath.exists()) {
+                file = new File(filePath.getAbsolutePath());
+                Path path = Paths.get(file.getAbsolutePath());
+                resource = new ByteArrayResource(Files.readAllBytes(path));
+            }
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=attach."+Utils.getFileNameExt(model.getValue()));
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @GetMapping("/ticket/assignOpen")
+    public ModelAndView assign() {
+
+        return assignView(new SupportListPageModel());
+    }
+
+    @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
+    @GetMapping("/ticket/assign")
+    public ModelAndView assign(@Valid SupportListPageModel model, BindingResult result) {
+
+        return assignView(model);
+    }
+
+    private Ticket getTicketByDetailSession(HttpSession session){
+        Ticket ticket = null;
+
+        TicketDetailListPageModel ticketModel = (TicketDetailListPageModel)session.getAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL);
+        if(ticketModel != null) {
+            GetTicketFilteredResponse ticketResponse = clientSupport.getTicketFiltered(new TicketListPageModel(ticketModel.getTicketId()));
+            if (ticketResponse != null) {
+                ArrayList<Ticket> tickets = new ArrayList(ticketResponse.getTicket());
+                if (tickets.size() == 1) {
+                    ticket = tickets.get(0);
+                }
+            }
+        }
+        else{
+            PortalApplication.addErrorKey("api_session_invalidModel");
+        }
+
+        return ticket;
+    }
+
+    private ModelAndView assignView(SupportListPageModel model){
+        ModelAndView mv = new ModelAndView("ticket/assignSupport");
+        ArrayList<UserRoleModel> elements = new ArrayList<UserRoleModel>();
+        long totalElements = 0;
+
+        HttpSession session = request.getSession(true);
+        Ticket ticket = getTicketByDetailSession(session);
+
+        if(ticket != null){
+            String supportId = getPrincipalSupportId(clientSupport);
+            if(request.isUserInRole("ROLE_ADMIN")){
+                if(AdminController.getAdminView(session)){
+                    supportId = "";
+                }
+            }
+
+            if(supportId != null) {
+
+                model.setSupportId(supportId);
+                model.setOnlyChildren(true);
+                GetCountSupportFilteredResponse responseCount = clientSupport.countSupportFiltered(model);
+                if (responseCount != null) {
+                    totalElements = responseCount.getResult();
+                    if (totalElements > 0) {
+                        GetSupportFilteredResponse response = clientSupport.getSupportFiltered(model);
+                        if (response != null) {
+                            ArrayList<Support> supports = new ArrayList(response.getSupport());
+                            elements = Utils.supportToUserRole(supports);
+                        }
+                    }
+                }
+
+                if(request.isUserInRole("ROLE_SUPPORT")){
+                    ClientUserDetails user = Utils.getPrincipalDetails(true);
+                    mv.addObject("userId", user.getUserId());
+                }
+
+            }
+        }
+
+
+        Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
+
+        mv.addObject("Ticket", ticket);
+        mv.addObject("elements", elements);
+        mv.addObject("Pagination", pagination);
+        mv.addObject("supportListPageModel", model);
+        mv.addObject("guidModel_assign", new GuidRequiredModel());
+
+        return dispatchView(mv);
+    }
+
+    @PreAuthorize(ALLOW_ROLES_ALL)
+    @PostMapping("/ticket/assignTicket")
+    public ModelAndView assignTicket(@Valid GuidRequiredModel model, BindingResult result) {
+        if(!result.hasErrors()){
+            String ticketId = null;
+            HttpSession session = request.getSession(true);
+            TicketDetailListPageModel ticketModel = (TicketDetailListPageModel)session.getAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL);
+            if(ticketModel != null) {
+                ticketId = ticketModel.getTicketId();
+
+                ClientUserDetails user = Utils.getPrincipalDetails(true);
+                if (user != null) {
+                    UpdateTicketModel updateModel = new UpdateTicketModel(ticketId);
+                    updateModel.setAssignedUserId(model.getValue());
+                    UpdateTicketResponse response = clientSupport.updateTicket(updateModel, user.getUserId());
+                    if(clientSupport.validateUpdateTicket(response, true, true)){
+                        return openTicketBySession();
+                    }
+                }
+            }
+            else{
+                PortalApplication.addErrorKey("api_session_invalidModel");
+            }
+        }
+        else{
+            PortalApplication.addErrorKey(result);
+        }
+
+        return assignView(new SupportListPageModel());
+    }
+
 }

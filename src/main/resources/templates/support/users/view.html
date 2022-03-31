@@ -125,7 +125,7 @@
                             <div class="col-md-4 col-12 mb-1">
                                 <label class="form-label toTranslate" data-langKey="utils_form_creationDate"></label>
                                 <input class="form-control"
-                                       th:value="${User.getCreationDate()}" readonly="readonly"/>
+                                       th:value="${T(com.season.portal.utils.Utils).strToStrDate(User.getCreationDate())}" readonly="readonly"/>
                             </div>
 
                         </div>

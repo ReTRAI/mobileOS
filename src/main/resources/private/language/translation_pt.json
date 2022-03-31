@@ -253,6 +253,7 @@
 	"utils_remove":"Remover",
 	"utils_associate":"Associar",
 	"utils_add":"Adicionar",
+	"utils_assign":"Assignar",
 	"utils_roles":"Perfis",
 	"utils_role":"Perfil",
 	"utils_devices":"Dispositivos",
@@ -264,6 +265,7 @@
 	"utils_addCredits":"Adicionar Créditos",
 	"utils_removeCredits":"Remover Créditos",
 	"utils_sendCredits":"Enviar Créditos",
+	"utils_reply":"Responder",
 	
 	"utils_form_credits":"Créditos",
 	"utils_form_credits_placeholder":"Insira o número de créditos",
@@ -441,11 +443,23 @@
 	"tickets_ticket_tab_title":"Portal | Ticket",
 	"tickets_ticket_invalid":"Ticket inválido",
 	"tickets_ticket_title":"Ticket",
+	"tickets_ticket_filter":"Filtro das respostas",
 	"tickets_ticket_addResponse":"Responder",
 	"tickets_ticket_cancel":"Cancelar Ticket",
 	"tickets_ticket_updateStatus":"Atualizar estado",
-	"tickets_ticket_cancel_detail":"Ao cancelar o ticket o mesmo será dado como resolvido e impossibilitará novas respostas.",
+	"tickets_ticket_cancel_detail":"Ao cancelar o ticket o mesmo será dado como resolvido e impossibilitará novas respostas ou alterações.",
+	"tickets_ticket_complete_detail":"Ao fechar o ticket o mesmo será dado como resolvido e impossibilitará novas respostas.",
+	"tickets_ticket_assignedSupport":"Suporte assignado",
+	"tickets_ticket_assignSupport":"Assignar Suporte",
 	
+	"ticketReplyModal_title":"Responder",
+	
+	"ticketUpdateStatusModal_title":"Actualizar estado do ticket",
+	
+	"tickets_assignSupport_title":"Assignar Suporte",
+	"tickets_assignSupport_subTitle0":"Ticket - ",
+	"tickets_assignSupport_subTitle1":"",
+	"tickets_assignSupport_myself":"Assignar-me",
 	
 	"profile_changePassword_title":"Atualizar palavra-chave",
 	"profile_changePassword_tab_title":"Portal | Palavra-chave",

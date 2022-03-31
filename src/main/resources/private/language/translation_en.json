@@ -253,6 +253,7 @@
 	"utils_remove":"Remove",
 	"utils_associate":"Associate",
 	"utils_add":"Add",
+	"utils_assign":"Assign",
 	"utils_roles":"Roles",
 	"utils_role":"Role",
 	"utils_devices":"Devices",
@@ -264,6 +265,7 @@
 	"utils_addCredits":"Add Credits",
 	"utils_removeCredits":"Remove Credits",
 	"utils_sendCredits":"Send Credits",
+	"utils_reply":"Reply",
 
 	"utils_form_credits":"Credits",
 	"utils_form_credits_placeholder":"Enter credits value",
@@ -441,10 +443,23 @@
 	"tickets_ticket_tab_title":"Portal | Ticket",
 	"tickets_ticket_invalid":"Invalid Ticket",
 	"tickets_ticket_title":"Ticket",
+	"tickets_ticket_filter":"Response filters",
 	"tickets_ticket_addResponse":"Reply",
 	"tickets_ticket_cancel":"Cancel Ticket",
 	"tickets_ticket_updateStatus":"Update Status",
-	"tickets_ticket_cancel_detail":"At canceling the ticket, it will be considered resolved and will prevent new responses.",
+	"tickets_ticket_cancel_detail":"At canceling the ticket, it will be considered resolved and will prevent new responses or updates.",
+	"tickets_ticket_complete_detail":"At completing the ticket, it will be considered resolved and will prevent new responses.",
+	"tickets_ticket_assignedSupport":"Assigned Support",
+	"tickets_ticket_assignSupport":"Assign Support",
+	
+	"ticketReplyModal_title":"Reply",
+	
+	"ticketUpdateStatusModal_title":"Ticket status update",
+	
+	"tickets_assignSupport_title":"Assign Support",
+	"tickets_assignSupport_subTitle0":"Ticket - ",
+	"tickets_assignSupport_subTitle1":"",
+	"tickets_assignSupport_myself":"Assign myself",
 	
 	"profile_changePassword_title":"Update password",
 	"profile_changePassword_tab_title":"Portal | Password",

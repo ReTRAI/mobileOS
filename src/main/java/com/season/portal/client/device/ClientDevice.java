@@ -19,12 +19,12 @@ public class ClientDevice extends WebServiceGatewaySupport{
         String deviceId = model.getDeviceId();
         String status=model.getStatus();
 
-        String startCreationDate = Utils.strToStrDate(model.getStartCreationDate());
-        String endCreationDate = Utils.strToStrDate(model.getEndCreationDate());
-        String startActivationDate = Utils.strToStrDate(model.getStartActivationDate());
-        String endActivationDate = Utils.strToStrDate(model.getEndActivationDate());
-        String startExpirationDate = Utils.strToStrDate(model.getStartExpirationDate());
-        String endExpirationDate = Utils.strToStrDate(model.getEndExpirationDate());
+        String startCreationDate = Utils.strToStrDateTime(model.getStartCreationDate());
+        String endCreationDate = Utils.strToStrDateTime(model.getEndCreationDate());
+        String startActivationDate = Utils.strToStrDateTime(model.getStartActivationDate());
+        String endActivationDate = Utils.strToStrDateTime(model.getEndActivationDate());
+        String startExpirationDate = Utils.strToStrDateTime(model.getStartExpirationDate());
+        String endExpirationDate = Utils.strToStrDateTime(model.getEndExpirationDate());
 
         resellerId = (resellerId == null)?"":resellerId;
         deviceId = (deviceId == null)?"":deviceId;
@@ -84,12 +84,12 @@ public class ClientDevice extends WebServiceGatewaySupport{
         String deviceId = model.getDeviceId();
         String status=model.getStatus();
 
-        String startCreationDate = Utils.strToStrDate(model.getStartCreationDate());
-        String endCreationDate = Utils.strToStrDate(model.getEndCreationDate());
-        String startActivationDate = Utils.strToStrDate(model.getStartActivationDate());
-        String endActivationDate = Utils.strToStrDate(model.getEndActivationDate());
-        String startExpirationDate = Utils.strToStrDate(model.getStartExpirationDate());
-        String endExpirationDate = Utils.strToStrDate(model.getEndExpirationDate());
+        String startCreationDate = Utils.strToStrDateTime(model.getStartCreationDate());
+        String endCreationDate = Utils.strToStrDateTime(model.getEndCreationDate());
+        String startActivationDate = Utils.strToStrDateTime(model.getStartActivationDate());
+        String endActivationDate = Utils.strToStrDateTime(model.getEndActivationDate());
+        String startExpirationDate = Utils.strToStrDateTime(model.getStartExpirationDate());
+        String endExpirationDate = Utils.strToStrDateTime(model.getEndExpirationDate());
 
         resellerId = (resellerId == null)?"":resellerId;
         deviceId = (deviceId == null)?"":deviceId;

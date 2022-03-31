@@ -81,16 +81,16 @@
                                             ><span th:text="${T(com.season.portal.ticket.NewTicketModel).filesMaxFileSizeMB}"></span
                                             ><small class="toTranslate" data-langKey="ticketNew_form_file_detail1"></small>
                                         </p>
-                                            <th:block th:with="accepted=${T(com.season.portal.utils.Utils).getAcceptTypes(
-                                                            T(com.season.portal.ticket.NewTicketModel).fileTypeGroups,
-                                                            T(com.season.portal.ticket.NewTicketModel).fileTypes)}">
-                                                <!--multiple="multiple" onchange="checkFiles(this)"-->
-                                                <input id="filter-files" type="file" class="form-control toTranslateInput" 
-                                                       data-langKey="utils_form_files_placeholder"
-                                                       th:attr="accept=${accepted}"
-                                                       th:errorclass="is-invalid"
-                                                       th:field="*{file}"/>
-                                            </th:block>
+                                        <th:block th:with="accepted=${T(com.season.portal.utils.Utils).getAcceptTypes(
+                                                        T(com.season.portal.ticket.NewTicketModel).fileTypeGroups,
+                                                        T(com.season.portal.ticket.NewTicketModel).fileTypes)}">
+                                            <!--multiple="multiple" onchange="checkFiles(this)"-->
+                                            <input id="filter-files" type="file" class="form-control toTranslateInput"
+                                                   data-langKey="utils_form_files_placeholder"
+                                                   th:attr="accept=${accepted}"
+                                                   th:errorclass="is-invalid"
+                                                   th:field="*{file}"/>
+                                        </th:block>
 
                                         <th:block th:each="err : ${#fields.errors('file')}">
                                             <th:block th:switch="${err}">

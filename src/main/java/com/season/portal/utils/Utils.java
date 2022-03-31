@@ -187,6 +187,9 @@ public class Utils {
         return result;
     }
     public static String strToStrDateTime(String strDate){
+        if(strDate != null && strDate.length() == 10){
+            strDate += " 00:00";
+        }
         return strToStrDateTime(strDate, new SimpleDateFormat ("yyyy-MM-dd HH:mm"));
     }
     public static String strToStrDateTime(String strDate, SimpleDateFormat originalDateFt){
@@ -306,6 +309,14 @@ public class Utils {
             savedfileName = "";
         }
         return savedfileName;
+    }
+
+    public static String getFileNameExt(String fileName){
+        String ext = null;
+        if(fileName != null){
+            ext = fileName.substring(fileName.lastIndexOf(".") + 1);
+        }
+        return ext;
     }
 
     public static String getMediaTypeExt(MultipartFile file, boolean addErrorMsg){

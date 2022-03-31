@@ -65,18 +65,24 @@
 
                 <th:block th:replace="shared/header :: headerTitle1('ticketNavBar')"/>
                 <ul class="nav justify-content-end">
+                    <li class="nav-item mb-1 ms-1" th:if="${canAssign}">
+                        <a class="btn btn-primary toTranslate"
+                           th:href="${portalURL + 'ticket/assignOpen'}"
+                           data-langKey="tickets_ticket_assignSupport"
+                        >Assign Support</a>
+                    </li>
                     <li class="nav-item mb-1 ms-1" th:if="${canUpdateStatus}">
-                        <button type="submit" class="btn btn-danger toTranslate"
-                                data-langKey="tickets_ticket_updateStatus"
+                        <button type="button" class="btn btn-primary toTranslate"
+                                data-langKey="tickets_ticket_updateStatus" onclick="openUpdateStatus()"
                         >Update Status</button>
                     </li>
-                    <li class="nav-item mb-1 ms-1">
-                        <button type="submit" class="btn btn-danger toTranslate"
-                                data-langKey="tickets_ticket_addResponse"  th:if="${canAddResponse}"
+                    <li class="nav-item mb-1 ms-1" >
+                        <button type="button" class="btn btn-success toTranslate"
+                                data-langKey="tickets_ticket_addResponse" onclick="openReply()" th:if="${canReply}"
                         >Reply</button>
                     </li>
                     <li class="nav-item mb-1 ms-1" th:if="${canCancel}">
-                        <button type="submit" class="btn btn-danger toTranslate"
+                        <button type="button" class="btn btn-danger toTranslate"
                                 data-langKey="tickets_ticket_cancel"
                                 onClick="openCancelTicketModal()"
                         >Cancel Ticket</button>
@@ -95,10 +101,28 @@
 
 
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
-                    </div>
+
                     <div class="card-body">
+                        <div class="row mb-1">
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_creationDate">Creation Date</label>
+                                <input class="form-control"
+                                       th:value="${T(com.season.portal.utils.Utils).strToStrDate(Ticket.getCreationDate())}" readonly="readonly"/>
+                            </div>
+                            <div class="col-md-4 col-12 mb-1">
+                                <label class="form-label toTranslate" data-langKey="utils_form_status">Status</label>
+                                <input class="form-control toTranslateValue" th:attr="data-langKey=${'api_ticketStatus_'+Ticket.getStatus()}"
+                                       readonly="readonly"/>
+                            </div>
+                            <div class="col-md-4 col-12 mb-1" th:if="${UserRoleAssigned != null}">
+                                <label class="form-label toTranslate" data-langKey="tickets_ticket_assignedSupport">Assigned Support</label>
+                                <input class="form-control"
+                                       th:value="${UserRoleAssigned.getName()}" readonly="readonly"/>
+                            </div>
+
+
+                        </div>
+                        <h4 class="card-title toTranslate" data-langKey="tickets_ticket_filter">Response filters</h4>
                         <form id="filters" th:object="${ticketDetailListPageModel}" class="form" method="GET"
                               th:action="@{${baseUrl}}">
 
@@ -159,7 +183,7 @@
                             <thead>
                                 <tr>
                                     <th class="sorting toTranslate" data-langKey="utils_table_date"
-                                        th:with="sortName='creationDate'"
+                                        th:with="sortName='detailDate'"
                                         th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                         th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Date</th>
@@ -181,7 +205,7 @@
                                     <td class="actions">
                                         <div class="d-flex align-items-center justify-content-around">
                                             <button type="button" onclick="openDetail(this)"
-                                               th:attr="data-guid=${ele.getTicketId()}, data-attachPath=${ele.getAttachPath()}"
+                                               th:attr="data-attachPath=${ele.getAttachPath()}"
                                                class="align-items-center d-flex justify-content-around toTranslateAttr"
                                                data-bs-toggle="tooltip" data-bs-placement="top"
                                                data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
@@ -212,13 +236,279 @@
 </div>
 </th:block>
 
+<th:block th:if="${canReply}">
+    <div class="modal fade" id="ticketReplyModal" tabindex="-1" aria-labelledby="ticketReplyModal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-transparent">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ticketReplyModal_close()"></button>
+                </div>
+                <div class="modal-body px-sm-5 mx-50 pb-5">
+                    <h1 id="ticketReplyModal_title" class="text-center mb-1 toTranslate" data-langKey="ticketReplyModal_title"
+                    >Reply</h1>
+                    <form id="ticketReplyModal_form" th:object="${newTicketDetailModel}"
+                          class="form" method="POST" enctype="multipart/form-data"
+                          th:action="@{${portalURL} + 'ticket/reply'}"
+                    >
+                        <div class="mb-1">
+                            <label for="ticketReplyModal_detail" class="form-label toTranslate"
+                                   data-langKey="utils_form_detail">Detail</label>
+                            <textarea id="ticketReplyModal_detail" th:field="*{detail}"
+                                      class="form-control toTranslateInput"
+                                      data-langKey="utils_form_detail_placeholder"
+                                      placeholder="Enter credits value"
+                            ></textarea>
+                            <p id="ticketReplyModal_detail_status" class="invalid-feedback toTranslate"  data-langKey=""></p>
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label toTranslate" for="ticketReplyModal_file" data-langKey="utils_form_file">File</label>
+                            <p id="ticketNew_form_file_detail">
+                                <small class="toTranslate" data-langKey="ticketNew_form_file_detail0"></small
+                                ><span th:text="${T(com.season.portal.ticket.NewTicketDetailModel).filesMaxFileSizeMB}"></span
+                                ><small class="toTranslate" data-langKey="ticketNew_form_file_detail1"></small>
+                            </p>
+                            <th:block th:with="accepted=${T(com.season.portal.utils.Utils).getAcceptTypes(
+                                                        T(com.season.portal.ticket.NewTicketDetailModel).fileTypeGroups,
+                                                        T(com.season.portal.ticket.NewTicketDetailModel).fileTypes)}">
+                                <input id="ticketReplyModal_file" type="file" class="form-control toTranslateInput"
+                                       data-langKey="utils_form_files_placeholder"
+                                       th:attr="accept=${accepted}"
+                                       th:errorclass="is-invalid"
+                                       th:field="*{file}"/>
+                            </th:block>
+                        </div>
+                    </form>
+
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-1 mt-1 toTranslate"
+                                data-langKey="utils_reply" onclick="ticketReplyModal_validate(this)">Reply</button>
+                        <button type="button" class="btn btn-outline-secondary mt-1 toTranslate"
+                                data-bs-dismiss="modal" aria-label="Close"
+                                data-langKey="utils_cancel" onclick="ticketReplyModal_close()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var REPLY_MODAL = null;
+
+        function ticketReplyModal_init() {
+            REPLY_MODAL= new bootstrap.Modal(document.getElementById('ticketReplyModal'));
+        }
+
+        function ticketReplyModal_open(){
+            REPLY_MODAL.show();
+        }
+
+        function ticketReplyModal_close(){
+            $("#ticketReplyModal_file").val("");
+            $("#ticketReplyModal_detail").val("");
+            REPLY_MODAL.hide();
+        }
+        function ticketReplyModal_validate(){
+            var valid = true;
+
+            var detailMin = [[${T(com.season.portal.ticket.NewTicketModel).detailMinChar}]];
+            var detailMax = [[${T(com.season.portal.ticket.NewTicketModel).detailMaxChar}]];
+            var detail = $("#ticketReplyModal_detail").val();
+
+
+            if(detail.length < detailMin || detail.length > detailMax){
+                var status = getStatus_numberMax(maxValue);
+                valid = addInputStatus("#ticketReplyModal_detail", "#ticketReplyModal_detail_status", status);
+            }
+
+            if(valid){
+                $("#ticketReplyModal_form").submit();
+            }
+            else{
+                updateTranslations();
+            }
+        }
+    </script>
+</th:block>
+<th:block th:if="${Ticket != null}">
+        <div class="modal fade" id="ticketReplyViewModal" tabindex="-1" aria-labelledby="ticketReplyViewModal_title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-transparent">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ticketReplyViewModal_close()"></button>
+                    </div>
+                    <div class="modal-body px-sm-5 mx-50 pb-5">
+                        <h1 id="ticketReplyViewModal_title" class="text-center mb-1 toTranslate" data-langKey="ticketReplyViewModal_title"
+                        >Reply</h1>
+                        <div class="row">
+                            <div id="ticketReplyViewModal_detailCont" class="mb-1 col-12">
+                                <label class="form-label toTranslate"
+                                       data-langKey="utils_form_detail">Detail</label>
+                                <p id="ticketReplyViewModal_detail"
+                                   class="form-control"
+                                ></p>
+                            </div>
+                            <div id="ticketReplyViewModal_downloadCont" class="mb-1 col-md-4 col-12">
+                                <div class="fake-label">
+                                    <a id="ticketReplyViewModal_download"
+                                       class="btn btn-primary toTranslate float-sm-start float-md-end"
+                                       target="_blank"
+                                       href=""
+                                       data-langKey="utils_close" >Download Attachment</a>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div id="ticketReplyViewModal_imgCont" class="mb-1">
+                                <img id="ticketReplyViewModal_img" class="w-100 d-block" />
+                            </div>
+
+
+
+                        <div class="col-12 text-center">
+                            <button type="button" class="btn btn-primary mt-1 toTranslate"
+                                    data-bs-dismiss="modal" aria-label="Close"
+                                    data-langKey="utils_close" onclick="ticketReplyViewModal_close()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var REPLY_VIEW_MODAL = null;
+
+            function ticketReplyViewModal_init(){
+                REPLY_VIEW_MODAL = new bootstrap.Modal(document.getElementById('ticketReplyViewModal'));
+            }
+
+            function ticketReplyViewModal_open(detail, path){
+                $("#ticketReplyViewModal_detail").text(detail);
+
+                $("#ticketReplyViewModal_imgCont").css("display", "none");
+                $("#ticketReplyViewModal_downloadCont").css("display", "none");
+
+                if(path != null && path != undefined && path != ""){
+                    $("#ticketReplyViewModal .modal-dialog").addClass("modal-lg");
+                    $("#ticketReplyViewModal_detailCont").addClass("col-md-10");
+
+                    $("#ticketReplyViewModal_downloadCont").css("display", "block");
+                    $("#ticketReplyViewModal_download").attr("href", "[[${portalURL + 'ticket/getAttach?value='}]]"+path);
+
+                    var exe = path.split('.').pop();
+                    switch(exe){
+                        case "png":
+                        case "jpeg":
+                        case "jpg":
+                        case "gif":
+                            $("#ticketReplyViewModal_imgCont").css("display", "block");
+                            $("#ticketReplyViewModal_img").attr("src", "[[${portalURL + 'ticket/getAttach?value='}]]"+path);
+                        break;
+                    }
+                }
+                else{
+                    $("#ticketReplyViewModal .modal-dialog").removeClass("modal-lg");
+                    $("#ticketReplyViewModal_detailCont").removeClass("col-md-10");
+                }
+
+                REPLY_VIEW_MODAL.show();
+            }
+            function ticketReplyViewModal_close(){
+
+                REPLY_VIEW_MODAL.hide();
+            }
+        </script>
+    </th:block>
+<th:block th:if="${canUpdateStatus}">
+    <div class="modal fade" id="ticketUpdateStatusModal" tabindex="-1" aria-labelledby="ticketUpdateStatusModal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-transparent">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ticketUpdateStatusModal_close()"></button>
+                </div>
+                <div class="modal-body px-sm-5 mx-50 pb-5">
+                    <h1 id="ticketUpdateStatusModal_title" class="text-center mb-1 toTranslate" data-langKey="ticketUpdateStatusModal_title"
+                    >Ticket status update</h1>
+                    <form id="ticketUpdateStatusModal_form" th:object="${updateTicketStatusModel}"
+                          class="form" method="POST"
+                          th:action="@{${portalURL} + 'ticket/updateTicketStatus'}"
+                    >
+                        <input type="hidden" th:field="*{ticketId}"/>
+                        <div class="mb-1">
+                            <label class="form-label toTranslate" for="ticketUpdateStatusModal_status"
+                                   data-langKey="utils_form_status">Status</label>
+                            <select id="ticketUpdateStatusModal_status" class="form-select" th:field="*{status}" onchange="ticketUpdateStatusModal_change(this)">
+                                <option th:each="ticketStatus : ${T(com.season.portal.ticket.UpdateTicketStatusModel).TICKET_STATUS_ALLOWED}"
+                                        th:value="${ticketStatus}" class="toTranslate"
+                                        th:attr="data-langKey=${'api_ticketStatus_'+ticketStatus}"></option>
+                            </select>
+
+                        </div>
+                        <p id="ticketUpdateStatusModal_status_status" class="toTranslate" data-langKey="tickets_ticket_complete_detail"></p>
+                    </form>
+
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary me-1 mt-1 toTranslate"
+                                data-langKey="utils_update" onclick="ticketUpdateStatusModal_validate()">Update</button>
+                        <button type="button" class="btn btn-outline-secondary mt-1 toTranslate"
+                                data-bs-dismiss="modal" aria-label="Close"
+                                data-langKey="utils_cancel" onclick="ticketUpdateStatusModal_close()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var UPDATE_TICKET_STATUS_MODAL = null;
+
+        function ticketUpdateStatusModal_init() {
+            UPDATE_TICKET_STATUS_MODAL= new bootstrap.Modal(document.getElementById('ticketUpdateStatusModal'));
+        }
+
+        function ticketUpdateStatusModal_open(){
+            ticketUpdateStatusModal_change("#ticketUpdateStatusModal_status");
+            UPDATE_TICKET_STATUS_MODAL.show();
+        }
+
+        function ticketUpdateStatusModal_close(){
+            UPDATE_TICKET_STATUS_MODAL.hide();
+        }
+
+        function ticketUpdateStatusModal_change(that){
+            var status = $(that).val();
+            if(status == "COMPLETED"){
+                $("#ticketUpdateStatusModal_status_status").css("display", "block");
+            }
+            else{
+                $("#ticketUpdateStatusModal_status_status").css("display", "none");
+            }
+        }
+
+        function ticketUpdateStatusModal_validate(){
+            var valid = true;
+
+            if(valid){
+                $("#ticketUpdateStatusModal_form").submit();
+            }
+            else{
+                updateTranslations();
+            }
+        }
+    </script>
+</th:block>
+
+
 <th:block th:replace="shared/confirmModal :: confirmModal"/>
 <!-- END: Content-->
 
 <th:block th:replace="shared/common :: common-script"/>
 <th:block th:replace="shared/common :: common-translate"/>
 <script th:src="@{/vendors/js/pickers/flatpickr/flatpickr.min.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
 <script>
+
+
+
     $(window).on('load', function() {
         setupLanguage();
         showInMenu("menu_ticket_all");
@@ -240,12 +530,42 @@
     }
 
     function openDetail(that){
-        var path = $(that).attr("attachPath");
-        if(path != null && path != undefined && path != ""){
-            var exe = path.split('.').pop();
-        }
+        var path = $(that).attr("data-attachpath");
+        var detail = $($(that).find("span")[0]).text();
+        ticketReplyViewModal_open(detail, path);
+        $(".tooltip").remove();
+    }
+    function openReply(){
+        ticketReplyModal_open();
+    }
+    function openUpdateStatus(){
+        ticketUpdateStatusModal_open();
     }
 </script>
+
+<th:block th:if="${canReply}">
+    <script>
+        $(window).on('load', function() {
+            ticketReplyModal_init();
+        });
+    </script>
+</th:block>
+
+<th:block th:if="${canUpdateStatus}">
+    <script>
+        $(window).on('load', function() {
+            ticketUpdateStatusModal_init();
+        });
+    </script>
+</th:block>
+
+<th:block th:if="${Ticket != null}">
+    <script>
+        $(window).on('load', function() {
+            ticketReplyViewModal_init();
+        });
+    </script>
+</th:block>
 
 </body>
 <!-- END: Body-->

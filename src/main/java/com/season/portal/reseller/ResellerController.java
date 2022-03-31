@@ -92,17 +92,19 @@ public class ResellerController extends ModelViewBaseController {
         ModelAndView mv = new ModelAndView("reseller/resellers");
         ArrayList<Reseller> elements = new ArrayList<Reseller>();
         long totalElements = 0;
+        String resellerId = null;
 
         Reseller r = getPrincipalReseller(clientReseller);
         if(r != null) {
-            String resellerId = r.getResellerId();
-            if(request.isUserInRole("ROLE_ADMIN")){
-                HttpSession session = request.getSession(true);
-                if(AdminController.getAdminView(session)){
-                    resellerId = "";
-                }
+            resellerId = r.getResellerId();
+        }
+        if(request.isUserInRole("ROLE_ADMIN")){
+            HttpSession session = request.getSession(true);
+            if(AdminController.getAdminView(session)){
+                resellerId = "";
             }
-
+        }
+        if(resellerId != null){
             model.setResellerId(resellerId);
             model.setOnlyChildren(true);
             GetCountResellerFilteredResponse responseCount = clientReseller.countResellerFiltered(model);

@@ -19,7 +19,7 @@ public class EnumValidator implements ConstraintValidator<IEnumValidatorConstrai
     @Override
     public void initialize(IEnumValidatorConstrain constraintAnnotation) {
         required = constraintAnnotation.required();
-        validValues = constraintAnnotation.validValues();
+        validValues = constraintAnnotation.enumValues();
     }
 
     @Override

@@ -1,10 +1,10 @@
 function getStatus_numberMinMax(min, max){
     var status = "";
-    status += '<span class="toTranslate" data-langKey="utils_form_minmaxChar0"></span>';
+    status += '<span class="toTranslate" data-langKey="utils_form_number_minmaxNum0"></span>';
     status += '<span>'+min+'</span>';
-    status += '<span class="toTranslate" data-langKey="utils_form_minmaxChar1"></span>';
+    status += '<span class="toTranslate" data-langKey="utils_form_number_minmaxNum1"></span>';
     status += '<span>'+max+'</span>';
-    status += '<span class="toTranslate" data-langKey="utils_form_minmaxChar2"></span>';
+    status += '<span class="toTranslate" data-langKey="utils_form_number_minmaxNum2"></span>';
     return status;
 }
 
@@ -23,5 +23,15 @@ function getStatus_numberMax(max){
     status += '<span class="toTranslate" data-langKey="utils_form_number_maxNum0"></span>';
     status += '<span>'+max+'</span>';
     status += '<span class="toTranslate" data-langKey="utils_form_number_maxNum1"></span>';
+    return status;
+}
+
+function getStatus_charMinMax(min, max){
+    var status = "";
+    status += '<span class="toTranslate" data-langKey="utils_form_minmaxChar0"></span>';
+    status += '<span>'+min+'</span>';
+    status += '<span class="toTranslate" data-langKey="utils_form_minmaxChar1"></span>';
+    status += '<span>'+max+'</span>';
+    status += '<span class="toTranslate" data-langKey="utils_form_minmaxChar2"></span>';
     return status;
 }

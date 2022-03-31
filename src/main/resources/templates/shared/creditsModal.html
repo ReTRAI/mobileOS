@@ -10,7 +10,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="sendCreditsModal_close()"></button>
                 </div>
                 <div class="modal-body px-sm-5 mx-50 pb-5">
-                    <h1 class="text-center mb-1">
+                    <h1 class="text-center mb-1" id="sendCreditsModal_title">
                         <span class="toTranslate" data-langKey="sendCreditsModal_title0"></span
                         ><span id="sendCreditsModal_to"></span
                         ><span class="toTranslate" data-langKey="sendCreditsModal_title1"></span
@@ -88,7 +88,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="addCreditsModal_close()"></button>
                 </div>
                 <div class="modal-body px-sm-5 mx-50 pb-5">
-                    <h1 class="text-center mb-1">
+                    <h1 class="text-center mb-1" id="addCreditsModal_title">
                         <span class="toTranslate" data-langKey="addCreditsModal_title0"></span
                         ><span id="addCreditsModal_to"></span
                     ><span class="toTranslate" data-langKey="addCreditsModal_title1"></span
@@ -163,11 +163,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="rmvCreditsModal_close()"></button>
                 </div>
                 <div class="modal-body px-sm-5 mx-50 pb-5">
-                    <h1 class="text-center mb-1">
+                    <h1 class="text-center mb-1" id="rmvCreditsModal_title">
                         <span class="toTranslate" data-langKey="rmvCreditsModal_title0"></span
                         ><span id="rmvCreditsModal_to"></span
-                    ><span class="toTranslate" data-langKey="rmvCreditsModal_title1"></span
-                    >
+                        ><span class="toTranslate" data-langKey="rmvCreditsModal_title1"></span
+                        >
                     </h1>
                     <form id="rmvCreditsModal_form" th:object="${balanceMovementModel_rmvCredits}"
                           class="form" method="POST"

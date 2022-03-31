@@ -498,8 +498,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
         String maxVal=model.getMaxVal();
         maxVal = (maxVal == null)?"":maxVal;
 
-        String startDate= Utils.strToStrDate(model.getStartDate());
-        String endDate= Utils.strToStrDate(model.getEndDate());
+        String startDate= Utils.strToStrDateTime(model.getStartDate());
+        String endDate= Utils.strToStrDateTime(model.getEndDate());
 
         return countResellerBalanceMovements(
                 model.getResellerId(),
@@ -550,8 +550,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
         minVal = (minVal == null)?"":minVal;
         String maxVal=model.getMaxVal();
         maxVal = (maxVal == null)?"":maxVal;
-        String startDate= Utils.strToStrDate(model.getStartDate());
-        String endDate= Utils.strToStrDate(model.getEndDate());
+        String startDate= Utils.strToStrDateTime(model.getStartDate());
+        String endDate= Utils.strToStrDateTime(model.getEndDate());
 
         return getResellerBalanceMovements(
                 model.getResellerId(),

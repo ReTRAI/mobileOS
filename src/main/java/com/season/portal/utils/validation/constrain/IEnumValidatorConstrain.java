@@ -18,5 +18,5 @@ public @interface IEnumValidatorConstrain {
     Class<? extends Payload>[] payload() default {};
 
     boolean required() default true;
-    String[] validValues();
+    String[] enumValues();
 }

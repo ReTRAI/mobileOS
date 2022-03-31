@@ -374,8 +374,8 @@ public class ClientUser extends WebServiceGatewaySupport{
         String email = model.getEmail();
         String nickname=model.getNickName();
         String status=model.getStatus();
-        String startDate= Utils.strToStrDate(model.getStartDate());
-        String endDate= Utils.strToStrDate(model.getEndDate());
+        String startDate= Utils.strToStrDateTime(model.getStartDate());
+        String endDate= Utils.strToStrDateTime(model.getEndDate());
 
         email = (email == null)?"":email;
         nickname = (nickname == null)?"":nickname;
@@ -425,8 +425,8 @@ public class ClientUser extends WebServiceGatewaySupport{
         String email = model.getEmail();
         String nickname=model.getNickName();
         String status=model.getStatus();
-        String startDate= Utils.strToStrDate(model.getStartDate());
-        String endDate= Utils.strToStrDate(model.getEndDate());
+        String startDate= Utils.strToStrDateTime(model.getStartDate());
+        String endDate= Utils.strToStrDateTime(model.getEndDate());
 
         email = (email == null)?"":email;
         nickname = (nickname == null)?"":nickname;

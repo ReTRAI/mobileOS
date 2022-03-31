@@ -470,8 +470,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
         String assignedUserId = model.getAssignedUserId();
         String openUserId = model.getOpenUserId();
 
-        String startCreationDate = Utils.strToStrDate(model.getStartCreationDate());
-        String endCreationDate = Utils.strToStrDate(model.getEndCreationDate());
+        String startCreationDate = Utils.strToStrDateTime(model.getStartCreationDate());
+        String endCreationDate = Utils.strToStrDateTime(model.getEndCreationDate());
 
         ticketId = (ticketId == null)?"":ticketId;
         assignedUserId = (assignedUserId == null)?"":assignedUserId;
@@ -525,8 +525,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
         String openUserId = model.getOpenUserId();
         String ticketStatus = model.getTicketStatus();
 
-        String startCreationDate = Utils.strToStrDate(model.getStartCreationDate());
-        String endCreationDate = Utils.strToStrDate(model.getEndCreationDate());
+        String startCreationDate = Utils.strToStrDateTime(model.getStartCreationDate());
+        String endCreationDate = Utils.strToStrDateTime(model.getEndCreationDate());
 
         ticketId = (ticketId == null)?"":ticketId;
         assignedUserId = (assignedUserId == null)?"":assignedUserId;
