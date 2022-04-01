@@ -41,9 +41,6 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.AL
 @Controller
 public class UsersController extends ModelViewBaseController {
     @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
     ClientUser client;
 
     @Autowired

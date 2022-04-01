@@ -32,24 +32,21 @@
                 </ul>
                 <th:block sec:authorize="isAuthenticated()">
                     <ul class="nav navbar-nav align-items-center ms-auto">
-                        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                            <button id="AdminViewBtn" type="button"
-                                class="btn btn-outline-secondary checkViewIB" onclick="toggleAdminView()"
-                                th:attr="data-checkView=${adminView}"
-                            >
-                                <span class="me-25">Admin View</span>
-                                <i data-feather="circle" class="checkViewFalse"></i>
-                                <i data-feather="check-circle" class="checkViewTrue"></i>
-                            </button>
+                        <li class="nav-item ms-1" th:if="${balanceView != null}">
+                            <p class="mb-0">
+                                <span th:text="${balanceView}"></span>
+                                <span>C</span>
+                            </p>
                         </li>
-                        <li th:if="${notifications != null && notifications.size() > 0}"
+
+                        <li th:if="${notifications != null && notificationsTotal > 0}"
                             class="nav-item dropdown dropdown-notification me-25">
                             <a class="nav-link" href="#"
                                data-bs-toggle="dropdown"
                             >
                                 <i class="ficon" data-feather="bell" ></i>
                                 <span class="badge rounded-pill bg-danger badge-up"
-                                      th:text="${notifications.size().toString()}">6</span>
+                                      th:text="${notificationsTotal}"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
 
@@ -58,17 +55,16 @@
                                         <h4 class="notification-title mb-0 me-auto toTranslate"
                                             data-langKey="header_notifications_title">Notifications</h4>
                                         <div class="badge rounded-pill badge-light-primary">
-                                            <span th:text="${notifications.size().toString()+' '}"></span>
+                                            <span th:text="${notificationsTotal}"></span>
                                             <span class="toTranslate"
-                                                  th:attr="data-langKey=${(notifications.size()<2)?'utils_feminine_new':'utils_feminine_news'}"
+                                                  th:attr="data-langKey=${(notificationsTotal<2)?'utils_feminine_new':'utils_feminine_news'}"
                                             ></span>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li class="scrollable-container media-list">
-                                    <th:block th:each="notification : ${notifications}">
-                                        <!--<p th:text="${session.CERTIFICATION_VALIDITY}"></p>-->
+                                    <!--<th:block th:each="notification : ${notifications}">
                                         <a class="d-flex"
 
                                            th:href="${(notification.getPath() == '')?'#':notification.getPath()}">
@@ -80,17 +76,25 @@
                                                 </div>
                                             </div>
                                         </a>
+                                    </th:block>-->
+                                    <th:block th:each="notification : ${notifications}">
+                                        <div class="list-item d-flex align-items-start">
+                                            <div class="list-item-body flex-grow-1">
+                                                <p class="media-heading toTranslate"
+                                                   th:attr="data-langKey=${notification.getDetail()}"></p>
+                                            </div>
+                                        </div>
                                     </th:block>
                                 </li>
                                 <li class="dropdown-menu-footer">
-                                    <a class="btn btn-primary w-100 toTranslate"
-                                       data-langKey="header_notifications_readAll" href="#">Read all
+                                    <button class="btn btn-primary w-100 toTranslate"
+                                       data-langKey="header_notifications_readAll" onclick="readAllNotifications()">Read all
                                         notifications
-                                    </a>
+                                    </button>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link">
                                 <div class="user-nav d-sm-flex">
                                     <div class="clearfix">
@@ -102,12 +106,16 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
-                        <li th:if="${balanceView != null}">
-                            <p class="mb-0">
-                                <span th:text="${balanceView}"></span>
-                                <span>C</span>
-                            </p>
+                        </li>-->
+                        <li class="nav-item ms-1" sec:authorize="hasRole('ROLE_ADMIN')">
+                            <button id="AdminViewBtn" type="button"
+                                    class="btn btn-outline-secondary checkViewIB" onclick="toggleAdminView()"
+                                    th:attr="data-checkView=${adminView}"
+                            >
+                                <span class="me-25">Admin View</span>
+                                <i data-feather="circle" class="checkViewFalse"></i>
+                                <i data-feather="check-circle" class="checkViewTrue"></i>
+                            </button>
                         </li>
                     </ul>
 

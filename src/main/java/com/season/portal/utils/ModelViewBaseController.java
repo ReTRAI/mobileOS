@@ -7,6 +7,7 @@ import com.season.portal.client.generated.reseller.IsHierarchyValidResponse;
 import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.support.GetSupportByUserIdResponse;
 import com.season.portal.client.generated.support.Support;
+import com.season.portal.client.notification.ClientNotification;
 import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.client.support.ClientSupport;
 import com.season.portal.configuration.PortalConfiguration;
@@ -27,10 +28,13 @@ public class ModelViewBaseController {
     @Autowired
     protected PortalConfiguration portalConfig;
 
+    @Autowired
+    ClientNotification clientNotification;
+
     public ModelAndView dispatchView(ModelAndView mv ){
         mv.addObject("portalURL", portalConfig.getPortalURL());
 
-        return PortalApplication.addStatus(mv, request);
+        return PortalApplication.addStatus(mv, request, clientNotification);
     }
 
     public Reseller getPrincipalReseller(ClientReseller clientReseller){

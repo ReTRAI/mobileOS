@@ -31,8 +31,8 @@ public class ClientDashboard extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientDashboard_getDashboardByResellerId_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;

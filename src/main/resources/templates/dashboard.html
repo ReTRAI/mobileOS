@@ -44,293 +44,446 @@
         </div>
 
         <div class="content-body">
-
-            <!-- -->
-            <section id="dashboard" th:if="${dashboard != null}">
-                <h2 class="toTranslate" data-langKey="dashboard_title">Activations</h2>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between pb-0">
-                        <h4 class="card-title toTranslate" data-langKey="dashboard_overview">Overview</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="trending-up" class="avatar-icon"></i>
+            <div id="dashboard">
+                <h2 class="toTranslate" data-langKey="dashboard_title">Dashboard</h2>
+                <!-- -->
+                <section id="dashboard_devices" th:if="${canViewDevices}">
+                    <h3 class="toTranslate" data-langKey="dashboard_devices_title">Devices</h3>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between pb-0">
+                            <h4 class="card-title toTranslate" data-langKey="dashboard_overview">Overview</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="trending-up" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${overview.getActive()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_overview_val0">Active</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${overview.getActive()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_overview_val0">Active</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-danger me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="trending-down" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-danger me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="trending-down" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${overview.getNotActive()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_overview_val1">Not Active</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${overview.getNotActive()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_overview_val1">Not Active</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-primary me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="box" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-primary me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="box" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${overview.getFree()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_overview_val2">Free</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${overview.getFree()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_overview_val2">Free</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-info me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="smartphone" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-info me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="smartphone" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${overview.getPortalDevices()}">
-                                            230k</h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_overview_val3">Free</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${overview.getPortalDevices()}">
+                                                230k</h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_overview_val3">Free</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between pb-0">
-                        <h4 class="card-title toTranslate" data-langKey="dashboard_incative">Inactive Devices</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-primary me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="cloud-off" class="avatar-icon"></i>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between pb-0">
+                            <h4 class="card-title toTranslate" data-langKey="dashboard_incative">Inactive Devices</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-primary me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="cloud-off" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${inactive.getWiped()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_inactive_val0">Wiped</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${inactive.getWiped()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_inactive_val0">Wiped</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-danger me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="shield" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-danger me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="shield" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${inactive.getBlocked()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_inactive_val1">Blocked</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${inactive.getBlocked()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_inactive_val1">Blocked</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-info me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="alert-triangle" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-info me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="alert-triangle" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${inactive.getSuspended()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_inactive_val2">Suspended</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${inactive.getSuspended()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_inactive_val2">Suspended</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="smartphone" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="smartphone" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${inactive.getRemaining()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_inactive_val3">Remaining</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${inactive.getRemaining()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_inactive_val3">Remaining</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between pb-0">
-                        <h4 class="card-title toTranslate" data-langKey="dashboard_expiring">Expiring</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sun" class="avatar-icon"></i>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between pb-0">
+                            <h4 class="card-title toTranslate" data-langKey="dashboard_expiring">Expiring</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sun" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${expiring.getRenewed()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_expiring_val0">Renewed</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${expiring.getRenewed()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_expiring_val0">Renewed</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sunset" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sunset" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${expiring.getIn30Days()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_expiring_val1">In 30 Days</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${expiring.getIn30Days()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_expiring_val1">In 30 Days</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-danger me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sunset" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-danger me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sunset" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${expiring.getIn15Days()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_expiring_val2">In 15 Days</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${expiring.getIn15Days()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_expiring_val2">In 15 Days</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-danger me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sunset" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-danger me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sunset" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${expiring.getIn7Days()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_expiring_val3">In 7 Days</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${expiring.getIn7Days()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_expiring_val3">In 7 Days</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between pb-0">
-                        <h4 class="card-title toTranslate" data-langKey="dashboard_activations">Activations</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between pb-0">
+                            <h4 class="card-title toTranslate" data-langKey="dashboard_activations">Activations</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sunrise" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${activations.getDay()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_activations_val0">24 Hours</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${activations.getDay()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_activations_val0">24 Hours</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sunrise" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${activations.getWeek()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_activations_val1">1 Week</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${activations.getWeek()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_activations_val1">1 Week</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sunrise" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${activations.getMonth()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_activations_val2">1 Month</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${activations.getMonth()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_activations_val2">1 Month</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-lg-3 my-1 ">
-                                <div class="d-flex flex-row">
-                                    <div class="avatar bg-light-success me-2">
-                                        <div class="avatar-content">
-                                            <i data-feather="sunrise" class="avatar-icon"></i>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="sunrise" class="avatar-icon"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <h4 class="fw-bolder mb-0"
-                                            th:text="${activations.getQuarter()}"></h4>
-                                        <p class="card-text font-small-3 mb-0 toTranslate"
-                                           data-langKey="dashboard_activations_val3">3 Months</p>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${activations.getQuarter()}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="dashboard_activations_val3">3 Months</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
-                </div>
+                </section>
+                <section id="dashboard_tickets" th:if="${canViewTickets}">
+                    <h3 class="toTranslate" data-langKey="dashboard_tickets_title">Assign Tickets</h3>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between pb-0">
+                            <h4 class="card-title toTranslate" data-langKey="dashboard_tickets_allTime">All time</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-danger me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="alert-circle" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketAllTime_open}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="api_ticketStatus_OPEN">Open</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-primary me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="trending-down" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketAllTime_onProgress}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="api_ticketStatus_ONPROGRESS">On Progress</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-info me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="alert-circle" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketAllTime_pending}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="api_ticketStatus_PENDING">Pending</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="check" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketAllTime_finished}"></h4>
+                                            <p class="card-text font-small-3 mb-0"
+                                            ><span class="toTranslate" data-langKey="api_ticketStatus_COMPLETED">Completed</span
+                                            >/<span class="toTranslate" data-langKey="api_ticketStatus_CANCELED">Canceled</span
+                                            >
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            </section>
+                    </div>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between pb-0">
+                            <h4 class="card-title toTranslate" data-langKey="dashboard_tickets_lastMonth">Last month</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-danger me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="alert-circle" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketLastMonth_open}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="api_ticketStatus_OPEN">Open</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-primary me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="trending-down" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketLastMonth_onProgress}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="api_ticketStatus_ONPROGRESS">On Progress</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-info me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="alert-circle" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketLastMonth_pending}"></h4>
+                                            <p class="card-text font-small-3 mb-0 toTranslate"
+                                               data-langKey="api_ticketStatus_PENDING">Pending</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 my-1 ">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-success me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather="check" class="avatar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <h4 class="fw-bolder mb-0"
+                                                th:text="${ticketLastMonth_finished}"></h4>
+                                            <p class="card-text font-small-3 mb-0"
+                                            ><span class="toTranslate" data-langKey="api_ticketStatus_COMPLETED">Completed</span
+                                            >/<span class="toTranslate" data-langKey="api_ticketStatus_CANCELED">Canceled</span
+                                            >
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+            </div>
+
 
         </div>
     </div>

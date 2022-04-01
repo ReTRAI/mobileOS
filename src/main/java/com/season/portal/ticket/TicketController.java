@@ -191,8 +191,8 @@ public class TicketController extends ModelViewBaseController {
                     }
                 }
             }
-
         }
+
         Pagination pagination = new Pagination(totalElements, model.getPage(), model.getNumPerPage(), 4);
 
 

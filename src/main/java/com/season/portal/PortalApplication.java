@@ -3,14 +3,22 @@ package com.season.portal;
 import com.season.portal.auth.ChangePassModel;
 import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.auth.admin.AdminController;
+import com.season.portal.client.generated.notification.GetCountUserNotificationFilteredResponse;
+import com.season.portal.client.generated.notification.GetUserNotificationFilteredResponse;
+import com.season.portal.client.generated.notification.UserNotification;
+import com.season.portal.client.generated.support.GetCountTicketFilteredResponse;
+import com.season.portal.client.generated.support.GetTicketFilteredResponse;
+import com.season.portal.client.generated.support.Ticket;
 import com.season.portal.client.generated.user.GetUserByIdResponse;
+import com.season.portal.client.notification.ClientNotification;
 import com.season.portal.client.users.ClientUser;
 import com.season.portal.language.LanguageController;
-import com.season.portal.notifications.Notification;
+import com.season.portal.notifications.NotificationListPageModel;
 import com.season.portal.utils.Utils;
 import com.season.portal.utils.model.RestModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -59,9 +67,8 @@ public class PortalApplication{
 		successKeys.add(sKey);
 	}
 
-	public static ModelAndView addStatus(ModelAndView mv, HttpServletRequest request) {
 
-
+	public static ModelAndView addStatus(ModelAndView mv, HttpServletRequest request, ClientNotification clientNotification) {
 
 		HttpSession session = request.getSession(true);
 		String code = LanguageController.getCurrentLanguageCode(session);
@@ -100,10 +107,25 @@ public class PortalApplication{
 
 				}
 				else{
-					ArrayList<Notification> notifications = new ArrayList<Notification>();
-					notifications.add(new Notification(1l, "login/", "Login", "go to login page"));
-					notifications.add(new Notification(2l, "logout/", "Logout", ""));
-					notifications.add(new Notification(3l, "", "No link", "test sub"));
+					ArrayList<UserNotification> notifications = new ArrayList<UserNotification>();
+					long totalElements = 0;
+					NotificationListPageModel model = new NotificationListPageModel();
+					model.setChecked("0");
+					model.setElementGuid(user.getUserId());
+
+					GetCountUserNotificationFilteredResponse responseCount = clientNotification.countUserNotificationsFiltered(model);
+					if(responseCount != null){
+						totalElements = responseCount.getResult();
+						if(totalElements>0){
+							GetUserNotificationFilteredResponse response = clientNotification.getUserNotificationsFiltered(model);
+							if(response != null){
+								notifications = new ArrayList(response.getUserNotification());
+								notifications.get(0).getDetail();
+								notifications.get(0).getUserNotificationId();
+							}
+						}
+					}
+					mv.addObject("notificationsTotal", totalElements);
 					mv.addObject("notifications", notifications);
 				}
 			}

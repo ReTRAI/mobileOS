@@ -77,8 +77,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_setSupport_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -104,8 +104,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_removeSupport_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -130,8 +130,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_getSupportByUserId_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -158,8 +158,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_setSupportAssociation_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -203,8 +203,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_removeSupportAssociation_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -241,8 +241,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
                 PortalApplication.log(LOGGER, soapEx, code);
             }
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_getParent_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -280,8 +280,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_countSupportFiltered_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -328,8 +328,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_getSupportFiltered_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -354,8 +354,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_getSupportById_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -380,8 +380,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_countAvailableSupportParent_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -412,8 +412,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_getAvailableSupportParent_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -443,8 +443,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_isHierarchyValid_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -512,8 +512,8 @@ public class ClientSupport extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientSupport_countTicketFiltered_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;

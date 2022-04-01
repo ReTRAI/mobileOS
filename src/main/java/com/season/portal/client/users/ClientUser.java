@@ -48,8 +48,8 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientUser_changePass_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -94,8 +94,8 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientUser_tryLogin_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -122,8 +122,8 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientUser_getRolesById_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -148,8 +148,8 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientUser_getUserById_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -174,8 +174,8 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientUser_existUserEmail_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -200,8 +200,8 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientUser_existUserName_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -227,8 +227,8 @@ public class ClientUser extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientUser_unblockUser_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;

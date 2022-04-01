@@ -76,8 +76,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_setReseller_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -104,8 +104,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_removeReseller_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -130,8 +130,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_getResellerByUserId_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -158,8 +158,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_setResellerAssociation_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -204,8 +204,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_removeResellerAssociation_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -243,8 +243,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             }
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_getParent_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -281,8 +281,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_countResellerFiltered_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -329,8 +329,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_getResellerFiltered_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -355,8 +355,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_getResellerById_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -381,8 +381,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_countAvailableResellerParent_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -412,8 +412,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_getAvailableResellerParent_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -444,8 +444,8 @@ public class ClientReseller extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientReseller_isHierarchyValid_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;

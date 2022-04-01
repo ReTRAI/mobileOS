@@ -65,7 +65,7 @@
                     <ul class="nav justify-content-end">
                         <li class="nav-item mb-1 ms-1"  sec:authorize="hasRole('ROLE_SUPPORT')">
                             <button type="button" class="btn btn-primary toTranslate"
-                                    data-langKey="tickets_ticket_updateStatus" onclick="assignSupport(this)"
+                                    data-langKey="tickets_assignSupport_myself" onclick="assignSupport(this)"
                                     th:attr="data-guid=${userId}"
                             >Assign myself</button>
                         </li>

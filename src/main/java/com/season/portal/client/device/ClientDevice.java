@@ -72,8 +72,8 @@ public class ClientDevice extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientDevice_countDeviceFiltered_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -147,8 +147,8 @@ public class ClientDevice extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientDevice_getDeviceFiltered_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;
@@ -173,8 +173,8 @@ public class ClientDevice extends WebServiceGatewaySupport{
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.log(LOGGER, e);
             PortalApplication.addErrorKey("api_ClientDevice_getDeviceById_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;

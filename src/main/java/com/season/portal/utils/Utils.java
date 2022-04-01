@@ -299,9 +299,9 @@ public class Utils {
                     file.transferTo(dest);
                     savedfileName = fileName;
                 }catch(Exception e){
-                    PortalApplication.log(LOGGER, e);
                     if(addErrorMsg)
                         PortalApplication.addErrorKey("api_utils_saveFileIfExist_error");
+                    PortalApplication.log(LOGGER, e);
                 }
             }
         }

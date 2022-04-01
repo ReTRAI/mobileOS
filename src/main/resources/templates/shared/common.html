@@ -330,15 +330,20 @@
 
     <script sec:authorize="isAuthenticated()">
         function toggleAdminView(){
-            portalPost("toggleAdminView", {}, toggleAdminViewHandler);
+            portalPost("toggleAdminView", {}, toggleAdminViewSuccessHandler);
         }
 
-        function toggleAdminViewHandler(result){
+        function toggleAdminViewSuccessHandler(result){
            //$("#AdminViewBtn").attr("data-checkView", result+"");
            location.reload();
         }
 
-
+        function readAllNotifications(){
+            portalPost("notifications/readAll", {}, readAllNotificationsSuccessHandler);
+        }
+        function readAllNotificationsSuccessHandler(result){
+           location.reload();
+        }
 
     </script>
 

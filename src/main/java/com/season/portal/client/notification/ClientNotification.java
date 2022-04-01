@@ -2,7 +2,11 @@ package com.season.portal.client.notification;
 
 import com.season.portal.PortalApplication;
 import com.season.portal.client.generated.device.*;
+import com.season.portal.client.generated.notification.*;
+import com.season.portal.client.generated.support.*;
 import com.season.portal.devices.DeviceListPageModel;
+import com.season.portal.notifications.NotificationListPageModel;
+import com.season.portal.ticket.TicketDetailListPageModel;
 import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,167 +16,246 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 public class ClientNotification extends WebServiceGatewaySupport{
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    public GetCountDevicesFilteredResponse countDeviceFiltered(DeviceListPageModel model){
-        String resellerId = model.getResellerId();
-        String deviceId = model.getDeviceId();
-        String status=model.getStatus();
+    public GetCountUserNotificationFilteredResponse countUserNotificationsFiltered(NotificationListPageModel model){
+        GetCountUserNotificationFilteredRequest request = new GetCountUserNotificationFilteredRequest();
+        request.setUserId(model.getElementGuid());
+        request.setStartCreationDate(model.getValidStartCreationDate());
+        request.setEndCreationDate(model.getValidEndCreationDate());
+        request.setStartCheckedDate(model.getValidStartCheckedDate());
+        request.setEndCheckedDate(model.getValidEndCheckedDate());
+        request.setChecked(model.getValidChecked());
 
-        String startCreationDate = Utils.strToStrDateTime(model.getStartCreationDate());
-        String endCreationDate = Utils.strToStrDateTime(model.getEndCreationDate());
-        String startActivationDate = Utils.strToStrDateTime(model.getStartActivationDate());
-        String endActivationDate = Utils.strToStrDateTime(model.getEndActivationDate());
-        String startExpirationDate = Utils.strToStrDateTime(model.getStartExpirationDate());
-        String endExpirationDate = Utils.strToStrDateTime(model.getEndExpirationDate());
-
-        resellerId = (resellerId == null)?"":resellerId;
-        deviceId = (deviceId == null)?"":deviceId;
-        status = (status == null)?"":status;
-
-        return countDeviceFiltered(
-            resellerId,
-            deviceId,
-            status,
-            startCreationDate,
-            endCreationDate,
-            startActivationDate,
-            endActivationDate,
-            startExpirationDate,
-            endExpirationDate
-        );
-    }
-    public GetCountDevicesFilteredResponse countDeviceFiltered(String resellerId, String deviceId, String status,
-                                                               String startCreationDate, String endCreationDate,
-                                                               String startActivationDate, String endActivationDate,
-                                                               String startExpirationDate, String endExpirationDate){
-        GetCountDevicesFilteredRequest request = new GetCountDevicesFilteredRequest();
-        request.setResellerId(resellerId);
-        request.setDeviceId(deviceId);
-        request.setStatus(status);
-        request.setStartCreationDate(startCreationDate);
-        request.setEndCreationDate(endCreationDate);
-        request.setStartActivationDate(startActivationDate);
-        request.setEndActivationDate(endActivationDate);
-        request.setStartExpirationDate(startExpirationDate);
-        request.setEndExpirationDate(endExpirationDate);
-
-        GetCountDevicesFilteredResponse response = null;
+        GetCountUserNotificationFilteredResponse response = null;
         try {
-            response = (GetCountDevicesFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+            var oi = getWebServiceTemplate().marshalSendAndReceive(request);
+            response = (GetCountUserNotificationFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
-                PortalApplication.addErrorKey("api_ClientDevice_countDeviceFiltered_noCode");
+                PortalApplication.addErrorKey("api_ClientNotification_countUserNotificationsFiltered_noCode");
             else
-                PortalApplication.addErrorKey("api_ClientDevice_countDeviceFiltered_"+code);
+                PortalApplication.addErrorKey("api_ClientNotification_countUserNotificationsFiltered_"+code);
 
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_countUserNotificationsFiltered_ex");
             PortalApplication.log(LOGGER, e);
-            PortalApplication.addErrorKey("api_ClientDevice_countDeviceFiltered_ex");
         }
 
         return response;
     }
 
-    public GetDevicesFilteredResponse getDeviceFiltered(DeviceListPageModel model){
-        String resellerId = model.getResellerId();
-        String deviceId = model.getDeviceId();
-        String status=model.getStatus();
+    public GetUserNotificationFilteredResponse getUserNotificationsFiltered(NotificationListPageModel model){
+        GetUserNotificationFilteredRequest request = new GetUserNotificationFilteredRequest();
+        request.setUserId(model.getElementGuid());
+        request.setStartCreationDate(model.getValidStartCreationDate());
+        request.setEndCreationDate(model.getValidEndCreationDate());
+        request.setStartCheckedDate(model.getValidStartCheckedDate());
+        request.setEndCheckedDate(model.getValidEndCheckedDate());
+        request.setChecked(model.getValidChecked());
 
-        String startCreationDate = Utils.strToStrDateTime(model.getStartCreationDate());
-        String endCreationDate = Utils.strToStrDateTime(model.getEndCreationDate());
-        String startActivationDate = Utils.strToStrDateTime(model.getStartActivationDate());
-        String endActivationDate = Utils.strToStrDateTime(model.getEndActivationDate());
-        String startExpirationDate = Utils.strToStrDateTime(model.getStartExpirationDate());
-        String endExpirationDate = Utils.strToStrDateTime(model.getEndExpirationDate());
+        request.setOffset(model.getValidOffset());
+        request.setNumberRecords(model.getValidNumPerPage());
+        request.setField(model.getValidSort());
+        request.setOrderField(model.getValidOrder());
 
-        resellerId = (resellerId == null)?"":resellerId;
-        deviceId = (deviceId == null)?"":deviceId;
-        status = (status == null)?"":status;
-
-        return getDeviceFiltered(
-                resellerId,
-                deviceId,
-                status,
-                startCreationDate,
-                endCreationDate,
-                startActivationDate,
-                endActivationDate,
-                startExpirationDate,
-                endExpirationDate,
-                model.getValidOffset(),
-                model.getValidNumPerPage(),
-                model.getValidSort(),
-                model.getValidOrder()
-        );
-    }
-    public GetDevicesFilteredResponse getDeviceFiltered(String resellerId, String deviceId, String status,
-                                                        String startCreationDate, String endCreationDate,
-                                                        String startActivationDate, String endActivationDate,
-                                                        String startExpirationDate, String endExpirationDate,
-                                                        int offset, int numberRecords, String field, String order){
-        GetDevicesFilteredRequest request = new GetDevicesFilteredRequest();
-        request.setResellerId(resellerId);
-        request.setDeviceId(deviceId);
-        request.setStatus(status);
-        request.setStartCreationDate(startCreationDate);
-        request.setEndCreationDate(endCreationDate);
-        request.setStartActivationDate(startActivationDate);
-        request.setEndActivationDate(endActivationDate);
-        request.setStartExpirationDate(startExpirationDate);
-        request.setEndExpirationDate(endExpirationDate);
-
-        request.setOffset(offset);
-        request.setNumberRecords(numberRecords);
-        request.setField(field);
-        request.setOrderField(order);
-
-        GetDevicesFilteredResponse response = null;
+        GetUserNotificationFilteredResponse response = null;
         try {
-            response = (GetDevicesFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+            response = (GetUserNotificationFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
-                PortalApplication.addErrorKey("api_ClientDevice_getDeviceFiltered_noCode");
+                PortalApplication.addErrorKey("api_ClientNotification_getUserNotificationsFiltered_noCode");
             else
-                PortalApplication.addErrorKey("api_ClientDevice_getDeviceFiltered_"+code);
+                PortalApplication.addErrorKey("api_ClientNotification_getUserNotificationsFiltered_"+code);
 
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_getUserNotificationsFiltered_ex");
             PortalApplication.log(LOGGER, e);
-            PortalApplication.addErrorKey("api_ClientDevice_getDeviceFiltered_ex");
         }
 
         return response;
     }
 
-    public GetDeviceByIdResponse getDeviceById(String deviceId) {
-        GetDeviceByIdRequest request = new GetDeviceByIdRequest();
-        request.setDeviceId(deviceId);
+    public SetUserNotificationResponse setUserNotification(String userId, String detail, String actionUserId) {
+        SetUserNotificationRequest request = new SetUserNotificationRequest();
+        request.setUserId(userId);
+        request.setDetail(detail);
+        request.setActionUserId(actionUserId);
 
-        GetDeviceByIdResponse response = null;
+        SetUserNotificationResponse response = null;
         try {
-            response = (GetDeviceByIdResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+            response = (SetUserNotificationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapDetail(soapEx, "code") ;
 
             if(code.equals(""))
-                PortalApplication.addErrorKey("api_ClientDevice_getDeviceById_noCode");
+                PortalApplication.addErrorKey("api_ClientNotification_setUserNotification_noCode");
             else
-                PortalApplication.addErrorKey("api_ClientDevice_getDeviceById_"+code);
+                PortalApplication.addErrorKey("api_ClientNotification_setUserNotification_"+code);
 
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_setUserNotification_ex");
             PortalApplication.log(LOGGER, e);
-            PortalApplication.addErrorKey("api_ClientDevice_getDeviceById_ex");
+        }
+
+        return response;
+    }
+
+    public SetUserNotificationCheckedResponse checkUserNotification(String userNotificationId, String actionUserId) {
+        SetUserNotificationCheckedRequest request = new SetUserNotificationCheckedRequest();
+        request.setUserNotificationId(userNotificationId);
+        request.setActionUserId(actionUserId);
+
+        SetUserNotificationCheckedResponse response = null;
+        try {
+            response = (SetUserNotificationCheckedResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_ex");
+            PortalApplication.log(LOGGER, e);
+        }
+
+        return response;
+    }
+
+    public GetCountDeviceNotificationFilteredResponse countDeviceNotificationsFiltered(NotificationListPageModel model){
+        GetCountDeviceNotificationFilteredRequest request = new GetCountDeviceNotificationFilteredRequest();
+        request.setDeviceId(model.getElementGuid());
+        request.setStartCreationDate(model.getValidStartCreationDate());
+        request.setEndCreationDate(model.getValidEndCreationDate());
+        request.setStartCheckedDate(model.getValidStartCheckedDate());
+        request.setEndCheckedDate(model.getValidEndCheckedDate());
+        request.setChecked(model.getValidChecked());
+
+        GetCountDeviceNotificationFilteredResponse response = null;
+        try {
+            response = (GetCountDeviceNotificationFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientNotification_countDeviceNotificationsFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientNotification_countDeviceNotificationsFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_countDeviceNotificationsFiltered_ex");
+            PortalApplication.log(LOGGER, e);
+        }
+
+        return response;
+    }
+
+    public GetDeviceNotificationFilteredResponse getDeviceNotificationsFiltered(NotificationListPageModel model){
+        GetDeviceNotificationFilteredRequest request = new GetDeviceNotificationFilteredRequest();
+        request.setDeviceId(model.getElementGuid());
+        request.setStartCreationDate(model.getValidStartCreationDate());
+        request.setEndCreationDate(model.getValidEndCreationDate());
+        request.setStartCheckedDate(model.getValidStartCheckedDate());
+        request.setEndCheckedDate(model.getValidEndCheckedDate());
+        request.setChecked(model.getValidChecked());
+
+        request.setOffset(model.getValidOffset());
+        request.setNumberRecords(model.getValidNumPerPage());
+        request.setField(model.getValidSort());
+        request.setOrderField(model.getValidOrder());
+
+        GetDeviceNotificationFilteredResponse response = null;
+        try {
+            response = (GetDeviceNotificationFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientNotification_getDeviceNotificationsFiltered_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientNotification_getDeviceNotificationsFiltered_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_getDeviceNotificationsFiltered_ex");
+            PortalApplication.log(LOGGER, e);
+        }
+
+        return response;
+    }
+
+    public SetDeviceNotificationResponse setDeviceNotification(String deviceId, String detail, String actionUserId) {
+        SetDeviceNotificationRequest request = new SetDeviceNotificationRequest();
+        request.setDeviceId(deviceId);
+        request.setDetail(detail);
+        request.setActionUserId(actionUserId);
+
+        SetDeviceNotificationResponse response = null;
+        try {
+            response = (SetDeviceNotificationResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientNotification_setDeviceNotification_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientNotification_setDeviceNotification_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_setDeviceNotification_ex");
+            PortalApplication.log(LOGGER, e);
+        }
+
+        return response;
+    }
+
+    public SetDeviceNotificationCheckedResponse checkDeviceNotification(String deviceNotificationId, String actionUserId) {
+        SetDeviceNotificationCheckedRequest request = new SetDeviceNotificationCheckedRequest();
+        request.setDeviceNotificationId(deviceNotificationId);
+        request.setActionUserId(actionUserId);
+
+        SetDeviceNotificationCheckedResponse response = null;
+        try {
+            response = (SetDeviceNotificationCheckedResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientNotification_checkDeviceNotification_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientNotification_checkDeviceNotification_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.addErrorKey("api_ClientNotification_checkDeviceNotification_ex");
+            PortalApplication.log(LOGGER, e);
         }
 
         return response;

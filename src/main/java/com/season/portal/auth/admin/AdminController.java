@@ -60,7 +60,6 @@ public class AdminController extends ModelViewBaseController {
             session.setAttribute(SESSION_ADMIN_VIEW, value);
             restBoolModel.setResult(value, true);
         }
-
         return (RestBoolModel)PortalApplication.addStatus(restBoolModel);
     }
 
