@@ -22,7 +22,7 @@ public class ClientNotificationConfiguration {
     @Bean
     public ClientNotification clientNotification(Jaxb2Marshaller marshallerClientNotification) {
         ClientNotification client = new ClientNotification();
-        client.setDefaultUri(portalConfig.getClientNotificationsURI());
+        client.setDefaultUri(portalConfig.getClientNotificationURI());
         client.setMarshaller(marshallerClientNotification);
         client.setUnmarshaller(marshallerClientNotification);
         return client;

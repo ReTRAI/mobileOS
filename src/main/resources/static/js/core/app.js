@@ -491,10 +491,10 @@ window.colors = {
     var currentLayout = '';
     if ($html.hasClass('dark-layout')) {
       currentLayout = 'dark-layout';
-    } else if ($html.hasClass('bordered-layout')) {
+/*    } else if ($html.hasClass('bordered-layout')) {
       currentLayout = 'bordered-layout';
     } else if ($html.hasClass('semi-dark-layout')) {
-      currentLayout = 'semi-dark-layout';
+      currentLayout = 'semi-dark-layout';*/
     } else {
       currentLayout = 'light-layout';
     }
@@ -507,8 +507,8 @@ window.colors = {
   // Navbar Dark / Light Layout Toggle Switch
   $('.nav-link-style').on('click', function () {
     var currentLayout = getCurrentLayout(),
-      switchToLayout = '',
-      prevLayout = localStorage.getItem(dataLayout + '-prev-skin', currentLayout);
+      switchToLayout = '';//,
+      //prevLayout = localStorage.getItem(dataLayout + '-prev-skin', currentLayout);
 
     // If currentLayout is not dark layout
     if (currentLayout !== 'dark-layout') {
@@ -517,19 +517,23 @@ window.colors = {
     } else {
       // Switch to light
       // switchToLayout = prevLayout ? prevLayout : 'light-layout';
-      if (currentLayout === prevLayout) {
+      /*if (currentLayout === prevLayout) {
         switchToLayout = 'light-layout';
       } else {
         switchToLayout = prevLayout ? prevLayout : 'light-layout';
-      }
+      }*/
+      switchToLayout = 'light-layout';
     }
     // Set Previous skin in local db
-    localStorage.setItem(dataLayout + '-prev-skin', currentLayout);
+    //localStorage.setItem(dataLayout + '-prev-skin', currentLayout);
     // Set Current skin in local db
-    localStorage.setItem(dataLayout + '-current-skin', switchToLayout);
+    //localStorage.setItem(dataLayout + '-current-skin', switchToLayout);
 
     // Call set layout
     setLayout(switchToLayout);
+    changeTheme(switchToLayout);//common.html
+
+
 
     // ToDo: Customizer fix
     $('.horizontal-menu .header-navbar.navbar-fixed').css({
@@ -540,11 +544,12 @@ window.colors = {
   });
 
   // Get current local storage layout
-  var currentLocalStorageLayout = localStorage.getItem(dataLayout + '-current-skin');
+  //var currentLocalStorageLayout = localStorage.getItem(dataLayout + '-current-skin');
 
   // Set layout on screen load
   //? Comment it if you don't want to sync layout with local db
-  setLayout(currentLocalStorageLayout);
+  //(currentLocalStorageLayout);
+  setLayout($html.attr('data-theme'));
 
   function setLayout(currentLocalStorageLayout) {
     var navLinkStyle = $('.nav-link-style'),

@@ -30,6 +30,13 @@ transition: color .15s ease-in-out;
 .user-nav span{
     float:right;
 }
+
+#headerNotifications button{
+    width:40px;
+        height:30px;
+        background-color:transparent;
+        border:none;
+}
 /* Header:END*****************************************/
 /* Tables:START*****************************************/
 .actions{

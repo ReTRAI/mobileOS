@@ -25,9 +25,9 @@ public class ClientNotification extends WebServiceGatewaySupport{
         request.setEndCheckedDate(model.getValidEndCheckedDate());
         request.setChecked(model.getValidChecked());
 
+
         GetCountUserNotificationFilteredResponse response = null;
         try {
-            var oi = getWebServiceTemplate().marshalSendAndReceive(request);
             response = (GetCountUserNotificationFilteredResponse) getWebServiceTemplate().marshalSendAndReceive(request);
         }
         catch (SoapFaultClientException soapEx){
@@ -112,7 +112,7 @@ public class ClientNotification extends WebServiceGatewaySupport{
         return response;
     }
 
-    public SetUserNotificationCheckedResponse checkUserNotification(String userNotificationId, String actionUserId) {
+    public SetUserNotificationCheckedResponse checkUserNotification(String userNotificationId, String actionUserId, boolean addErrorMsg) {
         SetUserNotificationCheckedRequest request = new SetUserNotificationCheckedRequest();
         request.setUserNotificationId(userNotificationId);
         request.setActionUserId(actionUserId);
@@ -123,16 +123,19 @@ public class ClientNotification extends WebServiceGatewaySupport{
         }
         catch (SoapFaultClientException soapEx){
             String code = Utils.getSoapDetail(soapEx, "code") ;
+            if(addErrorMsg){
+                if(code.equals(""))
+                    PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_noCode");
+                else
+                    PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_"+code);
+            }
 
-            if(code.equals(""))
-                PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_noCode");
-            else
-                PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_"+code);
 
             PortalApplication.log(LOGGER, soapEx, code);
 
         } catch (Exception e){
-            PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_ex");
+            if(addErrorMsg)
+                PortalApplication.addErrorKey("api_ClientNotification_checkUserNotification_ex");
             PortalApplication.log(LOGGER, e);
         }
 

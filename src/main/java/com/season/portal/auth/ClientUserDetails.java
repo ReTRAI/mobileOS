@@ -6,7 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+
+import static com.season.portal.utils.validation.LangCodeValidator.LANGUAGE_CODES;
 
 public class ClientUserDetails implements UserDetails {
     private String userId;
@@ -24,16 +27,17 @@ public class ClientUserDetails implements UserDetails {
     private boolean Enabled = false;
 
     private String theme = "D";
-    private String language = "D";
+    private String language = "PT";
     private String status = "";
 
     public ClientUserDetails(User user, ArrayList<GrantedAuthority> authorities){
         userId = user.getUserId();
         userName = user.getUserName();
         userEmail = user.getUserEmail();
-        theme = user.getThemePreference();
+        setTheme(user.getThemePreference());
         language = user.getLanguagePreference();
         status = user.getUserStatus();
+
         this.authorities = authorities;
     }
 
@@ -126,5 +130,43 @@ public class ClientUserDetails implements UserDetails {
 
     public boolean haveBalance() {
         return hasBalance;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public String getValidTheme() {
+        switch(theme){
+            case "dark-layout":
+                return "D";
+            case "light-layout":
+                return "L";
+        }
+        return ClientUser.THEME_CODES[0];
+    }
+
+
+    public void setTheme(String theme) {
+        switch(theme){
+            case "L":
+            case "light-layout":
+                this.theme = "light-layout";
+                break;
+            case "D":
+            case "dark-layout":
+                this.theme = "dark-layout";
+                break;
+            default:
+                this.theme = ClientUser.THEME_CODES[0];
+        }
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

@@ -16,18 +16,18 @@ public class PortalConfiguration {
     private int sslPort;
 
     private String clientUserURI;
+    private String clientNotificationURI;
     private String clientResellerURI;
     private String clientSupportURI;
     private String clientDashboardURI;
     private String clientDeviceURI;
-    private String clientNotificationURI;
 
-    public String getClientNotificationsURI() {
+    public String getClientNotificationURI() {
         return clientNotificationURI;
     }
 
-    public void setClientNotificationsURI(String clientNotificationsURI) {
-        this.clientNotificationURI = clientNotificationsURI;
+    public void setClientNotificationURI(String clientNotificationURI) {
+        this.clientNotificationURI = clientNotificationURI;
     }
 
     public String getClientDeviceURI() {

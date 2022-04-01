@@ -71,8 +71,8 @@ public class PortalApplication{
 	public static ModelAndView addStatus(ModelAndView mv, HttpServletRequest request, ClientNotification clientNotification) {
 
 		HttpSession session = request.getSession(true);
+		String theme = "dark-layout";
 		String code = LanguageController.getCurrentLanguageCode(session);
-
 		mv.addObject("selectedLang", code);
 
 
@@ -83,7 +83,9 @@ public class PortalApplication{
 
 			//Logged
 			if(principal instanceof ClientUserDetails){
+
 				ClientUserDetails user = (ClientUserDetails)principal;
+				theme = user.getTheme();
 				mv.addObject("userName", auth.getName());
 				mv.addObject("userRole", auth.getAuthorities().toString());
 
@@ -120,8 +122,6 @@ public class PortalApplication{
 							GetUserNotificationFilteredResponse response = clientNotification.getUserNotificationsFiltered(model);
 							if(response != null){
 								notifications = new ArrayList(response.getUserNotification());
-								notifications.get(0).getDetail();
-								notifications.get(0).getUserNotificationId();
 							}
 						}
 					}
@@ -131,6 +131,7 @@ public class PortalApplication{
 			}
 		}
 
+		mv.addObject("theme", theme);
 		mv.addObject("langCodes", LANGUAGE_CODES);
 		mv.addObject("errorKeys",errorKeys);
 		mv.addObject("successKeys",successKeys);

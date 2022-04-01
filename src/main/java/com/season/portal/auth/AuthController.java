@@ -7,6 +7,7 @@ import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.user.ChangeUserPwResponse;
 import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.client.users.ClientUser;
+import com.season.portal.language.LanguageController;
 import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
 import org.slf4j.Logger;
@@ -71,20 +72,19 @@ public class AuthController extends ModelViewBaseController {
                     session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
                     session.setMaxInactiveInterval(SESSION_MAX_INACTIVE_TIME_SEC);
 
-                    var authorities = auth.getAuthorities();
-                    if(authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
-                        AdminController.initAdminView(session);
+                    ClientUserDetails user = Utils.getPrincipalDetails(true);
+                    if(user != null){
+                        if(user.hasRole("ROLE_ADMIN")){
+                            AdminController.initAdminView(session);
+                        }
+
+                        if(user.hasRole("ROLE_RESELLER")){
+                            getPrincipalReseller(clientReseller);//set automatically the resellerBalance
+                        }
+
+                        LanguageController.setCurrentLanguageCode(session, user.getLanguage());
                     }
 
-                    if(authorities.contains(new SimpleGrantedAuthority("ROLE_RESELLER"))){
-                        getPrincipalReseller(clientReseller);//set automatically the resellerBalance
-                        /*
-                        ClientUserDetails user = (ClientUserDetails)auth.getPrincipal();
-                        Reseller r = getPrincipalReseller(clientReseller, user);//set automatically the resellerBalance
-                        if(r != null){
-                            user.setResellerBalance(r.getCurrentBalance());
-                        }*/
-                    }
 
                     int expireIn = certificateExpireIn(certificates[0]);
                     session.setAttribute("CERTIFICATION_VALIDITY", expireIn);

@@ -246,6 +246,8 @@
 	"api_ClientNotification_checkUserNotification_noCode":"Ocorreu um erro a verificar notificação para do utilizador.",
 	"api_ClientNotification_checkUserNotification_":"Ocorreu um erro a verificar notificação para do utilizador.",
 	"api_ClientNotification_checkUserNotification_ex":"Ocorreu uma excepção a verificar notificação para do utilizador.",
+	"api_ClientNotification_checkUserNotificationAll_success":"Todas as notificações foram lidas.",
+	"api_ClientNotification_checkUserNotificationAll_error":"Ocorreu um erro a verificar algumas das notificações.",
 	"api_ClientNotification_countDeviceNotificationsFiltered_noCode":"Ocorreu um erro a contar a lista de notificações do dispositivo.",
 	"api_ClientNotification_countDeviceNotificationsFiltered_":"Ocorreu um erro a contar a lista de notificações do dispositivo.",
 	"api_ClientNotification_countDeviceNotificationsFiltered_ex":"Ocorreu uma excepção a contar a lista de notificações do dispositivo.",
@@ -295,6 +297,7 @@
 	"utils_removeCredits":"Remover Créditos",
 	"utils_sendCredits":"Enviar Créditos",
 	"utils_reply":"Responder",
+	"utils_markRead":"Marcar como lida",
 	
 	"utils_form_credits":"Créditos",
 	"utils_form_credits_placeholder":"Insira o número de créditos",

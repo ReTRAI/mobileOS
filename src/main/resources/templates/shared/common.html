@@ -342,7 +342,36 @@
             portalPost("notifications/readAll", {}, readAllNotificationsSuccessHandler);
         }
         function readAllNotificationsSuccessHandler(result){
-           location.reload();
+            allNotificationsReaded();
+           //location.reload();
+        }
+
+        function readNotification(that){
+            var guid = $(that).attr("data-guid");
+            portalPost("notifications/checkRead", {value:guid}, readNotificationSuccessHandler);
+        }
+
+        function readNotificationSuccessHandler(result){
+            $("#notification_"+result).remove();
+            var count = parseInt($($(".notificationCount")[0]).text());
+            count--;
+            if(count > 0){
+                $(".notificationCount").text(count)
+            }
+            else{
+                allNotificationsReaded();
+            }
+            //location.reload();
+        }
+
+        function allNotificationsReaded(){
+            $(".notificationCount").text(0);
+            $("#headerNotifications").addClass("d-none");
+            addSuccessByKey("api_ClientNotification_checkUserNotificationAll_success");
+        }
+
+        function changeTheme(newTheme){
+            portalPost("users/changeTheme", {value:newTheme});
         }
 
     </script>

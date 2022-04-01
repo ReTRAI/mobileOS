@@ -5,6 +5,7 @@
 	"utils_lang_ru":"русский",
 	
 	"utils_lang_error":"An error occurred getting the translations.",
+	"api_changeTheme_invalid":"Invalid theme.",
 	
 	"api_notImplementedYet":"Função não implementada.",
 	"api_error_sessionExpired":"Session expired, relogin to access this resource.",

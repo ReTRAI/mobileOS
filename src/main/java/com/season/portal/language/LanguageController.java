@@ -2,10 +2,16 @@ package com.season.portal.language;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.season.portal.PortalApplication;
+import com.season.portal.auth.ClientUserDetails;
+import com.season.portal.client.generated.user.ChangeLangPreferenceResponse;
+import com.season.portal.client.notification.ClientNotification;
+import com.season.portal.client.users.ClientUser;
+import com.season.portal.utils.Utils;
 import com.season.portal.utils.model.RestHashMapModel;
 import com.season.portal.utils.model.RestModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -25,6 +31,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.season.portal.configuration.AnnotationSecurityConfiguration.ALLOW_ROLES_ALL;
@@ -35,7 +42,8 @@ import static com.season.portal.utils.validation.LangCodeValidator.LANGUAGE_CODE
 public class LanguageController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final static String SESSION_LANGUAGE_CODE = "SESSION_LANGUAGE_CODE";
-
+    @Autowired
+    ClientUser clientUser;
 
     private HashMap<String, String> getTranslations(Resource rTranslation, String code){
         ObjectMapper mapper = new ObjectMapper();
@@ -84,8 +92,8 @@ public class LanguageController {
     public RestHashMapModel getTranslation(@Valid LanguageModel model, BindingResult result, HttpServletRequest request) {
         RestHashMapModel restModel = new RestHashMapModel();
         if(!result.hasErrors()){
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if(auth == null || auth instanceof AnonymousAuthenticationToken){
+            ClientUserDetails user = Utils.getPrincipalDetails(true);
+            if(user == null){
                 restModel.addErrorKey("api_error_sessionExpired");
             }
             else{
@@ -95,6 +103,8 @@ public class LanguageController {
                     restModel.setResult(r, true);
                     HttpSession session = request.getSession(true);
                     session.setAttribute(SESSION_LANGUAGE_CODE, model.getCode());
+
+                    ChangeLangPreferenceResponse response = clientUser.setLanguage(user.getUserId(), model.getCode(), user.getUserId());
                 }
             }
         }
@@ -104,6 +114,13 @@ public class LanguageController {
         }
 
         return (RestHashMapModel)PortalApplication.addStatus(restModel);
+    }
+
+
+    public static void setCurrentLanguageCode(HttpSession session, String code){
+        if(Arrays.asList(LANGUAGE_CODES).contains(code.toLowerCase())){
+            session.setAttribute(SESSION_LANGUAGE_CODE, code.toLowerCase());
+        }
     }
 
     public static String getCurrentLanguageCode(HttpSession session){

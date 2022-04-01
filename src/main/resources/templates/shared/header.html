@@ -39,13 +39,13 @@
                             </p>
                         </li>
 
-                        <li th:if="${notifications != null && notificationsTotal > 0}"
+                        <li id="headerNotifications"  th:if="${notifications != null && notificationsTotal > 0}"
                             class="nav-item dropdown dropdown-notification me-25">
                             <a class="nav-link" href="#"
                                data-bs-toggle="dropdown"
                             >
                                 <i class="ficon" data-feather="bell" ></i>
-                                <span class="badge rounded-pill bg-danger badge-up"
+                                <span class="badge rounded-pill bg-danger badge-up notificationCount"
                                       th:text="${notificationsTotal}"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
@@ -55,7 +55,7 @@
                                         <h4 class="notification-title mb-0 me-auto toTranslate"
                                             data-langKey="header_notifications_title">Notifications</h4>
                                         <div class="badge rounded-pill badge-light-primary">
-                                            <span th:text="${notificationsTotal}"></span>
+                                            <span class="notificationCount" th:text="${notificationsTotal}"></span>
                                             <span class="toTranslate"
                                                   th:attr="data-langKey=${(notificationsTotal<2)?'utils_feminine_new':'utils_feminine_news'}"
                                             ></span>
@@ -78,10 +78,21 @@
                                         </a>
                                     </th:block>-->
                                     <th:block th:each="notification : ${notifications}">
-                                        <div class="list-item d-flex align-items-start">
-                                            <div class="list-item-body flex-grow-1">
+                                        <div th:id="${'notification_'+notification.getUserNotificationId()}" class="list-item d-flex align-items-start">
+                                            <div class="list-item-body flex-grow-1 d-flex justify-content-between align-items-center">
                                                 <p class="media-heading toTranslate"
                                                    th:attr="data-langKey=${notification.getDetail()}"></p>
+
+                                                <button type="button" onclick="readNotification(this)"
+                                                        th:attr="data-guid=${notification.getUserNotificationId()}"
+                                                        class="align-items-center d-flex justify-content-around toTranslateAttr"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-langKey="utils_markRead" data-langAttr="data-bs-original-title" title="S"
+                                                >
+                                                    <i class="font-medium-2 text-body primary-colorH"
+                                                       data-feather="check"></i>
+                                                </button>
+
                                             </div>
                                         </div>
                                     </th:block>

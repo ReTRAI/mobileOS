@@ -246,7 +246,8 @@
 	"api_ClientNotification_checkUserNotification_noCode":"An error occurred checking the user notification.",
 	"api_ClientNotification_checkUserNotification_":"An error occurred checking the user notification.",
 	"api_ClientNotification_checkUserNotification_ex":"An exception occurred checking the user notification.",
-	"api_ClientNotification_checkUserNotificationAll_error":"An exception occurred checking some of the user notifications.",
+	"api_ClientNotification_checkUserNotificationAll_success":"All notifications read.",
+	"api_ClientNotification_checkUserNotificationAll_error":"An error occurred checking some of the notifications.",
 	"api_ClientNotification_countDeviceNotificationsFiltered_noCode":"An error occurred counting the device notification list.",
 	"api_ClientNotification_countDeviceNotificationsFiltered_":"An error occurred counting the device notification list.",
 	"api_ClientNotification_countDeviceNotificationsFiltered_ex":"An exception occurred counting the device notification list.",
@@ -296,6 +297,7 @@
 	"utils_removeCredits":"Remove Credits",
 	"utils_sendCredits":"Send Credits",
 	"utils_reply":"Reply",
+	"utils_markRead":"Mark as read",
 
 	"utils_form_credits":"Credits",
 	"utils_form_credits_placeholder":"Enter credits value",

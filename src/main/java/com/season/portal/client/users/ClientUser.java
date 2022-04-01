@@ -27,6 +27,7 @@ public class ClientUser extends WebServiceGatewaySupport{
         INACTIVE,
         ACTIVE
     }
+    public static String[] THEME_CODES = {"dark-layout", "light-layout"};
     public ChangeUserPwResponse changePass(String newPassUserId, String pass, String actionUserId) {
         ChangeUserPwRequest request = new ChangeUserPwRequest();
         request.setPassword(pass);
@@ -565,6 +566,62 @@ public class ClientUser extends WebServiceGatewaySupport{
             }
         }
         return valid;
+    }
+
+    public ChangeThemePreferenceResponse setTheme(String userId, String theme, String actionUserId) {
+        ChangeThemePreferenceRequest request = new ChangeThemePreferenceRequest();
+        request.setUserId(userId);
+        request.setTheme(theme);
+        request.setActionUserId(actionUserId);
+
+        ChangeThemePreferenceResponse response = null;
+        try {
+            response = (ChangeThemePreferenceResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientUser_setTheme_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientUser_setTheme_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientUser_setTheme_ex");
+        }
+
+        return response;
+    }
+
+    public ChangeLangPreferenceResponse setLanguage(String userId, String langCode, String actionUserId) {
+        ChangeLangPreferenceRequest request = new ChangeLangPreferenceRequest();
+        request.setUserId(userId);
+        request.setLang(langCode);
+        request.setActionUserId(actionUserId);
+
+        ChangeLangPreferenceResponse response = null;
+        try {
+            response = (ChangeLangPreferenceResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+        }
+        catch (SoapFaultClientException soapEx){
+            String code = Utils.getSoapDetail(soapEx, "code") ;
+
+            if(code.equals(""))
+                PortalApplication.addErrorKey("api_ClientUser_setLanguage_noCode");
+            else
+                PortalApplication.addErrorKey("api_ClientUser_setLanguage_"+code);
+
+            PortalApplication.log(LOGGER, soapEx, code);
+
+        } catch (Exception e){
+            PortalApplication.log(LOGGER, e);
+            PortalApplication.addErrorKey("api_ClientUser_setLanguage_ex");
+        }
+
+        return response;
     }
 
 }

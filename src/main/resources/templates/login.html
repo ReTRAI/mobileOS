@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
+<html
+      xmlns:th="https://www.thymeleaf.org"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="https://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      class="loading"
+      th:attr="data-theme=${theme}"
+>
 <!-- BEGIN: Head-->
 
 <head>
@@ -42,6 +46,7 @@
                                     <h2 class="brand-text text-primary text-center">
                                         <img src="media/logo.png" alt="logo" class="me-1"/>
                                         <span class="toTranslate" data-langKey="utils_brand">Portal</span>
+                                        <p th:text="${theme}"></p>
                                     </h2>
                                 </div>
                             </div>

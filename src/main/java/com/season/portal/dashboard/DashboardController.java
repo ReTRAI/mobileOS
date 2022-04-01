@@ -4,14 +4,18 @@ import com.season.portal.auth.ClientUserDetails;
 import com.season.portal.auth.admin.AdminController;
 import com.season.portal.client.dashboard.ClientDashboard;
 import com.season.portal.client.generated.dashboard.GetDashboardByResellerIdResponse;
+import com.season.portal.client.generated.notification.GetCountUserNotificationFilteredResponse;
+import com.season.portal.client.generated.notification.UserNotification;
 import com.season.portal.client.generated.reseller.GetResellerByUserIdResponse;
 import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.support.GetCountTicketFilteredResponse;
 import com.season.portal.client.generated.support.GetTicketFilteredResponse;
 import com.season.portal.client.generated.support.Ticket;
+import com.season.portal.client.notification.ClientNotification;
 import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.client.support.ClientSupport;
 import com.season.portal.client.users.ClientUser;
+import com.season.portal.notifications.NotificationListPageModel;
 import com.season.portal.ticket.TicketListPageModel;
 import com.season.portal.utils.ModelViewBaseController;
 import com.season.portal.utils.Utils;
@@ -57,6 +61,7 @@ public class DashboardController extends ModelViewBaseController {
 
         ClientUserDetails user = Utils.getPrincipalDetails(true);
         if(user != null) {
+
             //Reseller------------------------------
             Reseller r = getPrincipalReseller(clientReseller, user);
             if(r != null){
@@ -93,6 +98,7 @@ public class DashboardController extends ModelViewBaseController {
                 setTotalTicketDashboard(mv, model, "ticketLastMonth_");
                 canViewTickets = true;
             }
+
         }
         mv.addObject("canViewDevices", canViewDevices);
         mv.addObject("canViewTickets", canViewTickets);
