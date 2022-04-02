@@ -69,7 +69,7 @@
                                                    class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
                                                    data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
                                             <span class="input-group-text cursor-pointer"
-                                                  onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
+                                                  onclick="$('#filter-startCreationDate').val('')"><i data-feather="x"></i></span>
                                         </div>
                                         <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startCreationDate')}"
                                            th:attr="data-langKey=${err}"></p>

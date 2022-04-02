@@ -84,11 +84,10 @@ public class RestNotificationController extends ModelViewBaseController {
         if(!result.hasErrors()) {
             ClientUserDetails user = Utils.getPrincipalDetails(true);
             if(user != null) {
-                /*SetUserNotificationCheckedResponse response = clientNotification.checkUserNotification(model.getValue(), user.getUserId(), true);
+                SetUserNotificationCheckedResponse response = clientNotification.checkUserNotification(model.getValue(), user.getUserId(), true);
                 if(response != null){
                     restStringModel.setResult(model.getValue(),  true);
-                }*/
-                restStringModel.setResult(model.getValue(),  true);
+                }
             }
         }
         else{

@@ -14,8 +14,8 @@
 	"api_login_invalid_session": "An error occurred creating the session.",
 
 	"index_tab_title": "Portal's Enter",
-	"index_title": "Welcome ipsum dolor sit.",
-	"index_text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem mollitia quaerat quas velit vitae.\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem mollitia quaerat quas velit vitae.",
+	"index_title": "Welcome",
+	"index_text": "",
 	"index_signin": "Sign in",
 
 

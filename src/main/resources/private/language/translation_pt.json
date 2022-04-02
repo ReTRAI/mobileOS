@@ -266,6 +266,17 @@
 	"api_reseller_noSessionReseller":"Não existem revendedores em memória.",
 	"api_reseller_noParentSessionReseller":"Não existe hisórico de revendedores em memória.",
 	
+	"api_notification_sendCredits":"Foram-lhe transferidos créditos.",
+	"api_notification_sendCredits0":"Foram-lhe transferidos ",
+	"api_notification_sendCredits1":" créditos.",
+	"api_notification_addCredits":"Foram-lhe depositados créditos.",
+	"api_notification_addCredits0":"Foram-lhe depositados ",
+	"api_notification_addCredits1":" créditos.",
+	"api_notification_ticketAssign":"Foi-lhe assignado um ticket.",
+	"api_notification_ticketReplyFromCreator":"O criador do ticket adicionou uma resposta.",
+	"api_notification_ticketReplyFromSupport_toCreator":"Foi adicionada uma resposta ao seu ticket.",
+	"api_notification_ticketReplyFromSupport_toAssignedUser":"Um suporte respondeu a um ticket que lhe está assignado.",
+	
 	"utils_feminine_new":"nova",
 	"utils_feminine_news":"novas",
 	"utils_filters":"Filtros",
@@ -317,6 +328,7 @@
 	"utils_form_createdBetween":"Criado entre:",
 	"utils_form_activatedBetween":"Activada entre:",
 	"utils_form_creationDate":"Data de Criação",
+	"utils_form_viewedBetween":"Vista entre:",
 	"utils_form_status":"Estado",
 	"utils_form_title":"Título",
 	"utils_form_title_placeholder":"Insira o título",
@@ -338,6 +350,7 @@
 	"utils_form_minVal_placeholder":"Insira o valor mínimo",
 	"utils_form_maxVal":"Valor máximo",
 	"utils_form_maxVal_placeholder":"Insira o valor máximo",
+	"utils_form_viewed":"Vista",
 	
 	"utils_table_id":"Id",
 	"utils_table_name":"Nome",
@@ -362,6 +375,7 @@
 	"utils_table_date":"Data",
 	"utils_table_debitCredit":"Movimento",
 	"utils_table_detail":"Detalhe",
+	"utils_table_viewed":"Vista",
 	
 	"utils_pagination_noElements":"Não existem elementos a apresentar.",
 	"utils_pagination_0":"",
@@ -391,6 +405,7 @@
 	"menu_viewAdmin":"Visão Admin.",
 	"menu_profile":"Perfil",
 	"menu_profile_changePassword":"Palavra-chave",
+	"menu_profile_notifications":"Notificações",
 	"menu_users":"Utilizadores",
 	"menu_users_new":"Novo",
 	"menu_users_list":"Lista",
@@ -561,6 +576,8 @@
 	"hierarchy_childList_support_confirmSelectTitle1":" como filho do Suporte ",
 	"hierarchy_childList_support_confirmSelectTitle2":"?",
 	
+	"notifications_tab_title":"Portal | Notificações",
+	"notifications_title":"Notificações",
 	
 	"end": "fim"	
 }

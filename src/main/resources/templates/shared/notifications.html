@@ -1,0 +1,115 @@
+<html xmlns:th="https://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://www.thymeleaf.org ">
+<body>
+
+<th:block th:fragment="makeHeaderNotification(notification)">
+        <th:block th:with="notificationKey=${T(com.season.portal.utils.Utils).getNotificationKey(notification.getDetail())},
+                           notificationExtra=${T(com.season.portal.utils.Utils).getNotificationExtra(notification.getDetail())}">
+            <th:block th:switch="${notificationKey}">
+                <th:block th:case="api_notification_sendCredits">
+                    <p th:if="${notificationExtra == null}" class="media-heading toTranslate"
+                       data-langKey="api_notification_sendCredits"></p>
+                    <p th:if="${notificationExtra != null}" class="media-heading"
+                        ><span class="toTranslate "
+                              data-langKey="api_notification_sendCredits0"></span
+                        ><span th:text="${notificationExtra}"></span
+                        ><span class="toTranslate "
+                               data-langKey="api_notification_sendCredits1"></span
+                    ></p>
+                </th:block>
+                <th:block th:case="api_notification_addCredits">
+                    <p th:if="${notificationExtra == null}" class="media-heading toTranslate"
+                       data-langKey="api_notification_addCredits"></p>
+                    <p th:if="${notificationExtra != null}" class="media-heading"
+                        ><span class="toTranslate "
+                              data-langKey="api_notification_addCredits0"></span
+                        ><span th:text="${notificationExtra}"></span
+                        ><span class="toTranslate "
+                           data-langKey="api_notification_addCredits1"></span
+                    ></p>
+                </th:block>
+                <th:block th:case="api_notification_ticketAssign">
+                    <p class="media-heading toTranslate"
+                       data-langKey="api_notification_ticketAssign"></p>
+                </th:block>
+                <th:block th:case="*">
+                    <p class="media-heading toTranslate"
+                       th:attr="data-langKey=${notificationKey}"></p>
+                </th:block>
+            </th:block>
+
+            <div class="d-flex align-items-center justify-content-around actionNotification">
+                <th:block th:replace="shared/notifications :: makeActionNotificationBtn(${notificationKey}, ${notificationExtra})"/>
+                <th:block th:replace="shared/notifications :: makeReadNotificationBtn(${notification.getUserNotificationId()})"/>
+            </div>
+        </th:block>
+</th:block>
+
+<th:block th:fragment="makeActionNotificationBtn(notificationKey, notificationExtra)">
+    <th:block th:if="${notificationExtra != null}" >
+        <th:block th:if="${notificationKey} eq 'api_notification_ticketAssign' or
+                         ${notificationKey} eq 'api_notification_ticketReplyFromCreator' or
+                         ${notificationKey} eq 'api_notification_ticketReplyFromSupport_toCreator' or
+                         ${notificationKey} eq 'api_notification_ticketReplyFromSupport_toAssignedUser'">
+            <form class="" method="POST" th:action="@{${portalURL} + 'openTicket'}">
+                <input type="hidden" name="value" th:value="${notificationExtra}"/>
+                <button type="submit"
+                        class="align-items-center d-flex justify-content-around toTranslateAttr"
+                        data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-langKey="utils_open" data-langAttr="data-bs-original-title" title="S"
+                >
+                    <i class="font-medium-2 text-body primary-colorH"
+                       data-feather="eye"></i>
+                </button>
+            </form>
+        </th:block>
+    </th:block>
+</th:block>
+
+<th:block th:fragment="makeReadNotificationBtn(notificationId)">
+    <button type="button" onclick="readNotification(this)"
+            th:attr="data-guid=${notificationId}"
+            class="align-items-center d-flex justify-content-around toTranslateAttr"
+            data-bs-toggle="tooltip" data-bs-placement="top"
+            data-langKey="utils_markRead" data-langAttr="data-bs-original-title" title="S"
+    >
+        <i class="font-medium-2 text-body primary-colorH"
+           data-feather="check"></i>
+    </button>
+</th:block>
+
+<th:block th:fragment="makeNotificationText(notificationKey, notificationExtra)">
+
+        <th:block th:switch="${notificationKey}">
+            <th:block th:case="api_notification_sendCredits">
+                <p th:if="${notificationExtra == null}" class="mb-0 toTranslate"
+                   data-langKey="api_notification_sendCredits"></p>
+                <p th:if="${notificationExtra != null}" class="mb-0"
+                ><span class="toTranslate "
+                       data-langKey="api_notification_sendCredits0"></span
+                ><span th:text="${notificationExtra}"></span
+                ><span class="toTranslate "
+                       data-langKey="api_notification_sendCredits1"></span
+                ></p>
+            </th:block>
+            <th:block th:case="api_notification_addCredits">
+                <p th:if="${notificationExtra == null}" class="mb-0 toTranslate"
+                   data-langKey="api_notification_addCredits"></p>
+                <p th:if="${notificationExtra != null}" class="mb-0"
+                ><span class="toTranslate "
+                       data-langKey="api_notification_addCredits0"></span
+                ><span th:text="${notificationExtra}"></span
+                ><span class="toTranslate "
+                       data-langKey="api_notification_addCredits1"></span
+                ></p>
+            </th:block>
+            <th:block th:case="*">
+                <p class="mb-0 toTranslate"
+                   th:attr="data-langKey=${notificationKey}"></p>
+            </th:block>
+        </th:block>
+</th:block>
+
+</body>
+</html>
+

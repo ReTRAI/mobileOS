@@ -23,7 +23,7 @@
     <!-- END: CSRF PREVENTION-->
 
     <!-- BEGIN: ICO -->
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/ico/favicon.ico}"/>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/media/ico/logo.ico}"/>
     <!-- END: ICO-->
 
 
@@ -349,6 +349,7 @@
         function readNotification(that){
             var guid = $(that).attr("data-guid");
             portalPost("notifications/checkRead", {value:guid}, readNotificationSuccessHandler);
+            $(".tooltip").remove();
         }
 
         function readNotificationSuccessHandler(result){

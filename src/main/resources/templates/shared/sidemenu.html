@@ -199,6 +199,14 @@
                         <span class="toTranslate" data-langKey="menu_profile">Profile</span>
                         <i data-feather="more-horizontal"></i>
                     </li>
+                    <li id="menu_profile_notifications" class="nav-item">
+                        <a class="d-flex align-items-center" th:href="${portalURL + 'notifications/open'}">
+                            <i data-feather='alert-triangle'></i>
+                            <span class="menu-title text-truncate toTranslate"
+                                  data-langKey="menu_profile_notifications"
+                            >Notifications</span>
+                        </a>
+                    </li>
                     <li id="menu_profile_changePassword" class="nav-item">
                         <a class="d-flex align-items-center" th:href="${portalURL + 'changePassword'}">
                             <i data-feather='shield'></i>

@@ -9,9 +9,11 @@ import com.season.portal.client.generated.reseller.GetResellerFilteredResponse;
 import com.season.portal.client.generated.reseller.Reseller;
 import com.season.portal.client.generated.support.*;
 import com.season.portal.client.generated.user.GetUserByIdResponse;
+import com.season.portal.client.notification.ClientNotification;
 import com.season.portal.client.support.ClientSupport;
 import com.season.portal.client.users.ClientUser;
 import com.season.portal.devices.DeviceListPageModel;
+import com.season.portal.notifications.NotificationService;
 import com.season.portal.reseller.ResellerListPageModel;
 import com.season.portal.support.SupportListPageModel;
 import com.season.portal.users.UserRoleModel;
@@ -50,8 +52,9 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.*;
 public class TicketController extends ModelViewBaseController {
     @Autowired
     ClientSupport clientSupport;
+
     @Autowired
-    ClientUser clientUser;
+    ClientNotification clientNotification;
 
     private String SESSION_TICKET_CONTROLLER_LIST_MODEL = "SESSION_TICKET_CONTROLLER_LIST_MODEL";
     private String SESSION_TICKET_CONTROLLER_DETAIL_MODEL = "SESSION_TICKET_CONTROLLER_DETAIL_MODEL";
@@ -356,7 +359,7 @@ public class TicketController extends ModelViewBaseController {
                     }
                 }
 
-                if(ticket.getAssignedUserId() != null){
+                if(Utils.isGuid(ticket.getAssignedUserId())){
                     GetSupportByUserIdResponse responseAssigned = clientSupport.getSupportByUserId(ticket.getAssignedUserId());
                     if(responseAssigned != null){
                         mv.addObject("UserRoleAssigned", new UserRoleModel(responseAssigned.getSupport()));
@@ -441,8 +444,9 @@ public class TicketController extends ModelViewBaseController {
                     if (user != null) {
                         model.setTicketId(Ticketmodel.getTicketId());
                         SetTicketDetailResponse response = clientSupport.setTicketDetail(model.getTicketId(), model.getDetail(), path, user.getUserId());
-                        if (response != null) {
+                        if (response != null && response.isResult()) {
                             PortalApplication.addSuccessKey("api_ClientSupport_setTicketDetail_success");
+                            NotificationService.sendNotifictionByTicketReply(clientNotification, clientSupport, Ticketmodel.getTicketId(), user);
                         }
                         else
                             PortalApplication.addErrorKey("api_ClientSupport_setTicketDetail_error");
@@ -612,6 +616,10 @@ public class TicketController extends ModelViewBaseController {
                     updateModel.setAssignedUserId(model.getValue());
                     UpdateTicketResponse response = clientSupport.updateTicket(updateModel, user.getUserId());
                     if(clientSupport.validateUpdateTicket(response, true, true)){
+                        if(!model.getValue().equals(user.getUserId())){
+                            NotificationService.sendNotifiction(clientNotification, model.getValue(),
+                                    "api_notification_ticketAssign", user.getUserId(), ticketId);
+                        }
                         return openTicketBySession();
                     }
                 }

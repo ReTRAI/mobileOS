@@ -17,9 +17,11 @@ import com.season.portal.client.generated.support.GetSupportByUserIdResponse;
 import com.season.portal.client.generated.support.GetSupportParentByChildIdResponse;
 import com.season.portal.client.generated.support.Support;
 import com.season.portal.client.generated.user.*;
+import com.season.portal.client.notification.ClientNotification;
 import com.season.portal.client.reseller.ClientReseller;
 import com.season.portal.devices.DeviceListPageModel;
 import com.season.portal.devices.SimpleDeviceModel;
+import com.season.portal.notifications.NotificationService;
 import com.season.portal.support.SupportListPageModel;
 import com.season.portal.users.UserRoleModel;
 import com.season.portal.users.UsersListPageModel;
@@ -58,6 +60,8 @@ public class ResellerController extends ModelViewBaseController {
     ClientReseller clientReseller;
     @Autowired
     ClientDevice clientDevice;
+    @Autowired
+    ClientNotification clientNotification;
 
 
     private String SESSION_RESELLER_CONTROLLER_LIST_MODEL = "SESSION_RESELLER_CONTROLLER_LIST_MODEL";
@@ -501,6 +505,7 @@ public class ResellerController extends ModelViewBaseController {
                     if(clientReseller.validateSetResellerBalanceMovement(response, true)){
                         getPrincipalReseller(clientReseller);//updateBalance
                         PortalApplication.addSuccessKey("api_ClientReseller_validateSetResellerBalanceMovement_success");
+                        NotificationService.sendNotifictionToResseler(clientNotification, clientReseller, toResellerId, "api_notification_sendCredits", user.getUserId(), model.getMovementValue());
                     }
                 }
             }
@@ -530,6 +535,7 @@ public class ResellerController extends ModelViewBaseController {
                     if(principalResellerId != null && principalResellerId.equals(model.getResellerId())){
                         getPrincipalReseller(clientReseller);//updateBalance
                     }
+                    NotificationService.sendNotifictionToResseler(clientNotification, clientReseller, model.getResellerId(), "api_notification_addCredits", user.getUserId(), model.getMovementValue());
                     PortalApplication.addSuccessKey("api_ClientReseller_validateSetResellerBalanceMovement_success");
                 }
             }

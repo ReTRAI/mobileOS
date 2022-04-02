@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class NotificationListPageModel extends PageModel {
 
-    @IGuidValidatorConstrain(required = true)
+    @IGuidValidatorConstrain(required = false)
     private String elementGuid;
 
     @IDateValidatorConstrain(required = false)

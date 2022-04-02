@@ -393,6 +393,28 @@ public class Utils {
         return result;
     }
 
+    public static String getNotificationKey(String notificationDetail){
+        String result = "";
+        if(notificationDetail != null){
+            String[] arrOfStr = notificationDetail.split(" ", 2);
+            result = arrOfStr[0];
+        }
+        return result;
+    }
+
+    public static String getNotificationExtra(String notificationDetail){
+        String result = null;
+        if(notificationDetail != null){
+            String[] arrOfStr = notificationDetail.split(" ", 2);
+            if(arrOfStr.length>1){
+                result = arrOfStr[1];
+            }
+
+        }
+        return result;
+    }
+
+
     public static boolean isGuid(String guid){
         boolean result = false;
         if(guid != null){

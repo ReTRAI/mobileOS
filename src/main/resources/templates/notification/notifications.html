@@ -15,13 +15,13 @@
     <style>
     </style>
 
-    <title class="toTranslate" data-langKey="tickets_tab_title">Portal</title>
+    <title class="toTranslate" data-langKey="notifications_tab_title">Portal</title>
 </head>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
 
 <!-- BEGIN: Header-->
 <th:block th:replace="shared/header :: header"/>
@@ -33,7 +33,7 @@
 
 
 <!-- BEGIN: Content-->
-<th:block th:with="baseUrl=${portalURL + 'ticket/all'}, queryUrl=${#httpServletRequest.queryString}">
+<th:block th:with="baseUrl=${portalURL + 'notifications'}, queryUrl=${#httpServletRequest.queryString}">
 <div class="app-content content ">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -45,62 +45,107 @@
         <div class="content-body">
 
             <!-- -->
-            <section id="tickets">
-                <h2 class="toTranslate" data-langKey="tickets_all_title">Tickets</h2>
+            <section id="notifications">
+                <h2 class="toTranslate" data-langKey="notifications_title">Notifications</h2>
 
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title toTranslate" data-langKey="utils_filters">Filters</h4>
                     </div>
                     <div class="card-body">
-                        <form id="filters" th:object="${ticketListPageModel}" class="form" method="GET"
+                        <form id="filters" th:object="${notificationListPageModel}" class="form" method="GET"
                               th:action="@{${baseUrl}}">
 
-                            <p class="mb-0 toTranslate" data-langKey="utils_form_createdBetween">Created between:</p>
                             <div class="row">
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-startCreationDate"
-                                               data-langKey="utils_form_startCreationDate">Start Date</label>
-                                        <div class="input-group input-group-merge"
-                                             th:classappend="${#fields.hasErrors('startCreationDate') ? 'is-invalid' : ''}">
-                                            <input type="text" id="filter-startCreationDate"
-                                                   th:field="*{startCreationDate}"
-                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
-                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
-                                            <span class="input-group-text cursor-pointer"
-                                                  onclick="$('#filter-startDate').val('')"><i data-feather="x"></i></span>
+                                <div class="col-md-4 col-12">
+                                    <p class="mb-0 toTranslate" data-langKey="utils_form_createdBetween">Created between:</p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label toTranslate" for="filter-startCreationDate"
+                                                       data-langKey="utils_form_startDate">Start Date</label>
+                                                <div class="input-group input-group-merge"
+                                                     th:classappend="${#fields.hasErrors('startCreationDate') ? 'is-invalid' : ''}">
+                                                    <input type="text" id="filter-startCreationDate"
+                                                           th:field="*{startCreationDate}"
+                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                                    <span class="input-group-text cursor-pointer"
+                                                          onclick="$('#filter-startCreationDate').val('')"><i data-feather="x"></i></span>
+                                                </div>
+                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startCreationDate')}"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </div>
                                         </div>
-                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startCreationDate')}"
-                                           th:attr="data-langKey=${err}"></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-endCreationDate"
-                                               data-langKey="utils_form_endCreationDate">End Date</label>
-                                        <div class="input-group input-group-merge"
-                                             th:classappend="${#fields.hasErrors('endCreationDate') ? 'is-invalid' : ''}">
-                                            <input type="text" id="filter-endCreationDate"
-                                                   th:field="*{endCreationDate}"
-                                                   class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
-                                                   data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
-                                            <span class="input-group-text cursor-pointer"
-                                                  onclick="$('#filter-endCreationDate').val('')"><i data-feather="x"></i></span>
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label toTranslate" for="filter-endCreationDate"
+                                                       data-langKey="utils_form_endDate">End Date</label>
+                                                <div class="input-group input-group-merge"
+                                                     th:classappend="${#fields.hasErrors('endCreationDate') ? 'is-invalid' : ''}">
+                                                    <input type="text" id="filter-endCreationDate"
+                                                           th:field="*{endCreationDate}"
+                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                                    <span class="input-group-text cursor-pointer"
+                                                          onclick="$('#filter-endCreationDate').val('')"><i data-feather="x"></i></span>
+                                                </div>
+                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endCreationDate')}"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </div>
                                         </div>
-                                        <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endCreationDate')}"
-                                           th:attr="data-langKey=${err}"></p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
+                                    <p class="mb-0 toTranslate" data-langKey="utils_form_viewedBetween">Viewed between:</p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label toTranslate" for="filter-startCheckedDate"
+                                                       data-langKey="utils_form_startDate">Start Date</label>
+                                                <div class="input-group input-group-merge"
+                                                     th:classappend="${#fields.hasErrors('startCheckedDate') ? 'is-invalid' : ''}">
+                                                    <input type="text" id="filter-startCheckedDate"
+                                                           th:field="*{startCheckedDate}"
+                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                                    <span class="input-group-text cursor-pointer"
+                                                          onclick="$('#filter-startCheckedDate').val('')"><i data-feather="x"></i></span>
+                                                </div>
+                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('startCheckedDate')}"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+
+                                                <label class="form-label toTranslate" for="filter-endCheckedDate"
+                                                       data-langKey="utils_form_endDate">End Date</label>
+                                                <div class="input-group input-group-merge"
+                                                     th:classappend="${#fields.hasErrors('endCheckedDate') ? 'is-invalid' : ''}">
+                                                    <input type="text" id="filter-endCheckedDate"
+                                                           th:field="*{endCheckedDate}"
+                                                           class="form-control form-control-merge flatpickr-basic toTranslateInput formDate"
+                                                           data-langKey="utils_form_datePlaceholder" placeholder="YYYY-MM-DD" />
+                                                    <span class="input-group-text cursor-pointer"
+                                                          onclick="$('#filter-endCheckedDate').val('')"><i data-feather="x"></i></span>
+                                                </div>
+                                                <p class="invalid-feedback toTranslate" th:each="err : ${#fields.errors('endCheckedDate')}"
+                                                   th:attr="data-langKey=${err}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label toTranslate" for="filter-ticketStatus"
-                                               data-langKey="utils_form_status">Status</label>
-                                        <select id="filter-ticketStatus" class="form-select" th:field="*{ticketStatus}" th:errorclass="is-invalid">
+                                        <p class="empty mb-0">empty</p>
+                                        <label class="form-label toTranslate" for="filter-checked"
+                                               data-langKey="utils_form_viewed">Viewed</label>
+                                        <select id="filter-checked" class="form-select" th:field="*{checked}" th:errorclass="is-invalid">
                                             <option value="" class="toTranslate" data-langKey="utils_all">All</option>
-                                            <option th:each="ticketStatus : ${T(com.season.portal.client.support.ClientSupport.TICKET_STATUS).values()}"
-                                                    th:value="${ticketStatus.name()}" class="toTranslate"
-                                                    th:attr="data-langKey=${'api_ticketStatus_'+ticketStatus}"></option>
+                                            <option value="1" class="toTranslate" data-langKey="utils_yes">Yes</option>
+                                            <option value="0" class="toTranslate" data-langKey="utils_no">No</option>
                                         </select>
                                     </div>
                                 </div>
@@ -127,40 +172,44 @@
                         <table class="table table-striped dataTable ">
                             <thead>
                                 <tr>
-                                    <th class="toTranslate" data-langKey="utils_table_title"
-                                    >Title</th>
-                                    <th class="sorting toTranslate" data-langKey="utils_table_status"
-                                        th:with="sortName='ticketStatus'"
-                                        th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
-                                        th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
-                                    >Status</th>
+                                    <th class="toTranslate" data-langKey="utils_table_detail"
+                                    >Detail</th>
+
                                     <th class="sorting toTranslate text-center" data-langKey="utils_table_date"
-                                        th:with="sortName='openDate'"
+                                        th:with="sortName='creationDate'"
                                         th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
                                         th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
                                     >Date</th>
-
+                                    <th class="sorting toTranslate text-center" data-langKey="utils_table_viewed"
+                                        th:with="sortName='checked'"
+                                        th:classappend="${Pagination.getSortClass(queryUrl,sortName)}"
+                                        th:attr="onclick=|location.href='${Pagination.getSortUrl(baseUrl, queryUrl,sortName)}'|"
+                                    >Viewed</th>
                                     <th class="toTranslate text-center" data-langKey="utils_table_actions">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="ele : ${elements}">
-                                    <td class="toTranslate" th:text="${ele.getTitle()}"></td>
-                                    <td class="toTranslate" th:attr="data-langKey=${'api_ticketStatus_'+ele.getStatus()}"></td>
+                                <tr th:each="ele : ${elements}" th:id="${ele.getUserNotificationId()}"
+                                    th:with="notificationKey=${T(com.season.portal.utils.Utils).getNotificationKey(ele.getDetail())},
+                                            notificationExtra=${T(com.season.portal.utils.Utils).getNotificationExtra(ele.getDetail())}">
+                                    <td>
+                                        <th:block th:replace="shared/notifications :: makeNotificationText(${notificationKey}, ${notificationExtra})"/>
+                                    </td>
                                     <td class="text-center"
                                         th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getCreationDate())}">
                                     </td>
+                                    <td class="text-center readDate">
+                                        <th:block th:if="${ele.getCheckedDate() == null}"></th:block>
+                                        <th:block th:if="${ele.getCheckedDate() != null}">
+                                            <span th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getCreationDate())}"></span>
+                                        </th:block>
+                                    </td>
                                     <td class="actions">
                                         <div class="d-flex align-items-center justify-content-around">
-                                            <button type="button" onclick="openTicket(this)"
-                                               th:attr="data-guid=${ele.getTicketId()}"
-                                               class="align-items-center d-flex justify-content-around toTranslateAttr"
-                                               data-bs-toggle="tooltip" data-bs-placement="top"
-                                               data-langKey="utils_view" data-langAttr="data-bs-original-title" title="S"
-                                            >
-                                                <i class="font-medium-2 text-body primary-colorH"
-                                                   data-feather="eye"></i>
-                                            </button>
+                                            <th:block th:replace="shared/notifications :: makeActionNotificationBtn(${notificationKey}, ${notificationExtra})"/>
+                                            <th:block th:if="${ele.getCheckedDate() == null}">
+                                                <th:block th:replace="shared/notifications :: makeReadNotificationBtn(${ele.getUserNotificationId()})"/>
+                                            </th:block>
                                         </div>
                                     </td>
                                 </tr>
@@ -182,10 +231,6 @@
 
         </div>
     </div>
-    <form id="openTicket" class="d-none" method="POST"
-          th:object="${guidRequiredModel_viewTicket}" th:action="@{${portalURL} + 'openTicket'}">
-        <input id="openTicket-value" type="hidden" th:field="*{value}"/>
-    </form>
 </div>
 </th:block>
 <!-- END: Content-->
@@ -196,22 +241,37 @@
 <script>
     $(window).on('load', function() {
         setupLanguage();
-        showInMenu("menu_ticket_all");
+        showInMenu("menu_profile_notifications");
         $('.flatpickr-basic').flatpickr();
     });
 
     function resetForm(formId){
 
-        $("#filter-ticketStatus").val("");
+        $("#filter-checked").val("");
         $("#filter-startCreationDate").val("");
         $("#filter-endCreationDate").val("");
+        $("#filter-startCheckedDate").val("");
+        $("#filter-endCheckedDate").val("");
         $("#"+formId).submit();
     }
 
-    function openTicket(that){
-        var ticketId = $(that).attr("data-guid");
-        $("#openTicket-value").val(ticketId);
-        $("#openTicket").submit();
+    function checkNotification(that){
+        var guid = $(that).attr("data-guid");
+        portalPost("notifications/checkRead", {value:guid}, checkNotificationSuccessHandler);
+        $(".tooltip").remove();
+    }
+
+    function checkNotificationSuccessHandler(result){
+        $("#"+result+" .readButton").remove();
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy+ '-' + mm + '-' + dd  ;
+        $("#"+result+" .readDate").text(today);
+
+        readNotificationSuccessHandler(result);
     }
 </script>
 

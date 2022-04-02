@@ -47,14 +47,23 @@ public class NotificationController extends ModelViewBaseController {
     @Autowired
     ClientNotification clientNotification;
 
+    @PreAuthorize(ALLOW_ROLES_ALL)
+    @GetMapping("/notifications/open")
+    public ModelAndView notificationListOpen() {
+        NotificationListPageModel model = new NotificationListPageModel();
+        model.setNumPerPage(10);
+        model.setOrder("desc");
+        model.setSort("creationDate");
+
+        return notificationListView(model);
+    }
+
     @PreAuthorize(ALLOW_ROLES_SUP_ADMIN)
     @GetMapping("/notifications")
     public ModelAndView notificationList(@Valid NotificationListPageModel model, BindingResult result) {
-        model.setNumPerPage(10);
         if(!result.hasErrors()){
 
         }
-
         return notificationListView(model);
     }
 
