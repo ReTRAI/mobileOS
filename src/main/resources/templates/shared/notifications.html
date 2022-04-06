@@ -3,8 +3,8 @@
 <body>
 
 <th:block th:fragment="makeHeaderNotification(notification)">
-        <th:block th:with="notificationKey=${T(com.season.portal.utils.Utils).getNotificationKey(notification.getDetail())},
-                           notificationExtra=${T(com.season.portal.utils.Utils).getNotificationExtra(notification.getDetail())}">
+        <th:block th:with="notificationKey=${notification.getDetail()},
+                           notificationExtra=${notification.getInfo()}">
             <th:block th:switch="${notificationKey}">
                 <th:block th:case="api_notification_sendCredits">
                     <p th:if="${notificationExtra == null}" class="media-heading toTranslate"
@@ -69,7 +69,7 @@
 <th:block th:fragment="makeReadNotificationBtn(notificationId)">
     <button type="button" onclick="readNotification(this)"
             th:attr="data-guid=${notificationId}"
-            class="align-items-center d-flex justify-content-around toTranslateAttr"
+            class="align-items-center d-flex justify-content-around toTranslateAttr checkNotificationBtn"
             data-bs-toggle="tooltip" data-bs-placement="top"
             data-langKey="utils_markRead" data-langAttr="data-bs-original-title" title="S"
     >
@@ -78,8 +78,31 @@
     </button>
 </th:block>
 
-<th:block th:fragment="makeNotificationText(notificationKey, notificationExtra)">
+<th:block th:fragment="makeReadNotificationBtn(notificationId)">
+    <button type="button" onclick="readNotification(this)"
+            th:attr="data-guid=${notificationId}"
+            class="align-items-center d-flex justify-content-around toTranslateAttr checkNotificationBtn"
+            data-bs-toggle="tooltip" data-bs-placement="top"
+            data-langKey="utils_markRead" data-langAttr="data-bs-original-title" title="S"
+    >
+        <i class="font-medium-2 text-body primary-colorH"
+           data-feather="check"></i>
+    </button>
+</th:block>
 
+<th:block th:fragment="makeListReadNotificationBtn(notificationId)">
+    <button type="button" onclick="readListNotification(this)"
+            th:attr="data-guid=${notificationId}"
+            class="align-items-center d-flex justify-content-around toTranslateAttr checkNotificationBtn"
+            data-bs-toggle="tooltip" data-bs-placement="top"
+            data-langKey="utils_markRead" data-langAttr="data-bs-original-title" title="S"
+    >
+        <i class="font-medium-2 text-body primary-colorH"
+           data-feather="check"></i>
+    </button>
+</th:block>
+
+<th:block th:fragment="makeListNotificationText(notificationKey, notificationExtra)">
         <th:block th:switch="${notificationKey}">
             <th:block th:case="api_notification_sendCredits">
                 <p th:if="${notificationExtra == null}" class="mb-0 toTranslate"

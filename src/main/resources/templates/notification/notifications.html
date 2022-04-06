@@ -190,10 +190,10 @@
                             </thead>
                             <tbody>
                                 <tr th:each="ele : ${elements}" th:id="${ele.getUserNotificationId()}"
-                                    th:with="notificationKey=${T(com.season.portal.utils.Utils).getNotificationKey(ele.getDetail())},
-                                            notificationExtra=${T(com.season.portal.utils.Utils).getNotificationExtra(ele.getDetail())}">
+                                    th:with="notificationKey=${ele.getDetail()},
+                                            notificationExtra=${ele.getInfo()}">
                                     <td>
-                                        <th:block th:replace="shared/notifications :: makeNotificationText(${notificationKey}, ${notificationExtra})"/>
+                                        <th:block th:replace="shared/notifications :: makeListNotificationText(${notificationKey}, ${notificationExtra})"/>
                                     </td>
                                     <td class="text-center"
                                         th:text="${T(com.season.portal.utils.Utils).strToStrDate(ele.getCreationDate())}">
@@ -208,7 +208,7 @@
                                         <div class="d-flex align-items-center justify-content-around">
                                             <th:block th:replace="shared/notifications :: makeActionNotificationBtn(${notificationKey}, ${notificationExtra})"/>
                                             <th:block th:if="${ele.getCheckedDate() == null}">
-                                                <th:block th:replace="shared/notifications :: makeReadNotificationBtn(${ele.getUserNotificationId()})"/>
+                                                <th:block th:replace="shared/notifications :: makeListReadNotificationBtn(${ele.getUserNotificationId()})"/>
                                             </th:block>
                                         </div>
                                     </td>
@@ -255,13 +255,13 @@
         $("#"+formId).submit();
     }
 
-    function checkNotification(that){
+    function readListNotification(that){
         var guid = $(that).attr("data-guid");
-        portalPost("notifications/checkRead", {value:guid}, checkNotificationSuccessHandler);
+        portalPost("notifications/checkRead", {value:guid}, readListNotificationSuccessHandler);
         $(".tooltip").remove();
     }
 
-    function checkNotificationSuccessHandler(result){
+    function readListNotificationSuccessHandler(result){
         $("#"+result+" .readButton").remove();
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -270,8 +270,9 @@
 
         today = yyyy+ '-' + mm + '-' + dd  ;
         $("#"+result+" .readDate").text(today);
-
+        $("#"+result+" .checkNotificationBtn").remove();
         readNotificationSuccessHandler(result);
+
     }
 </script>
 

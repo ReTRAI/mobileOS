@@ -52,8 +52,7 @@ public class NotificationController extends ModelViewBaseController {
     public ModelAndView notificationListOpen() {
         NotificationListPageModel model = new NotificationListPageModel();
         model.setNumPerPage(10);
-        model.setOrder("desc");
-        model.setSort("creationDate");
+        model.tryDefaultOrder();
 
         return notificationListView(model);
     }
@@ -62,7 +61,7 @@ public class NotificationController extends ModelViewBaseController {
     @GetMapping("/notifications")
     public ModelAndView notificationList(@Valid NotificationListPageModel model, BindingResult result) {
         if(!result.hasErrors()){
-
+            model.tryDefaultOrder();
         }
         return notificationListView(model);
     }

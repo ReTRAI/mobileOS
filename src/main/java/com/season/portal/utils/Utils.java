@@ -10,6 +10,8 @@ import com.season.portal.devices.SimpleDeviceModel;
 import com.season.portal.users.UserRoleModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +26,7 @@ import org.w3c.dom.Node;
 import javax.security.auth.x500.X500Principal;
 import javax.xml.transform.dom.DOMSource;
 import java.io.File;
+import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -278,30 +281,45 @@ public class Utils {
         return sb.toString();
     }
 
-    public static String saveFileIfExist(MultipartFile file, boolean addErrorMsg){
+    public static String saveFileIfExist(MultipartFile file, String resourcePath, boolean addErrorMsg) {
         String savedfileName = null;
         if(file != null && !file.isEmpty()){
             String extension = getMediaTypeExt(file, addErrorMsg);
             if(extension != null){
+                File filePath = null;
                 String fileName = generateRandomName(24)+"."+extension;
-                File filePath = new File("src/main/resources/media/tickets/");
-                if (!filePath.exists()) {
-                    filePath.mkdirs();
-                }
-
-                File dest = new File(filePath.getAbsolutePath(), fileName);
-                while(dest.exists()){
-                    fileName = generateRandomName(24)+"."+extension;
-                    dest = new File(filePath.getAbsolutePath(), fileName);
-                }
 
                 try{
-                    file.transferTo(dest);
-                    savedfileName = fileName;
+                    filePath = new File(resourcePath);
+                    if (!filePath.exists()) {
+                        filePath.mkdirs();
+                    }
                 }catch(Exception e){
-                    if(addErrorMsg)
-                        PortalApplication.addErrorKey("api_utils_saveFileIfExist_error");
-                    PortalApplication.log(LOGGER, e);
+                    if(addErrorMsg){
+                        PortalApplication.addErrorKey("api_utils_saveFileIfExist_pathError");
+                        PortalApplication.log(LOGGER, e);
+                    }
+                    else
+                        PortalApplication.log(LOGGER, e, "api_utils_saveFileIfExist_pathError");
+                }
+                if(filePath != null){
+                    File dest = new File(filePath.getAbsolutePath(), fileName);
+                    while(dest.exists()){
+                        fileName = generateRandomName(24)+"."+extension;
+                        dest = new File(filePath.getAbsolutePath(), fileName);
+                    }
+
+                    try{
+                        file.transferTo(dest);
+                        savedfileName = fileName;
+                    }catch(Exception e){
+                        if(addErrorMsg){
+                            PortalApplication.addErrorKey("api_utils_saveFileIfExist_error");
+                            PortalApplication.log(LOGGER, e, dest.getAbsolutePath());
+                        }
+                        else
+                            PortalApplication.log(LOGGER, e, "api_utils_saveFileIfExist_error "+dest.getAbsolutePath());
+                    }
                 }
             }
         }
@@ -392,28 +410,6 @@ public class Utils {
         }
         return result;
     }
-
-    public static String getNotificationKey(String notificationDetail){
-        String result = "";
-        if(notificationDetail != null){
-            String[] arrOfStr = notificationDetail.split(" ", 2);
-            result = arrOfStr[0];
-        }
-        return result;
-    }
-
-    public static String getNotificationExtra(String notificationDetail){
-        String result = null;
-        if(notificationDetail != null){
-            String[] arrOfStr = notificationDetail.split(" ", 2);
-            if(arrOfStr.length>1){
-                result = arrOfStr[1];
-            }
-
-        }
-        return result;
-    }
-
 
     public static boolean isGuid(String guid){
         boolean result = false;

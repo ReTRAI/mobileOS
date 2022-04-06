@@ -72,4 +72,11 @@ public class TicketListPageModel extends PageModel {
     public void setOpenUserId(String openUserId) {
         this.openUserId = openUserId;
     }
+
+    public void tryDefaultOrder() {
+        if(canDefaultOrder()){
+            setSort("openDate");
+            setOrder("desc");
+        }
+    }
 }

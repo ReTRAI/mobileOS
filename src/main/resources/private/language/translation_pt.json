@@ -38,6 +38,7 @@
 	
 	"api_utils_getMediaTypeExt_invalidMediaType":"Tipo de ficheiro inválido.",
 	"api_utils_saveFileIfExist_error":"Ocorreu um erro a guardar o ficheiro.",
+	"api_utils_saveFileIfExist_pathError":"Ocorreu um erro a guardar o ficheiro.",
 	
 	"api_ClientDashboard_getDashboardByResellerId_noCode":"Ocorreu um erro a obter os dados do dashboard.",
 	"api_ClientDashboard_getDashboardByResellerId_":"Ocorreu um erro a obter os dados do dashboard.",
@@ -290,6 +291,7 @@
 	"utils_view":"Ver",
 	"utils_send":"Enviar",
 	"utils_cancel":"Cancelar",
+	"utils_update":"Actualizar",
 	"utils_associations":"Associações",
 	"utils_hierarchy":"Hierarquia",
 	"utils_remove":"Remover",

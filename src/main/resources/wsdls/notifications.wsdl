@@ -10,6 +10,7 @@
             <xs:sequence>
                 <xs:element name="deviceId" type="xs:string"/>
                 <xs:element name="detail" type="xs:string"/>
+                <xs:element name="info" type="xs:string"/>
                 <xs:element name="actionUserId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -28,6 +29,7 @@
             <xs:sequence>
                 <xs:element name="userId" type="xs:string"/>
                 <xs:element name="detail" type="xs:string"/>
+                <xs:element name="info" type="xs:string"/>
                 <xs:element name="actionUserId" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
@@ -175,6 +177,7 @@
             <xs:element name="detail" type="xs:string"/>
             <xs:element name="checked" type="xs:boolean"/>
             <xs:element name="checkedDate" type="xs:string"/>
+            <xs:element name="info" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -187,6 +190,7 @@
             <xs:element name="detail" type="xs:string"/>
             <xs:element name="checked" type="xs:boolean"/>
             <xs:element name="checkedDate" type="xs:string"/>
+            <xs:element name="info" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 

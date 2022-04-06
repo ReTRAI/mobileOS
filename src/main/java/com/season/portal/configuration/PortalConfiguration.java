@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @Configuration
 @PropertySource(value={"classpath:application.properties"})
 @ConfigurationProperties(prefix = "portal")
@@ -15,12 +18,20 @@ public class PortalConfiguration {
     private int normalPort;
     private int sslPort;
 
+    private String ticketTmp;
+
     private String clientUserURI;
     private String clientNotificationURI;
     private String clientResellerURI;
     private String clientSupportURI;
     private String clientDashboardURI;
     private String clientDeviceURI;
+
+    public String getAppBaseTmpPath(){
+        Path root = Paths.get(System.getProperty("user.dir")).getFileSystem()
+                .getRootDirectories().iterator().next();
+        return root.toString()+"portalApp/";
+    }
 
     public String getClientNotificationURI() {
         return clientNotificationURI;
@@ -115,5 +126,15 @@ public class PortalConfiguration {
 
     public int getSslPort() {
         return sslPort;
+    }
+
+
+
+    public String getTicketTmp() {
+        return getAppBaseTmpPath()+ticketTmp;
+    }
+
+    public void setTicketTmp(String ticketTmp) {
+        this.ticketTmp = ticketTmp;
     }
 }

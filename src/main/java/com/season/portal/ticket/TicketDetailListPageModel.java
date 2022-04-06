@@ -60,4 +60,11 @@ public class TicketDetailListPageModel extends PageModel {
     public String getValidResponseUserId() {
         return (responseUserId == null)?"":responseUserId;
     }
+
+    public void tryDefaultOrder() {
+        if(canDefaultOrder()){
+            setSort("detailDate");
+            setOrder("desc");
+        }
+    }
 }

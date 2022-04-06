@@ -26,7 +26,7 @@ public class NotificationService {
             Reseller reseller = response.getReseller();
             if(reseller != null){
                 String userId = reseller.getUserId();
-                clientNotification.setUserNotification(userId, detailKey+" "+extraInfo, actionUserId);
+                clientNotification.setUserNotification(userId, detailKey, extraInfo, actionUserId);
             }
         }
     }
@@ -39,7 +39,7 @@ public class NotificationService {
             Support support = response.getSupport();
             if(support != null){
                 String userId = support.getUserId();
-                clientNotification.setUserNotification(userId, detailKey+" "+extraInfo, actionUserId);
+                clientNotification.setUserNotification(userId, detailKey, extraInfo, actionUserId);
             }
         }
     }
@@ -48,7 +48,7 @@ public class NotificationService {
         if(extraInfo == null)
             extraInfo = "";
 
-        clientNotification.setUserNotification(userId, detailKey+" "+extraInfo, actionUserId);
+        clientNotification.setUserNotification(userId, detailKey, extraInfo, actionUserId);
 
     }
 
@@ -62,16 +62,16 @@ public class NotificationService {
                     if(Utils.isGuid(ticket.getAssignedUserId()) &&
                             !ticket.getAssignedUserId().equals(user.getUserId())){//if someone is assign and is not the creator
                         clientNotification.setUserNotification(ticket.getAssignedUserId(),
-                                "api_notification_ticketReplyFromCreator "+ticketId, user.getUserId());
+                                "api_notification_ticketReplyFromCreator", ticketId, user.getUserId());
                     }
                 }
                 else{//reply from support/admin
                     clientNotification.setUserNotification(ticket.getCreationUserId(),
-                            "api_notification_ticketReplyFromSupport_toCreator "+ticketId, user.getUserId());
+                            "api_notification_ticketReplyFromSupport_toCreator", ticketId, user.getUserId());
                     if(Utils.isGuid(ticket.getAssignedUserId()) &&
                             !ticket.getAssignedUserId().equals(user.getUserId())){
                         clientNotification.setUserNotification(ticket.getCreationUserId(),
-                                "api_notification_ticketReplyFromSupport_toAssignedUser "+ticketId, user.getUserId());
+                                "api_notification_ticketReplyFromSupport_toAssignedUser", ticketId, user.getUserId());
                     }
                 }
 

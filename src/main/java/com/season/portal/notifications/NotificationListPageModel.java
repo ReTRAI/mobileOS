@@ -99,4 +99,11 @@ public class NotificationListPageModel extends PageModel {
         }
         return "";
     }
+
+    public void tryDefaultOrder() {
+        if(canDefaultOrder()){
+            setOrder("desc");
+            setSort("creationDate");
+        }
+    }
 }

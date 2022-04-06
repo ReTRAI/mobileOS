@@ -12,19 +12,27 @@ public class PageModel {
     public PageModel() {
         this.page = 1;
         this.numPerPage = 10;
-        this.order = "asc";
+        this.order = "desc";
     }
 
     public PageModel(Integer numPerPage) {
         this.page = 1;
         this.numPerPage = numPerPage;
-        this.order = "asc";
+        this.order = "desc";
     }
 
     public PageModel(Integer page, Integer numPerPage) {
         this.page = page;
         this.numPerPage = numPerPage;
-        this.order = "asc";
+        this.order = "desc";
+    }
+
+    public boolean canDefaultOrder(){
+        boolean can = false;
+        if(sort == null || sort.equals("")){
+          can = true;
+        }
+        return can;
     }
 
     public Integer getPage() {

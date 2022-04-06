@@ -22,8 +22,11 @@ import com.season.portal.utils.Utils;
 import com.season.portal.utils.model.GuidRequiredModel;
 import com.season.portal.utils.model.StringModel;
 import com.season.portal.utils.pagination.Pagination;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -50,6 +53,8 @@ import static com.season.portal.configuration.AnnotationSecurityConfiguration.*;
 
 @Controller
 public class TicketController extends ModelViewBaseController {
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     ClientSupport clientSupport;
 
@@ -68,10 +73,10 @@ public class TicketController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_ALL)
     @PostMapping(value={"/ticket/new"})
-    public ModelAndView ticketNew(@Valid NewTicketModel model, BindingResult result){
+    public ModelAndView ticketNew(@Valid NewTicketModel model, BindingResult result) {
 
         if(!result.hasErrors()){
-            String path = Utils.saveFileIfExist(model.getFile(), true);
+            String path = Utils.saveFileIfExist(model.getFile(), portalConfig.getTicketTmp(),true);
             if(path != null){
                 ClientUserDetails user = Utils.getPrincipalDetails(true);
                 if (user != null) {
@@ -125,7 +130,9 @@ public class TicketController extends ModelViewBaseController {
     @GetMapping("/ticket/all")
     public ModelAndView ticketAllList(@Valid TicketListPageModel model, BindingResult result) {
         model.setNumPerPage(10);
+
         if(!result.hasErrors()){
+            model.tryDefaultOrder();
             HttpSession session = request.getSession(true);
             session.setAttribute(SESSION_TICKET_CONTROLLER_LIST_MODEL, model);
             session.setAttribute(SESSION_TICKET_CONTROLLER_LIST_TYPE, "all");
@@ -168,6 +175,7 @@ public class TicketController extends ModelViewBaseController {
     public ModelAndView ticketAssignedList(@Valid TicketListPageModel model, BindingResult result) {
         model.setNumPerPage(10);
         if(!result.hasErrors()){
+            model.tryDefaultOrder();
             HttpSession session = request.getSession(true);
             session.setAttribute(SESSION_TICKET_CONTROLLER_LIST_MODEL, model);
             session.setAttribute(SESSION_TICKET_CONTROLLER_LIST_TYPE, "assigned");
@@ -207,11 +215,13 @@ public class TicketController extends ModelViewBaseController {
         return dispatchView(mv);
     }
 
+
     @PreAuthorize(ALLOW_ROLES_ALL)
     @GetMapping("/ticket/own")
     public ModelAndView ticketOwnList(@Valid TicketListPageModel model, BindingResult result) {
         model.setNumPerPage(10);
         if(!result.hasErrors()){
+            model.tryDefaultOrder();
             HttpSession session = request.getSession(true);
             session.setAttribute(SESSION_TICKET_CONTROLLER_LIST_MODEL, model);
             session.setAttribute(SESSION_TICKET_CONTROLLER_LIST_TYPE, "own");
@@ -264,8 +274,7 @@ public class TicketController extends ModelViewBaseController {
         if(!result.hasErrors()){
             TicketDetailListPageModel m = new TicketDetailListPageModel();
             m.setTicketId(model.getValue());
-            m.setSort("detailDate");
-            m.setOrder("desc");
+            m.tryDefaultOrder();
             return ticketView(m);
         }
         return ticketAllList(new TicketListPageModel());
@@ -433,12 +442,12 @@ public class TicketController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_ALL)
     @PostMapping(value={"/ticket/reply"})
-    public ModelAndView reply(@Valid NewTicketDetailModel model, BindingResult result){
+    public ModelAndView reply(@Valid NewTicketDetailModel model, BindingResult result) {
         HttpSession session = request.getSession(true);
         TicketDetailListPageModel Ticketmodel = (TicketDetailListPageModel)session.getAttribute(SESSION_TICKET_CONTROLLER_DETAIL_MODEL);
         if(Ticketmodel != null){
             if(!result.hasErrors()){
-                String path = Utils.saveFileIfExist(model.getFile(), true);
+                String path = Utils.saveFileIfExist(model.getFile(), portalConfig.getTicketTmp(), true);
                 if(path != null){
                     ClientUserDetails user = Utils.getPrincipalDetails(true);
                     if (user != null) {
@@ -467,7 +476,7 @@ public class TicketController extends ModelViewBaseController {
 
     @PreAuthorize(ALLOW_ROLES_ALL)
     @GetMapping(value={"/ticket/getAttach"})
-    public ResponseEntity<Resource> download(StringModel model) throws IOException {
+    public ResponseEntity<Resource> download(StringModel model){
 
         boolean canView = false;
         HttpSession session = request.getSession(true);
@@ -492,13 +501,23 @@ public class TicketController extends ModelViewBaseController {
         File file = new File("");
         ByteArrayResource resource = new ByteArrayResource(new byte[]{});
         if(canView){
-            File filePath = new File("src/main/resources/media/tickets/"+model.getValue());
+            File filePath = null;
 
-            if (filePath.exists()) {
-                file = new File(filePath.getAbsolutePath());
-                Path path = Paths.get(file.getAbsolutePath());
-                resource = new ByteArrayResource(Files.readAllBytes(path));
+            try{
+                filePath = new File(portalConfig.getTicketTmp(), model.getValue());
+                if (filePath!= null && filePath.exists()) {
+                    file = new File(filePath.getAbsolutePath());
+                    Path path = Paths.get(file.getAbsolutePath());
+                    resource = new ByteArrayResource(Files.readAllBytes(path));
+                }
             }
+            catch(Exception e){
+                PortalApplication.addErrorKey("api_utils_saveFileIfExist_pathError");
+                PortalApplication.log(LOGGER, e);
+            }
+
+
+
         }
 
         HttpHeaders headers = new HttpHeaders();

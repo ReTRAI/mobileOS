@@ -84,10 +84,11 @@ public class ClientNotification extends WebServiceGatewaySupport{
         return response;
     }
 
-    public SetUserNotificationResponse setUserNotification(String userId, String detail, String actionUserId) {
+    public SetUserNotificationResponse setUserNotification(String userId, String detail, String info, String actionUserId) {
         SetUserNotificationRequest request = new SetUserNotificationRequest();
         request.setUserId(userId);
         request.setDetail(detail);
+        request.setInfo(info);
         request.setActionUserId(actionUserId);
 
         SetUserNotificationResponse response = null;
@@ -209,10 +210,11 @@ public class ClientNotification extends WebServiceGatewaySupport{
         return response;
     }
 
-    public SetDeviceNotificationResponse setDeviceNotification(String deviceId, String detail, String actionUserId) {
+    public SetDeviceNotificationResponse setDeviceNotification(String deviceId, String detail, String info, String actionUserId) {
         SetDeviceNotificationRequest request = new SetDeviceNotificationRequest();
         request.setDeviceId(deviceId);
         request.setDetail(detail);
+        request.setInfo(info);
         request.setActionUserId(actionUserId);
 
         SetDeviceNotificationResponse response = null;

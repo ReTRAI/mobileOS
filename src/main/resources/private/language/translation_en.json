@@ -38,6 +38,7 @@
 	
 	"api_utils_getMediaTypeExt_invalidMediaType":"Invalid file media type.",
 	"api_utils_saveFileIfExist_error":"An error occurred saving the file.",
+	"api_utils_saveFileIfExist_pathError":"An error occurred saving the file.",
 	
 	"api_ClientDashboard_getDashboardByResellerId_noCode":"An error occurred getting the dashboard values.",
 	"api_ClientDashboard_getDashboardByResellerId_":"An error occurred getting the dashboard values.",
@@ -290,6 +291,7 @@
 	"utils_view":"Show",
 	"utils_send":"Send",
 	"utils_cancel":"Cancel",
+	"utils_update":"Update",
 	"utils_associations":"Associations",
 	"utils_hierarchy":"Hierarchy",
 	"utils_remove":"Remove",
