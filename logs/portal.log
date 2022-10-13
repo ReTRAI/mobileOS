@@ -1,0 +1,668 @@
+09:14:26 [main] INFO  c.s.p.c.PortalConfigurationTest - Starting PortalConfigurationTest using Java 11.0.14.1 on srvqlt1 with PID 128055 (started by retrai2 in /Portal/portal)
+09:14:26 [main] INFO  c.s.p.c.PortalConfigurationTest - No active profile set, falling back to default profiles: default
+09:14:27 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$2b1644dc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+09:14:27 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+09:14:27 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:27 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:27 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:27 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:27 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:27 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:28 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+09:14:28 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@77cb452c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@50110971, org.springframework.security.web.context.SecurityContextPersistenceFilter@1fecfaea, org.springframework.security.web.header.HeaderWriterFilter@27f3f512, org.springframework.security.web.csrf.CsrfFilter@7d4d8579, org.springframework.security.web.authentication.logout.LogoutFilter@581b1c08, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4bb147ec, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3dc40ab9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@17d2b075, org.springframework.security.web.session.SessionManagementFilter@78da899f, org.springframework.security.web.access.ExceptionTranslationFilter@5403799b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@776015fc]
+09:14:29 [main] INFO  c.s.p.c.PortalConfigurationTest - Started PortalConfigurationTest in 3.109 seconds (JVM running for 4.065)
+09:14:29 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.PortalApplicationTests], using SpringBootContextLoader
+09:14:29 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.PortalApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+09:14:29 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.PortalApplicationTests]: PortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:14:29 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.PortalApplicationTests
+09:14:29 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+09:14:29 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4a4ff5ed, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5ddb302, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@4b7ab7ab, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@cf9bd1e, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@39acd1f1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@51813065, org.springframework.test.context.event.EventPublishingTestExecutionListener@4f581211, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@e0847a9, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@51743cc0, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@92e2c93, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6697f3d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4a105556, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3a72e2e8]
+09:14:30 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.client.reseller.ClientResellerTest], using SpringBootContextLoader
+09:14:30 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.client.reseller.ClientResellerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+09:14:30 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.client.reseller.ClientResellerTest]: ClientResellerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:14:30 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.client.reseller.ClientResellerTest
+09:14:30 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+09:14:30 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@73ae82da, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@6866e740, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@2cd5b19c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7109b603, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@76b642aa, org.springframework.test.context.support.DirtiesContextTestExecutionListener@29b5e7db, org.springframework.test.context.event.EventPublishingTestExecutionListener@286dfa20, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1468e880, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@508f4bb5, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5602e540, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@11f9b95a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@42066f0d, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@687e561b]
+09:14:34 [main] INFO  com.season.portal.PortalApplication - Starting PortalApplication v0.0.1-SNAPSHOT using Java 11.0.14.1 on srvqlt1 with PID 128146 (/Portal/portal/target/portal.war started by retrai2 in /Portal/portal)
+09:14:34 [main] INFO  com.season.portal.PortalApplication - No active profile set, falling back to default profiles: default
+09:14:36 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$487d8631] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+09:14:36 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+09:14:36 [main] WARN  o.a.tomcat.util.net.SSLHostConfig - The protocol [TLSv1.3] was added to the list of protocols on the SSLHostConfig named [_default_]. Check if a +/- prefix is missing.
+09:14:36 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8451 (https) 8083 (http)
+09:14:36 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+09:14:36 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+09:14:36 [main] WARN  o.a.c.core.AprLifecycleListener - This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+09:14:36 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.30]
+09:14:36 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.23] using APR version [1.6.5].
+09:14:36 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [false].
+09:14:36 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+09:14:36 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1f  31 Mar 2020]
+09:14:37 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+09:14:37 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2422 ms
+09:14:37 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:37 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:37 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:37 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+09:14:38 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+09:14:38 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@1827a871, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@41382722, org.springframework.security.web.context.SecurityContextPersistenceFilter@e3cee7b, org.springframework.security.web.header.HeaderWriterFilter@5a4bef8, org.springframework.security.web.csrf.CsrfFilter@24be2d9c, org.springframework.security.web.authentication.logout.LogoutFilter@1a15b789, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b9267b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@15bcf458, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7dac3fd8, org.springframework.security.web.session.SessionManagementFilter@37d80fe7, org.springframework.security.web.access.ExceptionTranslationFilter@70e29e14, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5bbc9f97]
+09:14:38 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8451 (https) 8083 (http) with context path ''
+09:14:38 [main] INFO  com.season.portal.PortalApplication - Started PortalApplication in 5.062 seconds (JVM running for 6.1)
+09:14:46 [https-openssl-nio-8451-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+09:14:46 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+09:14:46 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+09:15:43 [https-openssl-nio-8451-exec-9] ERROR org.thymeleaf.TemplateEngine - [THYMELEAF][https-openssl-nio-8451-exec-9] Exception processing template "devices/device": Exception evaluating SpringEL expression: "device.getGuid()" (template: "devices/device" - line 50, col 35)
+org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "device.getGuid()" (template: "devices/device" - line 50, col 35)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:292)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:144)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205)
+	at org.thymeleaf.engine.TemplateModel.process(TemplateModel.java:136)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:661)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1400)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:132)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.channel.ChannelProcessingFilter.doFilter(ChannelProcessingFilter.java:133)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:659)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1722)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1004E: Method call: Method getGuid() cannot be found on type com.season.portal.client.generated.device.Device
+	at org.springframework.expression.spel.ast.MethodReference.findAccessorForMethod(MethodReference.java:226)
+	at org.springframework.expression.spel.ast.MethodReference.getValueInternal(MethodReference.java:135)
+	at org.springframework.expression.spel.ast.MethodReference.access$000(MethodReference.java:55)
+	at org.springframework.expression.spel.ast.MethodReference$MethodValueRef.getValue(MethodReference.java:387)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:92)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getValue(SpelNodeImpl.java:112)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:337)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:265)
+	... 98 common frames omitted
+09:15:43 [https-openssl-nio-8451-exec-9] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateProcessingException: Exception evaluating SpringEL expression: "device.getGuid()" (template: "devices/device" - line 50, col 35)] with root cause
+org.springframework.expression.spel.SpelEvaluationException: EL1004E: Method call: Method getGuid() cannot be found on type com.season.portal.client.generated.device.Device
+	at org.springframework.expression.spel.ast.MethodReference.findAccessorForMethod(MethodReference.java:226)
+	at org.springframework.expression.spel.ast.MethodReference.getValueInternal(MethodReference.java:135)
+	at org.springframework.expression.spel.ast.MethodReference.access$000(MethodReference.java:55)
+	at org.springframework.expression.spel.ast.MethodReference$MethodValueRef.getValue(MethodReference.java:387)
+	at org.springframework.expression.spel.ast.CompoundExpression.getValueInternal(CompoundExpression.java:92)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getValue(SpelNodeImpl.java:112)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:337)
+	at org.thymeleaf.spring5.expression.SPELVariableExpressionEvaluator.evaluate(SPELVariableExpressionEvaluator.java:265)
+	at org.thymeleaf.standard.expression.VariableExpression.executeVariableExpression(VariableExpression.java:166)
+	at org.thymeleaf.standard.expression.SimpleExpression.executeSimple(SimpleExpression.java:66)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:109)
+	at org.thymeleaf.standard.expression.Expression.execute(Expression.java:138)
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:144)
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74)
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95)
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633)
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314)
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205)
+	at org.thymeleaf.engine.TemplateModel.process(TemplateModel.java:136)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:661)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:366)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:190)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1400)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1145)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1084)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:132)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.channel.ChannelProcessingFilter.doFilter(ChannelProcessingFilter.java:133)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:659)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1722)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+09:15:43 [https-openssl-nio-8451-exec-9] ERROR c.s.p.handler.ErrorHandlerController - Method: POST
+Request URI: /device
+Remote Addr: 127.0.0.1
+Remote User: null
+Request URL: null
+Status code: 200
+-----------------------------------------------
+
+09:15:43 [https-openssl-nio-8451-exec-9] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] threw exception
+java.lang.NullPointerException: null
+	at com.season.portal.handler.ErrorHandlerController.error(ErrorHandlerController.java:37)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711)
+	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:578)
+	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:517)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:384)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:249)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:344)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:169)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1722)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+09:15:43 [https-openssl-nio-8451-exec-9] ERROR o.a.c.c.C.[Tomcat].[localhost] - Exception Processing ErrorPage[errorCode=0, location=/error]
+org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.lang.NullPointerException
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711)
+	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:578)
+	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:517)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:384)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:249)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:344)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:169)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:895)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1722)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: java.lang.NullPointerException: null
+	at com.season.portal.handler.ErrorHandlerController.error(ErrorHandlerController.java:37)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	... 35 common frames omitted
+11:11:21 [main] INFO  c.s.p.c.PortalConfigurationTest - Starting PortalConfigurationTest using Java 11.0.14.1 on srvqlt1 with PID 131032 (started by retrai2 in /Portal/portal)
+11:11:21 [main] INFO  c.s.p.c.PortalConfigurationTest - No active profile set, falling back to default profiles: default
+11:11:22 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$f0da0ebe] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+11:11:22 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+11:11:22 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:22 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:22 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:23 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:23 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:23 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:23 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+11:11:23 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@5f0a2638, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@59c500f7, org.springframework.security.web.context.SecurityContextPersistenceFilter@51da32e5, org.springframework.security.web.header.HeaderWriterFilter@4293e066, org.springframework.security.web.csrf.CsrfFilter@78a8978a, org.springframework.security.web.authentication.logout.LogoutFilter@64b018f3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4872669f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@59a2388e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@316cda31, org.springframework.security.web.session.SessionManagementFilter@6be6931f, org.springframework.security.web.access.ExceptionTranslationFilter@691124ee, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@29079032]
+11:11:24 [main] INFO  c.s.p.c.PortalConfigurationTest - Started PortalConfigurationTest in 3.06 seconds (JVM running for 4.046)
+11:11:24 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.PortalApplicationTests], using SpringBootContextLoader
+11:11:24 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.PortalApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+11:11:24 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.PortalApplicationTests]: PortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:11:24 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.PortalApplicationTests
+11:11:24 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+11:11:24 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4ab455e2, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2acca224, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7ac685ef, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@223cbf0d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4a4ff5ed, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5ddb302, org.springframework.test.context.event.EventPublishingTestExecutionListener@4b7ab7ab, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@cf9bd1e, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@39acd1f1, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@51813065, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4f581211, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@e0847a9, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@51743cc0]
+11:11:25 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.client.reseller.ClientResellerTest], using SpringBootContextLoader
+11:11:25 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.client.reseller.ClientResellerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+11:11:25 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.client.reseller.ClientResellerTest]: ClientResellerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:11:25 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.client.reseller.ClientResellerTest
+11:11:25 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+11:11:25 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@b4d83ac, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@13d10057, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@66944c7c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@14993306, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@73ae82da, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6866e740, org.springframework.test.context.event.EventPublishingTestExecutionListener@2cd5b19c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7109b603, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@76b642aa, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@29b5e7db, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@286dfa20, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1468e880, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@508f4bb5]
+11:11:30 [main] INFO  com.season.portal.PortalApplication - Starting PortalApplication v0.0.1-SNAPSHOT using Java 11.0.14.1 on srvqlt1 with PID 131121 (/Portal/portal/target/portal.war started by retrai2 in /Portal/portal)
+11:11:30 [main] INFO  com.season.portal.PortalApplication - No active profile set, falling back to default profiles: default
+11:11:31 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$7630667a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+11:11:31 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+11:11:31 [main] WARN  o.a.tomcat.util.net.SSLHostConfig - The protocol [TLSv1.3] was added to the list of protocols on the SSLHostConfig named [_default_]. Check if a +/- prefix is missing.
+11:11:31 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8451 (https) 8083 (http)
+11:11:31 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+11:11:31 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+11:11:31 [main] WARN  o.a.c.core.AprLifecycleListener - This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+11:11:31 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.30]
+11:11:31 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.23] using APR version [1.6.5].
+11:11:31 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [false].
+11:11:31 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+11:11:31 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1f  31 Mar 2020]
+11:11:32 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+11:11:32 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2374 ms
+11:11:32 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:32 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:33 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:33 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:33 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:33 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+11:11:33 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+11:11:33 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@7544a1e4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31c269fd, org.springframework.security.web.context.SecurityContextPersistenceFilter@1a15b789, org.springframework.security.web.header.HeaderWriterFilter@5af9926a, org.springframework.security.web.csrf.CsrfFilter@40bffbca, org.springframework.security.web.authentication.logout.LogoutFilter@285f09de, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51650883, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@30c31dd7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@372b0d86, org.springframework.security.web.session.SessionManagementFilter@69adf72c, org.springframework.security.web.access.ExceptionTranslationFilter@29ad44e3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6e33c391]
+11:11:33 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8451 (https) 8083 (http) with context path ''
+11:11:33 [main] INFO  com.season.portal.PortalApplication - Started PortalApplication in 4.991 seconds (JVM running for 5.939)
+11:12:00 [https-openssl-nio-8451-exec-5] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+11:12:00 [https-openssl-nio-8451-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+11:12:00 [https-openssl-nio-8451-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+13:56:37 [main] INFO  c.s.p.c.PortalConfigurationTest - Starting PortalConfigurationTest using Java 11.0.14.1 on srvqlt1 with PID 132929 (started by retrai2 in /Portal/portal)
+13:56:37 [main] INFO  c.s.p.c.PortalConfigurationTest - No active profile set, falling back to default profiles: default
+13:56:37 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$292c0306] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13:56:38 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+13:56:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:38 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:38 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+13:56:39 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@523a7801, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@40ed1802, org.springframework.security.web.context.SecurityContextPersistenceFilter@2ac519dc, org.springframework.security.web.header.HeaderWriterFilter@3fde8f7c, org.springframework.security.web.csrf.CsrfFilter@2da81754, org.springframework.security.web.authentication.logout.LogoutFilter@7126e26, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3ece79fe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6b4125ed, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@23c767e6, org.springframework.security.web.session.SessionManagementFilter@27f3f512, org.springframework.security.web.access.ExceptionTranslationFilter@60f77af, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5c6a5192]
+13:56:40 [main] INFO  c.s.p.c.PortalConfigurationTest - Started PortalConfigurationTest in 3.311 seconds (JVM running for 4.27)
+13:56:40 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.PortalApplicationTests], using SpringBootContextLoader
+13:56:40 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.PortalApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+13:56:40 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.PortalApplicationTests]: PortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:56:40 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.PortalApplicationTests
+13:56:40 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+13:56:40 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@39acd1f1, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@51813065, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@4f581211, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@e0847a9, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@51743cc0, org.springframework.test.context.support.DirtiesContextTestExecutionListener@92e2c93, org.springframework.test.context.event.EventPublishingTestExecutionListener@6697f3d, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4a105556, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3a72e2e8, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@42401b81, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@f1d1463, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@47ef5a33, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6a278584]
+13:56:41 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.client.reseller.ClientResellerTest], using SpringBootContextLoader
+13:56:41 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.client.reseller.ClientResellerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+13:56:41 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.client.reseller.ClientResellerTest]: ClientResellerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:56:41 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.client.reseller.ClientResellerTest
+13:56:41 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+13:56:41 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@76b642aa, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@29b5e7db, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@286dfa20, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1468e880, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@508f4bb5, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5602e540, org.springframework.test.context.event.EventPublishingTestExecutionListener@11f9b95a, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@42066f0d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@687e561b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@299786b1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@75f8d9b0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4f7ae05, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@1e23ee0e]
+13:56:46 [main] INFO  com.season.portal.PortalApplication - Starting PortalApplication v0.0.1-SNAPSHOT using Java 11.0.14.1 on srvqlt1 with PID 133024 (/Portal/portal/target/portal.war started by retrai2 in /Portal/portal)
+13:56:46 [main] INFO  com.season.portal.PortalApplication - No active profile set, falling back to default profiles: default
+13:56:47 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$91d1d8d4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+13:56:47 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+13:56:48 [main] WARN  o.a.tomcat.util.net.SSLHostConfig - The protocol [TLSv1.3] was added to the list of protocols on the SSLHostConfig named [_default_]. Check if a +/- prefix is missing.
+13:56:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8451 (https) 8083 (http)
+13:56:48 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+13:56:48 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+13:56:48 [main] WARN  o.a.c.core.AprLifecycleListener - This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+13:56:48 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.30]
+13:56:48 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.23] using APR version [1.6.5].
+13:56:48 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [false].
+13:56:48 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+13:56:48 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1f  31 Mar 2020]
+13:56:48 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13:56:48 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2385 ms
+13:56:49 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:49 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:49 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:49 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:49 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:49 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+13:56:49 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+13:56:49 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@1827a871, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@41382722, org.springframework.security.web.context.SecurityContextPersistenceFilter@e3cee7b, org.springframework.security.web.header.HeaderWriterFilter@5a4bef8, org.springframework.security.web.csrf.CsrfFilter@24be2d9c, org.springframework.security.web.authentication.logout.LogoutFilter@1a15b789, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b9267b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@15bcf458, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7dac3fd8, org.springframework.security.web.session.SessionManagementFilter@37d80fe7, org.springframework.security.web.access.ExceptionTranslationFilter@70e29e14, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5bbc9f97]
+13:56:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8451 (https) 8083 (http) with context path ''
+13:56:50 [main] INFO  com.season.portal.PortalApplication - Started PortalApplication in 5.299 seconds (JVM running for 6.394)
+13:58:04 [https-openssl-nio-8451-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+13:58:04 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+13:58:04 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+14:03:24 [main] INFO  c.s.p.c.PortalConfigurationTest - Starting PortalConfigurationTest using Java 11.0.14.1 on srvqlt1 with PID 133322 (started by retrai2 in /Portal/portal)
+14:03:24 [main] INFO  c.s.p.c.PortalConfigurationTest - No active profile set, falling back to default profiles: default
+14:03:25 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$a61fd0a0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14:03:25 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+14:03:25 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:25 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:25 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:25 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:25 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:25 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:26 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+14:03:26 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@2c719bd4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73c48264, org.springframework.security.web.context.SecurityContextPersistenceFilter@2db6d68d, org.springframework.security.web.header.HeaderWriterFilter@1e01b133, org.springframework.security.web.csrf.CsrfFilter@469a7575, org.springframework.security.web.authentication.logout.LogoutFilter@2b53840a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@cde8c6c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@648c5fb3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ef85555, org.springframework.security.web.session.SessionManagementFilter@68ef01a5, org.springframework.security.web.access.ExceptionTranslationFilter@2ac519dc, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@310b2b6f]
+14:03:27 [main] INFO  c.s.p.c.PortalConfigurationTest - Started PortalConfigurationTest in 3.105 seconds (JVM running for 4.044)
+14:03:27 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.PortalApplicationTests], using SpringBootContextLoader
+14:03:27 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.PortalApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:03:27 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.PortalApplicationTests]: PortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:03:27 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.PortalApplicationTests
+14:03:27 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:03:27 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@24fef542, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@44ddb518, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@e36bc01, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6654ca0d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@35536760, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1c8f71a7, org.springframework.test.context.event.EventPublishingTestExecutionListener@27e21083, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@67a6a2d0, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@49e0b123, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2e85e3f1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@195498aa, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4b360972, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@793d09e]
+14:03:28 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.client.reseller.ClientResellerTest], using SpringBootContextLoader
+14:03:28 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.client.reseller.ClientResellerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:03:28 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.client.reseller.ClientResellerTest]: ClientResellerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:03:28 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.client.reseller.ClientResellerTest
+14:03:28 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:03:28 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@fee7ca, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@29c80149, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@14ad42, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@608b906d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@173cfb01, org.springframework.test.context.support.DirtiesContextTestExecutionListener@7e1762e6, org.springframework.test.context.event.EventPublishingTestExecutionListener@5bccaedb, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@67784537, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@17ec5e2a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@52290e63, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6c2dd88b, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@49d979c4, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3cb173db]
+14:03:32 [main] INFO  com.season.portal.PortalApplication - Starting PortalApplication v0.0.1-SNAPSHOT using Java 11.0.14.1 on srvqlt1 with PID 133416 (/Portal/portal/target/portal.war started by retrai2 in /Portal/portal)
+14:03:32 [main] INFO  com.season.portal.PortalApplication - No active profile set, falling back to default profiles: default
+14:03:34 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$d3431cca] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14:03:34 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+14:03:34 [main] WARN  o.a.tomcat.util.net.SSLHostConfig - The protocol [TLSv1.3] was added to the list of protocols on the SSLHostConfig named [_default_]. Check if a +/- prefix is missing.
+14:03:34 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8451 (https) 8083 (http)
+14:03:34 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+14:03:34 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+14:03:34 [main] WARN  o.a.c.core.AprLifecycleListener - This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+14:03:34 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.30]
+14:03:34 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.23] using APR version [1.6.5].
+14:03:34 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [false].
+14:03:34 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+14:03:34 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1f  31 Mar 2020]
+14:03:35 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+14:03:35 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2364 ms
+14:03:35 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:35 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:35 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:35 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:35 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:35 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:03:36 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+14:03:36 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@3e587920, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38875e7d, org.springframework.security.web.context.SecurityContextPersistenceFilter@726386ed, org.springframework.security.web.header.HeaderWriterFilter@71e9a896, org.springframework.security.web.csrf.CsrfFilter@7c18432b, org.springframework.security.web.authentication.logout.LogoutFilter@241a53ef, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@14bb2297, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a15b789, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e886a5b, org.springframework.security.web.session.SessionManagementFilter@43c67247, org.springframework.security.web.access.ExceptionTranslationFilter@384fc774, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@51684e4a]
+14:03:36 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8451 (https) 8083 (http) with context path ''
+14:03:36 [main] INFO  com.season.portal.PortalApplication - Started PortalApplication in 4.977 seconds (JVM running for 5.995)
+14:05:58 [https-openssl-nio-8451-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+14:05:58 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+14:05:58 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+14:11:05 [main] INFO  c.s.p.c.PortalConfigurationTest - Starting PortalConfigurationTest using Java 11.0.14.1 on srvqlt1 with PID 133926 (started by retrai2 in /Portal/portal)
+14:11:05 [main] INFO  c.s.p.c.PortalConfigurationTest - No active profile set, falling back to default profiles: default
+14:11:06 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$a9dd1b12] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14:11:06 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+14:11:06 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:06 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:06 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:06 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:06 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:06 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:07 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+14:11:07 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@4e22368c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31e739bf, org.springframework.security.web.context.SecurityContextPersistenceFilter@3cc79c02, org.springframework.security.web.header.HeaderWriterFilter@5ad6cc21, org.springframework.security.web.csrf.CsrfFilter@6f9e08d4, org.springframework.security.web.authentication.logout.LogoutFilter@590765c4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6be6931f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@33d60b7e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@29079032, org.springframework.security.web.session.SessionManagementFilter@2ac519dc, org.springframework.security.web.access.ExceptionTranslationFilter@3fe512d2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@151732fb]
+14:11:08 [main] INFO  c.s.p.c.PortalConfigurationTest - Started PortalConfigurationTest in 3.186 seconds (JVM running for 4.146)
+14:11:08 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.PortalApplicationTests], using SpringBootContextLoader
+14:11:08 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.PortalApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:11:08 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.PortalApplicationTests]: PortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:11:08 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.PortalApplicationTests
+14:11:08 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:11:08 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@51813065, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4f581211, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@e0847a9, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@51743cc0, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@92e2c93, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6697f3d, org.springframework.test.context.event.EventPublishingTestExecutionListener@4a105556, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@3a72e2e8, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@42401b81, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@f1d1463, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@47ef5a33, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6a278584, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@28f90752]
+14:11:09 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.client.reseller.ClientResellerTest], using SpringBootContextLoader
+14:11:09 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.client.reseller.ClientResellerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:11:09 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.client.reseller.ClientResellerTest]: ClientResellerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:11:09 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.client.reseller.ClientResellerTest
+14:11:09 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:11:09 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@29b5e7db, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@286dfa20, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@1468e880, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@508f4bb5, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5602e540, org.springframework.test.context.support.DirtiesContextTestExecutionListener@11f9b95a, org.springframework.test.context.event.EventPublishingTestExecutionListener@42066f0d, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@687e561b, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@299786b1, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@75f8d9b0, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4f7ae05, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1e23ee0e, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@b144175]
+14:11:14 [main] INFO  com.season.portal.PortalApplication - Starting PortalApplication v0.0.1-SNAPSHOT using Java 11.0.14.1 on srvqlt1 with PID 134018 (/Portal/portal/target/portal.war started by retrai2 in /Portal/portal)
+14:11:14 [main] INFO  com.season.portal.PortalApplication - No active profile set, falling back to default profiles: default
+14:11:15 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$d3431cca] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14:11:15 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+14:11:16 [main] WARN  o.a.tomcat.util.net.SSLHostConfig - The protocol [TLSv1.3] was added to the list of protocols on the SSLHostConfig named [_default_]. Check if a +/- prefix is missing.
+14:11:16 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8451 (https) 8083 (http)
+14:11:16 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+14:11:16 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+14:11:16 [main] WARN  o.a.c.core.AprLifecycleListener - This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+14:11:16 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.30]
+14:11:16 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.23] using APR version [1.6.5].
+14:11:16 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [false].
+14:11:16 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+14:11:16 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1f  31 Mar 2020]
+14:11:17 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+14:11:17 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3129 ms
+14:11:17 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:17 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:18 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:18 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:18 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:18 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:11:18 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+14:11:18 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@200606de, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@65f87a2c, org.springframework.security.web.context.SecurityContextPersistenceFilter@5af9926a, org.springframework.security.web.header.HeaderWriterFilter@37d80fe7, org.springframework.security.web.csrf.CsrfFilter@7a0e1b5e, org.springframework.security.web.authentication.logout.LogoutFilter@499b2a5c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@fac80, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14bb2297, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@51684e4a, org.springframework.security.web.session.SessionManagementFilter@29ad44e3, org.springframework.security.web.access.ExceptionTranslationFilter@62da83ed, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@210386e0]
+14:11:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8451 (https) 8083 (http) with context path ''
+14:11:19 [main] INFO  com.season.portal.PortalApplication - Started PortalApplication in 6.435 seconds (JVM running for 7.528)
+14:12:11 [https-openssl-nio-8451-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+14:12:11 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+14:12:11 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+14:13:41 [main] INFO  c.s.p.c.PortalConfigurationTest - Starting PortalConfigurationTest using Java 11.0.14.1 on srvqlt1 with PID 134232 (started by retrai2 in /Portal/portal)
+14:13:41 [main] INFO  c.s.p.c.PortalConfigurationTest - No active profile set, falling back to default profiles: default
+14:13:42 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$f0da0ebe] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14:13:42 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+14:13:42 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:42 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:42 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:42 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:42 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:42 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:42 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+14:13:43 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@5f0a2638, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@59c500f7, org.springframework.security.web.context.SecurityContextPersistenceFilter@51da32e5, org.springframework.security.web.header.HeaderWriterFilter@4293e066, org.springframework.security.web.csrf.CsrfFilter@78a8978a, org.springframework.security.web.authentication.logout.LogoutFilter@64b018f3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4872669f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@59a2388e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@316cda31, org.springframework.security.web.session.SessionManagementFilter@6be6931f, org.springframework.security.web.access.ExceptionTranslationFilter@691124ee, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@29079032]
+14:13:44 [main] INFO  c.s.p.c.PortalConfigurationTest - Started PortalConfigurationTest in 3.144 seconds (JVM running for 4.115)
+14:13:44 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.PortalApplicationTests], using SpringBootContextLoader
+14:13:44 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.PortalApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:13:44 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.PortalApplicationTests]: PortalApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:13:44 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.PortalApplicationTests
+14:13:44 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:13:44 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@cf9bd1e, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@39acd1f1, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@51813065, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4f581211, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@e0847a9, org.springframework.test.context.support.DirtiesContextTestExecutionListener@51743cc0, org.springframework.test.context.event.EventPublishingTestExecutionListener@92e2c93, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6697f3d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4a105556, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3a72e2e8, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@42401b81, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@f1d1463, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@47ef5a33]
+14:13:45 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.season.portal.client.reseller.ClientResellerTest], using SpringBootContextLoader
+14:13:45 [main] INFO  o.s.t.c.s.AbstractContextLoader - Could not detect default resource locations for test class [com.season.portal.client.reseller.ClientResellerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:13:45 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.season.portal.client.reseller.ClientResellerTest]: ClientResellerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:13:45 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.season.portal.PortalApplication for test class com.season.portal.client.reseller.ClientResellerTest
+14:13:45 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:13:45 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7109b603, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@76b642aa, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@29b5e7db, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@286dfa20, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1468e880, org.springframework.test.context.support.DirtiesContextTestExecutionListener@508f4bb5, org.springframework.test.context.event.EventPublishingTestExecutionListener@5602e540, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@11f9b95a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@42066f0d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@687e561b, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@299786b1, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@75f8d9b0, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@4f7ae05]
+14:13:49 [main] INFO  com.season.portal.PortalApplication - Starting PortalApplication v0.0.1-SNAPSHOT using Java 11.0.14.1 on srvqlt1 with PID 134326 (/Portal/portal/target/portal.war started by retrai2 in /Portal/portal)
+14:13:49 [main] INFO  com.season.portal.PortalApplication - No active profile set, falling back to default profiles: default
+14:13:51 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$b395f206] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+14:13:51 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+14:13:51 [main] WARN  o.a.tomcat.util.net.SSLHostConfig - The protocol [TLSv1.3] was added to the list of protocols on the SSLHostConfig named [_default_]. Check if a +/- prefix is missing.
+14:13:51 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8451 (https) 8083 (http)
+14:13:51 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+14:13:51 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+14:13:51 [main] WARN  o.a.c.core.AprLifecycleListener - This listener must only be nested within Server elements, but is in [TomcatEmbeddedContext].
+14:13:51 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.30]
+14:13:51 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.23] using APR version [1.6.5].
+14:13:51 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [false].
+14:13:51 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+14:13:51 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1f  31 Mar 2020]
+14:13:52 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+14:13:52 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2328 ms
+14:13:52 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:52 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:52 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:52 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:52 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:52 [main] INFO  o.s.w.s.saaj.SaajSoapMessageFactory - Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+14:13:53 [main] INFO  o.s.s.w.a.c.ChannelProcessingFilter - Validated configuration attributes
+14:13:53 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.access.channel.ChannelProcessingFilter@3e587920, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38875e7d, org.springframework.security.web.context.SecurityContextPersistenceFilter@726386ed, org.springframework.security.web.header.HeaderWriterFilter@71e9a896, org.springframework.security.web.csrf.CsrfFilter@7c18432b, org.springframework.security.web.authentication.logout.LogoutFilter@241a53ef, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@14bb2297, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a15b789, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e886a5b, org.springframework.security.web.session.SessionManagementFilter@43c67247, org.springframework.security.web.access.ExceptionTranslationFilter@384fc774, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@51684e4a]
+14:13:53 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8451 (https) 8083 (http) with context path ''
+14:13:53 [main] INFO  com.season.portal.PortalApplication - Started PortalApplication in 4.823 seconds (JVM running for 5.936)
+14:14:28 [https-openssl-nio-8451-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+14:14:28 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+14:14:28 [https-openssl-nio-8451-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+14:15:33 [https-openssl-nio-8451-exec-1] ERROR Utils - UserId - 6f097449-513e-4c52-b4aa-4b9aeff2629f
+path do ficheiro :/portalApp/media/tickets
+-----------------------------------------------
+
+14:15:33 [https-openssl-nio-8451-exec-1] ERROR Utils - UserId - 6f097449-513e-4c52-b4aa-4b9aeff2629f
+nome do ficheiro :rD79ZJWuUzzDTsTM0wtUKnkA.png
+-----------------------------------------------
+
+14:15:33 [https-openssl-nio-8451-exec-1] ERROR Utils - UserId - 6f097449-513e-4c52-b4aa-4b9aeff2629f
+path final do ficheiro :/portalApp/media/tickets/rD79ZJWuUzzDTsTM0wtUKnkA.png
+-----------------------------------------------
+
